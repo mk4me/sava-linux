@@ -1,0 +1,9 @@
+<RCC>
+  <qresource prefix="icons_64">
+    <file alias="pencil.png">icons_64/pencil.png</file>
+    <file alias="tool.png">icons_64/tool.png</file>
+    <file alias="train.png">icons_64/train.png</file>
+    <file alias="video.png">icons_64/video.png</file>
+    <file alias="record.png">icons_64/record.png</file>
+  </qresource>
+</RCC>

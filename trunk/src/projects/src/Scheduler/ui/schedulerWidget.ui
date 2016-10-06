@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SchedulerWidgetUI</class>
+ <widget class="QWidget" name="SchedulerWidgetUI">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>900</width>
+    <height>527</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Planowanie akwizycji</string>
+  </property>
+  <property name="windowOpacity">
+   <double>1.000000000000000</double>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <item>
+    <widget class="QSplitter" name="m_Splitter">
+     <property name="lineWidth">
+      <number>0</number>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="handleWidth">
+      <number>5</number>
+     </property>
+     <property name="childrenCollapsible">
+      <bool>false</bool>
+     </property>
+     <widget class="QGroupBox" name="m_Actions">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="title">
+       <string>Akcje</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="1">
+        <widget class="QPushButton" name="m_AddAction">
+         <property name="contextMenuPolicy">
+          <enum>Qt::DefaultContextMenu</enum>
+         </property>
+         <property name="text">
+          <string>Dodaj</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="2">
+        <widget class="QPushButton" name="m_RemoveAction">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string>Usuń</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" colspan="3">
+        <widget class="QTableWidget" name="m_ActionList">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="baseSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="editTriggers">
+          <set>QAbstractItemView::NoEditTriggers</set>
+         </property>
+         <property name="showDropIndicator" stdset="0">
+          <bool>false</bool>
+         </property>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::SingleSelection</enum>
+         </property>
+         <property name="selectionBehavior">
+          <enum>QAbstractItemView::SelectRows</enum>
+         </property>
+         <property name="sortingEnabled">
+          <bool>true</bool>
+         </property>
+         <property name="wordWrap">
+          <bool>false</bool>
+         </property>
+         <property name="columnCount">
+          <number>2</number>
+         </property>
+         <attribute name="horizontalHeaderDefaultSectionSize">
+          <number>140</number>
+         </attribute>
+         <attribute name="horizontalHeaderMinimumSectionSize">
+          <number>140</number>
+         </attribute>
+         <attribute name="horizontalHeaderStretchLastSection">
+          <bool>true</bool>
+         </attribute>
+         <attribute name="verticalHeaderDefaultSectionSize">
+          <number>30</number>
+         </attribute>
+         <column>
+          <property name="text">
+           <string>Nazwa</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Przycisk</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="ActionDefinitionWidget" name="m_ActionDefinition" native="true">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+  <action name="actionEmpty">
+   <property name="text">
+    <string>Pusta akcja</string>
+   </property>
+   <property name="toolTip">
+    <string>Pusta akcja</string>
+   </property>
+  </action>
+  <action name="actionTemplate">
+   <property name="text">
+    <string>Z szablonu..</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ActionDefinitionWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">actionDefinitionWidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>actionEmpty</sender>
+   <signal>triggered()</signal>
+   <receiver>SchedulerWidgetUI</receiver>
+   <slot>addActionEmpty()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>382</x>
+     <y>263</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionTemplate</sender>
+   <signal>triggered()</signal>
+   <receiver>SchedulerWidgetUI</receiver>
+   <slot>addActionTemplate()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>382</x>
+     <y>263</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_RemoveAction</sender>
+   <signal>clicked()</signal>
+   <receiver>SchedulerWidgetUI</receiver>
+   <slot>removeAction()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>441</x>
+     <y>43</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>382</x>
+     <y>263</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_ActionList</sender>
+   <signal>currentCellChanged(int,int,int,int)</signal>
+   <receiver>SchedulerWidgetUI</receiver>
+   <slot>currentActionChanged(int,int,int,int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>284</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>382</x>
+     <y>263</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_ActionList</sender>
+   <signal>cellDoubleClicked(int,int)</signal>
+   <receiver>SchedulerWidgetUI</receiver>
+   <slot>editAction(int,int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>284</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>382</x>
+     <y>263</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>addActionEmpty()</slot>
+  <slot>addActionTemplate()</slot>
+  <slot>removeAction()</slot>
+  <slot>currentActionChanged(int,int,int,int)</slot>
+  <slot>editAction(int,int)</slot>
+ </slots>
+</ui>
