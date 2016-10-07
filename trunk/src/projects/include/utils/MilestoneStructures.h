@@ -1,15 +1,15 @@
 //
 //
 //  @ Project : Milestone
-//  @ File Name : SMilestoneStructures.h
+//  @ File Name : MilestoneStructures.h
 //  @ Date : 2016-02-19
 //  @ Author : Kamil Lebek
 //
 //
 
 
-#ifndef _SMILESTONECREDENTIALS_H
-#define _SMILESTONECREDENTIALS_H
+#ifndef _MILESTONECREDENTIALS_H
+#define _MILESTONECREDENTIALS_H
 
 // String
 #include <string>
@@ -24,26 +24,26 @@ namespace utils
 	namespace camera
 	{
 		//! Helper object for storing Milestone server logging credentials
-		struct SMilestoneCredentials
+		struct MilestoneCredentials
 		{
 			//! Explicit constructor with simple verification (white-spaces)
 			/*!
 				\param inIP server IP e.g. "1.2.3.4"
-				\param inUserName Milestone administrator's user name e.g. "user"
+				\param inUsername Milestone administrator's user name e.g. "user"
 				\param inPassword Milestone administrator's password e.g. "1234"
 			*/
-			explicit SMilestoneCredentials(const std::string& inIP, const std::string& inUserName, const std::string& inPassword) :
-				m_IP(inIP), m_UserName(inUserName), m_Password(inPassword)
+			explicit MilestoneCredentials(const std::string& inIP, const std::string& inUsername, const std::string& inPassword) :
+				m_IP(inIP), m_Username(inUsername), m_Password(inPassword)
 			{
 				// No white spaces allowed
 				boost::algorithm::trim(m_IP);
-				boost::algorithm::trim(m_UserName);
+				boost::algorithm::trim(m_Username);
 				boost::algorithm::trim(m_Password);
 
 				// No throw... if user is a dumbfuck, what could I do?
-				if (!m_IP.length() || !m_UserName.length() || !m_Password.length())
+				if (!m_IP.length() || !m_Username.length() || !m_Password.length())
 				{
-					m_IP = m_UserName = m_Password = "ERROR";
+					m_IP = m_Username = m_Password = "ERROR";
 				}
 			}
 
@@ -54,9 +54,9 @@ namespace utils
 			}
 
 			//! Accessors: UserName
-			std::string GetUserName() const
+			std::string GetUsername() const
 			{
-				return m_UserName;
+				return m_Username;
 			}
 			
 			//! Accessors: Password
@@ -70,7 +70,7 @@ namespace utils
 			std::string m_IP;
 
 			//! Administrator login
-			std::string m_UserName;
+			std::string m_Username;
 
 			//! Administrator password
 			std::string m_Password;
@@ -78,14 +78,14 @@ namespace utils
 		}; // SMilestoneCredentials
 
 		//! Helper object for storing Camera parameters
-		struct SMilestoneCameraParameters
+		struct MilestoneCameraParameters
 		{
 			//! Explicit constructor to fill object once and make it read-only
 			/*!
 				\param inCameraName camera name 
 				\param inCameraGUID camera GUID
 			*/
-			explicit SMilestoneCameraParameters(const std::string& inCameraName, const std::string& inCameraGUID) :
+			explicit MilestoneCameraParameters(const std::string& inCameraName, const std::string& inCameraGUID) :
 				m_Name(inCameraName), m_GUID(inCameraGUID)	
 			{ 
 			}
@@ -114,4 +114,4 @@ namespace utils
 
 } // utils
 
-#endif // _SMILESTONECREDENTIALS_H
+#endif // _MILESTONECREDENTIALS_H

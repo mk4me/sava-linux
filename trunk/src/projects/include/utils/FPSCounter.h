@@ -1,15 +1,15 @@
 //
 //
 //  @ Project : Milestone
-//  @ File Name : CFPSCounter.h
+//  @ File Name : FPSCounter.h
 //  @ Date : 2016-02-05
 //  @ Author : Kamil Lebek
 //
 //
 
 
-#ifndef _CFPSCOUNTER_H
-#define _CFPSCOUNTER_H
+#ifndef _FPSCOUNTER_H
+#define _FPSCOUNTER_H
 
 #include <chrono>
 
@@ -18,19 +18,19 @@ namespace utils
 {
 
 	//! Class providing simple FPS meter
-	class CFPSCounter
+	class FPSCounter
 	{
 	public:
 
 		//! Simple constructor
-		CFPSCounter() : m_frameNumber(0), m_timeAccum(0.0f), m_fpsRate(0.0f), m_Updated(false)
+		FPSCounter() : m_frameNumber(0), m_timeAccum(0.0f), m_fpsRate(0.0f), m_Updated(false)
 		{
 			// Setup time of the last call
 			m_fLast = std::chrono::high_resolution_clock::now();
 		}
 
 		//! Simple destructor
-		virtual ~CFPSCounter()
+		virtual ~FPSCounter()
 		{
 		}
 
@@ -98,4 +98,4 @@ namespace utils
 	};
 }
 
-#endif // _CFPSCOUNTER_H
+#endif // _FPSCOUNTER_H

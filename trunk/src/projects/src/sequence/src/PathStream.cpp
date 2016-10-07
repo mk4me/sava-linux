@@ -81,7 +81,7 @@ namespace sequence
 		m_FrameCursor = -1;
 	}
 
-	void PathStream::getPaths(std::map<Id, Path>& outPaths)
+	void PathStream::getPaths(std::map<Id, Path>& outPaths) const
 	{
 		std::map<Id, Path> paths;
 		for (Time t = 0; t < (Time)m_Frames.size(); ++t)
@@ -89,10 +89,54 @@ namespace sequence
 			auto& frame = m_Frames[t];
 			for (auto& p : frame)
 			{
-				paths[p.id].points.insert(std::make_pair(t, p.point));
+				Path& path = paths[p.id];
+				path.points.insert(std::make_pair(t, p.point));
+				path.id = p.id;
+			}
+		}
+		for (auto& p : paths)
+		{
+			Path& path = p.second;
+			if (path.points.size() > 1)
+			{
+				std::map<Time, Point> newPoints;
+				auto prev = path.points.begin();
+				Time pt = prev->first;
+				cv::Point pp = prev->second;
+
+				for (auto next = std::next(prev); next != path.points.end(); ++next)
+				{
+					Time nt = next->first;
+					cv::Point np = next->second;
+					if (np.x < 0)
+						break;
+
+					newPoints.insert(std::make_pair(pt, pp));
+
+					for (Time t = pt + 1; t < nt; ++t)
+					{
+						float tf = (t - pt) / float(nt - pt);
+						Point p;
+						p.x = pp.x + int((np.x - pp.x) * tf);
+						p.y = pp.y + int((np.y - pp.y) * tf);
+						newPoints.insert(std::make_pair(t, p));
+					}
+
+					pt = nt;
+					pp = np;
+				}
+				newPoints.insert(std::make_pair(pt, pp));
+				path.points.swap(newPoints);
 			}
 		}
 		outPaths = std::move(paths);
+	}
+
+	void PathStream::clear()
+	{
+		std::vector<Frame>().swap(m_Frames);
+		m_FrameCursor = -1;
+		m_PathCursor = -1;
 	}
 
 }

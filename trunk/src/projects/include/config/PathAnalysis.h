@@ -3,6 +3,7 @@
 #define Config_PathAnalysis_h__
 
 #include <boost/serialization/access.hpp>
+#include <string>
 
 namespace config
 {
@@ -77,7 +78,7 @@ namespace config
 			}
 		};
 
-		PathAnalysis();
+		static PathAnalysis& getInstance();
 
 		bool load();
 		bool save() const;
@@ -136,7 +137,23 @@ namespace config
 		int getMergingOldestClusterTime() const { return m_MergingOldestClusterTime; }
 		void setMergingOldestClusterTime(int val) { m_MergingOldestClusterTime = val; }
 
+		long long getMinProcessTime() const { return m_MinProcessTime; }
+		void setMinProcessTime(long long val) { m_MinProcessTime = val; }
+
+		int getMaxClusterWidth() const { return m_MaxClusterWidth; }
+		void setMaxClusterWidth(int val) { m_MaxClusterWidth = val; }
+		int getMaxClusterHeight() const { return m_MaxClusterHeight; }
+		void setMaxClusterHeight(int val) { m_MaxClusterHeight = val; }
+		
+		int getMinPathsInCluster() const { return m_MinPathsInCluster; }
+		void setMinPathsInCluster(int val) { m_MinPathsInCluster = val; }
+
+		const std::string& getAnalyzer() const { return m_Analyzer; }
+		void setAnalyzer(const std::string& val) { m_Analyzer = val; }
+
 	private:
+		PathAnalysis();
+
 		bool m_UseOpenMP;		
 
 		/// Alpha parameter used for calculation of tangential coordinates.
@@ -182,6 +199,14 @@ namespace config
 		MergingThresholds m_MergingThresholds;
 		int m_MergingOldestClusterTime;
 
+		long long m_MinProcessTime;
+		int m_MaxClusterWidth;
+		int m_MaxClusterHeight;
+
+		int m_MinPathsInCluster;
+
+		std::string m_Analyzer;
+
 		friend class boost::serialization::access;
 		template<class Archive>
 		void serialize(Archive & ar, const unsigned int version);
@@ -211,6 +236,14 @@ namespace config
 		ar & m_EnableMergingGaps;
 		ar & m_MergingThresholds;
 		ar & m_MergingOldestClusterTime;
+
+		ar & m_MinProcessTime;
+		ar & m_MaxClusterWidth;
+		ar & m_MaxClusterHeight;
+
+		ar & m_MinPathsInCluster;
+
+		ar & m_Analyzer;
 	}
 
 }

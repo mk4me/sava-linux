@@ -5,6 +5,14 @@
 #include <string>
 #include <vector>
 
+namespace boost
+{
+	namespace filesystem
+	{
+		class path;
+	}
+}
+
 namespace utils
 {
 	class Filesystem
@@ -36,6 +44,12 @@ namespace utils
 		static const std::string& getConfigPath();
 
 		/// <summary>
+		/// Gets the user directory.
+		/// </summary>
+		/// <returns>User directory.</returns>
+		static const std::string& getUserPath();
+
+		/// <summary>
 		/// Gets the file list in the given directory.
 		/// </summary>
 		/// <param name="directory">The directory to search for files.</param>
@@ -48,6 +62,26 @@ namespace utils
 		/// <param name="directory">The path to count directories in.</param>
 		/// <returns>Number of directories inside the given path</returns>
 		static int getNumDirs(const std::string& directory);
+
+		/// <summary>
+		/// Checks if if given path exists.
+		/// </summary>
+		/// <param name="path">The path to check.</param>
+		/// <returns>True if path exists otherwise false</returns>
+		static bool exists(const boost::filesystem::path& path);
+
+		/// <summary>
+		/// Checks if if given path exists.
+		/// </summary>
+		/// <param name="path">The path to check.</param>
+		/// <returns>True if path exists otherwise false</returns>
+		static bool exists(const std::string& path);
+
+		/// <summary>
+		/// Removes the all the contents of the given directory.
+		/// </summary>
+		/// <param name="directory">The directory to clean.</param>
+		static void removeContents(const std::string& directory);
 
 	private:
 		static std::string getOsAppPath();

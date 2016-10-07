@@ -1,14 +1,14 @@
 //
 //
 //  @ Project : Milestone
-//  @ File Name : SRawMJGPFrame.h
+//  @ File Name : RawMJGPFrame.h
 //  @ Date : 2016-01-28
 //  @ Author : Kamil Lebek
 //
 //
 
-#ifndef _SRAWMJPGFRAME_H
-#define _SRAWMJPGFRAME_H
+#ifndef _RAWMJPGFRAME_H
+#define _RAWMJPGFRAME_H
 
 #include <vector>
 #include <boost/date_time/posix_time/posix_time.hpp>
@@ -21,31 +21,38 @@ namespace utils
 	{
 
 		//! Structure for storing Raw MJPG frames (MOVABLE only) - designed for BlockingQueue.h usage
-		struct SRawMJPGFrame
+		struct RawMJPGFrame
 		{
 			//! Default constructor
-			SRawMJPGFrame()
+			RawMJPGFrame()
 			{
 				// Create empty structure w/o raw bytes
 				// ...
 			}
 
 			//! Argument constructor
-			SRawMJPGFrame(std::vector<unsigned char>&& frameAsVector) : m_RawFrame(std::move(frameAsVector))
+			RawMJPGFrame(std::vector<unsigned char>&& frameAsVector) : m_RawFrame(std::move(frameAsVector))
 			{
 				// Initialize time stamp
 				m_TimeStamp = boost::posix_time::microsec_clock::local_time();
 			}
 
+			//! Argument constructor (Milestone version)
+			RawMJPGFrame(std::vector<unsigned char>&& frameAsVector, boost::posix_time::ptime inTimeStamp) : 
+				m_RawFrame(std::move(frameAsVector)), m_TimeStamp(inTimeStamp)
+			{
+				// Timestamp is provided
+			}
+
 			//! Move constructor
-			SRawMJPGFrame(SRawMJPGFrame&& other) : m_RawFrame(std::move(other.m_RawFrame))
+			RawMJPGFrame(RawMJPGFrame&& other) : m_RawFrame(std::move(other.m_RawFrame))
 			{
 				// Copy time stamp
 				m_TimeStamp = other.m_TimeStamp;
 			}
 
 			//! Move assignment
-			SRawMJPGFrame& operator=(SRawMJPGFrame&& other)
+			RawMJPGFrame& operator=(RawMJPGFrame&& other)
 			{
 				// Move
 				m_RawFrame = std::move(other.m_RawFrame);
@@ -64,12 +71,12 @@ namespace utils
 			boost::posix_time::ptime m_TimeStamp;
 
 			// no copy and assign
-			SRawMJPGFrame(const SRawMJPGFrame&) = delete;
-			SRawMJPGFrame& operator=(const SRawMJPGFrame&) = delete;
+			RawMJPGFrame(const RawMJPGFrame&) = delete;
+			RawMJPGFrame& operator=(const RawMJPGFrame&) = delete;
 		};
 
 	} // camera
 
 } // utils
 
-#endif // _SRAWMJPGFRAME_H
+#endif // _RAWMJPGFRAME_H

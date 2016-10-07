@@ -20,7 +20,7 @@ namespace sequence
 		Image();
 		explicit Image(const std::vector<uchar>& data);
 		Image(const cv::Mat& matrix, const int compression = DEFAULT_COMPRESSION);
-		Image(const Image& i) : m_Data(i.m_Data) {}
+
 		//! Move constructor
 		Image(Image&& i) : m_Data(std::move(i.m_Data)) { }
 

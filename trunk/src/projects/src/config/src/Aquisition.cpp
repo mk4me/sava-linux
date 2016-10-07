@@ -1,6 +1,6 @@
 #include "Aquisition.h"
 #include "utils/Filesystem.h"
-#include <utils/CAxisRawReader.h>
+#include <utils/AxisRawReader.h>
 
 #include <boost/archive/binary_iarchive.hpp>
 #include <boost/archive/binary_oarchive.hpp>
@@ -10,10 +10,16 @@
 namespace config
 {
 
+	Aquisition& Aquisition::getInstance()
+	{
+		static Aquisition instance;
+		return instance;
+	}
+
 	Aquisition::Aquisition()
 		: m_SeqLength(25)
-		, m_Fps(utils::camera::CAxisRawReader::DEFAULT_FPS)
-		, m_Compression(utils::camera::CAxisRawReader::DEFAULT_COMPRESSION)
+		, m_Fps(utils::camera::AxisRawReader::DEFAULT_FPS)
+		, m_Compression(utils::camera::AxisRawReader::DEFAULT_COMPRESSION)
 	{
 	}
 

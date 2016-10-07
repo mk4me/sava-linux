@@ -1,19 +1,19 @@
 //
 //
 //  @ Project : Milestone
-//  @ File Name : CCameraEnumerator.h
+//  @ File Name : CameraEnumerator.h
 //  @ Date : 2016-02-19
 //  @ Author : Kamil Lebek
 //
 //
 
 
-#ifndef _CCAMERAENUMERATOR_H
-#define _CCAMERAENUMERATOR_H
+#ifndef _CAMERAENUMERATOR_H
+#define _CAMERAENUMERATOR_H
 
 #include <vector>
 
-#include "SMilestoneStructures.h"
+#include "MilestoneStructures.h"
 
 //! Global utils namespace
 namespace utils
@@ -22,25 +22,25 @@ namespace utils
 	namespace camera
 	{
 		//! Camera configuration retriever
-		class CCameraEnumerator
+		class CameraEnumerator
 		{
 		public:
 			//! Argument constructor (using credentials class)
-			explicit CCameraEnumerator(const SMilestoneCredentials& inMilestoneLogin) : m_MilestoneLogin(inMilestoneLogin) { }
+			explicit CameraEnumerator(const MilestoneCredentials& inMilestoneLogin) : m_MilestoneLogin(inMilestoneLogin) { }
 
 			//! Simple destructor
-			virtual ~CCameraEnumerator() { }
+			virtual ~CameraEnumerator() { }
 
 			//! Retrieves cameras configuration
 			/*!
 				\param outCameras vector containing parameters for cameras attached to Milestone server (name and GUID)
 				\return False if query failed (wrong credentials, server offline).
 			*/
-			bool GetCamerasConfig(std::vector<SMilestoneCameraParameters>& outCameras) const;
+			bool GetCamerasConfig(std::vector<MilestoneCameraParameters>& outCameras) const;
 
 		private:
 			//! Milestone server credentials
-			SMilestoneCredentials m_MilestoneLogin;
+			MilestoneCredentials m_MilestoneLogin;
 
 			//! Milestone config URL
 			static const std::string MILESTONE_CONFIG_URL;
@@ -54,10 +54,10 @@ namespace utils
 			//! Milestone - camera config XML - GUID field
 			static const std::string MILESTONE_CONFIG_GUID_FIELD;
 
-		}; // CCameraEnumerator
+		}; // CameraEnumerator
 
 	} // camera
 
 } // utils
 
-#endif // _CCAMERAENUMERATOR_H
+#endif // _CAMERAENUMERATOR_H

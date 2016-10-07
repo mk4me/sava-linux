@@ -6,7 +6,8 @@
 
 #include <utils/Filesystem.h>
 #include <utils/Application.h>
-#include <utils/CAxisRawReader.h>
+#include <utils/AxisRawReader.h>
+#include <utils/MilestoneRawReader.h>
 #include <utils/PipeProcessUtils.h>
 #include <utils/FileLock.h>
 
@@ -14,6 +15,9 @@
 #include <boost/timer/timer.hpp>
 
 const std::string Aquisition::OUTPUT_FILE_EXTENSION("vsq");
+
+const std::string Aquisition::MILESTONE_INPUT_TYPE("milestone");
+const std::string Aquisition::AXIS_INPUT_TYPE("axis");
 
 Aquisition::Aquisition()
 	: m_SeqLength(-1)
@@ -36,12 +40,16 @@ void Aquisition::registerParameters(ProgramOptions& programOptions)
 {
 	programOptions.add<std::string>("of", "  output folder");
 	programOptions.add<int>("sl", "  sequence length (optional)");
+	programOptions.add<std::string>("in", "  input type: milestone or axis", AXIS_INPUT_TYPE);
 	programOptions.add<std::string>("ip", "  camera IP string e.g. \"1.2.3.4\" (\"http://\" is added automatically)");
-	programOptions.add<std::string>("cr", "  camera login e.g. \"user:pwd\" (must be supplied)");
+	programOptions.add<std::string>("user", "  camera user name");
+	programOptions.add<std::string>("pass", "  camera password");
+	programOptions.add<std::string>("guid", "  camera guid");
+	//programOptions.add<std::string>("cr", "  camera login e.g. \"user:pwd\" (must be supplied)");
 	programOptions.add<size_t>("fps", "  desired frame rate (range: 1 to 25) - 0 means maximum rate (optional)");
 	programOptions.add<size_t>("c", "JPEG compression rate from 1 - lowest to 99 - highest (optional)");
-	programOptions.add<size_t>("fw", "frame width (optional)", utils::camera::CAxisRawReader::DEFAULT_WIDTH);
-	programOptions.add<size_t>("fh", "frame height (optional)", utils::camera::CAxisRawReader::DEFAULT_HEIGHT);
+	programOptions.add<size_t>("fw", "frame width (optional)", utils::camera::AxisRawReader::DEFAULT_WIDTH);
+	programOptions.add<size_t>("fh", "frame height (optional)", utils::camera::AxisRawReader::DEFAULT_HEIGHT);
 }
 
 bool Aquisition::loadParameters(const ProgramOptions& options)
@@ -50,12 +58,18 @@ bool Aquisition::loadParameters(const ProgramOptions& options)
 	{
 		bool success = true;
 
-		config::Aquisition config;
+		config::Aquisition& config = config::Aquisition::getInstance();
 		config.load();
 
 		success &= options.get<std::string>("of", m_OutputFolder);
-		success &= options.get<std::string>("cr", m_Credentials);
+		//success &= options.get<std::string>("cr", m_Credentials);
+		success &= options.get<std::string>("in", m_InputType);
+		success &= options.get<std::string>("user", m_User);
+		success &= options.get<std::string>("pass", m_Password);
 		success &= options.get<std::string>("ip", m_Ip);
+		if (m_InputType == MILESTONE_INPUT_TYPE)
+			success &= options.get<std::string>("guid", m_CameraGuid);
+
 		if (!options.get<int>("sl", m_SeqLength))
 			m_SeqLength = config.getSeqLength();
 		if (!options.get<size_t>("fps", m_Fps))
@@ -68,6 +82,8 @@ bool Aquisition::loadParameters(const ProgramOptions& options)
 		std::cout << "================================================================================\n";
 		std::cout << "               Camera IP: " << m_Ip << "\n";
 		std::cout << "           Output folder: " << m_OutputFolder << "\n";
+		std::cout << "                    User: " << m_User << "\n";
+		std::cout << "                Password: " << m_Password << "\n";
 		std::cout << " File length (in frames): " << m_SeqLength << "\n";
 		std::cout << "        Frame rate (fps): " << m_Fps << "\n";
 		std::cout << "        JPEG compression: " << m_Compression << "\n";
@@ -101,7 +117,13 @@ bool Aquisition::start()
 	}
 	try
 	{
-		m_FrameReader = std::make_shared<utils::camera::CAxisRawReader>(m_Ip, m_Credentials, m_Fps, m_Compression, m_FrameWidth, m_FrameHeight);
+		if (m_InputType == AXIS_INPUT_TYPE)
+			m_FrameReader = std::make_shared<utils::camera::AxisRawReader>(m_Ip, m_User + ":" + m_Password, m_Fps, m_Compression, m_FrameWidth, m_FrameHeight);
+		else if (m_InputType == MILESTONE_INPUT_TYPE)
+		{
+			utils::camera::MilestoneCredentials credentials(m_Ip, m_User, m_Password);
+			m_FrameReader = std::make_shared<utils::camera::MilestoneRawReader>(credentials, m_CameraGuid, m_Fps, m_Compression, m_FrameWidth, m_FrameHeight);
+		}
 
 		m_AquisitionRunning = true;
 		boost::thread t(&Aquisition::aquisitionThreadFunc, this);
@@ -151,7 +173,7 @@ void Aquisition::aquisitionThreadFunc()
 		sequence::Video video;
 		for (int frameNr = 0; frameNr < m_SeqLength; ++frameNr)
 		{
-			utils::camera::SRawMJPGFrame frame;
+			utils::camera::RawMJPGFrame frame;
 			m_FrameReader->popRawFrame(frame);
 			video.addFrame(frame.m_TimeStamp, std::move(frame.m_RawFrame));
 			std::cout << ".";
@@ -167,3 +189,5 @@ void Aquisition::aquisitionThreadFunc()
 		
 	}
 }
+
+

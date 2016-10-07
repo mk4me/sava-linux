@@ -1,6 +1,6 @@
 #include "RoiVideo.h"
 
-#include <boost/filesystem.hpp>
+#include "utils/Filesystem.h"
 
 namespace sequence
 {	
@@ -12,10 +12,10 @@ namespace sequence
 		// finds pattern "pattern.xx.ext"
 		std::string filePattern = filename.substr(0, filename.find_last_of('.', filename.find_last_of('.') - 1));
 		std::string fName = filePattern + ".cvs";
-		if (!boost::filesystem::exists(fName))
+		if (!utils::Filesystem::exists(fName))
 		{
 			fName = filePattern + ".vsq";
-			if (!boost::filesystem::exists(fName))
+			if (!utils::Filesystem::exists(fName))
 				return;
 		}
 		
@@ -42,7 +42,7 @@ namespace sequence
 
 	void RoiVideo::setPosition(size_t frame)
 	{
-		m_CurrentFrame = frame;
+		m_CurrentFrame = frame + m_Cluster->getStartFrame();
 	}
 
 	size_t RoiVideo::getNumFrames() const

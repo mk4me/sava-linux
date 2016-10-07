@@ -23,13 +23,13 @@ namespace utils
 		/// </summary>
 		/// <param name="inputExtension">File extension for pattern searching.</param>
 		/// <param name="inputNumIndices">Number of indices in file for pattern searching. Default 1.</param>
-		explicit PipeProcess(const std::string& inputExtension, unsigned inputNumIndices = 1);
+		explicit PipeProcess(const std::string& patternExtension, unsigned inputNumIndices = 1, bool hasOutput = true);
 
 		/// <summary>
 		/// Constructor. File pattern isn't specified.
 		/// </summary>
 		/// <param name="inputNumIndices">Number of indices in file for pattern searching. Default 1.</param>
-		explicit PipeProcess(unsigned inputNumIndices = 1);
+		explicit PipeProcess(unsigned inputNumIndices = 1, bool hasOutput = true);
 		virtual ~PipeProcess();		
 
 		static void registerParameters(ProgramOptions& programOptions);
@@ -54,6 +54,18 @@ namespace utils
 		void setState(ProcessState state);
 
 		void waitForFile();
+				
+		/// <summary>
+		/// Gets the wait for file timeout in seconds. 0 means infinity.
+		/// </summary>
+		/// <returns></returns>
+		int getWaitTimeout() const { return m_WaitTimeout; }	
+
+		/// <summary>
+		/// Sets the wait for file timeout in seconds. 0 means infinity.
+		/// </summary>
+		/// <param name="value">The timeout in seconds.</param>
+		void setWaitTimeout(int value) { m_WaitTimeout = value; }
 
 		virtual void init();
 		virtual void reserve();
@@ -62,19 +74,22 @@ namespace utils
 	
 
 		FilesystemPath getInputFolder() const { return m_InputFolder; }
-		FilesystemPath getOutputFolder() const { return m_OutputFolder; }
-		std::string getFilePattern() const { return m_FilePattern; }
-
-		
+		FilesystemPath getOutputFolder() const { assert(m_HasOutput); return m_OutputFolder; }
+		std::string getFilePattern() const { return m_FilePattern; }		
 		
 	private slots:
 		void onInputDirChanged(const QString& path);
+		void onFinished();
+
+	signals:
+		void finished();
 
 	private:
 		ProcessState m_State;
 		boost::mutex m_StateMutex;
 		boost::thread m_StateLoopThread;
 		boost::condition_variable m_WaitCondition;
+		int m_WaitTimeout;
 
 		QFileSystemWatcher m_FileSystemWatcher;
 		bool m_FileSystemChanged;
@@ -82,13 +97,15 @@ namespace utils
 		FilesystemPath m_InputFolder;
 		FilesystemPath m_OutputFolder;
 
-		const std::string m_InputExtension;
+		std::string m_PatternExtension;
 		const unsigned m_InputNumIndices;
 		std::string m_FilePattern;
 
+		bool m_HasOutput;
+
 		void stateLoop();
 
-		void specifyPattern();
+		void specifyPattern();		
 	};
 }
 

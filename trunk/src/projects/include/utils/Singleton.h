@@ -15,6 +15,7 @@ class Singleton
 		}
         static Type* getPointer() 
 		{
+			assert(ms_Instance != nullptr && "Singleton::Singleton(): ms_Instance is a NULL");
 			return ms_Instance;
 		}
 

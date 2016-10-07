@@ -13,13 +13,13 @@ namespace sequence
 	public:
 		enum Split
 		{
-			GENERATED,
-			TRAIN,
-			TEST,
+			UNASSIGNED = 0,
+			TRAIN = 1,
+			TEST = 2,
+			GENERATED = 3,
 		};
 
-		Action() { }
-		explicit Action(int clusterId, int actionId = -1, Split split = GENERATED) : m_ClusterId(clusterId), m_ActionId(actionId), m_Split(split) { }
+		explicit Action(int actionId = -1, Split split = UNASSIGNED) : m_ActionId(actionId), m_Split(split) { }
 		explicit Action(const std::string& filename);
 		~Action() { }
 
@@ -29,13 +29,10 @@ namespace sequence
 		int getActionId() const { return m_ActionId; }
 		void setActionId(int val) { m_ActionId = val; }
 
-		int getClusterId() const { return m_ClusterId; }
-
 		Action::Split getSplit() const { return m_Split; }
 		void setSplit(Action::Split val) { m_Split = val; }
 
 	private:
-		int m_ClusterId;
 		int m_ActionId;
 		Split m_Split;
 
@@ -47,7 +44,6 @@ namespace sequence
 	template<class Archive>
 	void Action::serialize(Archive & ar, const unsigned int version)
 	{
-		ar & m_ClusterId;
 		ar & m_ActionId;
 		ar & m_Split;
 	}

@@ -17,7 +17,7 @@
 
 namespace sequence
 {
-	class CompressedVideo : public IVideo, public IStreamedVideo
+	class CompressedVideo : public IVideo
 	{
 	public:
 		static const unsigned TYPE;
@@ -38,7 +38,7 @@ namespace sequence
 		~CompressedVideo() { }
 		
 		bool load(const std::string& filename);
-		bool save(const std::string& filename) const;
+		bool save(const std::string& filename) const override;
 
 		void addFrame(Timestamp time, const std::vector<Crumble>& crumbles = std::vector<Crumble>());		
 		void addBackground(const cv::Mat& background, size_t startFrame = CURRENT_FRAME);
@@ -60,7 +60,6 @@ namespace sequence
 		{
 		public:
 			CrumbleStorage() { }
-			CrumbleStorage(const CrumbleStorage& cs) : m_Image(cs.m_Image), m_Location(cs.m_Location)  { }
 			CrumbleStorage(const cv::Point& location, const cv::Mat& image);
 			CrumbleStorage(const cv::Point& location, const cv::Mat& image, int compression);
 			
@@ -79,7 +78,6 @@ namespace sequence
 		{
 		public:
 			Frame() { }
-			Frame(const Frame& f) : m_Time(f.m_Time), m_Crumbles(f.m_Crumbles) { }
 			Frame(Frame&& f) : m_Time(f.m_Time), m_Crumbles(std::move(f.m_Crumbles)) { }
 			Frame(Timestamp time, const std::vector<CrumbleStorage>& crumbles) : m_Time(time), m_Crumbles(crumbles) { }
 

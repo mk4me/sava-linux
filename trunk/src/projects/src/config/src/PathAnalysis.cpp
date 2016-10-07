@@ -8,6 +8,12 @@
 
 namespace config
 {
+	PathAnalysis& PathAnalysis::getInstance()
+	{
+		static PathAnalysis instance;
+		return instance;
+	}
+
 	PathAnalysis::PathAnalysis()
 		: m_UseOpenMP(true)
 		, m_Alpha(0.5f)
@@ -29,6 +35,12 @@ namespace config
 		, m_EnableMergingGaps(1)
 		, m_MergingThresholds(25, 50, 50)
 		, m_MergingOldestClusterTime(50)
+
+		, m_MinProcessTime(0)
+		, m_MaxClusterWidth(300)
+		, m_MaxClusterHeight(500)
+
+		, m_MinPathsInCluster(0)
 	{
 
 	}

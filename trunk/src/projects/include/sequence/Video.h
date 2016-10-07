@@ -15,18 +15,17 @@
 
 namespace sequence
 {
-	class Video : public IVideo, public IStreamedVideo
+	class Video : public IVideo
 	{
 	public:
 		static const unsigned TYPE;
 
 		Video();
 		explicit Video(const std::string& filename);
-		Video(const Video& v): m_Frames(v.m_Frames),m_CurrentFrame(v.m_CurrentFrame) {}
 		~Video() { }
 
 		bool load(const std::string& filename);
-		bool save(const std::string& filename) const;
+		bool save(const std::string& filename) const override;
 
 		void addFrame(Timestamp time, const std::vector<uchar>& data);
 		void addFrame(Timestamp time, const cv::Mat& image);
@@ -48,7 +47,7 @@ namespace sequence
 
 			Frame(Timestamp time, const std::vector<uchar>& data) : m_Time(time), m_Image(data) { }
 			Frame(Timestamp time, const cv::Mat& image) : m_Time(time), m_Image(image) { }
-			Frame(const Frame& f) : m_Time(f.m_Time), m_Image(f.m_Image) { }
+
 			Frame(Frame&& f) : m_Time(f.m_Time), m_Image(std::move(f.m_Image)) { }
 			Frame& operator=(Frame&& f)
 			{

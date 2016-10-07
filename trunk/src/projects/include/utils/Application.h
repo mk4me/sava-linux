@@ -27,16 +27,22 @@ namespace utils
 			return runApp(argc, argv);
 		}
 		int run(int argc, const char* argv[]) { return run<QCoreApplication>(argc, argv); }
+		int run(int argc, const char* argv[], const std::shared_ptr<QCoreApplication>& app);
 		void exit();
 
 		void setAppTitle(const std::string & title);
 
 		template<typename T>
-		void registerModule(const std::string& launchOption, const std::string& description)
+		void registerModule(const std::string& launchOption, const std::string& description, bool isDefault = false)
 		{
 			m_ModulesMap.insert(ModuleEntry(launchOption, &T::create));
 			m_ProgramOptions.add(launchOption, description);
 			T::registerParameters(m_ProgramOptions);
+			if (isDefault)
+			{
+				assert(m_DefaultModule.empty());
+				m_DefaultModule = launchOption;
+			}
 		}
 
 	private:
@@ -45,6 +51,7 @@ namespace utils
 
 		std::shared_ptr<IAppModule> m_Module;
 		ModulesMap m_ModulesMap;
+		std::string m_DefaultModule;
 
 		ProgramOptions m_ProgramOptions;
 		std::shared_ptr<QCoreApplication> m_QApp;

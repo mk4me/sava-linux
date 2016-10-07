@@ -9,11 +9,22 @@ namespace config
 	class PathDetection
 	{
 	public:
-		PathDetection();
-		~PathDetection();
+		static PathDetection& getInstance();
 
 		bool load();
 		bool save() const;
+
+		enum Algorithm
+		{
+			ALGORITHM_OPTFLOW,
+			ALGORITHM_DEFAULT,
+		};
+
+		Algorithm getAlgorithm() const { return m_Algorithm; }
+		void setAlgorithm(Algorithm val) { m_Algorithm = val; }
+
+		size_t getMaxPathsCount() const { return m_MaxPathsCount; }
+		void setMaxPathsCount(size_t val) { m_MaxPathsCount = val; }
 
 		// general
 		int getMaxCostThresh() const { return m_MaxCostThresh; }
@@ -54,7 +65,16 @@ namespace config
 		int getSURFnOctaveLayers() const { return m_SURFnOctaveLayers; }
 		void setSURFnOctaveLayers(int val) { m_SURFnOctaveLayers = val; }
 
+		int getMaxProcessTime() const { return m_MaxProcessTime; }
+		void setMaxProcessTime(int val) { m_MaxProcessTime = val; }
+
 	private:
+		PathDetection();
+		~PathDetection();
+
+		Algorithm m_Algorithm;
+		size_t m_MaxPathsCount;
+
 		// general
 		int m_MaxCostThresh;
 		int m_MaxPathLength;
@@ -64,6 +84,8 @@ namespace config
 		int m_DescCostModifier;
 		int m_DistanceModifier;
 		int m_AngleModifier;
+
+		int m_MaxProcessTime;
 
 		// detector 0 - SIFT, 1 - SURF
 		int m_DetectorId;
@@ -77,6 +99,7 @@ namespace config
 		double m_SURFHessianThreshold;
 		int m_SURFnOctaves;
 		int m_SURFnOctaveLayers;
+
 
 		friend class boost::serialization::access;
 		template<class Archive>
@@ -105,6 +128,11 @@ namespace config
 		ar & m_SURFHessianThreshold;
 		ar & m_SURFnOctaves;
 		ar & m_SURFnOctaveLayers;
+
+		ar & m_MaxProcessTime;
+
+		ar & m_Algorithm;
+		ar & m_MaxPathsCount;
 	}
 }
 

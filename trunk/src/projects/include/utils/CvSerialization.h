@@ -77,11 +77,11 @@ namespace boost
 				mat.create(rows, cols, type);
 
 			if (continuous) {
-				const unsigned int data_size = rows * cols * mat.elemSize();
+				size_t data_size = rows * cols * mat.elemSize();
 				archive & boost::serialization::make_array(mat.ptr(), data_size);
 			}
 			else {
-				const unsigned int row_size = cols*mat.elemSize();
+				size_t row_size = cols*mat.elemSize();
 				for (int i = 0; i < rows; i++) {
 					archive & boost::serialization::make_array(mat.ptr(i), row_size);
 				}

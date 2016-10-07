@@ -7,6 +7,14 @@
 #include <string>
 #include <map>
 
+namespace boost
+{
+	namespace serialization
+	{
+		class access;
+	}
+}
+
 namespace config
 {
 	class Action
@@ -30,14 +38,25 @@ namespace config
 			std::string path;
 		};
 
-		Action() : m_DescriptorType(GBH_MBH) { }
-		~Action() { }
+		static Action& getInstance();
 
 		bool load();
 		bool save() const;
 
-		const std::string& getDatabasePath() const { return m_DatabasePath; }
-		void setDatabasePath(const std::string& path) { m_DatabasePath = path; }
+		int getMinVideoFrames() const { return m_MinVideoFrames; }
+		void setMinVideoFrames(int minFrames) { m_MinVideoFrames = minFrames; }
+
+		unsigned getMaxVideoWidth() const { return m_MaxVideoWidth; }
+		void setMaxVideoWidth(unsigned width) { m_MaxVideoWidth = width; }
+
+		unsigned getMaxVideoHeight() const { return m_MaxVideoHeight; }
+		void setMaxVideoHeight(unsigned height) { m_MaxVideoHeight = height; }
+
+		int getTrainSetLength() const { return m_TrainSetLength; }
+		void setTrainSetLength(int length) { m_TrainSetLength = length; }
+
+		int getTestSetLength() const { return m_TestSetLength; }
+		void setTestSetLength(int length) { m_TestSetLength = length; }
 
 		DescriptorType getDescriptorType() const { return m_DescriptorType; }
 		void setDescriptorType(DescriptorType type) { m_DescriptorType = type; }
@@ -49,23 +68,21 @@ namespace config
 		const Descriptor& getDescriptor(DescriptorType type) const;
 
 	private:
-		
+		Action();
+		~Action() { }
 
 		static const std::map<DescriptorType, Descriptor> c_Descriptors;
 
-		std::string m_DatabasePath;
 		DescriptorType m_DescriptorType;
-		
+		int m_MinVideoFrames;
+		int m_TrainSetLength;
+		int m_TestSetLength;
+		unsigned m_MaxVideoWidth;
+		unsigned m_MaxVideoHeight;
+
 		template<class Archive>
 		void serialize(Archive & ar, const unsigned int version);
 	};
-
-	template<class Archive>
-	void Action::serialize(Archive & ar, const unsigned int version)
-	{
-		ar & m_DatabasePath;
-		ar & m_DescriptorType;
-	}
 }
 
 #endif // Config_Action_h__

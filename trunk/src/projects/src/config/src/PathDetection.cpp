@@ -8,6 +8,13 @@
 
 namespace config
 {
+
+	PathDetection& PathDetection::getInstance()
+	{
+		static PathDetection instance;
+		return instance;
+	}
+
 	PathDetection::PathDetection()
 		// general
 		: m_MaxCostThresh(250)
@@ -18,6 +25,8 @@ namespace config
 		, m_DescCostModifier(50)
 		, m_DistanceModifier(2)
 		, m_AngleModifier(3)
+
+		, m_MaxProcessTime(0)
 
 		, m_DetectorId(0)
 
@@ -30,6 +39,9 @@ namespace config
 		, m_SURFHessianThreshold(400)
 		, m_SURFnOctaves(3)
 		, m_SURFnOctaveLayers(4)
+
+		, m_Algorithm(ALGORITHM_OPTFLOW)
+		, m_MaxPathsCount(0)
 	{
 
 	}
@@ -70,5 +82,4 @@ namespace config
 			return false;
 		}
 	}
-
 }

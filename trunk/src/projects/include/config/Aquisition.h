@@ -9,7 +9,7 @@ namespace config
 	class Aquisition
 	{
 	public:
-		Aquisition();
+		static Aquisition& getInstance();
 
 		bool load();
 		bool save() const;
@@ -22,6 +22,8 @@ namespace config
 		void setCompression(size_t val) { m_Compression = val; }
 
 	private:
+		Aquisition();
+
 		int m_SeqLength;
 		size_t m_Fps;
 		size_t m_Compression;

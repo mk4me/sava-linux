@@ -2,7 +2,9 @@
 #include "StreamedVideo.h"
 #include "Video.h"
 #include "CompressedVideo.h"
+#include "GpuVideo.h"
 #include "RoiVideo.h"
+#include "VideoPack.h"
 
 #include <map>
 namespace sequence
@@ -11,6 +13,11 @@ namespace sequence
 	static std::shared_ptr<IStreamedVideo> createObj(const std::string& filename)
 	{
 		return std::make_shared<T>(filename);
+	}
+
+	static std::shared_ptr<IStreamedVideo> createVideo(const std::string& filename)
+	{
+		return IVideo::create(filename);
 	}
 
 	std::shared_ptr<IStreamedVideo> IStreamedVideo::create(const std::string& filename)
@@ -24,9 +31,10 @@ namespace sequence
 
 			CreatorStruct()
 			{
-				creators[".vsq"] = &createObj<Video>;
-				creators[".cvs"] = &createObj<CompressedVideo>;
+				creators[".vsq"] = &createVideo;
+				creators[".cvs"] = &createVideo;
 				creators[".clu"] = &createObj<RoiVideo>;
+				creators[".vpk"] = &createObj<VideoPack>;
 			}
 
 			std::shared_ptr<IStreamedVideo> create(const std::string& filename)

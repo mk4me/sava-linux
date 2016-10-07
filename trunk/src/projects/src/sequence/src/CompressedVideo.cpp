@@ -41,7 +41,7 @@ namespace sequence
 		}
 		catch (const std::exception& e)
 		{
-			std::cerr << "sequence::Video::load() exception: " << e.what() << std::endl;
+			std::cerr << "sequence::CompressedVideo::load() exception: " << e.what() << std::endl;
 			return false;
 		}
 	}
@@ -58,7 +58,7 @@ namespace sequence
 		}
 		catch (const std::exception& e)
 		{
-			std::cerr << "sequence::Video::load() exception: " << e.what() << std::endl;
+			std::cerr << "sequence::CompressedVideo::save() exception: " << e.what() << std::endl;
 			return false;
 		}
 	}

@@ -9,11 +9,19 @@ namespace config
 	class Compression
 	{
 	public:
-		Compression();
-		~Compression();
+		enum
+		{
+			METHOD_CRUMBLES,
+			METHOD_GPU,
+		};
+
+		static Compression& getInstance();
 
 		bool load();
 		bool save() const;
+
+		int getCompressionMethod() const { return m_CompressionMethod; }
+		void setCompressionMethod(int val) { m_CompressionMethod = val; }
 
 		int getFilesInPackage() const { return m_FilesInPackage; }
 		void setFilesInPackage(int val) { m_FilesInPackage = val; }
@@ -31,6 +39,9 @@ namespace config
 		void setMergeCrumblesIterations(int val) { m_MergeCrumblesIterations = val; }
 
 	private:
+		Compression();
+		~Compression();
+
 		int m_FilesInPackage;
 		int m_ImageCompression;
 		int m_BackgroundHistory;
@@ -38,6 +49,8 @@ namespace config
 		float m_NewBackgroundMinPixels;
 		int m_MinCrumbleArea;
 		int m_MergeCrumblesIterations;
+
+		int m_CompressionMethod;
 
 		friend class boost::serialization::access;
 		template<class Archive>
@@ -54,6 +67,8 @@ namespace config
 		ar & m_NewBackgroundMinPixels;
 		ar & m_MinCrumbleArea;
 		ar & m_MergeCrumblesIterations;
+
+		ar & m_CompressionMethod;
 	}
 }
 

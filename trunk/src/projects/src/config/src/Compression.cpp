@@ -8,6 +8,13 @@
 
 namespace config
 {
+
+	Compression& Compression::getInstance()
+	{
+		static Compression instance;
+		return instance;
+	}
+
 	Compression::Compression()
 		: m_FilesInPackage(5)
 		, m_ImageCompression(30)
@@ -16,6 +23,7 @@ namespace config
 		, m_NewBackgroundMinPixels(0.2f)
 		, m_MinCrumbleArea(100)
 		, m_MergeCrumblesIterations(3)
+		, m_CompressionMethod(METHOD_CRUMBLES)
 	{
 	}
 

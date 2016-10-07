@@ -38,7 +38,7 @@ namespace sequence
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
-		PathStream() : m_FrameCursor(-1) {}
+		PathStream() : m_FrameCursor(-1), m_PathCursor(-1) {}
 		/// <summary>
 		/// Constructor from file.
 		/// </summary>
@@ -87,13 +87,15 @@ namespace sequence
 		/// Gets all paths.
 		/// </summary>
 		/// <param name="outPaths">The out paths.</param>
-		void getPaths(std::map<Id, Path>& outPaths);
+		void getPaths(std::map<Id, Path>& outPaths) const;
 
 		/// <summary>
 		/// Gets the frame cursor.
 		/// </summary>
 		/// <returns></returns>
 		long long getFrameCursor() const { return m_FrameCursor; }
+
+		void clear();
 
 	private:
 		struct PathStorage
