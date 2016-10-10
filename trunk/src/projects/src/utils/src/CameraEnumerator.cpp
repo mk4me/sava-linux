@@ -8,7 +8,7 @@
 //
 
 
-#include "CCameraEnumerator.h"
+#include "CameraEnumerator.h"
 
 // Boost XML parser and property tree
 #include <boost/property_tree/xml_parser.hpp>
@@ -31,30 +31,30 @@ namespace utils
 		//
 
 		//! Milestone config URL
-		const std::string CCameraEnumerator::MILESTONE_CONFIG_URL = "/systeminfo.xml";
+		const std::string CameraEnumerator::MILESTONE_CONFIG_URL = "/systeminfo.xml";
 
 		//! Milestone - path to camera config in XML
-		const std::string CCameraEnumerator::MILESTONE_CONFIG_CAM_SECTION = "methodresponse.engines.engine.cameras";
+		const std::string CameraEnumerator::MILESTONE_CONFIG_CAM_SECTION = "methodresponse.engines.engine.cameras";
 
 		//! Milestone - camera config XML - name field
-		const std::string CCameraEnumerator::MILESTONE_CONFIG_NAME_FIELD = "<xmlattr>.cameraid";
+		const std::string CameraEnumerator::MILESTONE_CONFIG_NAME_FIELD = "<xmlattr>.cameraid";
 
 		//! Milestone - camera config XML - GUID field
-		const std::string CCameraEnumerator::MILESTONE_CONFIG_GUID_FIELD = "guid";
+		const std::string CameraEnumerator::MILESTONE_CONFIG_GUID_FIELD = "guid";
 
 		// 
 		// Implementation
 		//
 		
 		//! Retrieves cameras configuration
-		bool CCameraEnumerator::GetCamerasConfig(std::vector<SMilestoneCameraParameters>& outCameras) const
+		bool CameraEnumerator::GetCamerasConfig(std::vector<MilestoneCameraParameters>& outCameras) const
 		{
 			// Clear out structure
 			outCameras.clear();
 
 			// Query server config
 			std::string serverConfigXml;
-			if (!web::BlockingHTTPGet(m_MilestoneLogin.GetIP(), MILESTONE_CONFIG_URL, m_MilestoneLogin.GetUserName(), m_MilestoneLogin.GetPassword(), serverConfigXml))
+			if (!web::BlockingHTTPGet(m_MilestoneLogin.GetIP(), MILESTONE_CONFIG_URL, m_MilestoneLogin.GetUsername(), m_MilestoneLogin.GetPassword(), serverConfigXml))
 				return false;
 
 			// Property tree
@@ -79,7 +79,7 @@ namespace utils
 					std::string camGUIDField = camItem.second.get<std::string>(MILESTONE_CONFIG_GUID_FIELD);
 
 					// Add to our structure
-					outCameras.push_back(camera::SMilestoneCameraParameters(camNameField, camGUIDField));
+					outCameras.push_back(camera::MilestoneCameraParameters(camNameField, camGUIDField));
 				}
 			}
 			catch (...)

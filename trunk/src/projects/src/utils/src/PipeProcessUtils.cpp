@@ -1,5 +1,7 @@
 #include "PipeProcessUtils.h"
 
+#include "utils/Filesystem.h"
+
 namespace utils
 {
 	bool PipeProcessUtils::getFirstFile(FilesystemPath& outPath, const FilesystemPath& directory, const std::regex& matchPattern)
@@ -9,7 +11,7 @@ namespace utils
 		{
 			try
 			{
-				if (!boost::filesystem::exists(*it) || !boost::filesystem::is_regular_file(*it))
+				if (!utils::Filesystem::exists(*it) || !boost::filesystem::is_regular_file(*it))
 					continue;
 			}
 			catch (const boost::filesystem::filesystem_error&) { continue; }
@@ -59,15 +61,8 @@ namespace utils
 		boost::filesystem::directory_iterator endIt;
 		for (boost::filesystem::directory_iterator it(directory); it != endIt; ++it)
 		{
-			try
-			{
-				if (!boost::filesystem::exists(*it) || !boost::filesystem::is_regular_file(*it))
-					continue;
-			}
-			catch (const boost::filesystem::filesystem_error&) { continue; }
-
 			std::smatch match;
-			std::string search = it->path().string();
+			const std::string& search = it->path().string();
 			if (!std::regex_search(search, match, rx))
 				continue;
 
@@ -88,15 +83,8 @@ namespace utils
 		boost::filesystem::directory_iterator endIt;
 		for (boost::filesystem::directory_iterator it(directory); it != endIt; ++it)
 		{
-			try
-			{
-				if (!boost::filesystem::exists(*it) || !boost::filesystem::is_regular_file(*it))
-					continue;
-			}
-			catch (const boost::filesystem::filesystem_error&) { continue; }
-
 			std::smatch match;
-			std::string search = it->path().string();
+			const std::string& search = it->path().string();
 			if (!std::regex_search(search, match, rx))
 				continue;
 
@@ -112,15 +100,8 @@ namespace utils
 		boost::filesystem::directory_iterator endIt;
 		for (boost::filesystem::directory_iterator it(directory); it != endIt; ++it)
 		{
-			try
-			{
-				if (!boost::filesystem::exists(*it) || !boost::filesystem::is_regular_file(*it))
-					continue;
-			}
-			catch (const boost::filesystem::filesystem_error&) { continue; }
-
 			std::smatch match;
-			std::string search = it->path().string();
+			const std::string& search = it->path().string();
 			if (!std::regex_search(search, match, rx))
 				continue;
 
@@ -135,6 +116,8 @@ namespace utils
 		{
 			if (*it1 < *it2)
 				return true;
+			if (*it1 > *it2)
+				return false;
 		}
 		return false;
 	}

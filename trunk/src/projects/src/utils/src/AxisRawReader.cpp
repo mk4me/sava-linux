@@ -1,17 +1,20 @@
 //
 //
 //  @ Project : Milestone
-//  @ File Name : CAxisRawReader.cpp
+//  @ File Name : AxisRawReader.cpp
 //  @ Date : 2016-01-28
 //  @ Author : Kamil Lebek
 //
 //
 
-#include "CAxisRawReader.h"
+#include "AxisRawReader.h"
+#include <utils/GenerateStaticMJPG.h>
 
 //
-// WARNING: It requires also LIB libcurl_imp.lib in Linker Input
+// CURL
 //
+
+// Include
 #include <curl/curl.h>
 
 //! Global utils namespace
@@ -26,17 +29,17 @@ namespace utils
 		//
 
 		// CURL specific
-		const std::string CAxisRawReader::READ_MJPG_CGI = "/axis-cgi/mjpg/video.cgi";
-		const std::string CAxisRawReader::ONVIF_FRAME_BOUNDARY = "--myboundary";
-		const std::string CAxisRawReader::ONVIF_FRAME_BOUNDARY_END = "\r\n--myboundary";
-		const std::string CAxisRawReader::HTTP_HEADER_END = "\r\n\r\n";
+		const std::string AxisRawReader::READ_MJPG_CGI = "/axis-cgi/mjpg/video.cgi";
+		const std::string AxisRawReader::ONVIF_FRAME_BOUNDARY = "--myboundary";
+		const std::string AxisRawReader::ONVIF_FRAME_BOUNDARY_END = "\r\n--myboundary";
+		const std::string AxisRawReader::HTTP_HEADER_END = "\r\n\r\n";
 
 		//
 		// Class implementation
 		//
 
 		//! Creates camera settings string (performs value check - if value is out of range, we apply defaults)
-		std::string CAxisRawReader::CreateCameraSettingsString(size_t inFPS, size_t inCompression, size_t inWidth, size_t inHeight)
+		std::string AxisRawReader::CreateCameraSettingsString(size_t inFPS, size_t inCompression, size_t inWidth, size_t inHeight)
 		{
 			// Resolution - Width (1 .. MAX)
 			if ((inWidth > DEFAULT_WIDTH) || (!inWidth))
@@ -61,8 +64,12 @@ namespace utils
 		}
 
 		//! Worker thread that starts blocking CURL operation - it ends when connection is interrupted or we forcefully end it
-		void CAxisRawReader::CURL_BlockOpWorker()
+		void AxisRawReader::CURL_BlockOpWorker()
 		{
+			// Error string
+			std::string errString = "Reconnecting to camera (IP: " + m_CameraIP + ")...";
+			GenerateStaticMJPG staticMJPG(errString, m_InitialWidth, m_InitialHeight, m_InitialCompression);
+
 			// Create request link from Camera Settings and default READ operation cgi link
 			std::string axisCGIOp = READ_MJPG_CGI + std::string("?") + m_CameraSettingsString;
 
@@ -72,12 +79,22 @@ namespace utils
 				myCURL_BlockingOperation(m_CameraIP, m_UserAndPwd, axisCGIOp);
 				
 				// Inform about every reconnect
-				std::cerr << "Reconnecting to camera (IP: " << m_CameraIP << ")..." << std::endl;
+				if (m_CustomBuff.m_stopStreaming == false)
+				{
+					// Emit error info
+					std::cerr << errString << std::endl;
+
+					// Put fake frame (no lock needed - we just put frame there)
+					m_CustomBuff.m_RawFrames.push(RawMJPGFrame(std::move(staticMJPG.getRawFrame())));
+
+					// Add some lag
+					std::this_thread::sleep_for(std::chrono::milliseconds(1000 / DEFAULT_FPS_ON_CONNECTION_LOSS));
+				}
 			}
 		}
 
 		//! Cuts frame from the string and returns it as a string (optimization makes code look ugly)
-		bool CAxisRawReader::CutRawFrameFromString(std::string& stringToAlter, std::vector<unsigned char>& returnedFrame, const size_t lastStrToAlterSize)
+		bool AxisRawReader::CutRawFrameFromString(std::string& stringToAlter, std::vector<unsigned char>& returnedFrame, const size_t lastStrToAlterSize)
 		{
 			// Find frame begging
 			size_t jpgBeg = stringToAlter.find(ONVIF_FRAME_BOUNDARY);
@@ -113,7 +130,7 @@ namespace utils
 		}
 
 		//! CURL Write function
-		size_t CAxisRawReader::myCURL_CustomWrite(char *ptr, size_t size, size_t nmemb, SCustomBuffer* customData)
+		size_t AxisRawReader::myCURL_CustomWrite(char *ptr, size_t size, size_t nmemb, CustomBuffer* customData)
 		{
 			// Actual bytes to write
 			size_t toWrite = size * nmemb;
@@ -127,7 +144,7 @@ namespace utils
 
 			// Valid frame was found
 			if (CutRawFrameFromString(customData->m_packetBuffer, frameAsVector, sizeBeforeAppend))
-				customData->m_RawFrames.push(SRawMJPGFrame(std::move(frameAsVector)));
+				customData->m_RawFrames.push(RawMJPGFrame(std::move(frameAsVector)));
 
 			// Regular operation (different value will stop the transfer)
 			if (customData->m_stopStreaming == false)
@@ -138,7 +155,7 @@ namespace utils
 		}
 
 		//! CURL blocking operation 
-		bool CAxisRawReader::myCURL_BlockingOperation(const std::string& inIPAddress, const std::string& inUserAndPwd, const std::string& inOperationSuffix)
+		bool AxisRawReader::myCURL_BlockingOperation(const std::string& inIPAddress, const std::string& inUserAndPwd, const std::string& inOperationSuffix)
 		{
 			// Init CURL
 			CURL* myCurl = curl_easy_init();
@@ -152,6 +169,7 @@ namespace utils
 			curl_easy_setopt(myCurl, CURLOPT_URL, sUrl.c_str());
 			curl_easy_setopt(myCurl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
 			curl_easy_setopt(myCurl, CURLOPT_USERPWD, inUserAndPwd.c_str());
+			curl_easy_setopt(myCurl, CURLOPT_CONNECTTIMEOUT, 5);
 
 			struct curl_slist *slist = NULL;
 			slist = curl_slist_append(slist, "Accept: application/x-ms-application, image/jpeg, application/xaml+xml, image/gif, image/pjpeg, application/x-ms-xbap, */*");
@@ -173,6 +191,8 @@ namespace utils
 				if (opResult != CURLE_OK)
 				{
 					// We didn't establish connection - thread will end anyway
+					curl_slist_free_all(slist);
+					curl_easy_cleanup(myCurl);
 					return false;
 				}
 
@@ -184,6 +204,7 @@ namespace utils
 			}
 
 			// Just clean shutdown
+			curl_slist_free_all(slist);
 			curl_easy_cleanup(myCurl);
 			return true;
 		}

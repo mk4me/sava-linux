@@ -2,6 +2,7 @@
 #include "ProgramOptions.h"
 
 #include <QtCore/QCoreApplication>
+#include "Version.h"
 
 #ifdef WIN32
 #include <Windows.h>
@@ -32,7 +33,7 @@ void utils::Application::registerExitFunction()
 	if (!SetConsoleCtrlHandler((PHANDLER_ROUTINE)exitHandler, TRUE))
 		std::cerr << "Cant register exit function!" << std::endl;
 #else
-//#error Not implemented yet
+#error Not implemented yet
 #endif // WIN32
 }
 
@@ -44,15 +45,25 @@ utils::Application* utils::Application::getInstance()
 
 int utils::Application::runApp(int argc, const char* argv[])
 {
+	std::cout << "Version: " << Version::getFullVersion() << std::endl;
+
 	QCoreApplication::addLibraryPath(QCoreApplication::applicationDirPath() + "/plugins");
 
 	if (!recognizeParameters(argc, argv))
-		return 0;
+		return -1;
 
 	if (m_Module != nullptr && m_Module->start())
 		return m_QApp->exec();
 
 	return 0;
+}
+
+int utils::Application::run(int argc, const char* argv[], const std::shared_ptr<QCoreApplication>& app)
+{
+	if (m_QApp)
+		return -1;
+	m_QApp = app;
+	return runApp(argc, argv);
 }
 
 void utils::Application::exit()
@@ -84,6 +95,8 @@ bool utils::Application::recognizeParameters(int argc, const char* argv[])
 					m_Module.reset(it->second());
 				}
 			}
+			if (!m_Module && !m_DefaultModule.empty())
+				m_Module.reset(m_ModulesMap[m_DefaultModule]());
 		}
 		if (m_Module)
 		{

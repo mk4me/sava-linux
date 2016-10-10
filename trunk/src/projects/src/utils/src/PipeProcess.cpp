@@ -7,32 +7,42 @@
 
 namespace utils
 {
-	PipeProcess::PipeProcess(const std::string& inputExtension, unsigned inputNumIndices /*= 1*/) 
-		: m_InputExtension(inputExtension)
+	PipeProcess::PipeProcess(const std::string& patternExtension, unsigned inputNumIndices /*= 1*/, bool hasOutput /*= true*/)
+		: m_PatternExtension(patternExtension)
 		, m_InputNumIndices(inputNumIndices)
 		, m_State(SPECIFY_PATTERN)
 		, m_FileSystemChanged(false)
+		, m_HasOutput(hasOutput)
+		, m_WaitTimeout(0)
 	{
 
 	}
 
-	PipeProcess::PipeProcess(unsigned inputNumIndices /*= 1*/)
+	PipeProcess::PipeProcess(unsigned inputNumIndices /*= 1*/, bool hasOutput /*= true*/)
 		: m_InputNumIndices(inputNumIndices)
 		, m_State(INIT)
 		, m_FileSystemChanged(false)
+		, m_HasOutput(hasOutput)
+		, m_WaitTimeout(0)
 	{
 
 	}
 
 	PipeProcess::~PipeProcess()
 	{
-
+		stop();
 	}
 
 	void PipeProcess::registerParameters(ProgramOptions& programOptions)
 	{
-		programOptions.add<std::string>("if", "input folder");
-		programOptions.add<std::string>("of", "output folder");
+		static bool registered = false;
+		if (!registered)
+		{
+			programOptions.add<std::string>("if", "input folder");
+			programOptions.add<std::string>("of", "output folder");
+			programOptions.add<int>("timeout", "wait for file timeout (in seconds), 0 means infinity", 0);
+			registered = true;
+		}
 	}
 
 	bool PipeProcess::loadParameters(const ProgramOptions& options)
@@ -40,16 +50,25 @@ namespace utils
 		try
 		{
 			bool success = true;
-
 			std::string inputFolder, outputFolder;
+
 			success &= options.get<std::string>("if", inputFolder);
-			success &= options.get<std::string>("of", outputFolder);
-
 			m_InputFolder = Filesystem::unifyPath(inputFolder);
-			m_OutputFolder = Filesystem::unifyPath(outputFolder);
-
 			std::cout << "            Input folder: " << m_InputFolder.string() << "\n";
-			std::cout << "           Output folder: " << m_OutputFolder.string() << "\n";
+
+			if (m_HasOutput)
+			{
+				success &= options.get<std::string>("of", outputFolder);
+				m_OutputFolder = Filesystem::unifyPath(outputFolder);
+				std::cout << "           Output folder: " << m_OutputFolder.string() << "\n";
+			}
+
+			options.get<int>("timeout", m_WaitTimeout);
+			std::cout << "   Wait for file timeout: ";
+			if (m_WaitTimeout != 0)
+				std::cout << m_WaitTimeout << " s\n";
+			else
+				std::cout << "infinity\n";
 
 			return success;
 		}
@@ -67,7 +86,7 @@ namespace utils
 
 	bool PipeProcess::start()
 	{
-		if (!boost::filesystem::exists(m_InputFolder) || !boost::filesystem::is_directory(m_InputFolder))
+		if (!utils::Filesystem::exists(m_InputFolder) || !boost::filesystem::is_directory(m_InputFolder))
 		{
 			try
 			{
@@ -80,19 +99,23 @@ namespace utils
 			}
 		}
 
-		try
+		if (m_HasOutput)
 		{
-			boost::filesystem::create_directories(m_OutputFolder);
+			try
+			{
+				boost::filesystem::create_directories(m_OutputFolder);
+			}
+			catch (...)
+			{
+				std::cout << "PipeProcess::start(): Can't create output directory " << m_OutputFolder << std::endl;
+				return false;
+			}
 		}
-		catch (...)
-		{
-			std::cout << "PipeProcess::start(): Can't create output directory " << m_OutputFolder << std::endl;
-			return false;
-		}		
 		m_FileSystemWatcher.addPath(QString::fromStdString(m_InputFolder.string()));
 		connect(&m_FileSystemWatcher, SIGNAL(directoryChanged(const QString&)), this, SLOT(onInputDirChanged(const QString&)));
+		connect(this, SIGNAL(finished()), this, SLOT(onFinished()), Qt::QueuedConnection);
 
-		m_StateLoopThread = boost::thread(&PipeProcess::stateLoop, this);
+		m_StateLoopThread = boost::thread(&PipeProcess::stateLoop, this);		
 		return true;
 	}
 
@@ -122,7 +145,18 @@ namespace utils
 	{
 		boost::mutex::scoped_lock lock(m_StateMutex);
 		if (m_State != EXIT && !m_FileSystemChanged)
-			m_WaitCondition.wait(lock);
+		{
+			if (m_WaitTimeout > 0)
+			{
+				const boost::chrono::seconds timeout(m_WaitTimeout);
+				if (m_WaitCondition.wait_for(lock, timeout) == boost::cv_status::timeout)
+					emit finished();
+			}
+			else
+			{
+				m_WaitCondition.wait(lock);
+			}
+		}
 		m_FileSystemChanged = false;
 	}
 
@@ -137,8 +171,10 @@ namespace utils
 	{
 		while (true)
 		{
+#ifndef _DEBUG
 			try
 			{
+#endif
 				switch (getState())
 				{
 				case SPECIFY_PATTERN:
@@ -158,21 +194,26 @@ namespace utils
 					break;
 				case EXIT:
 					std::cout << "Quitting..." << std::endl;
+					emit finished();
 					return;
 				}
+#ifndef _DEBUG
 			}
 			catch (const std::exception& e)
 			{
 				std::cerr << "PipeProcess::stateLoop() error: " << e.what() << std::endl;
 				std::cout << "Quitting..." << std::endl;
+				emit finished();
 				return;
 			}
 			catch (...)
 			{
 				std::cerr << "PipeProcess::stateLoop() Unknown error." << std::endl;
 				std::cout << "Quitting..." << std::endl;
+				emit finished();
 				return;
 			}
+#endif
 		}
 	}
 
@@ -198,7 +239,7 @@ namespace utils
 
 	void PipeProcess::specifyPattern()
 	{
-		if (m_InputExtension.empty())
+		if (m_PatternExtension.empty())
 		{
 			// pattern not specified.
 			setState(INIT);
@@ -206,7 +247,7 @@ namespace utils
 		}
 
 		FilesystemPath file;
-		if (PipeProcessUtils::getFirstFile(file, m_InputFolder, m_InputExtension, m_InputNumIndices))
+		if (PipeProcessUtils::getFirstFile(file, m_InputFolder, m_PatternExtension, m_InputNumIndices))
 		{
 			file = file.filename().stem();
 			for (unsigned i = 0; i < m_InputNumIndices; ++i)
@@ -220,4 +261,10 @@ namespace utils
 		}
 		waitForFile();
 	}
+
+	void PipeProcess::onFinished()
+	{
+		Application::getInstance()->exit();
+	}
+
 }
