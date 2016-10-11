@@ -2,10 +2,11 @@
 #ifndef __GLOSSARY_H__
 #define __GLOSSARY_H__
 
-#include "utils\Database.h"
+#include "utils/Database.h"
 
 #include <map>
 #include <vector>
+#include <stdlib.h>
 
 namespace boost
 {

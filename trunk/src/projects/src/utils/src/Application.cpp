@@ -33,7 +33,7 @@ void utils::Application::registerExitFunction()
 	if (!SetConsoleCtrlHandler((PHANDLER_ROUTINE)exitHandler, TRUE))
 		std::cerr << "Cant register exit function!" << std::endl;
 #else
-#error Not implemented yet
+//#error Not implemented yet
 #endif // WIN32
 }
 

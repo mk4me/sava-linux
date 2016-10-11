@@ -3,6 +3,7 @@
 #define Process_h__
 
 #include <vector>
+#include <stdlib.h>
 
 namespace boost
 {
@@ -17,7 +18,7 @@ namespace config
 	class Process
 	{
 	public:
-		typedef std::vector<__int64> NodeList;
+		typedef std::vector<int64_t> NodeList;
 		
 		friend class boost::serialization::access;
 

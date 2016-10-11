@@ -7,7 +7,8 @@
 #include <utils/Filesystem.h>
 #include <utils/Application.h>
 #include <utils/AxisRawReader.h>
-#include <utils/MilestoneRawReader.h>
+//sava-linux.rev
+//#include <utils/MilestoneRawReader.h>
 #include <utils/PipeProcessUtils.h>
 #include <utils/FileLock.h>
 
@@ -121,8 +122,9 @@ bool Aquisition::start()
 			m_FrameReader = std::make_shared<utils::camera::AxisRawReader>(m_Ip, m_User + ":" + m_Password, m_Fps, m_Compression, m_FrameWidth, m_FrameHeight);
 		else if (m_InputType == MILESTONE_INPUT_TYPE)
 		{
-			utils::camera::MilestoneCredentials credentials(m_Ip, m_User, m_Password);
-			m_FrameReader = std::make_shared<utils::camera::MilestoneRawReader>(credentials, m_CameraGuid, m_Fps, m_Compression, m_FrameWidth, m_FrameHeight);
+			throw std::runtime_error("sava-linux.rev");
+			//utils::camera::MilestoneCredentials credentials(m_Ip, m_User, m_Password);
+			//m_FrameReader = std::make_shared<utils::camera::MilestoneRawReader>(credentials, m_CameraGuid, m_Fps, m_Compression, m_FrameWidth, m_FrameHeight);
 		}
 
 		m_AquisitionRunning = true;

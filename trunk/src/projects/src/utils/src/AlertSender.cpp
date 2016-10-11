@@ -37,7 +37,7 @@ namespace utils
 		//! Tags stripped from strings passed to Milestone
 		const std::string AlertSender::MS_TAGS_TO_STRIP					= "</>\"\'";
 		//! Polish diacritical symbols (source)
-		const std::wstring AlertSender::MS_POLISH_SYMBOLS				= L"���󿟥ʌƣӯ�";
+		const std::wstring AlertSender::MS_POLISH_SYMBOLS				= L"########";//L"���󿟥ʌƣӯ�";
 		//! Polish symbols (replacers)
 		const std::wstring AlertSender::MS_POLISH_REPLACERS				= L"aesclozzAESCLOZZ";
 		//! Line end character string

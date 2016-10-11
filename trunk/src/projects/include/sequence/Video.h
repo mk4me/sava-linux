@@ -49,6 +49,8 @@ namespace sequence
 			Frame(Timestamp time, const cv::Mat& image) : m_Time(time), m_Image(image) { }
 
 			Frame(Frame&& f) : m_Time(f.m_Time), m_Image(std::move(f.m_Image)) { }
+			Frame(Frame&) = default;
+			Frame(const Frame&) = default;
 			Frame& operator=(Frame&& f)
 			{
 				m_Image = std::move(f.m_Image);

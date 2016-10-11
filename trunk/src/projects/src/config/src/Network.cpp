@@ -129,20 +129,20 @@ namespace config
 		return true;
 	}
 
-	__int64 Network::getId(int num) const
+	int64_t Network::getId(int num) const
 	{
 		if (num < 0 || num >= m_Nodes.size())
 			return -1;
 		return m_Nodes[num].m_Id;
 	}
 
-	const std::string& Network::findName(__int64 id) const
+	const std::string& Network::findName(int64_t id) const
 	{
 		auto it = std::find_if(m_Nodes.begin(), m_Nodes.end(), [&](const Node& n) { return id == n.m_Id; });
 		return it != m_Nodes.end() ? it->m_Name : c_NotFoundString;
 	}
 
-	const std::string& Network::findIp(__int64 id) const
+	const std::string& Network::findIp(int64_t id) const
 	{
 		auto it = std::find_if(m_Nodes.begin(), m_Nodes.end(), [&](const Node& n) { return id == n.m_Id; });
 		return it != m_Nodes.end() ? it->m_Ip : c_EmptyString;

@@ -5,7 +5,8 @@
 #include <opencv2/core.hpp>
 
 #include <vector>
-
+// sava-linux.rev
+/*
 struct gpujpeg_encoder;
 struct gpujpeg_decoder;
 
@@ -52,5 +53,5 @@ namespace utils
 		gpujpeg_decoder* m_Decoder;
 	};
 }
-
+*/
 #endif // GpuJpegUtils_h__

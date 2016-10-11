@@ -62,7 +62,7 @@ namespace utils
 			{
 				// Validate parameters
 				if (!m_CameraIP.length() || !m_UserAndPwd.length())
-					throw std::exception("Enter Camera IP / UserName / Password");
+					throw std::runtime_error("Enter Camera IP / UserName / Password");
 
 				// Set camera settings string
 				m_CameraSettingsString = CreateCameraSettingsString(inFPS, inCompression, inWidth, inHeight);

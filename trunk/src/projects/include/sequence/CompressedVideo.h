@@ -62,7 +62,7 @@ namespace sequence
 			CrumbleStorage() { }
 			CrumbleStorage(const cv::Point& location, const cv::Mat& image);
 			CrumbleStorage(const cv::Point& location, const cv::Mat& image, int compression);
-			
+			//CrumbleStorage(const CrumbleStorage&) = default;
 			cv::Rect getLocation() const { return m_Location; }
 			cv::Mat getImage() const { return m_Image; }
 		private:
@@ -79,6 +79,8 @@ namespace sequence
 		public:
 			Frame() { }
 			Frame(Frame&& f) : m_Time(f.m_Time), m_Crumbles(std::move(f.m_Crumbles)) { }
+			Frame(Frame&) = default;
+			Frame(const Frame&) = default;
 			Frame(Timestamp time, const std::vector<CrumbleStorage>& crumbles) : m_Time(time), m_Crumbles(crumbles) { }
 
 			Timestamp getTime() const { return m_Time; }

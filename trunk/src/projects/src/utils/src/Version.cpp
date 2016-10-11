@@ -1,6 +1,9 @@
 #include "Version.h"
 #ifndef _DEBUG
-#include "SVNVersion.h"
+//sava-linux.rev
+//#include "SVNVersion.h"
+#define SVN_REVISION_IMPL  10
+#define SVN_URL_IMPL  "sava-linux.rev"
 #endif
 
 namespace utils

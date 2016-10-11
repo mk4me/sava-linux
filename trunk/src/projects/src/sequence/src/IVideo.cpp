@@ -40,9 +40,10 @@ namespace sequence
 			}
 			case IVideo::SEQUENCE_GPU_VIDEO:
 			{
-				auto obj = std::make_shared<GpuVideo>();
+				std::runtime_error("sava-linux.rev");
+				/*auto obj = std::make_shared<GpuVideo>();
 				ia >> *obj;
-				return obj;
+				return obj;*/
 			}
 			}
 		}

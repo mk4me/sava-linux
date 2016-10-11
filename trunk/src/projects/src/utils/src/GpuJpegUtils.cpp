@@ -60,7 +60,7 @@ namespace utils
 		uint8_t* image_compressed = NULL;
 		int image_compressed_size = 0;
 		if (gpujpeg_encoder_encode(m_Encoder, &encoder_input, &image_compressed, &image_compressed_size) != 0 && gpujpeg_encoder_encode(m_Encoder, &encoder_input, &image_compressed, &image_compressed_size) != 0)
-			throw std::exception("GpuJpegEncoder::encode(): Can't encode image.");
+			throw std::runtime_error("GpuJpegEncoder::encode(): Can't encode image.");
 
 		outputImage.assign(image_compressed, image_compressed + image_compressed_size);
 
@@ -85,7 +85,7 @@ namespace utils
 
 		m_Encoder = gpujpeg_encoder_create(&param, &param_image);
 		if (m_Encoder == nullptr)
-			throw std::exception("GpuJpegEncoder::createEncoder(): Can't create encoder.");
+			throw std::runtime_error("GpuJpegEncoder::createEncoder(): Can't create encoder.");
 	}
 
 	void GpuJpegEncoder::destroyEncoder()
@@ -116,7 +116,7 @@ namespace utils
 		struct gpujpeg_decoder_output decoder_output;
 		gpujpeg_decoder_output_set_default(&decoder_output);
 		if (gpujpeg_decoder_decode(m_Decoder, const_cast<uint8_t*>(inputImage.data()), static_cast<int>(inputImage.size()), &decoder_output) != 0)
-			throw std::exception("GpuJpegDecoder::decode(): Can't decode image.");
+			throw std::runtime_error("GpuJpegDecoder::decode(): Can't decode image.");
 
 		int width = m_Decoder->coder.param_image.width;
 		int height = m_Decoder->coder.param_image.height;
@@ -129,7 +129,7 @@ namespace utils
 		GpuJpegLib::initDevice();
 		m_Decoder = gpujpeg_decoder_create();
 		if (m_Decoder == nullptr)
-			throw std::exception("GpuJpegDecoder::createDecoder(): Can't create decoder.");
+			throw std::runtime_error("GpuJpegDecoder::createDecoder(): Can't create decoder.");
 	}
 
 	void GpuJpegDecoder::destroyDecoder()

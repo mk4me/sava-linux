@@ -1,60 +1,74 @@
 BEGIN_PROJECT("static")
 
 SET_PUBLIC_HEADERS(
-	SMilestoneStructures.h
-	CvSerialization.h
-	IAppModule.h
-	ProgramOptions.h
-	Singleton.h
-	CvZoom.h
-	WebUtils.h
-	FileLock.h
-	CFPSCounter.h
-	timer.h
-	matrix.h
-	StatisticsProvider.h
-	Spinlock.h
-	Glossary.h
-	CvZoomObjects.h
-	gui.h
-	Stat.h
-	Hungarian.h
-	CAxisRawReader.h
-	Filesystem.h
-	SRawMJFPFrame.h
-	Console.h
-	munkres.h
-	pathFinder.h
-	PipeProcessUtils.h
-	BlockingQueue.h
-	WindowsUtilities.h
-	ImageConverter.h
-	MemTools.h
-	CCameraEnumerator.h
-	PipeProcess.h
-	Application.h
+		#AlertSender.h
+		Application.h
+		AxisRawReader.h
+		BlockingQueue.h
+		CvSerialization.h
+		CvZoom.h
+		CvZoomObjects.h
+		Database.h
+		FileLock.h
+		Filesystem.h
+		FPSCounter.h
+		GenerateStaticMJPG.h
+		GpuJpegUtils.h
+		GpuUtils.h
+		Hungarian.h
+		IAppModule.h
+		ICameraRawReader.h
+		ImageConverter.h
+		matrix.h
+		MemTools.h
+		#sava-linux.rev
+		#CameraEnumerator.h
+		#MilestoneRawReader.h
+		#MilestoneStructures.h
+		munkres.h
+		pathFinder.h
+		PipeProcess.h
+		PipeProcessUtils.h
+		ProgramOptions.h
+		RandomColor.h
+		RawMJFPFrame.h
+		Singleton.h
+		Spinlock.h
+		Stat.h
+		StatisticsProvider.h
+		timer.h
+		Version.h
+		WebUtils.h
+		WindowsUtilities.h
 )
 
 include_directories("${CMAKE_CURRENT_LIST_DIR}/../../include/utils/")
 #------------------------------------------------------------------------------
 
 SET_SOURCE_FILES(
-	Application.cpp
-	CAxisRawReader.cpp
-	StatisticsProvider.cpp
-	CCameraEnumerator.cpp
-	CvZoomObjects.cpp
-	Filesystem.cpp
-	WebUtils.cpp
-	Glossary.cpp
-	munkres.cpp
-	pathFinder.cpp
-	FileLock.cpp
-	gui.cpp
-	CvZoom.cpp
-	PipeProcessUtils.cpp
-	PipeProcess.cpp
-	Hungarian.cpp
+		#AlertSender.cpp
+		Application.cpp
+		AxisRawReader.cpp
+		CvZoom.cpp
+		CvZoomObjects.cpp
+		Database.cpp
+		FileLock.cpp
+		Filesystem.cpp
+		GenerateStaticMJPG.cpp
+		#sava-linux.rev
+		#GpuJpegUtils.cpp
+		#MilestoneRawReader.cpp
+		#CameraEnumerator.cpp
+		GpuUtils.cpp
+		Hungarian.cpp
+		munkres.cpp
+		pathFinder.cpp
+		PipeProcess.cpp
+		PipeProcessUtils.cpp
+		RandomColor.cpp
+		StatisticsProvider.cpp
+		Version.cpp
+		WebUtils.cpp
 )
 
 SET_MOC_FILES(

@@ -2,6 +2,7 @@
 #ifndef Monitor_h__
 #define Monitor_h__
 
+#include <stdlib.h>
 namespace boost
 {
 	namespace serialization

@@ -23,7 +23,7 @@ namespace sequence
 
 		//! Move constructor
 		Image(Image&& i) : m_Data(std::move(i.m_Data)) { }
-
+		Image(const Image&) = default;
 		//! Move assignment
 		Image& operator=(Image&& i)
 		{

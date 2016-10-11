@@ -2,34 +2,39 @@ BEGIN_PROJECT("static")
 
 SET_PUBLIC_HEADERS(
 	Action.h
-	Image.h
-	PathStream.h
-	Video.h
-	Cluster.h   
-	IStreamedVideo.h
-	RoiVideo.h
-	VideoUtils.h
+	Cluster.h
 	CompressedVideo.h
+	GpuVideo.h
+	Image.h
+	IStreamedVideo.h
 	IVideo.h
+	MetaVideo.h
+	PathStream.h
+	RoiVideo.h
 	StreamedVideo.h
-
+	Video.h
+	VideoPack.h
+	VideoUtils.h
 )
 
 include_directories("${CMAKE_CURRENT_LIST_DIR}/../../include/sequence/")
 #------------------------------------------------------------------------------
 
 SET_SOURCE_FILES(
-	Action.cpp           
-	Cluster.cpp          
-	CompressedVideo.cpp  
-	Image.cpp           
-	IStreamedVideo.cpp  
-	IVideo.cpp          
-	PathStream.cpp     
-	RoiVideo.cpp       
-	StreamedVideo.cpp
-	Video.cpp
+	Action.cpp
+    Image.cpp
+    PathStream.cpp
+    VideoPack.cpp
+	Cluster.cpp
+    IStreamedVideo.cpp
+	RoiVideo.cpp
 	VideoUtils.cpp
+	CompressedVideo.cpp
+	IVideo.cpp
+    StreamedVideo.cpp
+	#GpuVideo.cpp # sava-linux.rev
+    MetaVideo.cpp
+    Video.cpp
 )
 
 #SET_MOC_FILES(
