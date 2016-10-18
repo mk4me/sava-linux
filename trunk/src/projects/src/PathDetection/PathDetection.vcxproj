@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
@@ -14,7 +14,6 @@
     <ProjectGuid>{9C9868BD-C378-4A66-A022-3307D311839E}</ProjectGuid>
     <Keyword>Qt4VSv1.0</Keyword>
     <RootNamespace>PathDetection</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
@@ -26,7 +25,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -61,9 +60,9 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>$(ExternDir)\qt\lib;$(ExternDir)\lib\win64\$(Configuration)\OpenCV;$(ExternDir)\lib\win64\$(Configuration)\boost;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ExternDir)\qt\lib;$(ExternDir)\lib\win64\$(Configuration)\OpenCV;$(ExternDir)\lib\win64\$(Configuration)\boost;$(ExternDir)\lib\win64\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Qt5Core$(ShortConfiguration).lib;Qt5Gui$(ShortConfiguration).lib;Qt5Widgets$(ShortConfiguration).lib;opencv_core300$(ShortConfiguration).lib;opencv_highgui300$(ShortConfiguration).lib;opencv_imgcodecs300$(ShortConfiguration).lib;opencv_imgproc300$(ShortConfiguration).lib;opencv_video300$(ShortConfiguration).lib;opencv_xfeatures2d300$(ShortConfiguration).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Qt5Core$(ShortConfiguration).lib;Qt5Gui$(ShortConfiguration).lib;Qt5Widgets$(ShortConfiguration).lib;opencv_core300$(ShortConfiguration).lib;opencv_highgui300$(ShortConfiguration).lib;opencv_imgcodecs300$(ShortConfiguration).lib;opencv_imgproc300$(ShortConfiguration).lib;opencv_video300$(ShortConfiguration).lib;opencv_xfeatures2d300$(ShortConfiguration).lib;opencv_cudaimgproc300$(ShortConfiguration).lib;opencv_cudaoptflow300$(ShortConfiguration).lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -76,12 +75,13 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <DisableSpecificWarnings>4290</DisableSpecificWarnings>
+      <OpenMPSupport>true</OpenMPSupport>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>$(ExternDir)\qt\lib;$(ExternDir)\lib\win64\$(Configuration)\OpenCV;$(ExternDir)\lib\win64\$(Configuration)\boost;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ExternDir)\qt\lib;$(ExternDir)\lib\win64\$(Configuration)\OpenCV;$(ExternDir)\lib\win64\$(Configuration)\boost;$(ExternDir)\lib\win64\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Qt5Core$(ShortConfiguration).lib;Qt5Gui$(ShortConfiguration).lib;Qt5Widgets$(ShortConfiguration).lib;opencv_core300$(ShortConfiguration).lib;opencv_highgui300$(ShortConfiguration).lib;opencv_imgcodecs300$(ShortConfiguration).lib;opencv_imgproc300$(ShortConfiguration).lib;opencv_video300$(ShortConfiguration).lib;opencv_xfeatures2d300$(ShortConfiguration).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Qt5Core$(ShortConfiguration).lib;Qt5Gui$(ShortConfiguration).lib;Qt5Widgets$(ShortConfiguration).lib;opencv_core300$(ShortConfiguration).lib;opencv_highgui300$(ShortConfiguration).lib;opencv_imgcodecs300$(ShortConfiguration).lib;opencv_imgproc300$(ShortConfiguration).lib;opencv_video300$(ShortConfiguration).lib;opencv_xfeatures2d300$(ShortConfiguration).lib;opencv_cudaimgproc300$(ShortConfiguration).lib;opencv_cudaoptflow300$(ShortConfiguration).lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <Profile>true</Profile>
@@ -94,13 +94,16 @@
     <ClCompile Include="GeneratedFiles\Release\moc_PathDetection.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="src\Detector.cpp" />
+    <ClCompile Include="src\DefaultPathDetector.cpp" />
+    <ClCompile Include="src\DefaultSequenceDetector.cpp" />
+    <ClCompile Include="src\OpticalFlowPathDetector.cpp" />
+    <ClCompile Include="src\OpticalFlowSequenceDetector.cpp" />
     <ClCompile Include="src\path.cpp" />
     <ClCompile Include="src\PathDetection.cpp" />
     <ClCompile Include="src\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="src\Detector.h">
+    <CustomBuild Include="src\DefaultSequenceDetector.h">
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
       </Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Performing Custom Build Tools</Message>
@@ -153,6 +156,13 @@
     <ProjectReference Include="..\Utils\Utils.vcxproj">
       <Project>{a9144c9c-d51d-4c82-a1de-a6498f748c89}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\DefaultPathDetector.h" />
+    <ClInclude Include="src\IPathDetector.h" />
+    <ClInclude Include="src\ISequenceDetector.h" />
+    <ClInclude Include="src\OpticalFlowPathDetector.h" />
+    <ClInclude Include="src\OpticalFlowSequenceDetector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

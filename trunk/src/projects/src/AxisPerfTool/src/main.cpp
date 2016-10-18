@@ -5,9 +5,9 @@
 #include <QtGui/QImage>
 
 // CAxisRawReader
-#include <utils/CAxisRawReader.h>
+#include <utils/AxisRawReader.h>
 // Timers and stuff
-#include <utils/CFPSCounter.h>
+#include <utils/FPSCounter.h>
 // Program options
 #include <boost/program_options.hpp>
 namespace po = boost::program_options;
@@ -100,24 +100,6 @@ const cv::Mat getOpenCVMatFromBytes(const unsigned char* inData, const int inDat
 //! Main entry point
 int main(int argc, const char* argv[])
 {
-	/*
-	// Testowa konwersja czasu z czasu Milestone'a na czas boost'a
-	typedef long long tMilestoneTime;
-
-	tMilestoneTime timeVar0 = 1000 * 60 * 60 * 24 * 0; // day 0
-	tMilestoneTime timeVar1 = 1000 * 60 * 60 * 24 * 1; // day 1
-	tMilestoneTime timeVar2 = 1000 * 60 * 60 * 24 * 2; // day 2
-
-	boost::posix_time::ptime myTime0 = boost::posix_time::from_time_t(timeVar0 / 1000); // time_t is in seconds, milestone time is in ms
-	boost::posix_time::ptime myTime1 = boost::posix_time::from_time_t(timeVar1 / 1000);
-	boost::posix_time::ptime myTime2 = boost::posix_time::from_time_t(timeVar2 / 1000);
-
-	std::cout << myTime0 << std::endl;
-	std::cout << myTime1 << std::endl;
-	std::cout << myTime2 << std::endl;
-	return 0;
-	*/
-
 	// Parses program options
 	if (!parseProgramOptions(argc, argv))
 	{
@@ -132,7 +114,7 @@ int main(int argc, const char* argv[])
 	//
 	std::cout << "Streaming from " + g_CameraIP << " (" << (g_RawFPSOnly ? "PERFTEST" : "VIDEOMODE") << ") at " 
 		<< g_FPS << " FPS / Compression (%): " << g_Compression << std::endl;
-	utils::camera::CAxisRawReader myAxisReader(g_CameraIP, g_UserName + ":" + g_Password, g_FPS, g_Compression);
+	utils::camera::AxisRawReader myAxisReader(g_CameraIP, g_UserName + ":" + g_Password, g_FPS, g_Compression);
 
 	// Register plugins so getOpenCVMatFromBytes() can convert raw bytes to jpg
 	QApplication myQtApp(argc, const_cast<char**>(argv));
@@ -144,11 +126,11 @@ int main(int argc, const char* argv[])
 	cv::namedWindow(wndName);
 
 	// FPS counter
-	utils::CFPSCounter FPS;
+	utils::FPSCounter FPS;
 	float nowFPS;
 
 	// Temporary object for last frame
-	utils::camera::SRawMJPGFrame lastFrame;
+	utils::camera::RawMJPGFrame lastFrame;
 	while (cv::waitKey(1) != 27)
 	{
 		// Get last frame (moved to the temp - no copying)

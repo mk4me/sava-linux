@@ -5,7 +5,7 @@ namespace motion_analysis
 {
 	class OptimizedPathDistanceFactory : public PathDistanceFactory
 	{
-	protected:
+	public:
 		virtual std::shared_ptr<PathDistance> createImpl(
 			const motion_analysis::PathCluster& cluster,
 			const motion_analysis::Path& path,

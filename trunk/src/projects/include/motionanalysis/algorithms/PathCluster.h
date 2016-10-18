@@ -20,9 +20,10 @@ namespace motion_analysis {
 		/// Enables forward filter in update
 		static bool do_forward_filter_in_update;
 	
+		/// Path cluster identifier.
 		static int currentId;
 
-		/// Path identifier.
+		/// Path cluster identifier.
 		int id;
 
 		/// Mean displacement of paths contributing to the cluster.
@@ -45,6 +46,8 @@ namespace motion_analysis {
 
 		std::list<std::pair<Point, Point>> mergedGaps;
 
+		//Collection of estimated centers of the cluster.
+		std::list<Point> centers;
 		/// Gets number of elements in path cluster.
 		virtual const ::size_t elementsCount() const { return elements.size(); }
 
@@ -142,10 +145,9 @@ protected:
         PathCluster( const PathCluster& ref );
 
 		
+		// Stuff related to serialization.
 	private:
 
-
-		// Stuff related to serialization.
 		friend class boost::serialization::access;
 		// When the class Archive corresponds to an output archive, the
 		// & operator is defined similar to <<.  Likewise, when the class Archive

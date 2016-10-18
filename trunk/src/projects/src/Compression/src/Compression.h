@@ -6,18 +6,19 @@
 #include <utils/IAppModule.h>
 #include <utils/BlockingQueue.h>
 
-#include <opencv2\core.hpp>
+#include <opencv2/core.hpp>
 
-namespace cv
+namespace sequence
 {
-	class BackgroundSubtractor;
+	class CompressedVideo;
 }
 
 namespace sequence
 {
 	class IVideo;
-	class CompressedVideo;
 }
+
+class IPacker;
 
 class Compression : public utils::PipeProcess
 {
@@ -47,22 +48,12 @@ private:
 
 	std::unique_ptr<utils::FileLock> m_FileLock;
 
-	std::shared_ptr<sequence::CompressedVideo> m_CompressedVideo;
-	cv::Ptr<cv::BackgroundSubtractor> m_BackgroundSubtractor;	
-	cv::Mat m_LastBackground;
-	size_t m_BackgroundFrame;
+	
 	std::shared_ptr<utils::BlockingQueue<cv::Mat>> m_FramesQueue;
 	std::mutex m_CoutMutex;
 
-	int m_ImageCompression;
 
-	int m_BackgroundHistory;	// 300
-	int m_DifferenceThreshold;	// 20
-	float m_NewBackgroundMinPixels;		// 0.2
-	int m_MinCrumbleArea;		// 100
-	int m_MergeCrumblesIterations;	// 3
-
-	void resetBackgroundSubtractor();
+	std::shared_ptr<IPacker> m_Packer;
 
 	std::string getOutFileName() const;
 	std::string getInFileName() const;
@@ -71,6 +62,7 @@ private:
 	void compressFile(const std::string& fileName);
 	void save();
 	void cleanup();
+	//bool divideBoundingRects(std::vector<cv::Rect>& originalContours, std::vector<cv::Rect>& boundingRects, int divideIterations);
 };
 
 #endif // Compression_h__

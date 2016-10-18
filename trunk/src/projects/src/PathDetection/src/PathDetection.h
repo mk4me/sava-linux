@@ -8,7 +8,8 @@
 
 namespace clustering
 {
-	class Detector;
+	class ISequenceDetector;
+
 	class PathDetection : public utils::PipeProcess
 	{
 		Q_OBJECT
@@ -35,8 +36,9 @@ namespace clustering
 
 		std::unique_ptr<utils::FileLock> m_FileLock;
 		std::string m_FileName;
+		int m_LastIndex;
 
-		std::unique_ptr<Detector> m_Detector;
+		std::unique_ptr<ISequenceDetector> m_Detector;
 
 		bool m_Visualize;
 		QTimer m_Timer;

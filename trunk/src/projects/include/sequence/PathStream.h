@@ -29,6 +29,8 @@ namespace sequence
 			Path() { }
 			Path(Id id) : id(id) { }
 			Path(Path&& p) : id(p.id), points(std::move(p.points)) { }
+			Path(Path&) = default;
+			Path(const Path&) = default;
 			Path& operator=(Path&& p) { id = p.id; points = std::move(p.points); return *this; }
 
 			Id id;

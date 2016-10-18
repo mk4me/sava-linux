@@ -6,6 +6,10 @@
 
 #include <memory>
 
+#include <boost/timer/timer.hpp>
+
+#include <QtCore/QTimer>
+
 namespace motion_analysis
 {
 	class PathClustering;
@@ -18,8 +22,13 @@ namespace utils
 
 namespace clustering
 {	
+	class IVisualizer;
+	class ConfigurationWindow;
+	class PathAnalyzer;
+
 	class PathAnalysis : public utils::PipeProcess
 	{
+		Q_OBJECT
 	public:
 		virtual ~PathAnalysis();
 
@@ -31,30 +40,37 @@ namespace clustering
 	protected:
 		virtual void reserve() override;
 		virtual void process() override;
-		virtual void finalize() override;
 
 		void save();
 
 		void cleanup();
+
+	private slots:
+		void show();
 
 	private:
 		PathAnalysis();
 
 		static const std::string INPUT_FILE_EXTENSION;
 		static const std::string OUTPUT_FILE_EXTENSION;
-
-		std::shared_ptr<motion_analysis::PathClustering> m_PathClustering;
-		
+				
 		std::shared_ptr<utils::FileLock> m_FileLock;
+		std::shared_ptr<utils::FileLock> m_VideoFileLock;
 		std::string m_FileName;
 		int m_FileNumber;
-		long long m_StartTime;
-		unsigned long long m_LastMaxPathId;
 
 		std::string getInFileName() const;
+		std::string getVideoFileName() const;
 		std::string getOutFileName(unsigned subId) const;
 
+		
+		bool m_Visualize;
+		QTimer m_VisualizationTimer;
+		FilesystemPath m_VideoFolder;
 
+		std::shared_ptr<PathAnalyzer> m_PathAnalyzer;
+
+		void startVisualize();
 	};
 }
 

@@ -109,14 +109,12 @@ void path::draw(utils::ZoomObjectCollection& zoomCollection, float factor, DrawM
 
 bool path::validateWithPredictedNextPoint(Point2f newPt, float maxDistFromPredictedNextPoint)
 {
-	float dist = L2Dist(newPt, m_PredictedNextPoint);
-	return dist < maxDistFromPredictedNextPoint;
+	return DistSqr(newPt, m_PredictedNextPoint) < maxDistFromPredictedNextPoint;
 }
 
 bool path::validateWithPredictedNextWorldPoint(Point2f newWorldPt, float maxDistFromPredictedNextWorldPoint)
 {
-	float dist = L2Dist(newWorldPt, m_PredictedNextWorldPoint);
-	return dist < maxDistFromPredictedNextWorldPoint;
+	return DistSqr(newWorldPt, m_PredictedNextWorldPoint) < maxDistFromPredictedNextWorldPoint * maxDistFromPredictedNextWorldPoint;
 }
 
 int path::pushPoint(KeyPoint newPoint, float* descriptor, Point2f newWorldPoint)
@@ -194,12 +192,5 @@ int path::pushPoint(KeyPoint newPoint, float* descriptor, Point2f newWorldPoint)
 
 	// signal that the path is valid
 	return 0;
-}
-
-float path::L2Dist(Point2f pt1, Point2f pt2)
-{
-	const float diffX = pt1.x - pt2.x;
-	const float diffY = pt1.y - pt2.y;
-	return sqrt(diffX*diffX + diffY*diffY);
 }
 

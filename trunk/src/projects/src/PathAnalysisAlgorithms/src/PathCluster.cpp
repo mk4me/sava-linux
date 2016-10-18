@@ -262,7 +262,8 @@ bool motion_analysis::PathCluster::removePath( const std::shared_ptr<Path> & pat
 	
 	--current_bk;
 	this->elements.remove( path );
-	return ( elements.empty() == true );
+	//return ( elements.empty() == true );
+	return (current_bk == 0);
 }
 
 const ::size_t motion_analysis::PathCluster::computeMemoryUsage()
@@ -359,10 +360,20 @@ cv::Rect motion_analysis::PathCluster::getContour(PathTimeType time, const cv::S
 			}
 			else
 			{
-				if (box.x > p.x - margin.width) box.x = p.x - margin.width;
-				if (box.x + box.width < p.x + margin.width) box.width = p.x + margin.width - box.x;
-				if (box.y > p.y - margin.height) box.y = p.y - margin.height;
-				if (box.y + box.height < p.y + margin.height) box.height = p.y + margin.height - box.y;
+				if (box.x > p.x - margin.width) 
+				{
+					box.width += box.x - p.x + margin.width;
+					box.x = p.x - margin.width; 
+				}
+				if (box.x + box.width < p.x + margin.width)
+					box.width = p.x + margin.width - box.x;
+				if (box.y > p.y - margin.height) 
+				{
+					box.height += box.y - p.y + margin.height;
+					box.y = p.y - margin.height; 
+				}
+				if (box.y + box.height < p.y + margin.height) 
+					box.height = p.y + margin.height - box.y;
 			}
 		}
 	}

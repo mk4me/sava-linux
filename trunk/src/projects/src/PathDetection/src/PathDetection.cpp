@@ -1,7 +1,11 @@
 #include "PathDetection.h"
-#include "Detector.h"
+#include "DefaultSequenceDetector.h"
+#include "OpticalFlowSequenceDetector.h"
 
 #include <utils/PipeProcessUtils.h>
+#include <utils/Filesystem.h>
+
+#include <config/PathDetection.h>
 
 namespace clustering
 {
@@ -11,7 +15,7 @@ namespace clustering
 
 	PathDetection::PathDetection()
 		: utils::PipeProcess(INPUT_FILE_EXTENSION)
-		
+		, m_LastIndex(-1)
 	{
 
 	}
@@ -31,12 +35,16 @@ namespace clustering
 		PipeProcess::registerParameters(programOptions);
 
 		programOptions.add("visualize", "  visualization enabled");
+		programOptions.add<unsigned>("algorithm", "0 - optical flow, 1 - hungarian");
 
-		Detector::registerParameters(programOptions);
+		DefaultSequenceDetector::registerParameters(programOptions);
+		OpticalFlowSequenceDetector::registerParameters(programOptions);
 	}
 
 	bool PathDetection::loadParameters(const ProgramOptions& options)
 	{
+		config::PathDetection::getInstance().load();
+
 		std::cout << "================================================================================\n";
 		if (!PipeProcess::loadParameters(options))
 			return false;
@@ -44,9 +52,29 @@ namespace clustering
 		bool success = true;
 
 		m_Visualize = options.exists("visualize");
+		//m_Visualize = true;
 
-		m_Detector = std::make_unique<Detector>(m_Visualize);
+		unsigned algorithm = config::PathDetection::ALGORITHM_OPTFLOW;
+		if (!options.get<unsigned>("algorithm", algorithm))
+			algorithm = config::PathDetection::getInstance().getAlgorithm();
+
+		if (config::PathDetection::ALGORITHM_DEFAULT == algorithm)
+		{
+			std::cout << "Algorithm: Hungarian\n";
+			m_Detector = std::make_unique<DefaultSequenceDetector>(m_Visualize);
+		}
+		else if (config::PathDetection::ALGORITHM_OPTFLOW == algorithm)
+		{
+			std::cout << "Algorithm: Optical Flow\n";
+			m_Detector = std::make_unique<OpticalFlowSequenceDetector>(m_Visualize);
+		}
+		else
+		{
+			throw std::runtime_error("PathDetection::loadParameters(): Invalid algorithm");
+		}
 		m_Detector->loadParameters(options);
+
+		std::cout << std::setw(35) << "Visualize: " << m_Visualize << '\n';
 		std::cout << "================================================================================\n\n";
 
 		if (m_Visualize)
@@ -59,26 +87,34 @@ namespace clustering
 	{
 		m_FileLock.reset();
 
-		utils::PipeProcessUtils::IndicesMap files;
-		utils::PipeProcessUtils::getFilesIndices(files, getInputFolder(), INPUT_FILE_EXTENSION);
-
-		for (auto& fileEntry : files)
+		if (m_LastIndex == -1)
 		{
-			m_FileName = fileEntry.second.stem().filename().string();
+			utils::PipeProcessUtils::IndicesSet files;
+			utils::PipeProcessUtils::getFilesIndices(files, getInputFolder(), getFilePattern(), INPUT_FILE_EXTENSION);
 
-			m_FileLock = std::make_unique<utils::FileLock>(fileEntry.second.string() + ".loc");
-			if (!m_FileLock->lock())
-				continue;
+			if (files.empty())
+			{
+				waitForFile();
+				return;
+			}
 
+			m_LastIndex = *(files.begin());
+		}
+
+		for (;; ++m_LastIndex)
+		{			
+			m_FileName = getFilePattern() + "." + std::to_string(m_LastIndex);
+			
 			try
 			{
-				if (boost::filesystem::exists(getOutputFolder().string() + m_FileName + "." + OUTPUT_FILE_EXTENSION))
-					continue;
-
-				if (boost::filesystem::exists(getOutputFolder().string() + m_FileName + "." + OUTPUT_FILE_EXTENSION + ".loc"))
+				if (utils::Filesystem::exists(getOutputFolder().string() + m_FileName + "." + OUTPUT_FILE_EXTENSION))
 					continue;
 			}
 			catch (const boost::filesystem::filesystem_error&) { continue; }
+
+			m_FileLock = std::make_unique<utils::FileLock>(getOutputFolder().string() + m_FileName + "." + OUTPUT_FILE_EXTENSION + ".loc");
+			if (!m_FileLock->lock())
+				continue;
 
 			setState(PipeProcess::PROCESS);
 			return;
@@ -89,10 +125,16 @@ namespace clustering
 
 	void PathDetection::process()
 	{
-		utils::FileLock fileLock(getOutputFolder().string() + m_FileName + "." + OUTPUT_FILE_EXTENSION + ".loc");
+		if (!utils::Filesystem::exists(getInputFolder().string() + m_FileName + "." + INPUT_FILE_EXTENSION))
+		{
+			waitForFile();
+			return;
+		}
+
+		utils::FileLock fileLock(getInputFolder().string() + m_FileName + "." + INPUT_FILE_EXTENSION + ".loc");
 		if (!fileLock.lock())
 		{
-			setState(PipeProcess::RESERVE_FILE);
+			waitForFile();
 			return;
 		}
 
@@ -103,17 +145,13 @@ namespace clustering
 
 	void PathDetection::startVisualize()
 	{
-		if (m_Visualize)
-		{
-			m_Timer.setInterval(2);
-			connect(&m_Timer, SIGNAL(timeout()), this, SLOT(show()));
-			m_Timer.start();
-		}
+		m_Timer.setInterval(2);
+		connect(&m_Timer, SIGNAL(timeout()), this, SLOT(show()));
+		m_Timer.start();
 	}
 
 	void PathDetection::show()
 	{
 		m_Detector->show();
 	}
-
 }

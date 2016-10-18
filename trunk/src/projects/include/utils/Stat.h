@@ -56,7 +56,8 @@ public:
 			return 0.0;
 
 		double r = 0.0;
-		for(std::vector<T>::iterator p = stat.begin(); p != stat.end(); ++p)
+
+		for(auto p = stat.begin(); p != stat.end(); ++p)
 			r += (*p - mean) * (*p - mean);
 		
 		return std::sqrt(r / stat.size());

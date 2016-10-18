@@ -36,7 +36,13 @@ public:
 
 	int getPushedPoint() const { return _pushedPoint; }
 
-	static float L2Dist(cv::Point2f pt1, cv::Point2f pt2);
+	static float Dist(cv::Point2f pt1, cv::Point2f pt2) { return sqrt(DistSqr(pt1, pt2)); }
+	static float DistSqr(cv::Point2f pt1, cv::Point2f pt2)
+	{
+		const float diffX = pt1.x - pt2.x;
+		const float diffY = pt1.y - pt2.y;
+		return diffX*diffX + diffY*diffY;
+	}
 
 private:
 	unsigned long m_ID;

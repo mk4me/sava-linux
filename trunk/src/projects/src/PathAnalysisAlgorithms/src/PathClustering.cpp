@@ -10,7 +10,7 @@
 
 #include <set>
 
-#define REMOVE_CLUSTER_WHEN_FINISHED 0
+#define REMOVE_CLUSTER_WHEN_FINISHED 1
 
 
 BOOST_CLASS_EXPORT_IMPLEMENT(motion_analysis::PathClustering);

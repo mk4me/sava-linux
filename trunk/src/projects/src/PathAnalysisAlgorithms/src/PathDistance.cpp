@@ -79,7 +79,7 @@ motion_analysis::PathDistance::PathDistance(
         PathPositionType y = std::max( newCluster->b.y, diff.y ) / sqr( params.weightY );	// eq 14.y
         PathPositionType t = tangentialComponent /= sqr( params.weightTau );	// eq 14.t
         total = x + y + t;
-        //std::cout << "total: " << x << ", " << y << ", " << t << std::endl;
+		//std::cout << "Distance computing total: " << x << ", " << y << ", " << t << std::endl;
 
     } else {
         this->setToMax();
@@ -149,7 +149,7 @@ motion_analysis::PathDistance::PathDistance(
         PathPositionType x = std::max( newCluster->b.x, diff.x ) / sqr( params.weightX ); 	// eq. 36
         PathPositionType y = std::max( newCluster->b.y, diff.y ) / sqr( params.weightY );
         PathPositionType t = tangentialComponent / sqr( params.weightTau );
-        total = x + y + t;
+        total = x + y + t;		
 
     } else {
         this->setToMax();

@@ -62,7 +62,7 @@ namespace motion_analysis
 			factory = f;
 		}
 
-	protected:
+	public:
 		virtual std::shared_ptr<PathDistance> createImpl(
 			const motion_analysis::PathCluster& cluster,
 			const motion_analysis::Path& path,
