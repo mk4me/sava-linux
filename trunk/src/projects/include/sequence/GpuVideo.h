@@ -13,8 +13,6 @@
 
 #include <vector>
 #include <map>
-// sava-linux.rev
-/*
 namespace utils
 {
 	class GpuJpegDecoder;
@@ -101,5 +99,5 @@ namespace sequence
 		ar & m_Crumbles;
 	}
 }
-*/
+
 #endif // GpuVideo_h__

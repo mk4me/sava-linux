@@ -32,7 +32,7 @@ SET_SOURCE_FILES(
 	CompressedVideo.cpp
 	IVideo.cpp
     StreamedVideo.cpp
-	#GpuVideo.cpp # sava-linux.rev
+	GpuVideo.cpp
     MetaVideo.cpp
     Video.cpp
 )

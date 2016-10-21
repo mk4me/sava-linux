@@ -21,8 +21,8 @@ SET_PUBLIC_HEADERS(
 		ImageConverter.h
 		matrix.h
 		MemTools.h
+		CameraEnumerator.h
 		#sava-linux.rev
-		#CameraEnumerator.h
 		#MilestoneRawReader.h
 		#MilestoneStructures.h
 		munkres.h
@@ -55,10 +55,10 @@ SET_SOURCE_FILES(
 		FileLock.cpp
 		Filesystem.cpp
 		GenerateStaticMJPG.cpp
+		GpuJpegUtils.cpp
 		#sava-linux.rev
-		#GpuJpegUtils.cpp
 		#MilestoneRawReader.cpp
-		#CameraEnumerator.cpp
+		CameraEnumerator.cpp
 		GpuUtils.cpp
 		Hungarian.cpp
 		munkres.cpp

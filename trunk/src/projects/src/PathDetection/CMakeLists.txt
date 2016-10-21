@@ -23,4 +23,9 @@ SET_SOURCE_FILES(
 	PathDetection.cpp
 )
 
+
+SET_MOC_FILES(
+		PathDetection.h
+)
+
 END_PROJECT()

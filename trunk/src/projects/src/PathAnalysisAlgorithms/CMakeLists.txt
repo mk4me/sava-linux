@@ -1,4 +1,4 @@
-BEGIN_PROJECT("executable")
+BEGIN_PROJECT("static")
 
 
 

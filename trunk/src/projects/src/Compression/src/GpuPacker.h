@@ -3,7 +3,6 @@
 #define GpuPacker_h__
 
 #include "IPacker.h"
-/*  sava-linux.rev
 namespace cv
 {
 	class BackgroundSubtractor;
@@ -38,5 +37,4 @@ private:
 
 	void resetBackgroundSubtractor();
 };
-*/
 #endif // GpuPacker_h__

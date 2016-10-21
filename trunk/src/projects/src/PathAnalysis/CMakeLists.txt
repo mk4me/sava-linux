@@ -42,4 +42,9 @@ SET_SOURCE_FILES(
 	StatisticPathDistanceFactory.cpp
 )
 
+SET_MOC_FILES(
+		PathAnalysis.h
+)
+
+
 END_PROJECT()
