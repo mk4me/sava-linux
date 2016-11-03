@@ -6,6 +6,7 @@
 #include <boost/serialization/access.hpp>
 
 #include <fstream>
+#include <iostream>
 
 namespace config
 {

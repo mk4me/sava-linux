@@ -3,7 +3,7 @@
 #include "gbh/fisherVector_Nc.h"
 #include "gbh/stDescriptor.h"
 
-#include "Utils/Filesystem.h"
+#include "utils/Filesystem.h"
 
 #include <opencv/cxcore.h>
 #include <opencv/cv.h>
@@ -35,7 +35,7 @@ FisherVector::~FisherVector()
 
 bool FisherVector::load()
 {
-	m_GbhPath = utils::Filesystem::getDataPath() + "gbh/";
+	m_GbhPath = utils::Filesystem::getDataPath() + "action/gbh/";
 
 	if (!loadGmmGbh())
 		return false;
@@ -134,46 +134,55 @@ bool FisherVector::computeFvGbh(const std::string& i_VideoPath, std::vector<floa
 {
 	int samNum = 10000;
 
-	if (!m_GbhDetector->preProcessing(i_VideoPath, c_MaxFrames))
-		return false;
-
-	cv::Mat feature2;
-	m_GbhDetector->getRandomFeatures(feature2, samNum, m_GbhSeed);
-
-	int redoNum;
-	if (redoNum = m_GbhDetector->reProcessNum())   //if redoNum(" m_Detector->reProcessNum()") is not equal to zero
+	try
 	{
-		int dSz0, dSz1;
-		std::cout << "redo...\n";
-		for (int i0 = 1; i0 <= redoNum; i0++)
+		if (!m_GbhDetector->preProcessing(i_VideoPath, c_MaxFrames))
+			return false;
+
+		cv::Mat feature2;
+		m_GbhDetector->getRandomFeatures(feature2, samNum, m_GbhSeed);
+
+		int redoNum;
+		if (redoNum = m_GbhDetector->reProcessNum())   //if redoNum(" m_Detector->reProcessNum()") is not equal to zero
 		{
-			dSz0 = m_GbhDetector->getSamplingSz();
-			m_GbhDetector->re_Processing(i_VideoPath, c_MaxFrames, i0);
+			int dSz0, dSz1;
+			std::cout << "redo...\n";
+			for (int i0 = 1; i0 <= redoNum; i0++)
+			{
+				dSz0 = m_GbhDetector->getSamplingSz();
+				m_GbhDetector->re_Processing(i_VideoPath, c_MaxFrames, i0);
 
-			dSz1 = m_GbhDetector->getSamplingSz();
-			cv::Mat tmp0;
-			if (i0 < redoNum)
-				m_GbhDetector->getRandomFeatures(tmp0, samNum, m_GbhSeed);
-			else
-				m_GbhDetector->getRandomFeatures(tmp0, (unsigned)(((float)dSz1 / (float)dSz0) * samNum), m_GbhSeed);
+				dSz1 = m_GbhDetector->getSamplingSz();
+				cv::Mat tmp0;
+				if (i0 < redoNum)
+					m_GbhDetector->getRandomFeatures(tmp0, samNum, m_GbhSeed);
+				else
+					m_GbhDetector->getRandomFeatures(tmp0, (unsigned)(((float)dSz1 / (float)dSz0) * samNum), m_GbhSeed);
 
-			feature2.push_back(tmp0);
+				feature2.push_back(tmp0);
+			}
 		}
-	}
 
-	cv::Mat tmpPCA = cv::Mat(feature2.rows, m_GbhPcaCols[c_GbhChannels], feature2.type());
-	for (int i0 = 0; i0 < c_GbhChannels; i0++)
+		cv::Mat tmpPCA = cv::Mat(feature2.rows, m_GbhPcaCols[c_GbhChannels], feature2.type());
+		for (int i0 = 0; i0 < c_GbhChannels; i0++)
+		{
+			cv::Mat vec = feature2.colRange(m_GbhFtCols[i0], m_GbhFtCols[i0 + 1]);
+			cv::Mat coeffs = tmpPCA.colRange(m_GbhPcaCols[i0], m_GbhPcaCols[i0 + 1]);
+			m_GbhPCA[i0].project(vec, coeffs);
+		}
+
+		i_FisherVector.resize(m_GbhFvFt->getFVdim());
+		m_GbhFvFt->getFeatures(tmpPCA, &i_FisherVector[0]);
+		feature2.release();
+
+		return true;
+	}
+	catch (...)
 	{
-		cv::Mat vec = feature2.colRange(m_GbhFtCols[i0], m_GbhFtCols[i0 + 1]);
-		cv::Mat coeffs = tmpPCA.colRange(m_GbhPcaCols[i0], m_GbhPcaCols[i0 + 1]);
-		m_GbhPCA[i0].project(vec, coeffs);
+		std::cerr << "Detecton error! Ignoring..." << std::endl;
+		return false;
 	}
 
-	i_FisherVector.resize(m_GbhFvFt->getFVdim());
-	m_GbhFvFt->getFeatures(tmpPCA, &i_FisherVector[0]);
-	feature2.release();
-
-	return true;
 }
 
 bool FisherVector::normalize(scaleData* i_ScaleData, std::vector<float>& i_FisherVector)

@@ -5,6 +5,7 @@
 #include <boost/archive/binary_oarchive.hpp>
 
 #include <fstream>
+#include <iostream>
 
 namespace config
 {
@@ -60,9 +61,14 @@ namespace config
 			ia >> *this;
 			return true;
 		}
-		catch (const std::exception& e)
+		catch (const std::runtime_error& e)
 		{
 			std::cerr << "config::PathDetection::load() exception: " << e.what() << std::endl;
+			return false;
+		}
+		catch (const std::exception& e)
+		{
+			std::cerr << "config::PathDetection::load() exception: " << std::endl;
 			return false;
 		}
 	}
@@ -76,9 +82,14 @@ namespace config
 			oa << *this;
 			return true;
 		}
-		catch (const std::exception& e)
+		catch (const std::runtime_error& e)
 		{
 			std::cerr << "config::PathDetection::load() exception: " << e.what() << std::endl;
+			return false;
+		}
+		catch (const std::exception& e)
+		{
+			std::cerr << "config::PathDetection::load() exception: " << std::endl;
 			return false;
 		}
 	}

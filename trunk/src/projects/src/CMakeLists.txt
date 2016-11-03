@@ -9,3 +9,22 @@ ADD_PROJECT(AxisPerfTool "config;sequence;utils")
 ADD_PROJECT(PathAnalysisAlgorithms "BOOST;OPENCV;config;cvgui;sequence;utils") #OPENMP;
 ADD_PROJECT(PathAnalysis "BOOST;OPENCV;QT;config;cvgui;sequence;utils;PathAnalysisAlgorithms")
 
+BEGIN_PROJECTS_GROUP("ACTION")
+#ADD_PROJECT(Common "sequence" "Action/Common")
+
+ADD_PROJECT(GbhPipe "OPENCV;VLFEAT;sequence;config;utils" "Action/Pipe/GbhPipe")
+ADD_PROJECT(GetGmmGBH "OPENCV;VLFEAT;sequence;utils" "Action/Train/GetGmmGBH")
+ADD_PROJECT(GetGmmMBH "OPENCV;VLFEAT;sequence;utils" "Action/Train/GetGmmMbh")
+ADD_PROJECT(GetTrainTestDataGBH "VLFEAT;sequence;utils" "Action/Train/GetTrainTestDataGBH")
+ADD_PROJECT(GetTrainTestDataMBH "VLFEAT;sequence;utils" "Action/Train/GetTrainTestDataMBH")
+ADD_PROJECT(MergeData "VLFEAT;config;sequence;utils" "Action/Train/MergeData")
+ADD_PROJECT(SplitData "VLFEAT;config;sequence;utils" "Action/Train/SplitData")
+ADD_PROJECT(SvmTrain "VLFEAT;config;sequence;utils" "Action/Train/SvmTrain")
+ADD_PROJECT(TrainManager "VLFEAT;config;sequence;utils" "Action/Train/TrainManager")
+END_PROJECTS_GROUP()
+
+#ADD_PROJECT(SplitSetter "BOOST;sequence;utils")
+#ADD_PROJECT(network "BOOST;sequence;utils")
+#ADD_PROJECT(Monitor "BOOST;sequence;utils;network")
+
+

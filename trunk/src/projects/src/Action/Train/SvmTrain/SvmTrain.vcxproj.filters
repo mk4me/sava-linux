@@ -7,20 +7,14 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="svm.cpp">
+    <ClCompile Include="svmOvr.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="svmOvr.cpp">
+    <ClCompile Include="..\..\Common\svm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="chiSquareDist.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="svm.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Common\biistream.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -31,6 +25,12 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Common\formatBinaryStream.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\chiSquareDist.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\svm.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

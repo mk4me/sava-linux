@@ -10,8 +10,9 @@
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
     <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
     </Filter>
     <Filter Include="Generated Files">
       <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
@@ -33,44 +34,415 @@
       <Extensions>ui</Extensions>
       <ParseFiles>true</ParseFiles>
     </Filter>
+    <Filter Include="Source Files\Pipe">
+      <UniqueIdentifier>{09277bf8-cdd5-4346-bef0-bf2c2243783e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Pipe">
+      <UniqueIdentifier>{541c4514-56e8-4b67-ab32-3b62b34cb10e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Launcher">
+      <UniqueIdentifier>{dc2400e0-ff19-454b-b760-7bf723307715}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Launcher">
+      <UniqueIdentifier>{08b3a61b-12ea-472c-9d3b-11e0e07fa9cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Logic">
+      <UniqueIdentifier>{20daf317-d633-4667-8562-c195766205dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Logic">
+      <UniqueIdentifier>{4384c8b1-9f66-40b4-97f9-9aff32ca6c14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Gui">
+      <UniqueIdentifier>{3b670211-72e4-4ed3-beca-3f5361a8c571}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Gui">
+      <UniqueIdentifier>{37f03a7f-7a5a-4c49-8434-46e71800bdaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Gui\Replay">
+      <UniqueIdentifier>{b65bf0f1-7b17-4998-9fd4-e2a1572208cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Gui\Replay">
+      <UniqueIdentifier>{73b41234-7442-4d41-8080-7dd6d4209dce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Logic\Replay">
+      <UniqueIdentifier>{01b17e31-9af9-4fc3-b2f1-10df6ef47b9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Logic\Replay">
+      <UniqueIdentifier>{18dc205e-a28d-40da-a248-b6b7ac134e59}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_MonitorWindow.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_MonitorWindow.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="src\MonitorWindow.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="GeneratedFiles\qrc_resources.cpp">
+      <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_FrameTimer.cpp">
+    <ClCompile Include="GeneratedFiles\Debug\moc_AlertDialog.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_FrameTimer.cpp">
+    <ClCompile Include="GeneratedFiles\Release\moc_AlertDialog.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="src\FrameTimer.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MonitorGraphicsScene.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MonitorGraphicsScene.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MonitorGraphicsTimeItem.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MonitorGraphicsTimeItem.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MonitorGraphicsView.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MonitorGraphicsView.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_AlertDialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_AlertDialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MonitorGraphicsRegion.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MonitorGraphicsRegion.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MonitorVideoManager.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MonitorVideoManager.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MonitorFrames.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MonitorFrames.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MonitorAlertsTableDelegate.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MonitorAlertsTableDelegate.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MonitorAlertsTableView.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MonitorAlertsTableView.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MonitorGraphicsWaitItem.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MonitorGraphicsWaitItem.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MonitorLauncher.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MonitorLauncher.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_ReplayWindow.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_ReplayWindow.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MonitorPipe.cpp">
+      <Filter>Source Files\Pipe</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AbstractMonitor.cpp">
+      <Filter>Source Files\Pipe</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Main.cpp">
+      <Filter>Source Files\Pipe</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MilestoneMonitorPipe.cpp">
+      <Filter>Source Files\Pipe</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MonitorLauncher.cpp">
+      <Filter>Source Files\Launcher</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MilestoneAlertSender.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MonitorActionAlert.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MonitorActionManager.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MonitorAlert.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MonitorAlertManager.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MonitorConfig.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MonitorFrames.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MonitorRegion.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MonitorRegionAlert.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MonitorRegionsManager.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MonitorVideoManager.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ReplayWindow.cpp">
+      <Filter>Source Files\Gui\Replay</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MonitorWindow.cpp">
+      <Filter>Source Files\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MonitorGraphicsWaitItem.cpp">
+      <Filter>Source Files\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MonitorGraphicsView.cpp">
+      <Filter>Source Files\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MonitorGraphicsTimeItem.cpp">
+      <Filter>Source Files\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MonitorGraphicsScene.cpp">
+      <Filter>Source Files\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MonitorGraphicsRegionGroup.cpp">
+      <Filter>Source Files\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MonitorGraphicsRegion.cpp">
+      <Filter>Source Files\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MonitorGraphicsClusters.cpp">
+      <Filter>Source Files\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MonitorGraphicsBackground.cpp">
+      <Filter>Source Files\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MonitorAlertsTableView.cpp">
+      <Filter>Source Files\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MonitorAlertsTableModel.cpp">
+      <Filter>Source Files\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MonitorAlertsTableDelegate.cpp">
+      <Filter>Source Files\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AlertDialog.cpp">
+      <Filter>Source Files\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_ReplayTimer.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_ReplayTimer.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ReplayGraphicsScene.cpp">
+      <Filter>Source Files\Gui\Replay</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ReplayTimer.cpp">
+      <Filter>Source Files\Logic\Replay</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ReplayGraphicsAlert.cpp">
+      <Filter>Source Files\Gui\Replay</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ReplayGraphicsTime.cpp">
+      <Filter>Source Files\Gui\Replay</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ReplayVideo.cpp">
+      <Filter>Source Files\Logic\Replay</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ReplayGraphicsBackground.cpp">
+      <Filter>Source Files\Logic\Replay</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MonitorAlertManager.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MonitorAlertManager.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MonitorAlertsAcceptDialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MonitorAlertsAcceptDialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MonitorAlertsAcceptDialog.cpp">
+      <Filter>Source Files\Gui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="src\MonitorWindow.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="ui\MonitorWindow.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="src\FrameTimer.h">
-      <Filter>Header Files</Filter>
+    <CustomBuild Include="Resources\resources.qrc">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\AlertDialog.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\ReplayWindow.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\MonitorLauncher.h">
+      <Filter>Header Files\Launcher</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\MonitorActionManager.h">
+      <Filter>Header Files\Logic</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\MonitorFrames.h">
+      <Filter>Header Files\Logic</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\MonitorVideoManager.h">
+      <Filter>Header Files\Logic</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\ReplayWindow.h">
+      <Filter>Header Files\Gui\Replay</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\AlertDialog.h">
+      <Filter>Header Files\Gui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\MonitorAlertsTableDelegate.h">
+      <Filter>Header Files\Gui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\MonitorAlertsTableView.h">
+      <Filter>Header Files\Gui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\MonitorGraphicsClusters.h">
+      <Filter>Header Files\Gui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\MonitorGraphicsRegion.h">
+      <Filter>Header Files\Gui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\MonitorGraphicsRegionGroup.h">
+      <Filter>Header Files\Gui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\MonitorGraphicsScene.h">
+      <Filter>Header Files\Gui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\MonitorGraphicsTimeItem.h">
+      <Filter>Header Files\Gui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\MonitorGraphicsView.h">
+      <Filter>Header Files\Gui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\MonitorGraphicsWaitItem.h">
+      <Filter>Header Files\Gui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\MonitorWindow.h">
+      <Filter>Header Files\Gui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\ReplayTimer.h">
+      <Filter>Header Files\Logic\Replay</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\MonitorAlertManager.h">
+      <Filter>Header Files\Logic</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\MonitorAlertsAcceptDialog.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\MonitorAlertsAcceptDialog.h">
+      <Filter>Header Files\Gui</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_MonitorWindow.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_AlertDialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_ReplayWindow.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AbstractMonitor.h">
+      <Filter>Header Files\Pipe</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MonitorPipe.h">
+      <Filter>Header Files\Pipe</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MilestoneMonitorPipe.h">
+      <Filter>Header Files\Pipe</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MilestoneAlertSender.h">
+      <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MonitorActionAlert.h">
+      <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MonitorAlert.h">
+      <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MonitorConfig.h">
+      <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MonitorRegion.h">
+      <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MonitorRegionAlert.h">
+      <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MonitorRegionsManager.h">
+      <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MonitorAlertsTableModel.h">
+      <Filter>Header Files\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MonitorGraphicsBackground.h">
+      <Filter>Header Files\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ReplayGraphicsScene.h">
+      <Filter>Header Files\Gui\Replay</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ReplayGraphicsAlert.h">
+      <Filter>Header Files\Gui\Replay</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ReplayGraphicsTime.h">
+      <Filter>Header Files\Gui\Replay</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ReplayVideo.h">
+      <Filter>Header Files\Logic\Replay</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ReplayGraphicsBackground.h">
+      <Filter>Header Files\Gui\Replay</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_MonitorAlertsAcceptDialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\icons_64\pencil.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\icons_64\tool.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\icons_64\train.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\icons_64\video.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\icons_64\record.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

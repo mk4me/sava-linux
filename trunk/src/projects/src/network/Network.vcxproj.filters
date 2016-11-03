@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;cxx;c;def</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h</Extensions>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>moc;h;cpp</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Header Files\Command">
+      <UniqueIdentifier>{cf349880-6ff6-4d18-bc2e-3714c5f6428e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Command">
+      <UniqueIdentifier>{7499f40d-3976-47f0-8e5f-53b9d75b3761}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated Files\Debug">
+      <UniqueIdentifier>{60c2427f-b027-4d78-9390-838206ca6a23}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Release">
+      <UniqueIdentifier>{ac988391-868e-450c-9028-5e50e080a101}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Header Files\Udp">
+      <UniqueIdentifier>{26104071-a4fc-4652-a09f-9791e22640dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Tcp">
+      <UniqueIdentifier>{622c967d-2a2e-47ae-ac83-ddddcd0b2034}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Udp">
+      <UniqueIdentifier>{daf3c7c8-72b0-4c89-ba20-f794c295443b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Tcp">
+      <UniqueIdentifier>{0c9e5b12-e59d-45ad-9a68-62f0934eb093}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Manager">
+      <UniqueIdentifier>{6800580a-1e07-4cb3-b9f2-2fa8e69c0c76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Manager">
+      <UniqueIdentifier>{4a38a65d-b58f-4726-a7cc-c2128bd0e3a0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\network\AbstractCommand.h">
+      <Filter>Header Files\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\network\NetworkMessage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\network\RaportErrorCommand.h">
+      <Filter>Header Files\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\network\RaportFinishedCommand.h">
+      <Filter>Header Files\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\network\Session.h">
+      <Filter>Header Files\Tcp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\network\SessionUser.h">
+      <Filter>Header Files\Tcp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\network\StartCommand.h">
+      <Filter>Header Files\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\network\StopCommand.h">
+      <Filter>Header Files\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\network\BroadcastSender.h">
+      <Filter>Header Files\Udp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\network\KillCommand.h">
+      <Filter>Header Files\Command</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\include\network\BroadcastReceiver.h">
+      <Filter>Header Files\Udp</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\include\network\Connector.h">
+      <Filter>Header Files\Tcp</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\include\network\Acceptor.h">
+      <Filter>Header Files\Tcp</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\include\network\SessionHub.h">
+      <Filter>Header Files\Tcp</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\include\network\ConnectionManager.h">
+      <Filter>Header Files\Manager</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\include\network\ProcessServer.h">
+      <Filter>Header Files\Manager</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\include\network\ProcessManagerLib.h">
+      <Filter>Header Files\Manager</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\AbstractCommand.cpp">
+      <Filter>Source Files\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RaportErrorCommand.cpp">
+      <Filter>Source Files\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RaportFinishedCommand.cpp">
+      <Filter>Source Files\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Session.cpp">
+      <Filter>Source Files\Tcp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SessionHub.cpp">
+      <Filter>Source Files\Tcp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StartCommand.cpp">
+      <Filter>Source Files\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StopCommand.cpp">
+      <Filter>Source Files\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Connector.cpp">
+      <Filter>Source Files\Tcp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BroadcastSender.cpp">
+      <Filter>Source Files\Udp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BroadcastReceiver.cpp">
+      <Filter>Source Files\Udp</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_Connector.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_Connector.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Acceptor.cpp">
+      <Filter>Source Files\Tcp</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_Acceptor.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_Acceptor.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\KillCommand.cpp">
+      <Filter>Source Files\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_SessionHub.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_SessionHub.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_ConnectionManager.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_ConnectionManager.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ConnectionManager.cpp">
+      <Filter>Source Files\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ProcessServer.cpp">
+      <Filter>Source Files\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_ProcessServer.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_ProcessServer.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ProcessManagerLib.cpp">
+      <Filter>Source Files\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_ProcessManagerLib.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_ProcessManagerLib.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

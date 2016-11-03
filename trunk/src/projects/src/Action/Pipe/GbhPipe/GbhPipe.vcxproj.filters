@@ -14,9 +14,6 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Descriptor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\FisherVector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -29,11 +26,11 @@
     <ClCompile Include="..\..\Common\gbh\integralVideo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Common\Descriptor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Descriptor.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\FisherVector.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -47,6 +44,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Common\gbh\integralVideo.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Descriptor.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

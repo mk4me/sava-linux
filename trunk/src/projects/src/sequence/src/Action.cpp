@@ -4,6 +4,7 @@
 #include <boost/archive/binary_oarchive.hpp>
 
 #include <fstream>
+#include <iostream>
 
 namespace sequence
 {
@@ -37,9 +38,14 @@ namespace sequence
 			oa << *this;
 			return true;
 		}
-		catch (const std::exception& e)
+		catch (const std::runtime_error& e)
 		{
 			std::cerr << "sequence::Action::save() exception: " << e.what() << std::endl;
+			return false;
+		}
+		catch (const std::exception& e)
+		{
+			std::cerr << "sequence::Action::save() exception." << std::endl;
 			return false;
 		}
 	}

@@ -3,6 +3,8 @@
 
 int main(int argc, const char** argv)
 {
+	Descriptor::setOutFileExtension("gbh");
+
 	utils::Application::registerExitFunction();
 
 	utils::Application::getInstance()->registerModule<Descriptor>("descriptor", "descriptor");

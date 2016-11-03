@@ -6,6 +6,7 @@
 #include <boost/serialization/access.hpp>
 
 #include <fstream>
+#include <iostream>
 
 template<class Archive>
 void config::PartitionAnalyzer::serialize(Archive & ar, const unsigned int version)

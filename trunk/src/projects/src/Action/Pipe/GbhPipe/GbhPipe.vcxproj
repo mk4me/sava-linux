@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
@@ -11,22 +11,25 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Common\Descriptor.cpp" />
     <ClCompile Include="..\..\Common\gbh\descFeature.cpp" />
     <ClCompile Include="..\..\Common\gbh\integralVideo.cpp" />
     <ClCompile Include="..\..\Common\gbh\stDescriptor.cc" />
-    <ClCompile Include="src\Descriptor.cpp" />
     <ClCompile Include="src\FisherVector.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Common\Descriptor.h" />
     <ClInclude Include="..\..\Common\gbh\descFeature.h" />
     <ClInclude Include="..\..\Common\gbh\fisherVector_Nc.h" />
     <ClInclude Include="..\..\Common\gbh\integralVideo.h" />
     <ClInclude Include="..\..\Common\gbh\stDescriptor.h" />
-    <ClInclude Include="src\Descriptor.h" />
     <ClInclude Include="src\FisherVector.h" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Configuration\Configuration.vcxproj">
+      <Project>{0a4bb53d-a741-44db-939e-eda68954facc}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Sequence\Sequence.vcxproj">
       <Project>{518f2e47-9af0-4021-8a31-abf76ac4dbea}</Project>
     </ProjectReference>
@@ -38,7 +41,6 @@
     <ProjectGuid>{AF1E6FE0-3539-44B3-A44C-E75B7AF8A0EE}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>GbhPipe</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
@@ -50,7 +52,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
@@ -83,7 +85,8 @@
       <WarningLevel>Level2</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\Common;$(SolutionDir)include;$(ExternDir)\include\boost;$(ExternDir)\include\OpenCV;$(ExternDir)\include\vlfeat;$(ExternDir)\qt\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\src;..\..\Common;$(SolutionDir)include;$(ExternDir)\include\boost;$(ExternDir)\include\OpenCV;$(ExternDir)\include\vlfeat;$(ExternDir)\qt\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OpenMPSupport>true</OpenMPSupport>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -101,7 +104,8 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\Common;$(SolutionDir)include;$(ExternDir)\include\boost;$(ExternDir)\include\OpenCV;$(ExternDir)\include\vlfeat;$(ExternDir)\qt\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\src;..\..\Common;$(SolutionDir)include;$(ExternDir)\include\boost;$(ExternDir)\include\OpenCV;$(ExternDir)\include\vlfeat;$(ExternDir)\qt\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OpenMPSupport>true</OpenMPSupport>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

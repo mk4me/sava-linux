@@ -11,6 +11,7 @@
 #include <boost/serialization/version.hpp>
 
 #include <fstream>
+#include <iostream>
 
 BOOST_CLASS_VERSION(config::Glossary, 1)
 
