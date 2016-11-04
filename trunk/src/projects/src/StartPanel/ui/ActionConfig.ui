@@ -6,57 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>134</height>
+    <width>394</width>
+    <height>315</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Action</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="1" column="0">
-    <widget class="QLabel" name="label_2">
-     <property name="text">
-      <string>Descriptor type:</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="1">
-    <widget class="QLineEdit" name="m_DatabasePath"/>
-   </item>
-   <item row="0" column="0">
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>Database path:</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="2">
-    <widget class="QPushButton" name="m_SelectPath">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>30</width>
-       <height>16777215</height>
-      </size>
-     </property>
-     <property name="text">
-      <string>...</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="1" colspan="2">
+   <item row="1" column="1" colspan="3">
     <widget class="QComboBox" name="m_DescType">
      <item>
       <property name="text">
@@ -75,40 +33,209 @@
      </item>
     </widget>
    </item>
-   <item row="2" column="0" colspan="3">
-    <spacer name="verticalSpacer">
+   <item row="4" column="3">
+    <widget class="QSpinBox" name="m_TestLength">
+     <property name="minimum">
+      <number>10</number>
+     </property>
+     <property name="maximum">
+      <number>999</number>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1" colspan="3">
+    <widget class="QSpinBox" name="m_MinFrames">
+     <property name="minimum">
+      <number>5</number>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="0">
+    <widget class="QLabel" name="label_3">
+     <property name="text">
+      <string>Glossary:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_2">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string>Descriptor type:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_4">
+     <property name="text">
+      <string>Min video frames:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="2">
+    <widget class="QPushButton" name="m_Edit">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="text">
+      <string>Edit</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="0" colspan="4">
+    <widget class="Line" name="line">
      <property name="orientation">
-      <enum>Qt::Vertical</enum>
+      <enum>Qt::Horizontal</enum>
      </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
+    </widget>
+   </item>
+   <item row="4" column="2">
+    <widget class="QLabel" name="label_6">
+     <property name="text">
+      <string>Test set length:</string>
      </property>
-    </spacer>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="3">
+    <widget class="QPushButton" name="m_Remove">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="text">
+      <string>Remove</string>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="1" colspan="3">
+    <widget class="QListWidget" name="m_Glossary">
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
+     <property name="showDropIndicator" stdset="0">
+      <bool>false</bool>
+     </property>
+     <property name="uniformItemSizes">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QSpinBox" name="m_TrainLength">
+     <property name="minimum">
+      <number>10</number>
+     </property>
+     <property name="maximum">
+      <number>999</number>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="label_5">
+     <property name="text">
+      <string>Train set length:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="1">
+    <widget class="QPushButton" name="m_Add">
+     <property name="text">
+      <string>Add</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="label_7">
+     <property name="text">
+      <string>Max video width:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="QSpinBox" name="m_MaxVideoWidth">
+     <property name="minimum">
+      <number>50</number>
+     </property>
+     <property name="maximum">
+      <number>999</number>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="2">
+    <widget class="QLabel" name="label_8">
+     <property name="text">
+      <string>height:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="3">
+    <widget class="QSpinBox" name="m_MaxVideoHeight">
+     <property name="minimum">
+      <number>50</number>
+     </property>
+     <property name="maximum">
+      <number>999</number>
+     </property>
+     <property name="value">
+      <number>250</number>
+     </property>
+    </widget>
    </item>
   </layout>
+  <zorder>label_2</zorder>
+  <zorder>m_DescType</zorder>
+  <zorder>line</zorder>
+  <zorder>m_Edit</zorder>
+  <zorder>m_Remove</zorder>
+  <zorder>m_Add</zorder>
+  <zorder>label_3</zorder>
+  <zorder>m_Glossary</zorder>
+  <zorder>label_4</zorder>
+  <zorder>m_MinFrames</zorder>
+  <zorder>label_5</zorder>
+  <zorder>m_TrainLength</zorder>
+  <zorder>label_6</zorder>
+  <zorder>m_TestLength</zorder>
+  <zorder>label_7</zorder>
+  <zorder>m_MaxVideoWidth</zorder>
+  <zorder>label_8</zorder>
+  <zorder>m_MaxVideoHeight</zorder>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>m_DescType</tabstop>
+  <tabstop>m_Glossary</tabstop>
+  <tabstop>m_Add</tabstop>
+  <tabstop>m_Edit</tabstop>
+  <tabstop>m_Remove</tabstop>
+ </tabstops>
  <resources/>
  <connections>
-  <connection>
-   <sender>m_DatabasePath</sender>
-   <signal>editingFinished()</signal>
-   <receiver>ActionConfig</receiver>
-   <slot>databasePathChanged()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>223</x>
-     <y>19</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>199</x>
-     <y>66</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>m_DescType</sender>
    <signal>currentIndexChanged(int)</signal>
@@ -126,25 +253,177 @@
    </hints>
   </connection>
   <connection>
-   <sender>m_SelectPath</sender>
-   <signal>clicked()</signal>
+   <sender>m_Glossary</sender>
+   <signal>currentRowChanged(int)</signal>
    <receiver>ActionConfig</receiver>
-   <slot>selectDatabasePath()</slot>
+   <slot>onGlossarySelChanged(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>375</x>
-     <y>20</y>
+     <x>248</x>
+     <y>175</y>
     </hint>
     <hint type="destinationlabel">
      <x>199</x>
-     <y>66</y>
+     <y>157</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_Glossary</sender>
+   <signal>itemDoubleClicked(QListWidgetItem*)</signal>
+   <receiver>ActionConfig</receiver>
+   <slot>editGlossaryItem(QListWidgetItem*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>175</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>157</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_Add</sender>
+   <signal>clicked()</signal>
+   <receiver>ActionConfig</receiver>
+   <slot>addGlossaryItem()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>151</x>
+     <y>294</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>157</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_Edit</sender>
+   <signal>clicked()</signal>
+   <receiver>ActionConfig</receiver>
+   <slot>editGlossaryItem()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>294</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>157</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_Remove</sender>
+   <signal>clicked()</signal>
+   <receiver>ActionConfig</receiver>
+   <slot>removeGlossaryItem()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>345</x>
+     <y>294</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>157</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_MinFrames</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>ActionConfig</receiver>
+   <slot>setMinFrames(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>244</x>
+     <y>75</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>196</x>
+     <y>157</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_TrainLength</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>ActionConfig</receiver>
+   <slot>setTrainLength(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>149</x>
+     <y>101</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>196</x>
+     <y>157</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_TestLength</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>ActionConfig</receiver>
+   <slot>setTestLength(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>340</x>
+     <y>101</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>196</x>
+     <y>157</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_MaxVideoWidth</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>ActionConfig</receiver>
+   <slot>setMaxVideoWidth(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>149</x>
+     <y>70</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>196</x>
+     <y>157</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_MaxVideoHeight</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>ActionConfig</receiver>
+   <slot>setMaxVideoHeight(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>340</x>
+     <y>70</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>196</x>
+     <y>157</y>
     </hint>
    </hints>
   </connection>
  </connections>
  <slots>
-  <slot>selectDatabasePath()</slot>
-  <slot>databasePathChanged()</slot>
   <slot>setDescriptorType(int)</slot>
+  <slot>onGlossarySelChanged(int)</slot>
+  <slot>editGlossaryItem()</slot>
+  <slot>editGlossaryItem(QListWidgetItem*)</slot>
+  <slot>addGlossaryItem()</slot>
+  <slot>removeGlossaryItem()</slot>
+  <slot>setMinFrames(int)</slot>
+  <slot>setTrainLength(int)</slot>
+  <slot>setTestLength(int)</slot>
+  <slot>setMaxVideoWidth(int)</slot>
+  <slot>setMaxVideoHeight(int)</slot>
  </slots>
 </ui>

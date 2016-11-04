@@ -3,8 +3,6 @@
 
 #include "IConfigItem.h"
 
-#include <config/PathAnalysis.h>
-
 namespace Ui {class PathAnalysisConfig;};
 
 class PathAnalysisConfig : public IConfigItem
@@ -20,6 +18,7 @@ public:
 
 private slots:
 	// general tab
+	void setAnalyzer(const QString& val);
 	void setUseOpenMP(bool val);
 	void setAlpha(double val);
 	void setMinimumPathLength(int val);
@@ -60,9 +59,16 @@ private slots:
 	void setMergingThresholdsY(double val);
 	void setMergingOldestClusterTime(int val);
 
+	void setMinProcessTime(int val);
+	void setMaxClusterWidth(int val);
+	void setMaxClusterHeight(int val);
+	
+	void setMinPathsInCluster(int val);
+
 private:
 	Ui::PathAnalysisConfig *ui;
-	config::PathAnalysis m_Config;
+
+	IConfigItem* m_PartitionConfig;
 };
 
 #endif // PATHANALYSISCONFIG_H

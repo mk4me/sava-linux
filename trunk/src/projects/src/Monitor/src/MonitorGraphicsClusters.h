@@ -1,15 +1,15 @@
 #ifndef MONITORGRAPHICSCLUSTERS_H
 #define MONITORGRAPHICSCLUSTERS_H
 
-#include <QGraphicsItem>
-#include <QPen>
-#include <QFont>
-#include <QPainter>
-#include <QGraphicsScene>
+#include <QtWidgets/QGraphicsItem>
+#include <QtGui/QPen>
+#include <QtGui/QFont>
+#include <QtGui/QPainter>
+#include <QtWidgets/QGraphicsScene>
 
-#include "config\Glossary.h"
-#include "sequence\Cluster.h"
-#include "sequence\Action.h"
+#include "config/Glossary.h"
+#include "sequence/Cluster.h"
+#include "sequence/Action.h"
 
 #include "MonitorVideoManager.h"
 #include "MonitorActionManager.h"

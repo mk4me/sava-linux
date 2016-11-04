@@ -3,7 +3,8 @@
 
 #include "ui_ActionConfig.h"
 #include "IConfigItem.h"
-#include "config\Action.h"
+
+#include "config/Glossary.h"
 
 class ActionConfig : public IConfigItem
 {
@@ -17,13 +18,24 @@ public:
 	virtual bool save();
 
 private slots:
-	void selectDatabasePath();
-	void databasePathChanged();
 	void setDescriptorType(int type);
+	void setMinFrames(int minFrames);
+	void setTrainLength(int length);
+	void setTestLength(int length);
+	void setMaxVideoWidth(int width);
+	void setMaxVideoHeight(int height);
+
+	void onGlossarySelChanged(int row);
+	void editGlossaryItem();
+	void editGlossaryItem(QListWidgetItem* item);
+	void addGlossaryItem();
+	void removeGlossaryItem();
 
 private:
 	Ui::ActionConfig ui;
-	config::Action m_Config;
+
+	static QListWidgetItem* createItem(const config::Glossary::Action& action);
+	static void setItem(QListWidgetItem* item, const QString& name, bool training);
 };
 
 #endif // ACTIONCONFIG_H

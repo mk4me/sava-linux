@@ -1,6 +1,6 @@
 #include "MonitorVideoManager.h"
-#include "QTimer"
-#include "Sequence\Cluster.h"
+#include "QtCore/QTimer"
+#include "sequence/Cluster.h"
 
 
 MonitorVideoManager::MonitorVideoManager(QObject *parent)

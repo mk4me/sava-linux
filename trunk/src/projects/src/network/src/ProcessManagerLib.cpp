@@ -5,7 +5,7 @@
 #include "RaportErrorCommand.h"
 #include "RaportFinishedCommand.h"
 
-#include <QThread>
+#include <QtCore/QThread>
 
 namespace Network
 {

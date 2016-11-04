@@ -1,5 +1,6 @@
 #pragma once
-#include "QGraphicsItem.h"
+#include "QtWidgets/QGraphicsItem"
+#include <QtWidgets/QGraphicsView>
 #include "boost/date_time/posix_time/posix_time.hpp"
 #include "sequence/IVideo.h"
 
@@ -8,7 +9,7 @@
 class MonitorGraphicsTimeItem : public QObject, public QGraphicsItem
 {
 	Q_OBJECT;
-	Q_INTERFACES(QGraphicsItem)
+	//Q_INTERFACES(QGraphicsItem)
 
 public:
 	MonitorGraphicsTimeItem(QGraphicsItem* parent = 0);

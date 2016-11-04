@@ -1,5 +1,6 @@
 #include "MonitorFrames.h"
-#include "boost\detail\winapi\time.hpp"
+//sava-linux.rev
+//#include "boost/detail/winapi/time.hpp"
 
 MonitorFrames::MonitorFrames(QObject *parent)
 	: QObject(parent)

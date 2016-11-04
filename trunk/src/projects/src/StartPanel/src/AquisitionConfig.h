@@ -2,7 +2,6 @@
 #define AQUISITIONCONFIG_H
 
 #include "IConfigItem.h"
-#include <config\Aquisition.h>
 
 namespace Ui {class AquisitionConfig;};
 
@@ -24,7 +23,6 @@ private slots:
 
 private:
 	Ui::AquisitionConfig *ui;
-	config::Aquisition m_Config;
 };
 
 #endif // AQUISITIONCONFIG_H

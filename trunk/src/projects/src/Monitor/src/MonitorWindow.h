@@ -4,11 +4,11 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_MonitorWindow.h"
 
-#include <QtCore/QKeyEvent>
+#include <QtGui/QKeyEvent>
 #include <QtWidgets/QFileDialog>
 #include <QtCore/QFileInfo>
 #include <QtCore/QDir>
-#include <QtWidgetsQColorDialog>
+#include <QtWidgets/QColorDialog>
 
 #include "MonitorVideoManager.h"
 #include "MonitorFrames.h"

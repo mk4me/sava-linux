@@ -7,7 +7,7 @@
 #include "config/Network.h"
 
 #include <QtCore/QProcess>
-#include <QThread>
+#include <QtCore/QThread>
 
 #include <iostream>
 #include <algorithm>

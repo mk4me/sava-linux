@@ -1,8 +1,8 @@
 #ifndef MONITORGRAPHICSALERTREGIONGROUP_H
 #define MONITORGRAPHICSALERTREGIONGROUP_H
 
-#include <QGraphicsItem>
-#include <QKeyEvent>
+#include <QtWidgets/QGraphicsItem>
+#include <QtGui/QKeyEvent>
 #include "MonitorGraphicsRegion.h"
 #include "MonitorGraphicsRegionGroup.h"
 #include "MonitorVideoManager.h"

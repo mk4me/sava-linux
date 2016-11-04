@@ -1,6 +1,6 @@
 #include "ReplayWindow.h"
-#include "utils\ImageConverter.h"
-#include <QDebug>
+#include "utils/ImageConverter.h"
+#include <QtCore/QDebug>
 
 ReplayWindow::ReplayWindow(QWidget *parent)
 	: QMainWindow(parent)

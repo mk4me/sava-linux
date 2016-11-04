@@ -4,6 +4,7 @@
 #include <QtCore/QObject>
 
 #include "network/ProcessServer.h"
+#include <inttypes.h>
 
 class MonitorLauncher : public QObject
 {
@@ -25,7 +26,7 @@ private:
 	Network::ProcessServer m_ProcessServer;
 
 	bool startPipe();
-	bool runCommand(const QString& description, const std::string& command, const std::string& tag, const std::vector<__int64>& nodes);
+	bool runCommand(const QString& description, const std::string& command, const std::string& tag, const std::vector<int64_t>& nodes);
 
 	std::string getCompressVideoCommand() const;
 

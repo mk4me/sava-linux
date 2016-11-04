@@ -15,6 +15,9 @@ public:
 private slots:
 	void showConfigDialog();
 	void runAnnotationEditor();
+	void runActionTraining();
+	void runAquisition();
+	void runMonitor();
 
 private:
 	Ui::StartPanelClass ui;

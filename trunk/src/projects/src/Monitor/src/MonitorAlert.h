@@ -7,13 +7,13 @@
 #include <sequence/IVideo.h>
 #include <sequence/Cluster.h>
 
-#include "boost\archive\binary_iarchive.hpp"
-#include "boost\archive\binary_oarchive.hpp"
-#include "boost\serialization\shared_ptr.hpp"
+#include "boost/archive/binary_iarchive.hpp"
+#include "boost/archive/binary_oarchive.hpp"
+#include "boost/serialization/shared_ptr.hpp"
 #include "boost/serialization/export.hpp"
 #include <boost/serialization/nvp.hpp>
 
-#include <QPolygonF>
+#include <QtGui/QPolygonF>
 
 /////////////////////////////////////////////////////////////////////////
 class MonitorAlert

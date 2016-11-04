@@ -1,11 +1,11 @@
 #ifndef FRAMETIMER_H
 #define FRAMETIMER_H
 
-#include <QObject>
-#include <QTimer>
-#include <QDebug>
+#include <QtCore/QObject>
+#include <QtCore/QTimer>
+#include <QtCore/QDebug>
 
-#include "Sequence\IVideo.h"
+#include "sequence/IVideo.h"
 
 #include "utils/Singleton.h"
 

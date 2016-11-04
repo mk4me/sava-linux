@@ -1,6 +1,6 @@
 #include "AlertDialog.h"
-#include <QDebug>
-#include <QCheckBox>
+#include <QtCore/QDebug>
+#include <QtWidgets/QCheckBox>
 
 
 AlertDialog::AlertDialog(QWidget *parent)

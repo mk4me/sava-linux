@@ -1,5 +1,5 @@
 #pragma once
-#include <QGraphicsScene>
+#include <QtWidgets/QGraphicsScene>
 #include "ReplayGraphicsBackground.h"
 #include "ReplayGraphicsAlert.h"
 #include "ReplayGraphicsTime.h"

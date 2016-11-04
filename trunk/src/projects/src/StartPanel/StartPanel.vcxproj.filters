@@ -33,61 +33,196 @@
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
+    <Filter Include="Source Files\ConfigWidgets">
+      <UniqueIdentifier>{bad1563e-d54e-48f1-8501-07d496d8291a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ConfigWidgets\Dialogs">
+      <UniqueIdentifier>{8d50ca49-b466-4ecd-99e7-0ad8706f44eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ConfigWidgets\Widgets">
+      <UniqueIdentifier>{99252bdb-70b5-43fc-a762-11ebc9f889ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Form Files\Config">
+      <UniqueIdentifier>{a2ce0bf4-2402-4a93-ae64-146508cab030}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Form Files\Wizard">
+      <UniqueIdentifier>{c443c820-799e-4589-b355-24a4c324cc89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Wizard">
+      <UniqueIdentifier>{7bb388a0-3a37-4714-ad5d-619d6ef5579f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="ui\StartPanel.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="ui\ConfigDialog.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ui\ActionConfig.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ui\GlossaryConfig.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ui\GlossaryConfig_AddEdit.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ui\AquisitionConfig.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ui\CompressionConfig.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ui\PathDetectionConfig.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="Resources\resources.qrc">
       <Filter>Resource Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="ui\PathAnalysisConfig.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="src\StartPanel.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="src\PathDetectionConfig.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="src\PathAnalysisConfig.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="src\GlossaryConfig.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="src\ConfigDialog.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="src\CompressionConfig.h">
-      <Filter>Header Files</Filter>
+    <CustomBuild Include="src\ActionConfig.h">
+      <Filter>Source Files\ConfigWidgets</Filter>
     </CustomBuild>
     <CustomBuild Include="src\AquisitionConfig.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\ConfigWidgets</Filter>
     </CustomBuild>
-    <CustomBuild Include="src\ActionConfig.h">
-      <Filter>Header Files</Filter>
+    <CustomBuild Include="src\CameraConfig.h">
+      <Filter>Source Files\ConfigWidgets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\CompressionConfig.h">
+      <Filter>Source Files\ConfigWidgets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\MilestoneConfig.h">
+      <Filter>Source Files\ConfigWidgets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\NetworkConfig.h">
+      <Filter>Source Files\ConfigWidgets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\PathAnalysisConfig.h">
+      <Filter>Source Files\ConfigWidgets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\PathDetectionConfig.h">
+      <Filter>Source Files\ConfigWidgets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\ConfigDialog.h">
+      <Filter>Source Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\StartPanel.h">
+      <Filter>Source Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\CameraDefinitionDialog.h">
+      <Filter>Source Files\ConfigWidgets\Dialogs</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\NetworkDefinitionDialog.h">
+      <Filter>Source Files\ConfigWidgets\Dialogs</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\ActionDefinitionDialog.h">
+      <Filter>Source Files\ConfigWidgets\Dialogs</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\NodeSelectorWidget.h">
+      <Filter>Source Files\ConfigWidgets\Widgets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\NodeSelectorDialog.h">
+      <Filter>Source Files\ConfigWidgets\Widgets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\ProcessConfig.h">
+      <Filter>Source Files\ConfigWidgets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\ActionConfig.ui">
+      <Filter>Form Files\Config</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\ActionDefinitionDialog.ui">
+      <Filter>Form Files\Config</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\AquisitionConfig.ui">
+      <Filter>Form Files\Config</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\CameraConfig.ui">
+      <Filter>Form Files\Config</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\CameraDefinitionDialog.ui">
+      <Filter>Form Files\Config</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\CompressionConfig.ui">
+      <Filter>Form Files\Config</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\GlossaryConfig.ui">
+      <Filter>Form Files\Config</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\GlossaryConfig_AddEdit.ui">
+      <Filter>Form Files\Config</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\MilestoneConfig.ui">
+      <Filter>Form Files\Config</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\NetworkConfig.ui">
+      <Filter>Form Files\Config</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\NetworkDefinitionDialog.ui">
+      <Filter>Form Files\Config</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\NodeSelectorDialog.ui">
+      <Filter>Form Files\Config</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\NodeSelectorWidget.ui">
+      <Filter>Form Files\Config</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\PathAnalysisConfig.ui">
+      <Filter>Form Files\Config</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\PathDetectionConfig.ui">
+      <Filter>Form Files\Config</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\ProcessConfig.ui">
+      <Filter>Form Files\Config</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\ConfigDialog.ui">
+      <Filter>Form Files\Config</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\AquisitionWizard.h">
+      <Filter>Source Files\Wizard</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\AquisitionWizard.ui">
+      <Filter>Form Files\Wizard</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\CameraTypePage.ui">
+      <Filter>Form Files\Wizard</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\CameraTypePage.h">
+      <Filter>Source Files\Wizard</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\AxisCameraPage.ui">
+      <Filter>Form Files\Wizard</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\AxisCameraPage.h">
+      <Filter>Source Files\Wizard</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\RecordOptionsPage.h">
+      <Filter>Source Files\Wizard</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\RecordOptionsPage.ui">
+      <Filter>Form Files\Wizard</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\MilestoneCameraPage.h">
+      <Filter>Source Files\Wizard</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\MilestoneCameraPage.ui">
+      <Filter>Form Files\Wizard</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\Aquisition.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\Aquisition.h">
+      <Filter>Source Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\DirectoryConfig.ui">
+      <Filter>Form Files\Config</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\DirectoryConfig.h">
+      <Filter>Source Files\ConfigWidgets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\MonitorConfig.h">
+      <Filter>Source Files\ConfigWidgets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\MonitorConfig.ui">
+      <Filter>Form Files\Config</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\MaskDialog.h">
+      <Filter>Source Files\ConfigWidgets\Dialogs</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\MaskDialog.ui">
+      <Filter>Form Files\Config</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\PartitionAnalyzerConfig.h">
+      <Filter>Source Files\ConfigWidgets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\PartitionAnalyzerConfig.ui">
+      <Filter>Form Files\Config</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\MaskRegions.h">
+      <Filter>Source Files\ConfigWidgets\Widgets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\MaskView.h">
+      <Filter>Source Files\ConfigWidgets\Widgets</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -118,8 +253,65 @@
     <ClInclude Include="GeneratedFiles\ui_PathAnalysisConfig.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_CameraConfig.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_CameraDefinitionDialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_MilestoneConfig.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_NetworkDefinitionDialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_NetworkConfig.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
     <ClInclude Include="src\IConfigItem.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_ActionDefinitionDialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_NodeSelectorWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_NodeSelectorDialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_ProcessConfig.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_AquisitionWizard.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_CameraTypePage.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_AxisCameraPage.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_RecordOptionsPage.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_MilestoneCameraPage.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_Aquisition.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_DirectoryConfig.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_MonitorConfig.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_MaskDialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_PartitionAnalyzerConfig.h">
+      <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -144,26 +336,11 @@
     <ClCompile Include="GeneratedFiles\Release\moc_ConfigDialog.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="src\ActionConfig.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_ActionConfig.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_ActionConfig.cpp">
       <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_GlossaryConfig.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_GlossaryConfig.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GlossaryConfig.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\AquisitionConfig.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_AquisitionConfig.cpp">
       <Filter>Generated Files\Debug</Filter>
@@ -171,17 +348,11 @@
     <ClCompile Include="GeneratedFiles\Release\moc_AquisitionConfig.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="src\CompressionConfig.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_CompressionConfig.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_CompressionConfig.cpp">
       <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PathDetectionConfig.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_PathDetectionConfig.cpp">
       <Filter>Generated Files\Debug</Filter>
@@ -192,14 +363,215 @@
     <ClCompile Include="GeneratedFiles\qrc_resources.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\PathAnalysisConfig.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_PathAnalysisConfig.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_PathAnalysisConfig.cpp">
       <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ActionConfig.cpp">
+      <Filter>Source Files\ConfigWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AquisitionConfig.cpp">
+      <Filter>Source Files\ConfigWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CompressionConfig.cpp">
+      <Filter>Source Files\ConfigWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathAnalysisConfig.cpp">
+      <Filter>Source Files\ConfigWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathDetectionConfig.cpp">
+      <Filter>Source Files\ConfigWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_CameraConfig.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_CameraConfig.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_CameraDefinitionDialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_CameraDefinitionDialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CameraConfig.cpp">
+      <Filter>Source Files\ConfigWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MilestoneConfig.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MilestoneConfig.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MilestoneConfig.cpp">
+      <Filter>Source Files\ConfigWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_NetworkDefinitionDialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_NetworkDefinitionDialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_NetworkConfig.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_NetworkConfig.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NetworkConfig.cpp">
+      <Filter>Source Files\ConfigWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CameraDefinitionDialog.cpp">
+      <Filter>Source Files\ConfigWidgets\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NetworkDefinitionDialog.cpp">
+      <Filter>Source Files\ConfigWidgets\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_ActionDefinitionDialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_ActionDefinitionDialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ActionDefinitionDialog.cpp">
+      <Filter>Source Files\ConfigWidgets\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_NodeSelectorWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_NodeSelectorWidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NodeSelectorWidget.cpp">
+      <Filter>Source Files\ConfigWidgets\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_NodeSelectorDialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_NodeSelectorDialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NodeSelectorDialog.cpp">
+      <Filter>Source Files\ConfigWidgets\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_ProcessConfig.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_ProcessConfig.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ProcessConfig.cpp">
+      <Filter>Source Files\ConfigWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_AquisitionWizard.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_AquisitionWizard.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AquisitionWizard.cpp">
+      <Filter>Source Files\Wizard</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_CameraTypePage.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_CameraTypePage.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CameraTypePage.cpp">
+      <Filter>Source Files\Wizard</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_AxisCameraPage.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_AxisCameraPage.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AxisCameraPage.cpp">
+      <Filter>Source Files\Wizard</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_RecordOptionsPage.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_RecordOptionsPage.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RecordOptionsPage.cpp">
+      <Filter>Source Files\Wizard</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MilestoneCameraPage.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MilestoneCameraPage.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MilestoneCameraPage.cpp">
+      <Filter>Source Files\Wizard</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Aquisition.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_Aquisition.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_Aquisition.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_DirectoryConfig.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_DirectoryConfig.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DirectoryConfig.cpp">
+      <Filter>Source Files\ConfigWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MonitorConfig.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MonitorConfig.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MonitorConfig.cpp">
+      <Filter>Source Files\ConfigWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MaskDialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MaskDialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MaskDialog.cpp">
+      <Filter>Source Files\ConfigWidgets\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MaskView.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MaskView.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MaskRegions.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MaskRegions.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_PartitionAnalyzerConfig.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_PartitionAnalyzerConfig.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PartitionAnalyzerConfig.cpp">
+      <Filter>Source Files\ConfigWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MaskRegions.cpp">
+      <Filter>Source Files\ConfigWidgets\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MaskView.cpp">
+      <Filter>Source Files\ConfigWidgets\Widgets</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

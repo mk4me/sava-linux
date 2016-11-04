@@ -1,7 +1,7 @@
 #include "MonitorGraphicsView.h"
 #include "MonitorVideoManager.h"
 
-#include <QScrollBar>
+#include <QtWidgets/QScrollBar>
 
 
 double MonitorGraphicsView::SCALE_FACTOR = 1.15;

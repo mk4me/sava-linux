@@ -1,7 +1,7 @@
 #include "MonitorActionManager.h"
-#include <QString>
+#include <QtCore/QString>
 
-#include "Config\Glossary.h"
+#include "config/Glossary.h"
 #include "sequence/Cluster.h"
 #include "sequence/Action.h"
 #include "MonitorRegionsManager.h"

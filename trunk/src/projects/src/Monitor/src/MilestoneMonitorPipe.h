@@ -4,8 +4,8 @@
 
 #include "AbstractMonitor.h"
 
-#include <utils\PipeProcess.h>
-#include <utils\BlockingQueue.h>
+#include <utils/PipeProcess.h>
+#include <utils/BlockingQueue.h>
 
 #include <boost/thread.hpp>
 #include <boost/filesystem.hpp>

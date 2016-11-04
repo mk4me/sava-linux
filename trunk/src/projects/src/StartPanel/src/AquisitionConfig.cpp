@@ -1,6 +1,8 @@
 #include "AquisitionConfig.h"
 #include "ui_AquisitionConfig.h"
 
+#include <config/Aquisition.h>
+
 AquisitionConfig::AquisitionConfig()
 	: IConfigItem()
 {
@@ -15,32 +17,33 @@ AquisitionConfig::~AquisitionConfig()
 
 bool AquisitionConfig::load()
 {
-	m_Config.load();
+	config::Aquisition& config = config::Aquisition::getInstance();
+	config.load();
 
-	ui->m_SeqLength->setValue(m_Config.getSeqLength());
-	ui->m_Fps->setValue(m_Config.getFps());
-	ui->m_Compression->setValue(m_Config.getCompression());
+	ui->m_SeqLength->setValue(config.getSeqLength());
+	ui->m_Fps->setValue(config.getFps());
+	ui->m_Compression->setValue(config.getCompression());
 		
 	return true;
 }
 
 bool AquisitionConfig::save()
 {
-	return m_Config.save();
+	return config::Aquisition::getInstance().save();
 }
 
 void AquisitionConfig::setSeqLength(int seqLength)
 {
-	m_Config.setSeqLength(seqLength);
+	config::Aquisition::getInstance().setSeqLength(seqLength);
 }
 
 void AquisitionConfig::setFps(int fps)
 {
-	m_Config.setFps(fps);
+	config::Aquisition::getInstance().setFps(fps);
 }
 
 void AquisitionConfig::setCompression(int compression)
 {
-	m_Config.setCompression(compression);
+	config::Aquisition::getInstance().setCompression(compression);
 }
 

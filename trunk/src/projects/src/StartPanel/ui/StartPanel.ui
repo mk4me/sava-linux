@@ -446,7 +446,7 @@ padding: 12px;
 spacing: 10;</string>
         </property>
         <property name="text">
-         <string>Aquisition</string>
+         <string>Acquisition</string>
         </property>
         <property name="icon">
          <iconset resource="../Resources/resources.qrc">
@@ -643,9 +643,60 @@ spacing: 10;</string>
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>m_PbTraining</sender>
+   <signal>clicked()</signal>
+   <receiver>StartPanelClass</receiver>
+   <slot>runActionTraining()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>83</x>
+     <y>239</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>299</x>
+     <y>209</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_PbAquisition</sender>
+   <signal>clicked()</signal>
+   <receiver>StartPanelClass</receiver>
+   <slot>runAquisition()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>83</x>
+     <y>108</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>299</x>
+     <y>209</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_PbMonitor</sender>
+   <signal>clicked()</signal>
+   <receiver>StartPanelClass</receiver>
+   <slot>runMonitor()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>83</x>
+     <y>304</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>299</x>
+     <y>209</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>showConfigDialog()</slot>
   <slot>runAnnotationEditor()</slot>
+  <slot>runActionTraining()</slot>
+  <slot>runAquisition()</slot>
+  <slot>runMonitor()</slot>
  </slots>
 </ui>

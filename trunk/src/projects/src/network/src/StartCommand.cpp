@@ -9,7 +9,8 @@ namespace Network
 	{
 		std::ostringstream oss;
 		boost::archive::text_oarchive oa(oss);
-		oa << getType();
+		auto t = getType();
+		oa << t;
 		oa << *this;
 		return oss.str();
 	}	

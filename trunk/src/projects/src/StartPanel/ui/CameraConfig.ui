@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CameraConfig</class>
+ <widget class="IConfigItem" name="CameraConfig">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Camera</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0" colspan="3">
+    <widget class="QTableWidget" name="m_CameraList">
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
+     <property name="showDropIndicator" stdset="0">
+      <bool>false</bool>
+     </property>
+     <property name="dragDropOverwriteMode">
+      <bool>false</bool>
+     </property>
+     <property name="selectionMode">
+      <enum>QAbstractItemView::SingleSelection</enum>
+     </property>
+     <property name="selectionBehavior">
+      <enum>QAbstractItemView::SelectRows</enum>
+     </property>
+     <property name="wordWrap">
+      <bool>false</bool>
+     </property>
+     <property name="cornerButtonEnabled">
+      <bool>false</bool>
+     </property>
+     <attribute name="verticalHeaderVisible">
+      <bool>false</bool>
+     </attribute>
+     <column>
+      <property name="text">
+       <string notr="true">Name</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string notr="true">User</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string notr="true">Password</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string notr="true">IP address</string>
+      </property>
+     </column>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QPushButton" name="m_AddButton">
+     <property name="text">
+      <string>Add</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QPushButton" name="m_EditButton">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="text">
+      <string>Edit</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="2">
+    <widget class="QPushButton" name="m_RemoveButton">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="text">
+      <string>Remove</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>IConfigItem</class>
+   <extends>QWidget</extends>
+   <header>IConfigItem.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>m_AddButton</sender>
+   <signal>clicked()</signal>
+   <receiver>CameraConfig</receiver>
+   <slot>addCamera()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>70</x>
+     <y>279</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_EditButton</sender>
+   <signal>clicked()</signal>
+   <receiver>CameraConfig</receiver>
+   <slot>editCamera()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>199</x>
+     <y>279</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_RemoveButton</sender>
+   <signal>clicked()</signal>
+   <receiver>CameraConfig</receiver>
+   <slot>removeCamera()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>329</x>
+     <y>279</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_CameraList</sender>
+   <signal>cellDoubleClicked(int,int)</signal>
+   <receiver>CameraConfig</receiver>
+   <slot>editCamera(int,int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>199</x>
+     <y>135</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_CameraList</sender>
+   <signal>currentCellChanged(int,int,int,int)</signal>
+   <receiver>CameraConfig</receiver>
+   <slot>onSelectionChanged(int,int,int,int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>199</x>
+     <y>135</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>addCamera()</slot>
+  <slot>editCamera()</slot>
+  <slot>editCamera(int,int)</slot>
+  <slot>removeCamera()</slot>
+  <slot>onSelectionChanged(int,int,int,int)</slot>
+ </slots>
+</ui>

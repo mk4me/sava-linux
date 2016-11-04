@@ -1,8 +1,8 @@
 #pragma once
 
-#include <QPolygonF>
-#include <QRectF>
-#include <QDebug>
+#include <QtGui/QPolygonF>
+#include <QtCore/QRectF>
+#include <QtCore/QDebug>
 
 #include "MonitorConfig.h"
 #include "MonitorVideoManager.h"

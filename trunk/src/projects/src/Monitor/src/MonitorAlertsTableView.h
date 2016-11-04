@@ -1,8 +1,8 @@
 #pragma once
 
 #include <QtWidgets/QTableView>
-#include <QHeaderView>
-#include <QMouseEvent>
+#include <QtWidgets/QHeaderView>
+#include <QtGui/QMouseEvent>
 
 #include "MonitorAlertsTableModel.h"
 #include "MonitorAlertsTableDelegate.h"

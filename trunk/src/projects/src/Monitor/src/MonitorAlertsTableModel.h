@@ -1,6 +1,6 @@
 #pragma once
 
-#include <QAbstractTableModel>
+#include <QtCore/QAbstractTableModel>
 #include "MonitorAlertManager.h"
 
 class MonitorAlertsTableModel : public QAbstractTableModel, public IAlertListener

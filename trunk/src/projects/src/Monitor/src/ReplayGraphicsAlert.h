@@ -1,8 +1,8 @@
 #pragma once
-#include <QGraphicsItem>
-#include <QGraphicsScene>
-#include <QPainter>
-#include <QStyleOptionGraphicsItem>
+#include <QtWidgets/QGraphicsItem>
+#include <QtWidgets/QGraphicsScene>
+#include <QtGui/QPainter>
+#include <QtWidgets/QStyleOptionGraphicsItem>
 #include "MonitorAlert.h"
 
 class ReplayGraphicsAlert : public QGraphicsItem

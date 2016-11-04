@@ -1,14 +1,14 @@
 #ifndef MONITORGRAPHICSBACKGROUND_H
 #define MONITORGRAPHICSBACKGROUND_H
 
-#include <QGraphicsItem>
-#include <QGraphicsScene>
-#include <QStyleOption>
-#include <QPainter>
-#include <QImage>
+#include <QtWidgets/QGraphicsItem>
+#include <QtWidgets/QGraphicsScene>
+#include <QtWidgets/QStyleOption>
+#include <QtGui/QPainter>
+#include <QtGui/QImage>
 
-#include "utils\ImageConverter.h"
-#include "sequence\Video.h"
+#include "utils/ImageConverter.h"
+#include "sequence/Video.h"
 
 
 class MonitorGraphicsBackground : public QGraphicsItem

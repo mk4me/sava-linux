@@ -3,8 +3,6 @@
 
 #include "IConfigItem.h"
 
-#include <config/Compression.h>
-
 namespace Ui {class CompressionConfig;};
 
 class CompressionConfig : public IConfigItem
@@ -26,10 +24,10 @@ private slots:
 	void setNewBackgroundMinPixels(double val);
 	void setMinCrumbleArea(int val);
 	void setMergeCrumblesIterations(int val);
+	void setCompressionMethod(int val);
 
 private:
 	Ui::CompressionConfig *ui;
-	config::Compression m_Config;
 };
 
 #endif // COMPRESSIONCONFIG_H

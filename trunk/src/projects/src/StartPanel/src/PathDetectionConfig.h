@@ -2,7 +2,6 @@
 #define PATHDETECTIONCONFIG_H
 
 #include "IConfigItem.h"
-#include <config/PathDetection.h>
 
 namespace Ui {class PathDetectionConfig;};
 
@@ -27,6 +26,8 @@ private slots:
 	void setDistanceModifier(int val);
 	void setAngleModifier(int val);
 
+	void setMaxProcessTime(int val);
+
 	void setSIFTDetector(bool toggle);
 	void setSURFDetector(bool toggle);
 
@@ -40,9 +41,13 @@ private slots:
 	void setSURFnOctaves(int val);
 	void setSURFnOctaveLayers(int val);
 
+	void setOpticalFlow(bool val);
+	void setHungarian(bool val);
+
+	void setMaxPathsCount(int val);
+
 private:
 	Ui::PathDetectionConfig *ui;
-	config::PathDetection m_Config;
 };
 
 #endif // PATHDETECTIONCONFIG_H

@@ -1,18 +1,19 @@
 #ifndef MONITORGRAPHICSWAITITEM_H
 #define MONITORGRAPHICSWAITITEM_H
 
-#include <QGraphicsItem>
-#include <QGraphicsScene>
-#include <QPainter>
-#include <QStyleOptionGraphicsItem>
-#include <QBrush>
-#include <QTimer>
-#include <QDebug>
+#include <QtWidgets/QGraphicsItem>
+#include <QtWidgets/QGraphicsScene>
+#include <QtGui/QPainter>
+#include <QtWidgets/QStyleOption>
+#include <QtWidgets/QGraphicsItem>
+#include <QtGui/QBrush>
+#include <QtCore/QTimer>
+#include <QtCore/QDebug>
 
 class MonitorGraphicsWaitItem : public QObject, public QGraphicsItem
 {
 	Q_OBJECT
-	Q_INTERFACES(QGraphicsItem)
+	//Q_INTERFACES(QGraphicsItem)
 
 public:
 	MonitorGraphicsWaitItem(QGraphicsItem *parent = 0);

@@ -1,13 +1,13 @@
 #ifndef MONITORGRAPHICSALERTREGIONITEM_H
 #define MONITORGRAPHICSALERTREGIONITEM_H
 
-#include <QGraphicsItem>
-#include <QPen>
-#include <QPainter>
-#include <QDebug>
-#include <QGraphicsScene>
-#include <QGraphicsSceneMouseEvent> 
-#include <QVariantAnimation>
+#include <QtWidgets/QGraphicsItem>
+#include <QtGui/QPen>
+#include <QtGui/QPainter>
+#include <QtCore/QDebug>
+#include <QtWidgets/QGraphicsScene>
+#include <QtWidgets/QGraphicsSceneMouseEvent>
+#include <QtCore/QVariantAnimation>
 
 #include "MonitorRegion.h"
 #include "MonitorRegion.h"
@@ -24,7 +24,7 @@ class MonitorGraphicsRegion : public QObject, public QGraphicsItem, public IRegi
 {
 
 	Q_OBJECT;
-	Q_INTERFACES(QGraphicsItem);
+	//Q_INTERFACES(QGraphicsItem);
 
 	class GraphicsPoint;
 	friend class GraphicsPoint;

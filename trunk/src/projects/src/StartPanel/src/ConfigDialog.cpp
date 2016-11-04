@@ -1,10 +1,19 @@
 #include "ConfigDialog.h"
 #include "ActionConfig.h"
-#include "GlossaryConfig.h"
 #include "AquisitionConfig.h"
 #include "CompressionConfig.h"
 #include "PathDetectionConfig.h"
 #include "PathAnalysisConfig.h"
+#include "CameraConfig.h"
+#include "MilestoneConfig.h"
+#include "ProcessConfig.h"
+#include "NetworkConfig.h"
+#include "DirectoryConfig.h"
+#include "MonitorConfig.h"
+
+#include "utils/Filesystem.h"
+
+#include <QtCore/QDir>
 
 ConfigDialog::ConfigDialog(QWidget *parent)
 	: QDialog(parent)
@@ -22,12 +31,17 @@ ConfigDialog::ConfigDialog(QWidget *parent)
 	m_Layout = new QStackedLayout(ui.m_ConfigWidget);
 	
 	// add config widgets here
+	addConfig(new DirectoryConfig());
 	addConfig(new ActionConfig());
-	addConfig(new GlossaryConfig());
+	addConfig(new CameraConfig());
+	addConfig(new MilestoneConfig());
 	addConfig(new AquisitionConfig());
 	addConfig(new CompressionConfig());
 	addConfig(new PathDetectionConfig());
 	addConfig(new PathAnalysisConfig());
+	addConfig(new NetworkConfig());
+	addConfig(new ProcessConfig());
+	addConfig(new MonitorConfig());
 }
 
 ConfigDialog::~ConfigDialog()
@@ -49,6 +63,9 @@ void ConfigDialog::load()
 
 void ConfigDialog::apply()
 {
+	QDir dir;
+	dir.mkpath(utils::Filesystem::getConfigPath().c_str());
+
 	for (IConfigItem* item : m_ConfigItems)
 		item->save();
 	accept();

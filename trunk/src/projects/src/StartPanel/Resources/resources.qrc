@@ -1,9 +1,16 @@
 <RCC>
-  <qresource prefix="icons_64">
-    <file alias="pencil.png">icons_64/pencil.png</file>
-    <file alias="tool.png">icons_64/tool.png</file>
-    <file alias="train.png">icons_64/train.png</file>
-    <file alias="video.png">icons_64/video.png</file>
-    <file alias="record.png">icons_64/record.png</file>
-  </qresource>
+    <qresource prefix="/icons_64">
+        <file alias="pencil.png">icons_64/pencil.png</file>
+        <file alias="tool.png">icons_64/tool.png</file>
+        <file alias="train.png">icons_64/train.png</file>
+        <file alias="video.png">icons_64/video.png</file>
+        <file alias="record.png">icons_64/record.png</file>
+        <file alias="save.png">icons_64/save.png</file>
+        <file alias="add.png">icons_64/add.png</file>
+        <file alias="clear.png">icons_64/clear.png</file>
+        <file alias="remove.png">icons_64/remove.png</file>
+    </qresource>
+    <qresource prefix="/icons_16">
+        <file alias="network.png">icons_16/network.png</file>
+    </qresource>
 </RCC>

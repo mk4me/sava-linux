@@ -1,5 +1,5 @@
 #include "MonitorConfig.h"
-#include "boost\filesystem\operations.hpp"
+#include "boost/filesystem/operations.hpp"
 
 
 MonitorConfig::MonitorConfig()

@@ -1,7 +1,7 @@
 #ifndef MONITORALERTSACCEPTDIALOG_H
 #define MONITORALERTSACCEPTDIALOG_H
 
-#include <QDialog>
+#include <QtWidgets/QDialog>
 #include "ui_MonitorAlertsAcceptDialog.h"
 
 class MonitorAlertsAcceptDialog : public QDialog

@@ -4,7 +4,7 @@
 #include "ui_ConfigDialog.h"
 #include "IConfigItem.h"
 
-#include <QStackedLayout>
+#include <QtWidgets/QStackedLayout>
 
 class ConfigDialog : public QDialog
 {

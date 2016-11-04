@@ -1,8 +1,8 @@
 #ifndef REPLAYTIMER_H
 #define REPLAYTIMER_H
 
-#include <QObject>
-#include <QTimer>
+#include <QtCore/QObject>
+#include <QtCore/QTimer>
 
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <sequence/IVideo.h>

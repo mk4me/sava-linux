@@ -1,7 +1,7 @@
 #ifndef REPLAYWINDOW_H
 #define REPLAYWINDOW_H
 
-#include <QMainWindow>
+#include <QtWidgets/QMainWindow>
 #include "ui_ReplayWindow.h"
 #include "ReplayTimer.h"
 #include "ReplayGraphicsScene.h"

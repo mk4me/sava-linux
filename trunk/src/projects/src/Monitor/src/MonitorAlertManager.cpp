@@ -1,6 +1,6 @@
 #include "MonitorAlertManager.h"
-#include <QDir>
-#include <QFileInfoList>
+#include <QtCore/QDir>
+#include <QtCore/QFileInfoList>
 
 #include "config/Directory.h"
 #include "config/Monitor.h"

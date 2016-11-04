@@ -1,6 +1,6 @@
 #include "Connector.h"
 #include <boost/bind.hpp>
-#include <QThread>
+#include <QtCore/QThread>
 
 namespace Network
 {

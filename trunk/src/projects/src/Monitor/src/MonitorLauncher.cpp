@@ -4,7 +4,8 @@
 #include "config/Process.h"
 #include "config/Directory.h"
 
-#include <QMessageBox>
+#include <QtWidgets/QMessageBox>
+#include <inttypes.h>
 
 MonitorLauncher::MonitorLauncher(const std::string& ip, const std::string& user, const std::string& password, const std::string& guid, const std::string& mask, QObject *parent)
 	: QObject(parent)
@@ -63,7 +64,7 @@ bool MonitorLauncher::startPipe()
 	return true;
 }
 
-bool MonitorLauncher::runCommand(const QString& description, const std::string& command, const std::string& tag, const std::vector<__int64>& nodes)
+bool MonitorLauncher::runCommand(const QString& description, const std::string& command, const std::string& tag, const std::vector<int64_t>& nodes)
 {
 	if (nodes.size() == 0)
 	{

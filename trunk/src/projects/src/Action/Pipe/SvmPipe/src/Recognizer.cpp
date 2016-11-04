@@ -11,7 +11,7 @@
 #include <boost/archive/binary_iarchive.hpp>
 #include <boost/serialization/vector.hpp>
 
-#include <xutility>
+//#include <xutility>
 
 typedef utils::PipeProcessUtils PPUtils;
 
@@ -67,7 +67,7 @@ void Recognizer::process()
 	std::vector<float> fisherVector;
 	for (int i = m_Extensions.size() - 1; i >= 0; --i) // First insert GBH fv then MBH
 	{
-		std::vector<float>& fv = loadFV(inFilePattern + '.' + m_Extensions[i]);
+		std::vector<float> fv = loadFV(inFilePattern + '.' + m_Extensions[i]);
 		fisherVector.insert(fisherVector.end(), fv.begin(), fv.end());
 	}
 

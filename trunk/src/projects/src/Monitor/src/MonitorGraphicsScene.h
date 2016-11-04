@@ -1,10 +1,10 @@
 #ifndef VIDEOGRAPHICSSCENE_H
 #define VIDEOGRAPHICSSCENE_H
 
-#include <QGraphicsScene>
-#include <QGraphicsView>
-#include <QGraphicsPixmapItem>
-#include "QPainter"
+#include <QtWidgets/QGraphicsScene>
+#include <QtWidgets/QGraphicsView>
+#include <QtWidgets/QGraphicsPixmapItem>
+#include "QtGui/QPainter"
 
 #include "utils/ImageConverter.h"
 #include "MonitorVideoManager.h"
@@ -12,7 +12,7 @@
 
 #include "MonitorGraphicsRegionGroup.h"
 #include "MonitorGraphicsClusters.h"
-#include "QStyleOption"
+#include "QtWidgets/QStyleOption"
 #include "MonitorGraphicsBackground.h"
 #include "MonitorGraphicsWaitItem.h"
 

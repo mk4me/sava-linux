@@ -2,7 +2,7 @@
 #ifndef HMDBdatabase_h__
 #define HMDBdatabase_h__
 
-#include "utils\Database.h"
+#include "utils/Database.h"
 
 class HmdbDatabase
 {

@@ -1,9 +1,9 @@
 #ifndef MONITORALERTSTABLEDELEGATE_H
 #define MONITORALERTSTABLEDELEGATE_H
 
-#include <QStyledItemDelegate>
-#include <QEvent>
-#include <QDebug>
+#include <QtWidgets/QStyledItemDelegate>
+#include <QtCore/QEvent>
+#include <QtCore/QDebug>
 #include "MonitorAlertManager.h"
 
 class MonitorAlertsTableView;

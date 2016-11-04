@@ -2,7 +2,7 @@
 #ifndef IConfigItem_h__
 #define IConfigItem_h__
 
-#include <QWidget>
+#include <QtWidgets/QWidget>
 
 class IConfigItem : public QWidget
 {

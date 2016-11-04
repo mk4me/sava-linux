@@ -1,6 +1,6 @@
 #include "MonitorGraphicsTimeItem.h"
-#include <QGraphicsView>
-#include <QDebug>
+#include <QtWidgets/QGraphicsView>
+#include <QtCore/QDebug>
 #include "MonitorVideoManager.h"
 
 

@@ -1,5 +1,5 @@
 #include "ConnectionManager.h"
-#include <QThread>
+#include <QtCore/QThread>
 
 namespace Network
 {

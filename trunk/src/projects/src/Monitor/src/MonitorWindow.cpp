@@ -1,14 +1,14 @@
 #include "MonitorAlertsAcceptDialog.h"
 #include "MonitorWindow.h"
-#include "QTimer"
+#include "QtCore/QTimer"
 
-#include "Utils\Application.h"
-#include "Sequence\Action.h"
-#include "Sequence\Cluster.h"
-#include <QtWidgets\QMessageBox>
+#include "utils/Application.h"
+#include "sequence/Action.h"
+#include "sequence/Cluster.h"
+#include <QtWidgets/QMessageBox>
 
-#include <QGlobal.h>
-#include <QTime>
+#include <QtCore/qglobal.h>
+#include <QtCore/QTime>
 
 
 
