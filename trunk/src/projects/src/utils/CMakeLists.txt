@@ -1,7 +1,7 @@
 BEGIN_PROJECT("static")
 
 SET_PUBLIC_HEADERS(
-		#AlertSender.h
+		AlertSender.h
 		Application.h
 		AxisRawReader.h
 		BlockingQueue.h
@@ -46,7 +46,7 @@ include_directories("${CMAKE_CURRENT_LIST_DIR}/../../include/utils/")
 #------------------------------------------------------------------------------
 
 SET_SOURCE_FILES(
-		#AlertSender.cpp
+		AlertSender.cpp
 		Application.cpp
 		AxisRawReader.cpp
 		CvZoom.cpp
