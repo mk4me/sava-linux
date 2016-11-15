@@ -30,4 +30,4 @@ ADD_PROJECT(StartPanel "BOOST;QT;OPENCV;config;utils;network")
 ADD_PROJECT(SplitSetter "BOOST;sequence;utils")
 ADD_PROJECT(Monitor "utils;BOOST;OPENCV;config;sequence;utils;network")
 
-
+ADD_PROJECT(ArchiveConverter "sequence")

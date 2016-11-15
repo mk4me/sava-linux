@@ -32,7 +32,9 @@ namespace sequence
 		~Cluster() { }
 
 		bool load(const std::string& filename);
+		bool loadFromText(const std::string& filename);
 		bool save(const std::string& filename) const;
+		bool saveAsText(const std::string& filename) const;
 
 		int getClusterId() const { return m_ClusterId; }		
 

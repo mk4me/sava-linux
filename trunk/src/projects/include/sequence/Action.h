@@ -24,7 +24,9 @@ namespace sequence
 		~Action() { }
 
 		bool load(const std::string& filename);
+		bool loadFromText(const std::string& filename);
 		bool save(const std::string& filename) const;
+		bool saveAsText(const std::string& filename) const;
 
 		int getActionId() const { return m_ActionId; }
 		void setActionId(int val) { m_ActionId = val; }

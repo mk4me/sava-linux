@@ -4,7 +4,8 @@
 #include <boost/archive/binary_oarchive.hpp>
 
 #include <fstream>
-#include <iostream>
+#include "boost/archive/text_oarchive.hpp"
+#include "boost/archive/text_iarchive.hpp"
 
 namespace sequence
 {
@@ -20,13 +21,14 @@ namespace sequence
 		load(filename);
 	}
 
-	bool Cluster::load(const std::string& filename)
+	template <class Archive>
+	bool _clusterLoad(const std::string& filename, Cluster* self)
 	{
 		try
 		{
 			std::ifstream ifs(filename, std::ios::binary | std::ios::in);
-			boost::archive::binary_iarchive ia(ifs);
-			ia >> *this;
+			Archive ia(ifs);
+			ia >> *self;
 			return true;
 		}
 		catch (const std::exception& e)
@@ -36,13 +38,23 @@ namespace sequence
 		}
 	}
 
-	bool Cluster::save(const std::string& filename) const
+	bool Cluster::load(const std::string& filename)
+	{
+		return _clusterLoad<boost::archive::binary_iarchive>(filename, this);
+	}
+	bool Cluster::loadFromText(const std::string& filename)
+	{
+		return _clusterLoad<boost::archive::text_iarchive>(filename, this);
+	}
+
+	template <class Archive>
+	bool _clusterSave(const std::string& filename, const Cluster* cluster)
 	{
 		try
 		{
 			std::ofstream ofs(filename, std::ios::binary | std::ios::out);
-			boost::archive::binary_oarchive oa(ofs);
-			oa << *this;
+			Archive oa(ofs);
+			oa << *cluster;
 			return true;
 		}
 		catch (const std::exception& e)
@@ -52,6 +64,15 @@ namespace sequence
 		}
 	}
 
+	bool Cluster::save(const std::string& filename) const
+	{
+		return _clusterSave<boost::archive::binary_oarchive>(filename, this);
+	}
+
+	bool Cluster::saveAsText(const std::string& filename) const
+	{
+		return _clusterSave<boost::archive::text_oarchive>(filename, this);
+	}
 
 	size_t Cluster::getStartFrame() const
 	{
