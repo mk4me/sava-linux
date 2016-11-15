@@ -10,6 +10,7 @@
 #include <QtWidgets/QWizard>
 #include <QtCore/QMap>
 
+#include <iostream>
 
 class AquisitionWizard : public QWizard
 {

@@ -8,6 +8,7 @@
 
 #include <boost/serialization/map.hpp>
 
+#include <iostream>
 #include <string>
 #include <map>
 

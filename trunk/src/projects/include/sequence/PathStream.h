@@ -8,6 +8,7 @@
 
 #include <boost/serialization/vector.hpp>
 
+#include <iostream>
 #include <string>
 #include <vector>
 #include <map>

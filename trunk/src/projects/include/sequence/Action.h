@@ -4,6 +4,7 @@
 
 #include <boost/serialization/access.hpp>
 
+#include <iostream>
 #include <string>
 
 namespace sequence

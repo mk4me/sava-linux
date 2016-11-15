@@ -4,6 +4,7 @@
 
 #include <opencv/cv.h>
 
+#include <iostream>
 #include <string>
 #include <memory>
 

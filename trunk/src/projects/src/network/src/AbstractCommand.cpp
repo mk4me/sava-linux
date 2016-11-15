@@ -1,5 +1,5 @@
 #include "AbstractCommand.h"
-
+#include <iostream>
 #include <sstream>
 #include <boost/archive/text_iarchive.hpp>
 

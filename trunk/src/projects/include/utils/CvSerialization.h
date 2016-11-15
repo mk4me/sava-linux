@@ -6,6 +6,7 @@
 #include <boost/serialization/serialization.hpp>
 #include <boost/serialization/vector.hpp>
 
+#include <iostream>
 /// <summary>
 /// This file contains serialization procedures for OpenCV classes.
 /// </summary>
