@@ -169,6 +169,13 @@
    <header>MaskView.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>editButton</tabstop>
+  <tabstop>addButton</tabstop>
+  <tabstop>removeButton</tabstop>
+  <tabstop>clearButton</tabstop>
+  <tabstop>graphicsView</tabstop>
+ </tabstops>
  <resources>
   <include location="../Resources/resources.qrc"/>
  </resources>

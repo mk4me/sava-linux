@@ -10,6 +10,8 @@ SET_PRIVATE_HEADERS(
 	OpticalFlowSequenceDetector.h
 	path.h
 	PathDetection.h
+	PredictedRoiFilter.h
+	PredictedRoiPathDetector.h
 )
 
 
@@ -21,6 +23,8 @@ SET_SOURCE_FILES(
 	OpticalFlowSequenceDetector.cpp
 	path.cpp
 	PathDetection.cpp
+	PredictedRoiFilter.cpp
+	PredictedRoiPathDetector.cpp
 )
 
 

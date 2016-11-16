@@ -458,6 +458,23 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>m_PointMaxDistance</tabstop>
+  <tabstop>m_PathMinMovement</tabstop>
+  <tabstop>m_PathSpeedDiff</tabstop>
+  <tabstop>m_PathAngleDiff</tabstop>
+  <tabstop>m_ClusterMinPoints</tabstop>
+  <tabstop>m_ClusterMargin</tabstop>
+  <tabstop>m_SequenceMaxDistance</tabstop>
+  <tabstop>m_SequenceSpeedDiff</tabstop>
+  <tabstop>m_SequenceAngleDiff</tabstop>
+  <tabstop>m_SequenceMinMovement</tabstop>
+  <tabstop>m_SequenceCoverLevel</tabstop>
+  <tabstop>m_SequenceContainLevel</tabstop>
+  <tabstop>m_SequenceMinTime</tabstop>
+  <tabstop>m_SequenceMinSize</tabstop>
+  <tabstop>m_SequenceMaxSize</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

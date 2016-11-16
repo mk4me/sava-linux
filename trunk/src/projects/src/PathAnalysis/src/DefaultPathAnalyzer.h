@@ -9,6 +9,7 @@
 namespace motion_analysis
 {
 	class PathClustering;
+	class PathEstimator;
 }
 
 namespace clustering
@@ -31,6 +32,7 @@ namespace clustering
 
 	private:
 		std::shared_ptr<motion_analysis::PathClustering> m_PathClustering;
+		std::shared_ptr<motion_analysis::PathEstimator> m_PathEstimator;
 
 		long long m_StartTime;
 		unsigned long long m_LastMaxPathId;
@@ -50,7 +52,12 @@ namespace clustering
 		std::string m_OutputClusterPattern;
 		std::string m_OutputClusterExtension;
 
+		bool m_RoiEstimation;
+
 		void save();
+		void saveEstimated();
+
+		//std::set<long long> m_Paths;
 	};
 }
 #endif // DefaultPathAnalyzer_h__

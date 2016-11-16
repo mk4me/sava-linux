@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>300</height>
+    <height>395</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <item row="1" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>3</number>
      </property>
      <property name="documentMode">
       <bool>true</bool>
@@ -63,6 +63,13 @@
             </property>
             <property name="checked">
              <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="m_PredictedRoiEnabled">
+            <property name="text">
+             <string>Predicted ROI</string>
             </property>
            </widget>
           </item>
@@ -593,6 +600,266 @@
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>Predicted ROI</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_5">
+       <item row="14" column="1">
+        <widget class="QSpinBox" name="m_PathRemoveFilterN">
+         <property name="maximum">
+          <number>1000</number>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="1">
+        <widget class="QSpinBox" name="m_MinPathLength1">
+         <property name="maximum">
+          <number>1000</number>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_13">
+         <property name="text">
+          <string>ROI Filter Window:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_11">
+         <property name="text">
+          <string>Predicted ROI Radius:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_14">
+         <property name="text">
+          <string>ROI Filter Threshold:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_12">
+         <property name="text">
+          <string>ROI Filter:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QSpinBox" name="m_RoiFilterThreshold">
+         <property name="maximum">
+          <number>255</number>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="label_15">
+         <property name="text">
+          <string>ROI Filter Use Sobel:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <widget class="QCheckBox" name="m_RoiFilterSobel">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="0">
+        <widget class="QLabel" name="label_16">
+         <property name="text">
+          <string>Min Path Length 0:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QSpinBox" name="m_PredictedRoiRadius">
+         <property name="maximum">
+          <number>1000</number>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QComboBox" name="m_RoiFilter">
+         <item>
+          <property name="text">
+           <string>None</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Variance</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Gradient Magnitude</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QSpinBox" name="m_RoiFilterWindow">
+         <property name="minimum">
+          <number>1</number>
+         </property>
+         <property name="maximum">
+          <number>100</number>
+         </property>
+        </widget>
+       </item>
+       <item row="12" column="1">
+        <widget class="QSpinBox" name="m_PathRemoveFilterT1">
+         <property name="maximum">
+          <number>1000</number>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="1">
+        <widget class="QSpinBox" name="m_MinPathLength0">
+         <property name="maximum">
+          <number>1000</number>
+         </property>
+        </widget>
+       </item>
+       <item row="16" column="0" colspan="2">
+        <spacer name="verticalSpacer_4">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="9" column="0">
+        <widget class="QLabel" name="label_18">
+         <property name="text">
+          <string>Min Path Length 1:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="1">
+        <widget class="QSpinBox" name="m_MinPathDistance1">
+         <property name="maximum">
+          <number>1000</number>
+         </property>
+        </widget>
+       </item>
+       <item row="13" column="0">
+        <widget class="QLabel" name="label_21">
+         <property name="text">
+          <string>Path Remove Filter T2:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="0">
+        <widget class="QLabel" name="label_19">
+         <property name="text">
+          <string>Min Path Distance 1:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="14" column="0">
+        <widget class="QLabel" name="label_22">
+         <property name="text">
+          <string>Path Remove Filter N:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="12" column="0">
+        <widget class="QLabel" name="label_20">
+         <property name="text">
+          <string>Path Remove Filter T1:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="0">
+        <widget class="QLabel" name="label_17">
+         <property name="text">
+          <string>Min Path Distance 0:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="13" column="1">
+        <widget class="QSpinBox" name="m_PathRemoveFilterT2">
+         <property name="maximum">
+          <number>1000</number>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="1">
+        <widget class="QSpinBox" name="m_MinPathDistance0">
+         <property name="maximum">
+          <number>1000</number>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" colspan="2">
+        <widget class="Line" name="line_3">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0" colspan="2">
+        <widget class="Line" name="line_4">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="11" column="0" colspan="2">
+        <widget class="Line" name="line_5">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </item>
   </layout>
@@ -606,6 +873,43 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>m_OpticalFlow</tabstop>
+  <tabstop>m_Hungarian</tabstop>
+  <tabstop>m_PredictedRoiEnabled</tabstop>
+  <tabstop>m_MaxPathsCount</tabstop>
+  <tabstop>m_MaxCostThresh</tabstop>
+  <tabstop>m_MaxPathLength</tabstop>
+  <tabstop>m_MaxMissedFramesInPath</tabstop>
+  <tabstop>m_CurrMaxDistFromPredictedNextWorldPoint</tabstop>
+  <tabstop>m_DescCostModifier</tabstop>
+  <tabstop>m_DistanceModifier</tabstop>
+  <tabstop>m_AngleModifier</tabstop>
+  <tabstop>m_MaxProcessTime</tabstop>
+  <tabstop>m_SIFTDetector</tabstop>
+  <tabstop>m_SURFDetector</tabstop>
+  <tabstop>m_SIFTnfeatures</tabstop>
+  <tabstop>m_SIFTnOctaveLayers</tabstop>
+  <tabstop>m_SIFTContrastThreshold</tabstop>
+  <tabstop>m_SIFTEdgeThreshold</tabstop>
+  <tabstop>m_SIFTSigma</tabstop>
+  <tabstop>m_SURFHessianThreshold</tabstop>
+  <tabstop>m_SURFnOctaves</tabstop>
+  <tabstop>m_SURFnOctaveLayers</tabstop>
+  <tabstop>m_PredictedRoiRadius</tabstop>
+  <tabstop>m_RoiFilter</tabstop>
+  <tabstop>m_RoiFilterWindow</tabstop>
+  <tabstop>m_RoiFilterThreshold</tabstop>
+  <tabstop>m_RoiFilterSobel</tabstop>
+  <tabstop>m_MinPathLength0</tabstop>
+  <tabstop>m_MinPathDistance0</tabstop>
+  <tabstop>m_MinPathLength1</tabstop>
+  <tabstop>m_MinPathDistance1</tabstop>
+  <tabstop>m_PathRemoveFilterT1</tabstop>
+  <tabstop>m_PathRemoveFilterT2</tabstop>
+  <tabstop>m_PathRemoveFilterN</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
@@ -944,6 +1248,214 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>m_PredictedRoiRadius</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>PathDetectionConfig</receiver>
+   <slot>setPredictedRoiRadius(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>292</x>
+     <y>66</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>185</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_RoiFilter</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>PathDetectionConfig</receiver>
+   <slot>setRoiFilter(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>292</x>
+     <y>98</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>185</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_RoiFilterWindow</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>PathDetectionConfig</receiver>
+   <slot>setRoiFilterWindow(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>292</x>
+     <y>121</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>185</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_RoiFilterThreshold</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>PathDetectionConfig</receiver>
+   <slot>setRoiFilterThreshold(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>292</x>
+     <y>143</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>185</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_RoiFilterSobel</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>PathDetectionConfig</receiver>
+   <slot>setRoiFilterSobel(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>292</x>
+     <y>164</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>185</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_MinPathLength0</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>PathDetectionConfig</receiver>
+   <slot>setDistance0MinPathLenght(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>292</x>
+     <y>193</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>185</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_MinPathDistance0</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>PathDetectionConfig</receiver>
+   <slot>setDistance0MinPathDistance(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>292</x>
+     <y>216</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>185</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_MinPathLength1</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>PathDetectionConfig</receiver>
+   <slot>setDistance1MinPathLenght(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>292</x>
+     <y>238</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>185</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_MinPathDistance1</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>PathDetectionConfig</receiver>
+   <slot>setDistance1MinPathDistance(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>292</x>
+     <y>261</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>185</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_PathRemoveFilterT1</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>PathDetectionConfig</receiver>
+   <slot>setPathRemoveFilterT1(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>292</x>
+     <y>292</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>185</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_PathRemoveFilterT2</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>PathDetectionConfig</receiver>
+   <slot>setPathRemoveFilterT2(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>292</x>
+     <y>315</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>185</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_PathRemoveFilterN</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>PathDetectionConfig</receiver>
+   <slot>setPathRemoveFilterN(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>292</x>
+     <y>338</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>185</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_PredictedRoiEnabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>PathDetectionConfig</receiver>
+   <slot>setPredictedRoiDetector(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>292</x>
+     <y>45</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>185</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>setMaxCostThresh(int)</slot>
@@ -967,5 +1479,18 @@
   <slot>setOpticalFlow(bool)</slot>
   <slot>setHungarian(bool)</slot>
   <slot>setMaxPathsCount(int)</slot>
+  <slot>setPredictedRoiDetector(bool)</slot>
+  <slot>setPredictedRoiRadius(int)</slot>
+  <slot>setRoiFilter(int)</slot>
+  <slot>setRoiFilterWindow(int)</slot>
+  <slot>setRoiFilterThreshold(int)</slot>
+  <slot>setRoiFilterSobel(bool)</slot>
+  <slot>setDistance0MinPathLenght(int)</slot>
+  <slot>setDistance0MinPathDistance(int)</slot>
+  <slot>setDistance1MinPathLenght(int)</slot>
+  <slot>setDistance1MinPathDistance(int)</slot>
+  <slot>setPathRemoveFilterT1(int)</slot>
+  <slot>setPathRemoveFilterT2(int)</slot>
+  <slot>setPathRemoveFilterN(int)</slot>
  </slots>
 </ui>

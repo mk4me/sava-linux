@@ -46,6 +46,20 @@ private slots:
 
 	void setMaxPathsCount(int val);
 
+	void setPredictedRoiDetector(bool val);
+	void setPredictedRoiRadius(int val);
+	void setRoiFilter(int val);
+	void setRoiFilterWindow(int val);
+	void setRoiFilterThreshold(int val);
+	void setRoiFilterSobel(bool val);
+	void setDistance0MinPathLenght(int val);
+	void setDistance0MinPathDistance(int val);
+	void setDistance1MinPathLenght(int val);
+	void setDistance1MinPathDistance(int val);
+	void setPathRemoveFilterT1(int val);
+	void setPathRemoveFilterT2(int val);
+	void setPathRemoveFilterN(int val);
+
 private:
 	Ui::PathDetectionConfig *ui;
 };

@@ -94,7 +94,7 @@ bool Compression::loadParameters(const ProgramOptions& options)
 	std::cout << "================================================================================\n\n";
 			
 	if (compressionMethod == config::Compression::METHOD_GPU)
-        m_Packer = std::make_shared<GpuPacker>(imageCompression, backgroundHistory, differenceThreshold, newBackgroundMinPixels, minCrumbleArea, mergeCrumblesIterations);
+		m_Packer = std::make_shared<GpuPacker>(imageCompression, backgroundHistory, differenceThreshold, newBackgroundMinPixels, minCrumbleArea, mergeCrumblesIterations);
 	else
 		m_Packer = std::make_shared<DefaultPacker>(imageCompression, backgroundHistory, differenceThreshold, newBackgroundMinPixels, minCrumbleArea, mergeCrumblesIterations);
 

@@ -122,7 +122,7 @@ bool Aquisition::start()
 			m_FrameReader = std::make_shared<utils::camera::AxisRawReader>(m_Ip, m_User + ":" + m_Password, m_Fps, m_Compression, m_FrameWidth, m_FrameHeight);
 		else if (m_InputType == MILESTONE_INPUT_TYPE)
 		{
-			//throw std::runtime_error("sava-linux.rev");
+			throw std::runtime_error("sava-linux.rev");
 			//utils::camera::MilestoneCredentials credentials(m_Ip, m_User, m_Password);
 			//m_FrameReader = std::make_shared<utils::camera::MilestoneRawReader>(credentials, m_CameraGuid, m_Fps, m_Compression, m_FrameWidth, m_FrameHeight);
 		}

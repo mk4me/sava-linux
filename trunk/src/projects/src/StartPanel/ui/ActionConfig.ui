@@ -179,7 +179,7 @@
       <number>50</number>
      </property>
      <property name="maximum">
-      <number>999</number>
+      <number>1999</number>
      </property>
     </widget>
    </item>
@@ -229,6 +229,11 @@
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
   <tabstop>m_DescType</tabstop>
+  <tabstop>m_MinFrames</tabstop>
+  <tabstop>m_MaxVideoWidth</tabstop>
+  <tabstop>m_MaxVideoHeight</tabstop>
+  <tabstop>m_TrainLength</tabstop>
+  <tabstop>m_TestLength</tabstop>
   <tabstop>m_Glossary</tabstop>
   <tabstop>m_Add</tabstop>
   <tabstop>m_Edit</tabstop>

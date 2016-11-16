@@ -36,6 +36,7 @@ void MilestoneAlertSender::onAlertStart(const MonitorAlertPtr& i_Alert)
 		if (actionAlert)
 		{
 			auto video = MonitorVideoManager::getInstance().getVideo();
+			//auto& video = MonitorVideoManager::getInstance().getVideo();
 			auto cluster = actionAlert->getData().first;
 			auto action = actionAlert->getData().second;
 

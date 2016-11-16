@@ -43,6 +43,21 @@ namespace config
 
 		, m_Algorithm(ALGORITHM_OPTFLOW)
 		, m_MaxPathsCount(0)
+
+		, m_PredictedRoiDetector(true)
+		, m_PredictedRoiEnabled(true)
+		, m_PredictedRoiRadius(5)
+		, m_RoiFilter(ROI_FILTER_GRADIENT_MAGNITUDE)
+		, m_RoiFilterWindow(5)
+		, m_RoiFilterThreshold(127)
+		, m_RoiFilterSobel(true)
+		, m_Distance0MinPathLenght(10)
+		, m_Distance0MinPathDistance(3)
+		, m_Distance1MinPathLenght(30)
+		, m_Distance1MinPathDistance(6)
+		, m_PathRemoveFilterT1(5)
+		, m_PathRemoveFilterT2(6)
+		, m_PathRemoveFilterN(5)
 	{
 
 	}
@@ -61,14 +76,9 @@ namespace config
 			ia >> *this;
 			return true;
 		}
-		catch (const std::runtime_error& e)
-		{
-			std::cerr << "config::PathDetection::load() exception: " << e.what() << std::endl;
-			return false;
-		}
 		catch (const std::exception& e)
 		{
-			std::cerr << "config::PathDetection::load() exception: " << std::endl;
+			std::cerr << "config::PathDetection::load() exception: " << e.what() << std::endl;
 			return false;
 		}
 	}
@@ -82,14 +92,9 @@ namespace config
 			oa << *this;
 			return true;
 		}
-		catch (const std::runtime_error& e)
-		{
-			std::cerr << "config::PathDetection::load() exception: " << e.what() << std::endl;
-			return false;
-		}
 		catch (const std::exception& e)
 		{
-			std::cerr << "config::PathDetection::load() exception: " << std::endl;
+			std::cerr << "config::PathDetection::load() exception: " << e.what() << std::endl;
 			return false;
 		}
 	}

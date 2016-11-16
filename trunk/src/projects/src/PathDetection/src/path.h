@@ -36,13 +36,18 @@ public:
 
 	int getPushedPoint() const { return _pushedPoint; }
 
-	static float Dist(cv::Point2f pt1, cv::Point2f pt2) { return sqrt(DistSqr(pt1, pt2)); }
-	static float DistSqr(cv::Point2f pt1, cv::Point2f pt2)
-	{
-		const float diffX = pt1.x - pt2.x;
-		const float diffY = pt1.y - pt2.y;
-		return diffX*diffX + diffY*diffY;
-	}
+	static float L2Dist(cv::Point2f pt1, cv::Point2f pt2);
+
+	int getLength() const { return m_Length - m_MissedFrames; }
+	float getMaxDistFromBegin() const { return m_MaxDistFromBegin; }
+
+	//const cv::Point2f& getLastPoint() const { return m_Points[0]; }
+	//const cv::Point2f& getLastWorldPoint() const { return m_WorldPoints[0]; }
+
+	const cv::Point2f& getPoint(int index) const { return m_Points[index]; }
+	const cv::Point2f& getWorldPoint(int index) const { return m_WorldPoints[index]; }
+
+	int getMaxLength() const { return m_MaxLength; }
 
 private:
 	unsigned long m_ID;
@@ -59,6 +64,10 @@ private:
 
 	cv::Point2f m_PredictedNextPoint;
 	cv::Point2f m_PredictedNextWorldPoint;
+
+	cv::Point2f m_FirstPoint;
+	int m_Length;
+	float m_MaxDistFromBegin;
 
 	static int ms_PathId;
 	static const cv::Scalar c_Colors[];

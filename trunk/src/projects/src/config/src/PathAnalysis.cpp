@@ -42,6 +42,12 @@ namespace config
 		, m_MaxClusterHeight(500)
 
 		, m_MinPathsInCluster(0)
+		, m_RoiEstimation(true)
+		, m_RoiCenterThreshold(36.0f)
+		, m_RoiCenterW(0.1f)
+		, m_BoundingBoxR(6)
+		, m_BoundingBoxT(8)
+		, m_Analyzer("partition")
 	{
 
 	}
@@ -55,14 +61,9 @@ namespace config
 			ia >> *this;
 			return true;
 		}
-		catch (const std::runtime_error& e)
-		{
-			std::cerr << "config::PathAnalysis::load() exception: " << e.what() << std::endl;
-			return false;
-		}
 		catch (const std::exception& e)
 		{
-			std::cerr << "config::PathAnalysis::load() exception: " << std::endl;
+			std::cerr << "config::PathAnalysis::load() exception: " << e.what() << std::endl;
 			return false;
 		}
 	}
@@ -76,16 +77,10 @@ namespace config
 			oa << *this;
 			return true;
 		}
-		catch (const std::runtime_error& e)
+		catch (const std::exception& e)
 		{
 			std::cerr << "config::PathAnalysis::load() exception: " << e.what() << std::endl;
 			return false;
 		}
-		catch (const std::exception& e)
-		{
-			std::cerr << "config::PathAnalysis::load() exception: " << std::endl;
-			return false;
-		}
 	}
-
 }

@@ -229,6 +229,16 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>m_CompressionMethod</tabstop>
+  <tabstop>m_FilesInPackage</tabstop>
+  <tabstop>m_ImageCompression</tabstop>
+  <tabstop>m_BackgroundHistory</tabstop>
+  <tabstop>m_DifferenceThreshold</tabstop>
+  <tabstop>m_NewBackgroundMinPixels</tabstop>
+  <tabstop>m_MinCrumbleArea</tabstop>
+  <tabstop>m_MergeCrumblesIterations</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

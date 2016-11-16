@@ -65,6 +65,12 @@ private slots:
 	
 	void setMinPathsInCluster(int val);
 
+	void setRoiEstimation(bool val);
+	void setRoiCenterThreshold(double val);
+	void setRoiCenterW(double val);
+	void setBoundingBoxR(int val);
+	void setBoundingBoxT(int val);
+
 private:
 	Ui::PathAnalysisConfig *ui;
 

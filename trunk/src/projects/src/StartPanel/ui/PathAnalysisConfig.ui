@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>401</height>
+    <height>411</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="m_TabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>4</number>
      </property>
      <property name="documentMode">
       <bool>true</bool>
@@ -27,100 +27,65 @@
        <string>General</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_3">
-       <item row="8" column="0">
-        <widget class="QLabel" name="label_18">
-         <property name="text">
-          <string>Enable moving paths</string>
+       <item row="3" column="1">
+        <widget class="QDoubleSpinBox" name="m_Alpha">
+         <property name="maximum">
+          <double>1.000000000000000</double>
          </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         <property name="singleStep">
+          <double>0.100000000000000</double>
          </property>
         </widget>
        </item>
-       <item row="1" column="1">
-        <widget class="QCheckBox" name="m_UseOpenMP">
+       <item row="12" column="1">
+        <widget class="QSpinBox" name="m_MaxClusterWidth">
+         <property name="maximum">
+          <number>2000</number>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <widget class="QCheckBox" name="m_EnableMerging">
          <property name="text">
           <string/>
          </property>
         </widget>
        </item>
-       <item row="5" column="0">
-        <widget class="QLabel" name="label_21">
-         <property name="text">
-          <string>Merging </string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
        <item row="7" column="1">
-        <widget class="QSpinBox" name="m_EnableClusterRemovingCount">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="minimum">
-          <number>1</number>
-         </property>
-         <property name="maximum">
-          <number>10</number>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QSpinBox" name="m_MinimumPathLength">
-         <property name="minimum">
-          <number>1</number>
-         </property>
-         <property name="maximum">
-          <number>100</number>
-         </property>
-        </widget>
-       </item>
-       <item row="10" column="0">
-        <widget class="QLabel" name="label_29">
-         <property name="text">
-          <string>Min process time</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_12">
-         <property name="text">
-          <string>Minimum path length</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="14" column="0" colspan="2">
-        <spacer name="verticalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="6" column="1">
         <widget class="QCheckBox" name="m_EnableClusterRemoving">
          <property name="text">
           <string/>
          </property>
         </widget>
        </item>
-       <item row="7" column="0">
-        <widget class="QLabel" name="label_22">
+       <item row="13" column="1">
+        <widget class="QSpinBox" name="m_MaxClusterHeight">
+         <property name="maximum">
+          <number>2000</number>
+         </property>
+        </widget>
+       </item>
+       <item row="11" column="1">
+        <widget class="QSpinBox" name="m_MinProcessTime">
+         <property name="maximum">
+          <number>10000</number>
+         </property>
+        </widget>
+       </item>
+       <item row="13" column="0">
+        <widget class="QLabel" name="label_31">
          <property name="text">
-          <string>Removing</string>
+          <string>Max cluster height</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="14" column="0">
+        <widget class="QLabel" name="label_32">
+         <property name="text">
+          <string>Min paths in cluster</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -128,13 +93,50 @@
         </widget>
        </item>
        <item row="9" column="1">
-        <widget class="QCheckBox" name="m_EnableMergingGaps">
+        <widget class="QCheckBox" name="m_EnableMovingPaths">
          <property name="text">
           <string/>
          </property>
         </widget>
        </item>
-       <item row="9" column="0">
+       <item row="14" column="1">
+        <widget class="QSpinBox" name="m_MinPathsInCluster">
+         <property name="maximum">
+          <number>1000</number>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="0">
+        <widget class="QLabel" name="label_20">
+         <property name="text">
+          <string>Enable cluster removing</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Use OpenMP</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="12" column="0">
+        <widget class="QLabel" name="label_30">
+         <property name="text">
+          <string>Max cluster width</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="0">
         <widget class="QLabel" name="label_19">
          <property name="text">
           <string>Enable merging gaps</string>
@@ -145,134 +147,19 @@
         </widget>
        </item>
        <item row="11" column="0">
-        <widget class="QLabel" name="label_30">
+        <widget class="QLabel" name="label_29">
          <property name="text">
-          <string>Max cluster width</string>
+          <string>Min process time</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
-       <item row="5" column="1">
-        <widget class="QSpinBox" name="m_EnableMergingCount">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="minimum">
-          <number>1</number>
-         </property>
-         <property name="maximum">
-          <number>10</number>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="1">
-        <widget class="QCheckBox" name="m_EnableMerging">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="12" column="1">
-        <widget class="QSpinBox" name="m_MaxClusterHeight">
-         <property name="maximum">
-          <number>2000</number>
-         </property>
-        </widget>
-       </item>
-       <item row="13" column="1">
-        <widget class="QSpinBox" name="m_MinPathsInCluster">
-         <property name="maximum">
-          <number>1000</number>
-         </property>
-        </widget>
-       </item>
-       <item row="11" column="1">
-        <widget class="QSpinBox" name="m_MaxClusterWidth">
-         <property name="maximum">
-          <number>2000</number>
-         </property>
-        </widget>
-       </item>
-       <item row="10" column="1">
-        <widget class="QSpinBox" name="m_MinProcessTime">
-         <property name="maximum">
-          <number>10000</number>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
+       <item row="3" column="0">
         <widget class="QLabel" name="label_2">
          <property name="text">
           <string>Alpha</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="12" column="0">
-        <widget class="QLabel" name="label_31">
-         <property name="text">
-          <string>Max cluster height</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="label_13">
-         <property name="text">
-          <string>Enable merging clusters</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="8" column="1">
-        <widget class="QCheckBox" name="m_EnableMovingPaths">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QDoubleSpinBox" name="m_Alpha">
-         <property name="maximum">
-          <double>1.000000000000000</double>
-         </property>
-         <property name="singleStep">
-          <double>0.100000000000000</double>
-         </property>
-        </widget>
-       </item>
-       <item row="13" column="0">
-        <widget class="QLabel" name="label_32">
-         <property name="text">
-          <string>Min paths in cluster</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="0">
-        <widget class="QLabel" name="label_20">
-         <property name="text">
-          <string>Enable cluster removing</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label">
-         <property name="text">
-          <string>Use OpenMP</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -289,18 +176,148 @@
          </property>
         </widget>
        </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="label_13">
+         <property name="text">
+          <string>Enable merging clusters</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_12">
+         <property name="text">
+          <string>Minimum path length</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="1">
+        <widget class="QCheckBox" name="m_EnableMergingGaps">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="1">
+        <widget class="QSpinBox" name="m_EnableMergingCount">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="minimum">
+          <number>1</number>
+         </property>
+         <property name="maximum">
+          <number>10</number>
+         </property>
+        </widget>
+       </item>
+       <item row="15" column="0" colspan="2">
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
        <item row="0" column="1">
         <widget class="QComboBox" name="m_Analyzer">
-         <item>
-          <property name="text">
-           <string>default</string>
-          </property>
-         </item>
          <item>
           <property name="text">
            <string>partition</string>
           </property>
          </item>
+         <item>
+          <property name="text">
+           <string>assign-merge</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="8" column="0">
+        <widget class="QLabel" name="label_22">
+         <property name="text">
+          <string>Removing</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QCheckBox" name="m_UseOpenMP">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="1">
+        <widget class="QSpinBox" name="m_EnableClusterRemovingCount">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="minimum">
+          <number>1</number>
+         </property>
+         <property name="maximum">
+          <number>10</number>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QSpinBox" name="m_MinimumPathLength">
+         <property name="minimum">
+          <number>1</number>
+         </property>
+         <property name="maximum">
+          <number>100</number>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="0">
+        <widget class="QLabel" name="label_18">
+         <property name="text">
+          <string>Enable moving paths</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0">
+        <widget class="QLabel" name="label_21">
+         <property name="text">
+          <string>Merging </string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_38">
+         <property name="text">
+          <string>ROI Estimation</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QCheckBox" name="m_RoiEstimation">
+         <property name="text">
+          <string/>
+         </property>
         </widget>
        </item>
       </layout>
@@ -769,6 +786,109 @@
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>ROI Estimation</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="1">
+        <widget class="QDoubleSpinBox" name="m_RoiCenterThreshold">
+         <property name="maximum">
+          <double>1000.000000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_36">
+         <property name="text">
+          <string>Bounding Box R:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QSpinBox" name="m_BoundingBoxT">
+         <property name="minimum">
+          <number>4</number>
+         </property>
+         <property name="maximum">
+          <number>20</number>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QDoubleSpinBox" name="m_RoiCenterW">
+         <property name="decimals">
+          <number>2</number>
+         </property>
+         <property name="minimum">
+          <double>0.020000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>2.000000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>0.010000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_35">
+         <property name="text">
+          <string>Roi Center W:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_37">
+         <property name="text">
+          <string>Bounding Box T:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_34">
+         <property name="text">
+          <string>ROI Center Threshold:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QSpinBox" name="m_BoundingBoxR">
+         <property name="minimum">
+          <number>2</number>
+         </property>
+         <property name="maximum">
+          <number>15</number>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0" colspan="2">
+        <spacer name="verticalSpacer_5">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </item>
   </layout>
@@ -782,6 +902,47 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>m_TabWidget</tabstop>
+  <tabstop>m_Analyzer</tabstop>
+  <tabstop>m_RoiEstimation</tabstop>
+  <tabstop>m_UseOpenMP</tabstop>
+  <tabstop>m_Alpha</tabstop>
+  <tabstop>m_MinimumPathLength</tabstop>
+  <tabstop>m_EnableMerging</tabstop>
+  <tabstop>m_EnableMergingCount</tabstop>
+  <tabstop>m_EnableClusterRemoving</tabstop>
+  <tabstop>m_EnableClusterRemovingCount</tabstop>
+  <tabstop>m_EnableMovingPaths</tabstop>
+  <tabstop>m_EnableMergingGaps</tabstop>
+  <tabstop>m_MinProcessTime</tabstop>
+  <tabstop>m_MaxClusterWidth</tabstop>
+  <tabstop>m_MaxClusterHeight</tabstop>
+  <tabstop>m_MinPathsInCluster</tabstop>
+  <tabstop>m_WeightX</tabstop>
+  <tabstop>m_WeightY</tabstop>
+  <tabstop>m_WeightTau</tabstop>
+  <tabstop>m_PathThresholdsTotal</tabstop>
+  <tabstop>m_PathThresholdsPositional</tabstop>
+  <tabstop>m_PathThresholdsTangent</tabstop>
+  <tabstop>m_ClusterThresholdsTotal</tabstop>
+  <tabstop>m_ClusterThresholdsPositional</tabstop>
+  <tabstop>m_ClusterThresholdsTangent</tabstop>
+  <tabstop>m_EnableMovingPathsCount</tabstop>
+  <tabstop>m_PathsPercentageMovesPerFrame</tabstop>
+  <tabstop>m_MinPathsMovesPerFrame</tabstop>
+  <tabstop>m_CreateNewCluster</tabstop>
+  <tabstop>m_TryMovingOnlyWhenCurrentIsTooFar</tabstop>
+  <tabstop>m_EnableMergingGapsCount</tabstop>
+  <tabstop>m_MergingOldestClusterTime</tabstop>
+  <tabstop>m_MergingThresholdsTime</tabstop>
+  <tabstop>m_MergingThresholdsX</tabstop>
+  <tabstop>m_MergingThresholdsY</tabstop>
+  <tabstop>m_RoiCenterThreshold</tabstop>
+  <tabstop>m_RoiCenterW</tabstop>
+  <tabstop>m_BoundingBoxR</tabstop>
+  <tabstop>m_BoundingBoxT</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
@@ -1312,6 +1473,86 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>m_RoiEstimation</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>PathAnalysisConfig</receiver>
+   <slot>setRoiEstimation(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>292</x>
+     <y>71</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>200</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_RoiCenterThreshold</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>PathAnalysisConfig</receiver>
+   <slot>setRoiCenterThreshold(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>292</x>
+     <y>48</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>200</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_RoiCenterW</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>PathAnalysisConfig</receiver>
+   <slot>setRoiCenterW(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>292</x>
+     <y>74</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>200</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_BoundingBoxR</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>PathAnalysisConfig</receiver>
+   <slot>setBoundingBoxR(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>292</x>
+     <y>100</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>200</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_BoundingBoxT</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>PathAnalysisConfig</receiver>
+   <slot>setBoundingBoxT(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>292</x>
+     <y>126</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>200</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>setUseOpenMP(bool)</slot>
@@ -1347,5 +1588,10 @@
   <slot>setMaxClusterHeight(int)</slot>
   <slot>setMinPathsInCluster(int)</slot>
   <slot>setAnalyzer(QString)</slot>
+  <slot>setRoiCenterThreshold(double)</slot>
+  <slot>setRoiCenterW(double)</slot>
+  <slot>setBoundingBoxR(int)</slot>
+  <slot>setBoundingBoxT(int)</slot>
+  <slot>setRoiEstimation(bool)</slot>
  </slots>
 </ui>

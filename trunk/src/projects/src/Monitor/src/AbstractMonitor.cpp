@@ -36,6 +36,7 @@ void AbstractMonitor::registerParameters(ProgramOptions& programOptions)
 		programOptions.add<std::string>("pass", "  camera password");
 		programOptions.add<std::string>("guid", "  camera guid");
 		programOptions.add<std::string>("mask", "  camera mask");
+		programOptions.add("offline", "  run monitor without pipe");
 		registered = true;
 	}
 }
@@ -59,8 +60,13 @@ bool AbstractMonitor::loadParameters(const ProgramOptions& options)
 		m_AlertSender = std::make_shared<utils::camera::AlertSender>(credentials, m_CameraGuid);
 	}
 	options.get<std::string>("mask", m_Mask);
-	m_Launcher = std::make_shared<MonitorLauncher>(m_Ip, m_User, m_Password, m_CameraGuid, m_Mask);
-	m_Launcher->launchPipe();
+	
+	if (!options.exists("offline"))
+	{
+		m_Launcher = std::make_shared<MonitorLauncher>(m_Ip, m_User, m_Password, m_CameraGuid, m_Mask);
+		m_Launcher->launchPipe();
+	}
+	
 
 	return true;
 }

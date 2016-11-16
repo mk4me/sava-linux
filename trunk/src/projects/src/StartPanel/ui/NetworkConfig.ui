@@ -139,6 +139,13 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>m_Port</tabstop>
+  <tabstop>m_NodeList</tabstop>
+  <tabstop>m_AddButton</tabstop>
+  <tabstop>m_EditButton</tabstop>
+  <tabstop>m_RemoveButton</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

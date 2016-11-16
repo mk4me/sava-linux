@@ -63,25 +63,36 @@ namespace clustering
 		return config::PathDetection::getInstance();
 	}
 
-	void DefaultPathDetector::processRegions()
+	void DefaultPathDetector::processRegions(const std::vector<cv::Mat>& detectorMasks /*= std::vector<cv::Mat>()*/, cv::Mat appendMask /*= cv::Mat()*/)
 	{
 		for (auto& p : m_Paths)
 			p->_pushedPoint = 0;
 
 		std::vector<ThreadTmpData> threadsTmpData(m_ROIRegions.size());
+		/*std::vector<cv::Mat> masks;
+		if (!mask.empty())
+		{
+			for (int i = 0; i < static_cast<int>(m_ROIRegions.size()); ++i)
+			{
+				cv::Mat m(mask, m_ROIRegions[i]);
+				masks.push_back(m);
+			}
+		}*/
 
 #pragma omp parallel for schedule(dynamic)
 		for (int i = 0; i < static_cast<int>(m_ROIRegions.size()); ++i)
 		{
 			const cv::Rect& roi = m_ROIRegions[i];
 			ThreadTmpData& tmpData = threadsTmpData[i];
-
-			initPerROIStructures(tmpData, roi);
+			if (!detectorMasks.empty())
+				initPerROIStructures(tmpData, roi, detectorMasks[i]);
+			else
+				initPerROIStructures(tmpData, roi);
 			createCostMatrix(tmpData);
 			match(tmpData);
 #pragma omp critical (processAppendPointsToPaths)
 			{
-				appendPointsToPaths(tmpData);
+				appendPointsToPaths(tmpData, appendMask);
 			}
 			cleanPerROIStructures(tmpData);
 		}
@@ -142,7 +153,7 @@ namespace clustering
 		}
 	}
 
-	void DefaultPathDetector::initPerROIStructures(ThreadTmpData& tmpData, const cv::Rect& roi)
+	void DefaultPathDetector::initPerROIStructures(ThreadTmpData& tmpData, const cv::Rect& roi, cv::InputArray mask /*= cv::noArray()*/)
 	{
 		auto& tmpDescs = tmpData.m_TmpDescs;
 		auto& tmpKeypoints = tmpData.m_TmpKeypoints;
@@ -155,8 +166,8 @@ namespace clustering
 
 		cv::Mat crumble(m_VideoFrame, roi);
 
-		cv::Mat element = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(3, 3));
-		cv::morphologyEx(crumble, crumble, cv::MORPH_DILATE, element);
+		//cv::Mat element = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(3, 3));
+		//cv::morphologyEx(crumble, crumble, cv::MORPH_DILATE, element);
 
 		cv::Ptr<cv::Feature2D> detector;
 		if (getConfig().getDetectorId() == 0)
@@ -169,7 +180,7 @@ namespace clustering
 			detector = cv::xfeatures2d::SURF::create(getConfig().getSURFHessianThreshold(), getConfig().getSURFnOctaves(), getConfig().getSURFnOctaveLayers(), true, false);
 
 		// Detect keypoints in current ROI
-		detector->detect(crumble, tmpKeypoints);
+		detector->detect(crumble, tmpKeypoints, mask);
 		detector->compute(crumble, tmpKeypoints, tmpDescs);
 
 		for (int i = 0; i < tmpKeypoints.size(); i++)
@@ -236,7 +247,7 @@ namespace clustering
 					sum *= 100;
 
 				// apply distance modifier
-				sum += path::Dist(tmpPaths.at(j)->getPredictedNextWorldPoint(), tmpWorldPoints.at(i)) * getConfig().getDistanceModifier();
+				sum += path::L2Dist(tmpPaths.at(j)->getPredictedNextWorldPoint(), tmpWorldPoints.at(i)) * getConfig().getDistanceModifier();
 
 				// apply angle modifier
 				float angleDiff = abs(matchingPoint.angle - tmpKeypoints.at(i).angle);
@@ -271,7 +282,7 @@ namespace clustering
 		hungarian_solve(&hungarianProblem);
 	}
 
-	void DefaultPathDetector::appendPointsToPaths(ThreadTmpData& tmpData)
+	void DefaultPathDetector::appendPointsToPaths(ThreadTmpData& tmpData, cv::Mat mask /*= cv::Mat()*/)
 	{
 		auto& tmpDescs = tmpData.m_TmpDescs;
 		auto& tmpKeypoints = tmpData.m_TmpKeypoints;
@@ -308,6 +319,9 @@ namespace clustering
 
 			if (!matchedPt)
 			{
+				if (!mask.empty() && mask.at<unsigned char>(cv::Point(tmpKeypoints.at(i).pt)) == 0)
+					continue;
+
 				path* newPath = new path(tmpKeypoints.at(i), getConfig().getMaxPathLength(), getConfig().getMaxMissedFramesInPath(), (float*)&(tmpDescs.data[tmpDescs.step*i]), tmpDescs.cols, tmpWorldPoints.at(i));
 				m_Paths.push_back(newPath);
 			}

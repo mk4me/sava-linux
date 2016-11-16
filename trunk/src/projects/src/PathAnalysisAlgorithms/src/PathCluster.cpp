@@ -42,20 +42,23 @@ motion_analysis::PathCluster::PathCluster( const PathCluster& ref ) : PointColle
 Point motion_analysis::PathCluster::getMean() const
 {
 	Point globalMean;
-	
+	float sumW = 0.0;
+
 	// iterate over object paths
-	for (auto p = elements.begin(); p != elements.end(); ++p) {
-		float w = static_cast<float>((**p).pointsCount());
-		Point mean = (**p).getMean();
+	for (auto e = elements.begin(); e != elements.end(); ++e) {
+		float w = static_cast<float>((**e).pointsCount());
+		sumW += w;
+		Point mean = (**e).getMean();
 
 		globalMean.x += w * mean.x;
 		globalMean.y += w * mean.y;
 		globalMean.t += static_cast<PathTimeType>(w * mean.t);
+
 	}
 
-	globalMean.x /= current_bk;
-	globalMean.y /= current_bk;
-	globalMean.t /= current_bk;
+	globalMean.x /= sumW;
+	globalMean.y /= sumW;
+	globalMean.t = static_cast<PathTimeType>(globalMean.t / sumW);
 
 	return globalMean;
 }
@@ -187,6 +190,9 @@ void motion_analysis::PathCluster::merge( const PathCluster& cluster, const Path
 	
     auto z = Z.begin();
     auto p = P.begin();
+
+	if (z->t > p->t)	
+		this->id = cluster.id;	
 	
     // reassign paths to current cluster
     this->elements.insert( this->elements.end(), cluster.elements.begin(), cluster.elements.end() );
@@ -262,8 +268,7 @@ bool motion_analysis::PathCluster::removePath( const std::shared_ptr<Path> & pat
 	
 	--current_bk;
 	this->elements.remove( path );
-	//return ( elements.empty() == true );
-	return (current_bk == 0);
+	return ( elements.empty() == true );
 }
 
 const ::size_t motion_analysis::PathCluster::computeMemoryUsage()
@@ -360,24 +365,25 @@ cv::Rect motion_analysis::PathCluster::getContour(PathTimeType time, const cv::S
 			}
 			else
 			{
-				if (box.x > p.x - margin.width) 
+				if (box.x > p.x - margin.width)
 				{
 					box.width += box.x - p.x + margin.width;
-					box.x = p.x - margin.width; 
+					box.x = p.x - margin.width;
 				}
 				if (box.x + box.width < p.x + margin.width)
 					box.width = p.x + margin.width - box.x;
-				if (box.y > p.y - margin.height) 
+				if (box.y > p.y - margin.height)
 				{
 					box.height += box.y - p.y + margin.height;
-					box.y = p.y - margin.height; 
+					box.y = p.y - margin.height;
 				}
-				if (box.y + box.height < p.y + margin.height) 
+				if (box.y + box.height < p.y + margin.height)
 					box.height = p.y + margin.height - box.y;
 			}
 		}
 	}
 	return box;
 }
+
 
 bool motion_analysis::PathCluster::do_forward_filter_in_update = false;

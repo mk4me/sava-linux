@@ -53,6 +53,10 @@ path::path(KeyPoint firstPoint, int maxLength, int maxMissedFrames, float* descr
 
 	m_PredictedNextPoint = firstPoint.pt;
 	m_PredictedNextWorldPoint = firstWorldPoint;
+
+	m_FirstPoint = firstWorldPoint;
+	m_Length = 1;
+	m_MaxDistFromBegin = 0.0f;
 }
 
 path::~path(void)
@@ -109,12 +113,14 @@ void path::draw(utils::ZoomObjectCollection& zoomCollection, float factor, DrawM
 
 bool path::validateWithPredictedNextPoint(Point2f newPt, float maxDistFromPredictedNextPoint)
 {
-	return DistSqr(newPt, m_PredictedNextPoint) < maxDistFromPredictedNextPoint;
+	float dist = L2Dist(newPt, m_PredictedNextPoint);
+	return dist < maxDistFromPredictedNextPoint;
 }
 
 bool path::validateWithPredictedNextWorldPoint(Point2f newWorldPt, float maxDistFromPredictedNextWorldPoint)
 {
-	return DistSqr(newWorldPt, m_PredictedNextWorldPoint) < maxDistFromPredictedNextWorldPoint * maxDistFromPredictedNextWorldPoint;
+	float dist = L2Dist(newWorldPt, m_PredictedNextWorldPoint);
+	return dist < maxDistFromPredictedNextWorldPoint;
 }
 
 int path::pushPoint(KeyPoint newPoint, float* descriptor, Point2f newWorldPoint)
@@ -133,6 +139,8 @@ int path::pushPoint(KeyPoint newPoint, float* descriptor, Point2f newWorldPoint)
 	// Push the new point (valid or not) to the FIFO queue (path)
 	m_Points[0] = newPoint.pt;
 	m_WorldPoints[0] = newWorldPoint;
+
+	++m_Length;
 
 	// Check if the new point is valid
 	if (newPoint.pt.x < 0 || newPoint.pt.y < 0) {
@@ -188,9 +196,19 @@ int path::pushPoint(KeyPoint newPoint, float* descriptor, Point2f newWorldPoint)
 			m_MatchingDescriptor[i] = descriptor[i];
 		}
 
+		float dist = L2Dist(newWorldPoint, m_FirstPoint);
+		if (m_MaxDistFromBegin < dist)
+			m_MaxDistFromBegin = dist;
 	}
 
 	// signal that the path is valid
 	return 0;
+}
+
+float path::L2Dist(Point2f pt1, Point2f pt2)
+{
+	const float diffX = pt1.x - pt2.x;
+	const float diffY = pt1.y - pt2.y;
+	return sqrt(diffX*diffX + diffY*diffY);
 }
 

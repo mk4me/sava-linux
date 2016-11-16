@@ -94,6 +94,10 @@
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>m_AlertsTime</tabstop>
+  <tabstop>m_MaxAlertsCount</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

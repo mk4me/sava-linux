@@ -76,6 +76,14 @@ bool PathAnalysisConfig::load()
 
 	ui->m_MinPathsInCluster->setValue(config.getMinPathsInCluster());
 
+	ui->m_RoiEstimation->setChecked(config.isRoiEstimation());
+	ui->m_TabWidget->setTabEnabled(4, config.isRoiEstimation());
+
+	ui->m_RoiCenterThreshold->setValue(config.getRoiCenterThreshold());
+	ui->m_RoiCenterW->setValue(config.getRoiCenterW());
+	ui->m_BoundingBoxR->setValue(config.getBoundingBoxR());
+	ui->m_BoundingBoxT->setValue(config.getBoundingBoxT());
+
 	// partition tab
 	m_PartitionConfig->load();
 
@@ -254,5 +262,32 @@ void PathAnalysisConfig::setMaxClusterHeight(int val)
 void PathAnalysisConfig::setMinPathsInCluster(int val)
 {
 	config::PathAnalysis::getInstance().setMinPathsInCluster(val);
+}
+
+void PathAnalysisConfig::setRoiEstimation(bool val)
+{
+	config::PathAnalysis::getInstance().setRoiEstimation(val);
+
+	ui->m_TabWidget->setTabEnabled(4, val);
+}
+
+void PathAnalysisConfig::setRoiCenterThreshold(double val)
+{
+	config::PathAnalysis::getInstance().setRoiCenterThreshold(val);
+}
+
+void PathAnalysisConfig::setRoiCenterW(double val)
+{
+	config::PathAnalysis::getInstance().setRoiCenterW(val);
+}
+
+void PathAnalysisConfig::setBoundingBoxR(int val)
+{
+	config::PathAnalysis::getInstance().setBoundingBoxR(val);
+}
+
+void PathAnalysisConfig::setBoundingBoxT(int val)
+{
+	config::PathAnalysis::getInstance().setBoundingBoxT(val);
 }
 

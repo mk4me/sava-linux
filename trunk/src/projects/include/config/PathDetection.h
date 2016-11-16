@@ -23,6 +23,13 @@ namespace config
 		Algorithm getAlgorithm() const { return m_Algorithm; }
 		void setAlgorithm(Algorithm val) { m_Algorithm = val; }
 
+		enum RoiFilter
+		{
+			ROI_FILTER_NULL,
+			ROI_FILTER_VARIANCE,
+			ROI_FILTER_GRADIENT_MAGNITUDE,
+		};
+
 		size_t getMaxPathsCount() const { return m_MaxPathsCount; }
 		void setMaxPathsCount(size_t val) { m_MaxPathsCount = val; }
 
@@ -68,6 +75,35 @@ namespace config
 		int getMaxProcessTime() const { return m_MaxProcessTime; }
 		void setMaxProcessTime(int val) { m_MaxProcessTime = val; }
 
+		bool isPredictedRoiDetector() const { return m_PredictedRoiDetector; }
+		void setPredictedRoiDetector(bool val) { m_PredictedRoiDetector = val; }
+		bool isPredictedRoiEnabled() const { return m_PredictedRoiEnabled; }
+		void setPredictedRoiEnabled(bool val) { m_PredictedRoiEnabled = val; }
+		int getPredictedRoiRadius() const { return m_PredictedRoiRadius; }
+		void setPredictedRoiRadius(int val) { m_PredictedRoiRadius = val; }
+		int getRoiFilter() const { return m_RoiFilter; }
+		void setRoiFilter(int val) { m_RoiFilter = val; }
+		int getRoiFilterWindow() const { return m_RoiFilterWindow; }
+		void setRoiFilterWindow(int val) { m_RoiFilterWindow = val; }
+		int getRoiFilterThreshold() const { return m_RoiFilterThreshold; }
+		void setRoiFilterThreshold(int val) { m_RoiFilterThreshold = val; }
+		bool isRoiFilterSobel() const { return m_RoiFilterSobel; }
+		void setRoiFilterSobel(bool val) { m_RoiFilterSobel = val; }
+		int getDistance0MinPathLenght() const { return m_Distance0MinPathLenght; }
+		void setDistance0MinPathLenght(int val) { m_Distance0MinPathLenght = val; }
+		int getDistance0MinPathDistance() const { return m_Distance0MinPathDistance; }
+		void setDistance0MinPathDistance(int val) { m_Distance0MinPathDistance = val; }
+		int getDistance1MinPathLenght() const { return m_Distance1MinPathLenght; }
+		void setDistance1MinPathLenght(int val) { m_Distance1MinPathLenght = val; }
+		int getDistance1MinPathDistance() const { return m_Distance1MinPathDistance; }
+		void setDistance1MinPathDistance(int val) { m_Distance1MinPathDistance = val; }
+		int getPathRemoveFilterT1() const { return m_PathRemoveFilterT1; }
+		void setPathRemoveFilterT1(int val) { m_PathRemoveFilterT1 = val; }
+		int getPathRemoveFilterT2() const { return m_PathRemoveFilterT2; }
+		void setPathRemoveFilterT2(int val) { m_PathRemoveFilterT2 = val; }
+		int getPathRemoveFilterN() const { return m_PathRemoveFilterN; }
+		void setPathRemoveFilterN(int val) { m_PathRemoveFilterN = val; }
+
 	private:
 		PathDetection();
 		~PathDetection();
@@ -100,6 +136,20 @@ namespace config
 		int m_SURFnOctaves;
 		int m_SURFnOctaveLayers;
 
+		bool m_PredictedRoiDetector;
+		bool m_PredictedRoiEnabled;
+		int m_PredictedRoiRadius;
+		int m_RoiFilter;
+		int m_RoiFilterWindow;
+		int m_RoiFilterThreshold;
+		bool m_RoiFilterSobel;
+		int m_Distance0MinPathLenght;
+		int m_Distance0MinPathDistance;
+		int m_Distance1MinPathLenght;
+		int m_Distance1MinPathDistance;
+		int m_PathRemoveFilterT1;
+		int m_PathRemoveFilterT2;
+		int m_PathRemoveFilterN;
 
 		friend class boost::serialization::access;
 		template<class Archive>

@@ -46,22 +46,40 @@ bool PathDetectionConfig::load()
 		ui->m_SIFTDetector->toggle();
 	else if (detectorId == 1)
 		ui->m_SURFDetector->toggle();
+	
+	ui->m_MaxPathsCount->setValue(config.getMaxPathsCount());
 
+	ui->m_PredictedRoiEnabled->setChecked(config.isPredictedRoiDetector());
 
+	ui->m_PredictedRoiRadius->setValue(config.getPredictedRoiRadius());
+	ui->m_RoiFilter->setCurrentIndex(config.getRoiFilter());
+	ui->m_RoiFilterWindow->setValue(config.getRoiFilterWindow());
+	ui->m_RoiFilterThreshold->setValue(config.getRoiFilterThreshold());
+	ui->m_RoiFilterSobel->setChecked(config.isRoiFilterSobel());
+	ui->m_MinPathLength0->setValue(config.getDistance0MinPathLenght());
+	ui->m_MinPathDistance0->setValue(config.getDistance0MinPathDistance());
+	ui->m_MinPathLength1->setValue(config.getDistance1MinPathLenght());
+	ui->m_MinPathDistance1->setValue(config.getDistance1MinPathDistance());
+	ui->m_PathRemoveFilterT1->setValue(config.getPathRemoveFilterT1());
+	ui->m_PathRemoveFilterT2->setValue(config.getPathRemoveFilterT2());
+	ui->m_PathRemoveFilterN->setValue(config.getPathRemoveFilterN());
+	
 	if (config.getAlgorithm() == config::PathDetection::ALGORITHM_OPTFLOW)
 	{
 		ui->m_OpticalFlow->toggle();
 		ui->tabWidget->setTabEnabled(1, false);
 		ui->tabWidget->setTabEnabled(2, false);
+		ui->tabWidget->setTabEnabled(3, false);
+		ui->m_PredictedRoiEnabled->setEnabled(false);
 	}
 	else if (config.getAlgorithm() == config::PathDetection::ALGORITHM_DEFAULT)
 	{
 		ui->m_Hungarian->toggle();
 		ui->tabWidget->setTabEnabled(1, true);
 		ui->tabWidget->setTabEnabled(2, true);
+		ui->tabWidget->setTabEnabled(3, config.isPredictedRoiDetector());
+		ui->m_PredictedRoiEnabled->setEnabled(true);
 	}
-
-	ui->m_MaxPathsCount->setValue(config.getMaxPathsCount());
 
 	return true;
 }
@@ -185,7 +203,7 @@ void PathDetectionConfig::setSURFnOctaveLayers(int val)
 
 void PathDetectionConfig::setOpticalFlow(bool val)
 {
-	if (val)
+	if (val)	
 		config::PathDetection::getInstance().setAlgorithm(config::PathDetection::ALGORITHM_OPTFLOW);
 }
 
@@ -196,10 +214,80 @@ void PathDetectionConfig::setHungarian(bool val)
 
 	ui->tabWidget->setTabEnabled(1, val);
 	ui->tabWidget->setTabEnabled(2, val);
+
+	ui->tabWidget->setTabEnabled(3, val && config::PathDetection::getInstance().isPredictedRoiDetector());
+
+	ui->m_PredictedRoiEnabled->setEnabled(val);
 }
 
 void PathDetectionConfig::setMaxPathsCount(int val)
 {
 	config::PathDetection::getInstance().setMaxPathsCount(val);
+}
+
+void PathDetectionConfig::setPredictedRoiDetector(bool val)
+{
+	config::PathDetection::getInstance().setPredictedRoiDetector(val);
+	ui->tabWidget->setTabEnabled(3, val);
+}
+
+void PathDetectionConfig::setPredictedRoiRadius(int val)
+{
+	config::PathDetection::getInstance().setPredictedRoiRadius(val);
+}
+
+void PathDetectionConfig::setRoiFilter(int val)
+{
+	config::PathDetection::getInstance().setRoiFilter(val);
+}
+
+void PathDetectionConfig::setRoiFilterWindow(int val)
+{
+	config::PathDetection::getInstance().setRoiFilterWindow(val);
+}
+
+void PathDetectionConfig::setRoiFilterThreshold(int val)
+{
+	config::PathDetection::getInstance().setRoiFilterThreshold(val);
+}
+
+void PathDetectionConfig::setRoiFilterSobel(bool val)
+{
+	config::PathDetection::getInstance().setRoiFilterSobel(val);
+}
+
+void PathDetectionConfig::setDistance0MinPathLenght(int val)
+{
+	config::PathDetection::getInstance().setDistance0MinPathLenght(val);
+}
+
+void PathDetectionConfig::setDistance0MinPathDistance(int val)
+{
+	config::PathDetection::getInstance().setDistance0MinPathDistance(val);
+}
+
+void PathDetectionConfig::setDistance1MinPathLenght(int val)
+{
+	config::PathDetection::getInstance().setDistance1MinPathLenght(val);
+}
+
+void PathDetectionConfig::setDistance1MinPathDistance(int val)
+{
+	config::PathDetection::getInstance().setDistance1MinPathDistance(val);
+}
+
+void PathDetectionConfig::setPathRemoveFilterT1(int val)
+{
+	config::PathDetection::getInstance().setPathRemoveFilterT1(val);
+}
+
+void PathDetectionConfig::setPathRemoveFilterT2(int val)
+{
+	config::PathDetection::getInstance().setPathRemoveFilterT2(val);
+}
+
+void PathDetectionConfig::setPathRemoveFilterN(int val)
+{
+	config::PathDetection::getInstance().setPathRemoveFilterN(val);
 }
 

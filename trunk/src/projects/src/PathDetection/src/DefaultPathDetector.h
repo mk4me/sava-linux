@@ -27,15 +27,15 @@ namespace clustering
 	protected:
 		config::PathDetection& getConfig();
 
-		void processRegions();
+		void processRegions(const std::vector<cv::Mat>& detectorMasks = std::vector<cv::Mat>(), cv::Mat appendMask = cv::Mat());
 
 		virtual void savePaths(sequence::PathStream& pathStream);
 
-	private:
 		std::vector<path*> m_Paths;
 		std::vector<cv::Rect> m_ROIRegions;
 		cv::Mat m_VideoFrame;
 
+	private:
 		struct ThreadTmpData
 		{
 			hungarian_problem_t m_HungarianProblem;
@@ -49,10 +49,10 @@ namespace clustering
 			int threadNum;
 		};
 
-		void initPerROIStructures(ThreadTmpData& tmpData, const cv::Rect& roi);
+		void initPerROIStructures(ThreadTmpData& tmpData, const cv::Rect& roi, cv::InputArray mask = cv::noArray());
 		void createCostMatrix(ThreadTmpData& tmpData);
 		void match(ThreadTmpData& tmpData);
-		void appendPointsToPaths(ThreadTmpData& tmpData);
+		void appendPointsToPaths(ThreadTmpData& tmpData, cv::Mat mask = cv::Mat());
 		void cleanPerROIStructures(ThreadTmpData& tmpData);
 	};
 }

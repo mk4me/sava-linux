@@ -150,6 +150,19 @@ namespace config
 
 		const std::string& getAnalyzer() const { return m_Analyzer; }
 		void setAnalyzer(const std::string& val) { m_Analyzer = val; }
+		
+		bool isRoiEstimation() const { return m_RoiEstimation; }
+		void setRoiEstimation(bool val) { m_RoiEstimation = val; }
+
+		float getRoiCenterThreshold() const { return m_RoiCenterThreshold; }
+		void setRoiCenterThreshold(float val) { m_RoiCenterThreshold = val; }
+		float getRoiCenterW() const { return m_RoiCenterW; }
+		void setRoiCenterW(float val) { m_RoiCenterW = val; }
+
+		int getBoundingBoxR() const { return m_BoundingBoxR; }
+		void setBoundingBoxR(int val) { m_BoundingBoxR = val; }
+		int getBoundingBoxT() const { return m_BoundingBoxT; }
+		void setBoundingBoxT(int val) { m_BoundingBoxT = val; }
 
 	private:
 		PathAnalysis();
@@ -207,6 +220,13 @@ namespace config
 
 		std::string m_Analyzer;
 
+		bool m_RoiEstimation;
+
+		float m_RoiCenterThreshold;
+		float m_RoiCenterW;
+		int m_BoundingBoxR;
+		int m_BoundingBoxT;
+
 		friend class boost::serialization::access;
 		template<class Archive>
 		void serialize(Archive & ar, const unsigned int version);
@@ -244,6 +264,12 @@ namespace config
 		ar & m_MinPathsInCluster;
 
 		ar & m_Analyzer;
+		ar & m_RoiEstimation;
+
+		ar & m_RoiCenterThreshold;
+		ar & m_RoiCenterW;
+		ar & m_BoundingBoxR;
+		ar & m_BoundingBoxT;
 	}
 
 }
