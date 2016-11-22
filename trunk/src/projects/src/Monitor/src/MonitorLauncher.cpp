@@ -6,6 +6,7 @@
 
 #include <QtWidgets/QMessageBox>
 #include <inttypes.h>
+#include <utils/Spawning.h>
 
 MonitorLauncher::MonitorLauncher(const std::string& ip, const std::string& user, const std::string& password, const std::string& guid, const std::string& mask, QObject *parent)
 	: QObject(parent)
@@ -89,7 +90,7 @@ bool MonitorLauncher::runCommand(const QString& description, const std::string& 
 
 std::string MonitorLauncher::getCompressVideoCommand() const
 {
-	std::string command = "Compression.exe";
+	std::string command = utils::Spawning::getProcessFilePath("Compression");
 	command += " --if \"" + config::Directory::getInstance().getTemporaryPath() + "raw/\"";
 	command += " --of \"" + config::Directory::getInstance().getTemporaryPath() + '\"';
 
@@ -98,7 +99,7 @@ std::string MonitorLauncher::getCompressVideoCommand() const
 
 std::string MonitorLauncher::getDetectPathsCommand() const
 {
-	std::string command = "PathDetection.exe";
+	std::string command = utils::Spawning::getProcessFilePath("PathDetection");
 	command += " --if \"" + config::Directory::getInstance().getTemporaryPath() + '\"';
 	command += " --of \"" + config::Directory::getInstance().getTemporaryPath() + "path/\"";
 	if(!m_Mask.empty())
@@ -109,7 +110,7 @@ std::string MonitorLauncher::getDetectPathsCommand() const
 
 std::string MonitorLauncher::getDetectClustersCommand() const
 {
-	std::string command = "PathAnalysis.exe";
+	std::string command = utils::Spawning::getProcessFilePath("PathAnalysis");
 	command += " --if \"" + config::Directory::getInstance().getTemporaryPath() + "path/\"";
 	command += " --of \"" + config::Directory::getInstance().getTemporaryPath() + '\"';
 
@@ -118,7 +119,7 @@ std::string MonitorLauncher::getDetectClustersCommand() const
 
 std::string MonitorLauncher::getComputeGbhCommand() const
 {
-	std::string command = "GbhPipe.exe";
+	std::string command = utils::Spawning::getProcessFilePath("GbhPipe");
 	command += " --if \"" + config::Directory::getInstance().getTemporaryPath() + '\"';
 	command += " --of \"" + config::Directory::getInstance().getTemporaryPath() + "fv/\"";
 
@@ -127,7 +128,7 @@ std::string MonitorLauncher::getComputeGbhCommand() const
 
 std::string MonitorLauncher::getComputeMbhCommand() const
 {
-	std::string command = "MbhPipe.exe";
+	std::string command = utils::Spawning::getProcessFilePath("MbhPipe");
 	command += " --if \"" + config::Directory::getInstance().getTemporaryPath() + '\"';
 	command += " --of \"" + config::Directory::getInstance().getTemporaryPath() + "fv/\"";
 	
@@ -136,7 +137,7 @@ std::string MonitorLauncher::getComputeMbhCommand() const
 
 std::string MonitorLauncher::getRecognizeActionsCommand() const
 {
-	std::string command = "SvmPipe.exe";
+	std::string command = utils::Spawning::getProcessFilePath("SvmPipe");
 	command += " --if \"" + config::Directory::getInstance().getTemporaryPath() + "fv/\"";
 	command += " --of \"" + config::Directory::getInstance().getTemporaryPath() + '\"';
 
@@ -145,7 +146,7 @@ std::string MonitorLauncher::getRecognizeActionsCommand() const
 
 std::string MonitorLauncher::getMilestoneCommand() const
 {
-	std::string command = "Aquisition.exe";
+	std::string command = utils::Spawning::getProcessFilePath("Aquisition");
 	command += " --of \"" + config::Directory::getInstance().getTemporaryPath() + "raw/\"";
 	command += " --in milestone";
 	command += " --user " + m_User;
@@ -158,7 +159,7 @@ std::string MonitorLauncher::getMilestoneCommand() const
 
 std::string MonitorLauncher::getAxisCommand() const
 {
-	std::string command = "Aquisition.exe";
+	std::string command = utils::Spawning::getProcessFilePath("Aquisition");
 	command += " --of \"" + config::Directory::getInstance().getTemporaryPath() + "raw/\"";
 	command += " --user " + m_User;
 	command += " --pass " + m_Password;

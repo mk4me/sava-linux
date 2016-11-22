@@ -98,13 +98,13 @@ void TrainManager::startProcess()
 		if (descType & config::Action::DescriptorType::GBH)
 		{
 			m_ProcessList.append(new QProcess(this));
-			m_ProcessList[0]->setProgram("GetGmmGBH.exe");
+			m_ProcessList[0]->setProgram(utils::Spawning::getProcessFilePath("GetGmmGBH"));
 			m_ProcessList[0]->setArguments(args);
 		}
 		if (descType & config::Action::DescriptorType::MBH)
 		{
 			m_ProcessList.append(new QProcess(this));
-			m_ProcessList[1]->setProgram("GetGmmMBH.exe");
+			m_ProcessList[1]->setProgram(utils::Spawning::getProcessFilePath("GetGmmMBH"));
 			m_ProcessList[1]->setArguments(args);
 		}
 		ui.m_CbGmm->setCheckState(Qt::PartiallyChecked);
@@ -119,13 +119,13 @@ void TrainManager::startProcess()
 		if (descType & config::Action::DescriptorType::GBH)
 		{
 			m_ProcessList.append(new QProcess(this));
-			m_ProcessList[0]->setProgram("GetTrainTestDataGBH.exe");
+			m_ProcessList[0]->setProgram(utils::Spawning::getProcessFilePath("GetTrainTestDataGBH"));
 			m_ProcessList[0]->setArguments(args);
 		}
 		if (descType & config::Action::DescriptorType::MBH)
 		{
 			m_ProcessList.append(new QProcess(this));
-			m_ProcessList[1]->setProgram("GetTrainTestDataMBH.exe");
+			m_ProcessList[1]->setProgram(utils::Spawning::getProcessFilePath("GetTrainTestDataMBH"));
 			m_ProcessList[1]->setArguments(args);
 		}
 		ui.m_CbFv->setCheckState(Qt::PartiallyChecked);
@@ -136,7 +136,7 @@ void TrainManager::startProcess()
 	case TrainState::SPLIT:
 	{
 		m_ProcessList.append(new QProcess(this));
-		m_ProcessList[0]->setProgram("SplitData.exe");
+		m_ProcessList[0]->setProgram(utils::Spawning::getProcessFilePath("SplitData");
 		m_ProcessList[0]->setArguments(QStringList() << m_ActionConfig.getDatabasePath().c_str() << m_ActionConfig.getDescriptorName().c_str());
 
 		ui.m_CbSplit->setCheckState(Qt::PartiallyChecked);
@@ -158,7 +158,7 @@ void TrainManager::startProcess()
 		args << m_ActionConfig.getDescriptor(config::Action::MBH).path.c_str();
 		args << QString("%1").arg(m_ActionConfig.getDescriptor(config::Action::MBH).size);
 		m_ProcessList.append(new QProcess(this));
-		m_ProcessList[0]->setProgram("MergeData.exe");
+		m_ProcessList[0]->setProgram(utils::Spawning::getProcessFilePath("MergeData"));
 
 		ui.m_CbMerge->setCheckState(Qt::PartiallyChecked);
 
@@ -172,7 +172,7 @@ void TrainManager::startProcess()
 		args << "-x" << QString("%1").arg(m_ActionConfig.getDescriptorSize());
 		args << "-f" << m_ActionConfig.getDescriptorPath().c_str();
 		m_ProcessList.append(new QProcess(this));
-		m_ProcessList[0]->setProgram("SvmTrain.exe");
+		m_ProcessList[0]->setProgram(utils::Spawning::getProcessFilePath("SvmTrain"));
 		m_ProcessList[0]->setArguments(args);
 
 		ui.m_CbSvm->setCheckState(Qt::PartiallyChecked);

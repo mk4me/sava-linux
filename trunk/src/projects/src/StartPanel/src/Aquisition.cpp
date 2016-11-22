@@ -6,6 +6,7 @@
 #include "config/Camera.h"
 #include "config/Milestone.h"
 #include "config/Directory.h"
+#include "utils/Spawning.h"
 
 #include <QtWidgets/QMessageBox>
 #include <QtGui/QCloseEvent>
@@ -143,7 +144,7 @@ bool Aquisition::recordVideo()
 
 bool Aquisition::compressVideo()
 {
-	std::string command = "Compression.exe";
+	std::string command = utils::Spawning::getProcessFilePath("Compression");
 	command += " --if \"" + m_OutDir + "raw/\"";
 	command += " --of \"" + m_OutDir + '\"';
 	command += " --timeout " + std::to_string(config::Process::getInstance().getIdleTimeout());
@@ -194,7 +195,7 @@ bool Aquisition::runMultiNode(const QString& description, const std::string& com
 
 std::string Aquisition::getDetectPathsCommand() const
 {
-	std::string command = "PathDetection.exe";
+	std::string command = utils::Spawning::getProcessFilePath("PathDetection");
 	command += " --if \"" + m_OutDir + '\"';
 	command += " --of \"" + m_OutDir + "path/\"";
 	command += " --timeout " + std::to_string(config::Process::getInstance().getIdleTimeout());
@@ -216,7 +217,7 @@ bool Aquisition::detectClusters()
 		return false;
 	}
 
-	std::string command = "PathAnalysis.exe";
+	std::string command = utils::Spawning::getProcessFilePath("PathAnalysis");
 	command += " --if \"" + m_OutDir + "path/\"";
 	command += " --of \"" + m_OutDir + '\"';
 	command += " --timeout " + std::to_string(config::Process::getInstance().getIdleTimeout());
@@ -228,7 +229,7 @@ bool Aquisition::detectClusters()
 
 std::string Aquisition::getComputeGbhCommand() const
 {
-	std::string command = "GbhPipe.exe";
+	std::string command = utils::Spawning::getProcessFilePath("GbhPipe");
 	command += " --if \"" + m_OutDir + '\"';
 	command += " --of \"" + m_OutDir + "fv/\"";
 	command += " --timeout " + std::to_string(config::Process::getInstance().getIdleTimeout());
@@ -238,7 +239,7 @@ std::string Aquisition::getComputeGbhCommand() const
 
 std::string Aquisition::getComputeMbhCommand() const
 {
-	std::string command = "MbhPipe.exe";
+	std::string command = utils::Spawning::getProcessFilePath("MbhPipe");
 	command += " --if \"" + m_OutDir + '\"';
 	command += " --of \"" + m_OutDir + "fv/\"";
 	command += " --timeout " + std::to_string(config::Process::getInstance().getIdleTimeout());
@@ -248,7 +249,7 @@ std::string Aquisition::getComputeMbhCommand() const
 
 std::string Aquisition::getRecognizeActionsCommand() const
 {
-	std::string command = "SvmPipe.exe";
+	std::string command = utils::Spawning::getProcessFilePath("SvmPipe");
 	command += " --if \"" + m_OutDir + "fv/\"";
 	command += " --of \"" + m_OutDir + '\"';
 	command += " --timeout " + std::to_string(config::Process::getInstance().getIdleTimeout());
@@ -275,7 +276,7 @@ std::string Aquisition::getMilestoneCommand()
 	outDir += m_Wizard->getMilestoneCameraPage()->getCameraName() + '/';
 	m_OutDir = outDir;
 
-	std::string command = "Aquisition.exe";
+	std::string command = utils::Spawning::getProcessFilePath("Aquisition");
 	command += " --of \"" + outDir + "raw/\"";
 	command += " --in milestone";
 	command += " --user " + milestoneConfig.getUser();
@@ -296,7 +297,7 @@ std::string Aquisition::getAxisCommand()
 	outDir += cameraConfig.getName(cameraIndex) + '/';
 	m_OutDir = outDir;
 
-	std::string command = "Aquisition.exe";
+	std::string command = utils::Spawning::getProcessFilePath("Aquisition");
 	command += " --of \"" + outDir + "raw/\"";
 	command += " --user " + cameraConfig.getUser(cameraIndex);
 	command += " --pass " + cameraConfig.getPassword(cameraIndex);

@@ -40,6 +40,7 @@ SET_PUBLIC_HEADERS(
 		Version.h
 		WebUtils.h
 		WindowsUtilities.h
+		Spawning.h
 )
 
 include_directories("${CMAKE_CURRENT_LIST_DIR}/../../include/utils/")
@@ -69,6 +70,7 @@ SET_SOURCE_FILES(
 		StatisticsProvider.cpp
 		Version.cpp
 		WebUtils.cpp
+		Spawning.cpp
 )
 
 SET_MOC_FILES(

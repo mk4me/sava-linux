@@ -9,6 +9,7 @@
 
 #include <QtCore/QProcess>
 #include <QtWidgets/QMessageBox>
+#include <utils/Spawning.h>
 
 StartPanel::StartPanel(QWidget *parent)
 	: QMainWindow(parent)
@@ -30,13 +31,14 @@ void StartPanel::showConfigDialog()
 
 void StartPanel::runAnnotationEditor()
 {
-	QProcess::startDetached("EditorAnnotation.exe");
+    utils::Spawning::spawnProcess("EditorAnnotation");
 }
 
 void StartPanel::runActionTraining()
 {
-	if (QMessageBox::warning(this, "Confirmation", "All training data will be lost!\nProceed with new training session?", QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)
-		QProcess::startDetached("TrainManager.exe");
+	if (QMessageBox::warning(this, "Confirmation", "All training data will be lost!\nProceed with new training session?", QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes) {
+        utils::Spawning::spawnProcess("TrainManager");
+	}
 }
 
 void StartPanel::runAquisition()
@@ -57,7 +59,7 @@ void StartPanel::runMonitor()
 	std::string path = config::Directory::getInstance().getTemporaryPath();
 	utils::Filesystem::removeContents(path);
 
-	std::string command = "Monitor.exe";
+	std::string command = utils::Spawning::getProcessFilePath("Monitor");
 	command += " --if \"" + path + '\"';
 
 	if (wizard.getCameraTypePage()->getCameraType() == CameraTypePage::AXIS)
