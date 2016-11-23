@@ -31,3 +31,6 @@ ADD_PROJECT(SplitSetter "BOOST;sequence;utils")
 ADD_PROJECT(Monitor "utils;BOOST;OPENCV;config;sequence;utils;network")
 
 ADD_PROJECT(ArchiveConverter "sequence")
+ADD_PROJECT(EditorAnnotation "config;sequence;utils")
+
+

@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>EditorTrajectoryWidget</class>
+ <widget class="QWidget" name="EditorTrajectoryWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>655</width>
+    <height>224</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>EditorTrajectoryWidget</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QPushButton" name="addButton">
+         <property name="text">
+          <string>Add</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="removeButton">
+         <property name="text">
+          <string>Remove</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="unselectButton">
+         <property name="text">
+          <string>Unselect</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_4">
+       <item>
+        <widget class="EditorTrajectoryLayerElementsList" name="listView">
+         <property name="editTriggers">
+          <set>QAbstractItemView::NoEditTriggers</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="EditorTimelineSlider" name="slider">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="tickPosition">
+          <enum>QSlider::TicksAbove</enum>
+         </property>
+         <property name="tickInterval">
+          <number>100</number>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_5">
+       <item>
+        <widget class="QCheckBox" name="showAllCheckBox">
+         <property name="text">
+          <string>show all parts</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="showHelpViewCheckBox">
+         <property name="text">
+          <string>show help view</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="partsBox">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QRadioButton
+{
+	font-size: 12px;
+	font-weight: bold;
+	color: white;
+}
+
+QRadioButton::indicator:disabled
+{
+	background-color: transparent;
+}</string>
+         </property>
+         <property name="title">
+          <string/>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetDefaultConstraint</enum>
+          </property>
+          <property name="leftMargin">
+           <number>20</number>
+          </property>
+          <property name="topMargin">
+           <number>9</number>
+          </property>
+          <property name="rightMargin">
+           <number>20</number>
+          </property>
+          <property name="bottomMargin">
+           <number>9</number>
+          </property>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>EditorTrajectoryLayerElementsList</class>
+   <extends>QListView</extends>
+   <header>EditorTrajectoryLayerElementsList.h</header>
+   <slots>
+    <slot>insertRow()</slot>
+    <slot>removeRow()</slot>
+    <slot>selectRow(QModelIndex)</slot>
+    <slot>unselectRows()</slot>
+   </slots>
+  </customwidget>
+  <customwidget>
+   <class>EditorTimelineSlider</class>
+   <extends>QSlider</extends>
+   <header>EditorTimelineSlider.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>addButton</sender>
+   <signal>clicked()</signal>
+   <receiver>listView</receiver>
+   <slot>insertRow()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>48</x>
+     <y>22</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>357</x>
+     <y>111</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>removeButton</sender>
+   <signal>clicked()</signal>
+   <receiver>listView</receiver>
+   <slot>removeRow()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>48</x>
+     <y>51</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>357</x>
+     <y>111</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>listView</sender>
+   <signal>clicked(QModelIndex)</signal>
+   <receiver>listView</receiver>
+   <slot>selectRow(QModelIndex)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>357</x>
+     <y>111</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>357</x>
+     <y>111</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>unselectButton</sender>
+   <signal>clicked()</signal>
+   <receiver>listView</receiver>
+   <slot>unselectRows()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>48</x>
+     <y>80</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>357</x>
+     <y>111</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>slider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>listView</receiver>
+   <slot>repaint()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>357</x>
+     <y>198</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>357</x>
+     <y>94</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>listView</sender>
+   <signal>clicked(QModelIndex)</signal>
+   <receiver>EditorTrajectoryWidget</receiver>
+   <slot>onTrajectoryListUpdate()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>331</x>
+     <y>100</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>316</x>
+     <y>116</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>removeButton</sender>
+   <signal>clicked()</signal>
+   <receiver>EditorTrajectoryWidget</receiver>
+   <slot>onTrajectoryListUpdate()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>48</x>
+     <y>51</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>316</x>
+     <y>116</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>addButton</sender>
+   <signal>clicked()</signal>
+   <receiver>EditorTrajectoryWidget</receiver>
+   <slot>onTrajectoryListUpdate()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>48</x>
+     <y>22</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>316</x>
+     <y>116</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>showAllCheckBox</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>EditorTrajectoryWidget</receiver>
+   <slot>onShowAllStateChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>613</x>
+     <y>19</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>327</x>
+     <y>111</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>unselectButton</sender>
+   <signal>clicked()</signal>
+   <receiver>EditorTrajectoryWidget</receiver>
+   <slot>onTrajectoryListUpdate()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>48</x>
+     <y>80</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>327</x>
+     <y>111</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>showHelpViewCheckBox</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>EditorTrajectoryWidget</receiver>
+   <slot>onShowHelpViewChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>595</x>
+     <y>42</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>327</x>
+     <y>111</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>onEditButtonToggled(bool)</slot>
+  <slot>onTrajectoryListUpdate()</slot>
+  <slot>onShowAllStateChanged(int)</slot>
+  <slot>onShowHelpViewChanged(int)</slot>
+ </slots>
+</ui>

@@ -71,6 +71,7 @@ SET_SOURCE_FILES(
 		Version.cpp
 		WebUtils.cpp
 		Spawning.cpp
+		timer.cpp
 )
 
 SET_MOC_FILES(

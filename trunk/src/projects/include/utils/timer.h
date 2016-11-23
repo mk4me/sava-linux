@@ -29,5 +29,6 @@ namespace utils {
     typedef boost::shared_ptr<timer> timerPtr;
     typedef boost::shared_ptr<const timer> timerConstPtr;
 
+    unsigned getTickCount();
 }
 #endif
