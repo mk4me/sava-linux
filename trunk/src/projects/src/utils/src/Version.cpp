@@ -3,7 +3,7 @@
 //sava-linux.rev
 //#include "SVNVersion.h"
 #define SVN_REVISION_IMPL  10
-#define SVN_URL_IMPL  "sava-linux.rev"
+#define SVN_URL_IMPL  "https://subversion.assembla.com/svn/xxx-xxxxxx/sava-linux.rev"
 #endif
 
 namespace utils

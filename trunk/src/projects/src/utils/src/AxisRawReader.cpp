@@ -169,7 +169,7 @@ namespace utils
 			curl_easy_setopt(myCurl, CURLOPT_URL, sUrl.c_str());
 			curl_easy_setopt(myCurl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
 			curl_easy_setopt(myCurl, CURLOPT_USERPWD, inUserAndPwd.c_str());
-			curl_easy_setopt(myCurl, CURLOPT_CONNECTTIMEOUT, 5);
+			curl_easy_setopt(myCurl, CURLOPT_CONNECTTIMEOUT, 50);
 
 			struct curl_slist *slist = NULL;
 			slist = curl_slist_append(slist, "Accept: application/x-ms-application, image/jpeg, application/xaml+xml, image/gif, image/pjpeg, application/x-ms-xbap, */*");
