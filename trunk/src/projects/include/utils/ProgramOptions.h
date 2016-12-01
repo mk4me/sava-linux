@@ -62,7 +62,7 @@ class ProgramOptions
         positionalOptions.add( name.c_str(), 1 );
     }
 
-    void parse( int argc, const char *argv[] )
+    void parse( int& argc, const char *argv[] )
     {
         po::command_line_parser parser( argc, argv );
         parser.options( normalOptions );

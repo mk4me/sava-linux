@@ -125,7 +125,8 @@ namespace clustering
 
 	void PathDetection::process()
 	{
-		if (!utils::Filesystem::exists(getInputFolder().string() + m_FileName + "." + INPUT_FILE_EXTENSION))
+        std::string inputPath = getInputFolder().string() + m_FileName + "." + INPUT_FILE_EXTENSION;
+		if (!utils::Filesystem::exists(inputPath))
 		{
 			waitForFile();
 			return;

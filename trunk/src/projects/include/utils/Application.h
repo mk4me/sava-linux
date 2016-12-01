@@ -18,7 +18,7 @@ namespace utils
 		static void registerExitFunction();
 
 		template <typename T>
-		int run(int argc, const char* argv[])
+		int run(int& argc, const char* argv[])
 		{
 			if (m_QApp)
 				return 0;
@@ -26,8 +26,8 @@ namespace utils
 			createApplication<T>(argc, argv);
 			return runApp(argc, argv);
 		}
-		int run(int argc, const char* argv[]) { return run<QCoreApplication>(argc, argv); }
-		int run(int argc, const char* argv[], const std::shared_ptr<QCoreApplication>& app);
+		int run(int& argc, const char* argv[]) { return run<QCoreApplication>(argc, argv); }
+		int run(int& argc, const char* argv[], const std::shared_ptr<QCoreApplication>& app);
 		void exit();
 
 		void setAppTitle(const std::string & title);
@@ -59,11 +59,11 @@ namespace utils
 		Application() { }
 		~Application() { }
 
-		bool recognizeParameters(int argc, const char* argv[]);
-		int runApp(int argc, const char* argv[]);
+		bool recognizeParameters(int& argc, const char* argv[]);
+		int runApp(int& argc, const char* argv[]);
 
 		template<typename T>
-		void createApplication(int argc, const char* argv[])
+		void createApplication(int& argc, const char* argv[])
 		{
 			m_QApp.reset(new T(argc, const_cast<char**>(argv)));
 		}

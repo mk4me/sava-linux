@@ -43,7 +43,7 @@ utils::Application* utils::Application::getInstance()
 	return &app;
 }
 
-int utils::Application::runApp(int argc, const char* argv[])
+int utils::Application::runApp(int& argc, const char* argv[])
 {
 	std::cout << "Version: " << Version::getFullVersion() << std::endl;
 
@@ -58,7 +58,7 @@ int utils::Application::runApp(int argc, const char* argv[])
 	return 0;
 }
 
-int utils::Application::run(int argc, const char* argv[], const std::shared_ptr<QCoreApplication>& app)
+int utils::Application::run(int& argc, const char* argv[], const std::shared_ptr<QCoreApplication>& app)
 {
 	if (m_QApp)
 		return -1;
@@ -76,7 +76,7 @@ void utils::Application::exit()
 }
 
 
-bool utils::Application::recognizeParameters(int argc, const char* argv[])
+bool utils::Application::recognizeParameters(int& argc, const char* argv[])
 {
 	try
 	{
