@@ -7,6 +7,7 @@
 #include <boost/archive/binary_oarchive.hpp>
 
 #include <fstream>
+#include "boost/archive/text_oarchive.hpp"
 
 namespace sequence
 {
@@ -48,14 +49,15 @@ namespace sequence
 		}
 	}
 
-	bool GpuVideo::save(const std::string& filename) const
+	template <class Archive>
+	bool _saveGpuVideo(const GpuVideo* self, const std::string& filename)
 	{
 		try
 		{
 			std::ofstream ofs(filename, std::ios::binary | std::ios::out);
-			boost::archive::binary_oarchive oa(ofs);
-			oa << TYPE;
-			oa << *this;
+			Archive oa(ofs);
+			oa << GpuVideo::TYPE;
+			oa << *self;
 			return true;
 		}
 		catch (const std::exception& e)
@@ -63,6 +65,16 @@ namespace sequence
 			std::cerr << "sequence::GpuVideo::load() exception: " << e.what() << std::endl;
 			return false;
 		}
+	}
+
+	bool GpuVideo::saveAsText(const std::string& filename) const
+	{
+		return _saveGpuVideo<boost::archive::text_oarchive>(this, filename);
+	}
+
+	bool GpuVideo::save(const std::string& filename) const
+	{
+		return _saveGpuVideo<boost::archive::binary_oarchive>(this, filename);
 	}
 
 	void GpuVideo::addFrame(Timestamp time, const cv::Mat& image, const std::vector<cv::Rect>& crumbles /*= std::vector<cv::Rect>()*/)

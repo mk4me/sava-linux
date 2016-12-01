@@ -1,6 +1,7 @@
 #include "ArchiveConverter.h"
 #include "sequence/Cluster.h"
 #include "sequence/Action.h"
+#include "Sequence/IVideo.h"
 
 namespace fs = boost::filesystem;
 
@@ -45,6 +46,12 @@ void ArchiveConverter::convertToText(const fs::path& inputFolder, const fs::path
 	for (auto& path : cluFiles) {
 		sequence::Cluster cluster(path.string());
 		cluster.saveAsText((outputFolder / (path.stem().string() + std::string(".clut"))).string());
+	}
+
+	auto cvsFiles = listFiles(inputFolder, ".cvs");
+	for (auto& path : cvsFiles) {
+		auto video = sequence::IVideo::create(path.string());
+		video->saveAsText((outputFolder / (path.stem().string() + std::string(".cvst"))).string());
 	}
 }
 

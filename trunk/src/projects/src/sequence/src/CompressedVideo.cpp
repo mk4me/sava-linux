@@ -3,6 +3,7 @@
 
 #include <boost/archive/binary_iarchive.hpp>
 #include <boost/archive/binary_oarchive.hpp>
+#include "boost/archive/text_oarchive.hpp"
 
 #include <fstream>
 #include <opencv2/imgproc.hpp>
@@ -46,14 +47,15 @@ namespace sequence
 		}
 	}
 
-	bool CompressedVideo::save(const std::string& filename) const
+	template <class Archive>
+	bool _saveCompressed(const CompressedVideo* self, const std::string& filename) 
 	{
 		try
 		{
 			std::ofstream ofs(filename, std::ios::binary | std::ios::out);
-			boost::archive::binary_oarchive oa(ofs);
-			oa << TYPE;
-			oa << *this;
+			Archive oa(ofs);
+			oa << CompressedVideo::TYPE;
+			oa << *self;
 			return true;
 		}
 		catch (const std::exception& e)
@@ -61,6 +63,16 @@ namespace sequence
 			std::cerr << "sequence::CompressedVideo::save() exception: " << e.what() << std::endl;
 			return false;
 		}
+	}
+
+	bool CompressedVideo::save(const std::string& filename) const
+	{
+		return _saveCompressed<boost::archive::binary_oarchive>(this, filename);
+	}
+
+	bool CompressedVideo::saveAsText(const std::string& filename) const
+	{
+		return _saveCompressed<boost::archive::text_oarchive>(this, filename);
 	}
 
 	void CompressedVideo::addFrame(Timestamp time, const std::vector<Crumble>& crumbles /*= std::vector<Crumble>()*/)

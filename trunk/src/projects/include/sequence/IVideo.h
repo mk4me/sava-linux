@@ -27,6 +27,7 @@ namespace sequence
 		virtual ~IVideo() { }
 
 		virtual bool save(const std::string& filename) const = 0;
+		virtual bool saveAsText(const std::string& filename) const = 0;
 
 		virtual size_t getNumFrames() const = 0;
 		virtual cv::Mat getFrameImage(size_t frameNum) const = 0;

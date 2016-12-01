@@ -3,6 +3,7 @@
 
 #include <boost/archive/binary_iarchive.hpp>
 #include <boost/archive/binary_oarchive.hpp>
+#include <boost/archive/text_oarchive.hpp>
 
 #include <fstream>
 #include <cassert>
@@ -40,15 +41,16 @@ namespace sequence
 		}
 	}
 
-	bool Video::save(const std::string& filename) const
+	template<class Archive>
+	bool _saveVideo(const Video* self, const std::string& filename)
 	{
 		try
 		{
 			std::ofstream ofs(filename, std::ios::binary | std::ios::out);
-			boost::archive::binary_oarchive oa(ofs);
+			Archive oa(ofs);
 
-			oa << TYPE;
-			oa << *this;
+			oa << Video::TYPE;
+			oa << *self;
 			return true;
 		}
 		catch (const std::exception& e)
@@ -56,6 +58,17 @@ namespace sequence
 			std::cerr << "sequence::Video::load() exception: " << e.what() << std::endl;
 			return false;
 		}
+	}
+
+	bool Video::save(const std::string& filename) const
+	{
+		return _saveVideo<boost::archive::binary_oarchive>(this, filename);
+	}
+
+	bool Video::saveAsText(const std::string& filename) const
+	{
+		return _saveVideo<boost::archive::text_oarchive>(this, filename);
+
 	}
 
 	void Video::addFrame(Timestamp time, const std::vector<uchar>& data)
