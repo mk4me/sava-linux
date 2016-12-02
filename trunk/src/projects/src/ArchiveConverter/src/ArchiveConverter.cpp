@@ -34,25 +34,49 @@ void ArchiveConverter::convertDir(const fs::path& inputFolder, const fs::path& o
 	throw std::runtime_error("NYI");
 }
 
+template<class T>
+struct SimplePolicy
+{
+	static void convert(const std::string& input, const std::string& output)
+	{
+		T obj(input);
+		obj.saveAsText(output);
+	}
+};
+
+struct VideoPolicy
+{
+	static void convert(const std::string& input, const std::string& output)
+	{
+		auto video = sequence::IVideo::create(input);
+		video->saveAsText(output);
+	}
+};
+
+template <class ConversionPolicy>
+void _convertToText(const std::string ext, const fs::path& inputFolder, const fs::path& outputFolder)
+{
+	auto files = listFiles(inputFolder, ext);
+	for (auto& path : files) {
+		auto outputPath = (outputFolder / (path.stem().string() + ext + std::string("t"))).string();
+		try {
+			ConversionPolicy::convert(path.string(), outputPath);
+			std::cout << "Processing: " << path << std::endl;
+		}
+		catch (...) {
+			std::cerr << "Problem with: " << path << " , skipping" <<std::endl;
+		}
+	}
+}
+
+
+
 void ArchiveConverter::convertToText(const fs::path& inputFolder, const fs::path& outputFolder)
 {
 	checkDirs(inputFolder, outputFolder);
-	auto acnFiles = listFiles(inputFolder, ".acn");
-	for (auto& path : acnFiles) {
-		sequence::Action action(path.string());
-		action.saveAsText((outputFolder / (path.stem().string() + std::string(".acnt"))).string());
-	}
-	auto cluFiles = listFiles(inputFolder, ".clu");
-	for (auto& path : cluFiles) {
-		sequence::Cluster cluster(path.string());
-		cluster.saveAsText((outputFolder / (path.stem().string() + std::string(".clut"))).string());
-	}
-
-	auto cvsFiles = listFiles(inputFolder, ".cvs");
-	for (auto& path : cvsFiles) {
-		auto video = sequence::IVideo::create(path.string());
-		video->saveAsText((outputFolder / (path.stem().string() + std::string(".cvst"))).string());
-	}
+	_convertToText<SimplePolicy<sequence::Action>>(".acn", inputFolder, outputFolder);
+	_convertToText<SimplePolicy<sequence::Cluster>>(".clu", inputFolder, outputFolder);
+	_convertToText<VideoPolicy>(".cvs", inputFolder, outputFolder);
 }
 
 void ArchiveConverter::convertToBinary(const fs::path& inputFolder, const fs::path& outputFolder)

@@ -39,10 +39,18 @@ int main(int argc, const char* argv[])
 		return false;
 	}
 
-	if (vm.count("from-text")) {
-		ArchiveConverter::convertToBinary(inDir, outDir);
-	} else {
-		ArchiveConverter::convertToText(inDir, outDir);
+	try {
+		if (vm.count("from-text")) {
+			ArchiveConverter::convertToBinary(inDir, outDir);
+		} else {
+			ArchiveConverter::convertToText(inDir, outDir);
+		}
+	}
+	catch (std::exception& e) {
+		std::cerr << "Problem occured: " << e.what() << std::endl;
+	}
+	catch (...) {
+		std::cerr << "Unknown error" << std::endl;
 	}
 	
 	return true;
