@@ -4,6 +4,7 @@
 #include "Video.h"
 #include "GpuVideo.h"
 
+#include <boost/archive/text_iarchive.hpp>
 #include <boost/archive/binary_iarchive.hpp>
 #include <boost/archive/binary_oarchive.hpp>
 
@@ -16,12 +17,14 @@ namespace sequence
 	const unsigned IVideo::SEQUENCE_COMPRESSED_VIDEO = 'c' | 'v' << 8 | 's' << 16;
 	const unsigned IVideo::SEQUENCE_GPU_VIDEO = 'g' | 'v' << 8 | 's' << 16;
 
-	std::shared_ptr<IVideo> IVideo::create(const std::string& filename)
+
+	template<class Archiver>
+	std::shared_ptr<IVideo> IVideoCreate(const std::string& filename)
 	{
 		try
 		{
 			std::ifstream ifs(filename, std::ios::binary | std::ios::in);
-			boost::archive::binary_iarchive ia(ifs);
+			Archiver ia(ifs);
 			int type;
 			ia >> type;
 			switch (type)
@@ -52,5 +55,15 @@ namespace sequence
 		}
 
 		return std::shared_ptr<IVideo>();
+	}
+
+	std::shared_ptr<IVideo> IVideo::create(const std::string& filename)
+	{
+		return IVideoCreate<boost::archive::binary_iarchive>(filename);
+	}
+
+	std::shared_ptr<IVideo> IVideo::createFromText(const std::string& filename)
+	{
+		return IVideoCreate<boost::archive::text_iarchive>(filename);
 	}
 }

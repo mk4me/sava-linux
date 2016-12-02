@@ -1,7 +1,7 @@
 #include "ArchiveConverter.h"
 #include "sequence/Cluster.h"
 #include "sequence/Action.h"
-#include "Sequence/IVideo.h"
+#include "sequence/IVideo.h"
 
 namespace fs = boost::filesystem;
 
@@ -37,30 +37,74 @@ void ArchiveConverter::convertDir(const fs::path& inputFolder, const fs::path& o
 template<class T>
 struct SimplePolicy
 {
-	static void convert(const std::string& input, const std::string& output)
+	static void convertToText(const std::string& input, const std::string& output)
 	{
 		T obj(input);
 		obj.saveAsText(output);
 	}
+
+    static void convertToBinary(const std::string& input, const std::string& output)
+    {
+        T obj;
+        obj.loadFromText(input);
+        obj.save(output);
+    }
 };
 
 struct VideoPolicy
 {
-	static void convert(const std::string& input, const std::string& output)
+	static void convertToText(const std::string& input, const std::string& output)
 	{
 		auto video = sequence::IVideo::create(input);
 		video->saveAsText(output);
 	}
+
+    static void convertToBinary(const std::string& input, const std::string& output)
+    {
+        auto video = sequence::IVideo::createFromText(input);
+        video->save(output);
+    }
 };
 
-template <class ConversionPolicy>
-void _convertToText(const std::string ext, const fs::path& inputFolder, const fs::path& outputFolder)
+template<class Policy>
+struct ToText
+{
+    static void convert(const std::string& input, const std::string& output)
+    {
+        Policy::convertToText(input, output);
+    }
+
+    static std::string newExtension(const std::string& ext)
+    {
+        return ext + std::string("t");
+    }
+};
+
+template<class Policy>
+struct ToBinary
+{
+    static void convert(const std::string& input, const std::string& output)
+    {
+        Policy::convertToBinary(input, output);
+    }
+
+    static std::string newExtension(const std::string& ext)
+    {
+        if (ext.empty() || *ext.rbegin() != 't') {
+            throw std::runtime_error("wrong extension format - \"" + ext + "\" was given");
+        }
+        return ext.substr(0, ext.size() - 1);
+    }
+};
+
+template <class Conversion>
+void _convert(const std::string ext, const fs::path& inputFolder, const fs::path& outputFolder)
 {
 	auto files = listFiles(inputFolder, ext);
 	for (auto& path : files) {
-		auto outputPath = (outputFolder / (path.stem().string() + ext + std::string("t"))).string();
+		auto outputPath = (outputFolder / (path.stem().string() + Conversion::newExtension(ext))).string();
 		try {
-			ConversionPolicy::convert(path.string(), outputPath);
+			Conversion::convert(path.string(), outputPath);
 			std::cout << "Processing: " << path << std::endl;
 		}
 		catch (...) {
@@ -74,24 +118,15 @@ void _convertToText(const std::string ext, const fs::path& inputFolder, const fs
 void ArchiveConverter::convertToText(const fs::path& inputFolder, const fs::path& outputFolder)
 {
 	checkDirs(inputFolder, outputFolder);
-	_convertToText<SimplePolicy<sequence::Action>>(".acn", inputFolder, outputFolder);
-	_convertToText<SimplePolicy<sequence::Cluster>>(".clu", inputFolder, outputFolder);
-	_convertToText<VideoPolicy>(".cvs", inputFolder, outputFolder);
+	_convert<ToText<SimplePolicy<sequence::Action>>>(".acn", inputFolder, outputFolder);
+	_convert<ToText<SimplePolicy<sequence::Cluster>>>(".clu", inputFolder, outputFolder);
+	_convert<ToText<VideoPolicy>>(".cvs", inputFolder, outputFolder);
 }
 
 void ArchiveConverter::convertToBinary(const fs::path& inputFolder, const fs::path& outputFolder)
 {
     checkDirs(inputFolder, outputFolder);
-    auto acnFiles = listFiles(inputFolder, ".acnt");
-    for (auto& path : acnFiles) {
-        sequence::Action action;
-        action.loadFromText(path.string());
-        action.save((outputFolder / (path.stem().string() + std::string(".acn"))).string());
-    }
-    auto cluFiles = listFiles(inputFolder, ".clut");
-    for (auto& path : cluFiles) {
-        sequence::Cluster cluster;
-        cluster.loadFromText(path.string());
-        cluster.save((outputFolder / (path.stem().string() + std::string(".clu"))).string());
-    }
+    _convert<ToBinary<SimplePolicy<sequence::Action>>>(".acnt", inputFolder, outputFolder);
+    _convert<ToBinary<SimplePolicy<sequence::Cluster>>>(".clut", inputFolder, outputFolder);
+    _convert<ToBinary<VideoPolicy>>(".cvst", inputFolder, outputFolder);
 }

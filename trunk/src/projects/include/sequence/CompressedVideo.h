@@ -39,6 +39,7 @@ namespace sequence
 		
 		bool load(const std::string& filename);
 		bool save(const std::string& filename) const override;
+		bool saveAsText(const std::string& filename) const override;
 
 		void addFrame(Timestamp time, const std::vector<Crumble>& crumbles = std::vector<Crumble>());		
 		void addBackground(const cv::Mat& background, size_t startFrame = CURRENT_FRAME);

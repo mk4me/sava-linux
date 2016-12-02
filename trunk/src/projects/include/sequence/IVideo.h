@@ -23,6 +23,7 @@ namespace sequence
 		typedef boost::posix_time::ptime Timestamp;
 
 		static std::shared_ptr<IVideo> create(const std::string& filename);
+		static std::shared_ptr<IVideo> createFromText(const std::string& filename);
 
 		virtual ~IVideo() { }
 
