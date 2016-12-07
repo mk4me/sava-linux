@@ -268,6 +268,7 @@ class BinMBHInStream : public BinInStream
 	int rawDataStep;
 	BiIStream::pos_type _initpos;
 	typedef BinInStream		parent;
+
 public:
 
 	BinMBHInStream(const std::string& filename_): parent(filename_)
@@ -453,10 +454,12 @@ template<typename T1>
 class BinClusterOutStream : public BinOutStream<T1>
 {
 	int  _dimFeature;
-	long _numFeature;
-	//BiOStream::pos_type _initpos;
-	long _initpos; 
+	int _numFeature;
+	BiOStream::pos_type _initpos;
+	//long _initpos;
 	typedef BinOutStream<T1>		parent;
+
+
 public:
 
 	BinClusterOutStream(const std::string& filename_, 
