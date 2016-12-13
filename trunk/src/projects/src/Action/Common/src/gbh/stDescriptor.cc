@@ -1,6 +1,7 @@
 #include "stDescriptor.h"
 
 #include <opencv2/videoio.hpp>
+#include <stdexcept>
 
 MBHparam::MBHparam(
 			const cv::Point3i&  numBloc_,
@@ -344,7 +345,10 @@ void stDetector::randomSampling(unsigned int nSmpls, cv::RNG &rng)
 void stDetector::denseSampling()
 	{
 		_height = _s3Droi->size();
-		
+
+        if (_height == 0) {
+            throw std::runtime_error("problem: 3d roi size == 0");
+        }
 		std::cout << "Dense samping with 3d patches: " << _height << std::endl;
 		//_ft = Mat(_height, _width, CV_32FC1);
 		_ft = cv::Mat(_height, _width, CV_32FC1, cv::Scalar_<float>(0.f));

@@ -138,7 +138,7 @@ int main(int argc, char **argv)
 	if(binaryFile)
 	{
 		for (int i = 0; i < nCls; i++)
-			fileName[i] = dataPath + "pWords" + std::to_string(i) + "_" + std::to_string(numWords) + ".dat";
+			fileName[i] = dataPath + "pwords" + std::to_string(i) + "_" + std::to_string(numWords) + ".dat";
 
 		read_binary(fileName, nCls);
 		std::cout<<"done read binary file pwords."<<std::endl;

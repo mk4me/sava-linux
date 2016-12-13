@@ -4,6 +4,10 @@
 
 #include <boost/archive/binary_iarchive.hpp>
 #include <boost/archive/binary_oarchive.hpp>
+
+#include <boost/archive/text_iarchive.hpp>
+#include <boost/archive/text_oarchive.hpp>
+
 #include <boost/serialization/vector.hpp>
 #include <boost/serialization/map.hpp>
 #include <boost/filesystem.hpp>
@@ -21,7 +25,8 @@ namespace  utils
 		try
 		{
 			std::ifstream ifs(c_DatabasePath, std::ios::binary);
-			boost::archive::binary_iarchive ia(ifs);
+			//boost::archive::text_iarchive ia(ifs);
+            boost::archive::binary_iarchive ia(ifs);
 			ia & m_Videos;
 	
 			return true;
