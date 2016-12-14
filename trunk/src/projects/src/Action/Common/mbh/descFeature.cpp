@@ -422,9 +422,9 @@ void descFeature::computeFt(const cv::Point3i& tlp, const cv::Point3i& whl, floa
 
 		tmp0 = whl0 - whl;
 
-		int tx = cvCeil(abs(tmp0.x / 2.));
-		int ty = cvCeil(abs(tmp0.x / 2.));
-		int tz = cvCeil(abs(tmp0.z / 2.));
+		int tx = cvCeil(fabs(tmp0.x / 2.));
+		int ty = cvCeil(fabs(tmp0.x / 2.));
+		int tz = cvCeil(fabs(tmp0.z / 2.));
 
 		tlp0.x = (tmp0.x < 0) ? (tlp.x + tx) : tlp.x;
 		tlp0.y = (tmp0.y < 0) ? (tlp.y + ty) : tlp.y;

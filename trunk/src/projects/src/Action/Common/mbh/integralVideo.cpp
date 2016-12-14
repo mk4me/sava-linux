@@ -73,9 +73,9 @@ bool IntegralVideo::computeIntegVideo(const std::shared_ptr<sequence::IStreamedV
 
 	//skip frames for computing root iv. 
 	int skipIm;
-	if (abs(rt2ps.z - 0.5) < 10E-7)  //if rt2ps.z == 0.5, choose every odd input frames(frames 1, 3, 5..) for computing root integral video
+	if (fabs(rt2ps.z - 0.5) < 10E-7)  //if rt2ps.z == 0.5, choose every odd input frames(frames 1, 3, 5..) for computing root integral video
 		skipIm = 2;
-	else if (abs(rt2ps.z - 1. / 3.) < 10E-7) //if rt2ps.z == 1/3, skip 2 out of 3 frames (choosing frames 1, 4, 7..) for computing root integral video
+	else if (fabs(rt2ps.z - 1. / 3.) < 10E-7) //if rt2ps.z == 1/3, skip 2 out of 3 frames (choosing frames 1, 4, 7..) for computing root integral video
 		skipIm = 3;
 	else
 		skipIm = 1;  //no skip, choosing all input frames to compute root iv 
@@ -95,13 +95,13 @@ bool IntegralVideo::computeIntegVideo(const std::shared_ptr<sequence::IStreamedV
 	cv::Size partSz;
 	//GaussianBlur(imPs1, imPs1, Size(9,9),2);
 	//set the spatial size for parts
-	if (abs(reSzRatio - 0.5) < 10E-5)
+	if (fabs(reSzRatio - 0.5) < 10E-5)
 	{
 		partSz.height = im.rows / 2;
 		partSz.width = im.cols / 2;
 		pyrDown(imPs1, imPs1, partSz);
 	}
-	else if (abs(reSzRatio - 1) < 10E-5)
+	else if (fabs(reSzRatio - 1) < 10E-5)
 	{
 		partSz.height = im.rows;
 		partSz.width = im.cols;
@@ -116,7 +116,7 @@ bool IntegralVideo::computeIntegVideo(const std::shared_ptr<sequence::IStreamedV
 
 	cv::Size rootSz;
 	//set the spatial size for root
-	if (abs(rt2ps.x - 0.5) < 10E-5 && abs(rt2ps.y - 0.5) < 10E-5)
+	if (fabs(rt2ps.x - 0.5) < 10E-5 && fabs(rt2ps.y - 0.5) < 10E-5)
 	{
 		rootSz.height = partSz.height / 2;
 		rootSz.width = partSz.width / 2;
@@ -200,9 +200,9 @@ bool IntegralVideo::computeIntegVideo(const std::shared_ptr<sequence::IStreamedV
 			imPs2 = im.clone();
 		//GaussianBlur(imPs2, imPs2, Size(9,9),2);
 
-		if (abs(reSzRatio - 0.5) < 10E-5)
+		if (fabs(reSzRatio - 0.5) < 10E-5)
 			pyrDown(imPs2, imPs2, partSz);
-		else if (abs(reSzRatio - 1) > 10E-5)
+		else if (fabs(reSzRatio - 1) > 10E-5)
 			resize(imPs2, imPs2, partSz, 0, 0, CV_INTER_AREA);
 		//comupte optical flow
 
@@ -283,7 +283,7 @@ bool IntegralVideo::computeIntegVideo(const std::shared_ptr<sequence::IStreamedV
 			for (int i0 = 0; i0 < 2; i0++)
 			{
 				//reuse the optical flows computed from Parts
-				if (abs(rt2ps.x - 0.5) < 10E-5 && abs(rt2ps.y - 0.5) < 10E-5)
+				if (fabs(rt2ps.x - 0.5) < 10E-5 && fabs(rt2ps.y - 0.5) < 10E-5)
 					pyrDown(oFlows[i0], rootOFs[i0], rootSz);
 				else
 					resize(oFlows[i0], rootOFs[i0], rootSz, 0, 0, CV_INTER_AREA);  //resize part image 1 into root image 1 with root to part ratio
