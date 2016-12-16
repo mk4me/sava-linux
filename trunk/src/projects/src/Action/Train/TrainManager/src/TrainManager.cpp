@@ -129,7 +129,7 @@ void TrainManager::startProcess()
 		if (descType & config::Action::DescriptorType::MBH)
 		{
 			m_ProcessList.append(new QProcess(this));
-			m_ProcessList[1]->setProgram(utils::Spawning::getProcessFilePathQ("GetGmmMBH"));
+			m_ProcessList.last()->setProgram(utils::Spawning::getProcessFilePathQ("GetGmmMBH"));
 		}
 		ui.m_CbGmm->setCheckState(Qt::PartiallyChecked);
 
@@ -146,7 +146,7 @@ void TrainManager::startProcess()
 		if (descType & config::Action::DescriptorType::MBH)
 		{
 			m_ProcessList.append(new QProcess(this));
-			m_ProcessList[1]->setProgram(utils::Spawning::getProcessFilePathQ("GetTrainTestDataMBH"));
+			m_ProcessList.last()->setProgram(utils::Spawning::getProcessFilePathQ("GetTrainTestDataMBH"));
 		}
 		ui.m_CbFv->setCheckState(Qt::PartiallyChecked);
 
