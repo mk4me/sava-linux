@@ -17,11 +17,8 @@ namespace utils {
                 return processName + std::string(".exe");
         #endif
         #else
-        #ifdef _GLIBCXX_DEBUG_ONLY
-                return processName + std::string("d");
-        #else
+                //return processName + std::string("d");
                 return processName;
-        #endif
         #endif
     }
 
@@ -35,6 +32,9 @@ namespace utils {
 
     void Spawning::spawnProcess(const std::string &processName) {
         auto path = getProcessFilePath(processName);
+        if (!utils::Filesystem::exists(path)) {
+            path = getProcessFilePath(processName + std::string("d"));
+        }
         bool test = QProcess::startDetached(QString::fromStdString(path));
         if (!test) {
             throw std::runtime_error(std::string("Unable spawn ") + processName);
