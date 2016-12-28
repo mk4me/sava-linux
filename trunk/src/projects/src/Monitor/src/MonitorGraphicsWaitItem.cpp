@@ -53,10 +53,7 @@ QVariant MonitorGraphicsWaitItem::itemChange(GraphicsItemChange change, const QV
 	if (change == QGraphicsItem::ItemVisibleChange)
 	{
 		bool isVisible = value.toBool();
-		if (isVisible)
-			m_Timer.start();
-		else
-			m_Timer.stop();
+		QTimer::singleShot(0, &m_Timer, isVisible ? SLOT(start()) : SLOT(stop()) );
 	}
 
 	return QGraphicsItem::itemChange(change, value);

@@ -1,5 +1,7 @@
 #include "EditorAnnotationListDelegate.h"
 #include "EditorSceneLayerManager.h"
+#include "EditorSequencesManager.h"
+#include "config/Glossary.h"
 
 /*--------------------------------------------------------------------*/
 EditorAnnotationListDelegate::EditorAnnotationListDelegate(QObject *parent)

@@ -43,7 +43,10 @@ namespace clustering
 			for (auto it = m_Clusters.begin(); it != m_Clusters.end();)
 			{
 				if ((*it)->getNumPoints() < s_ClusterMinPoints)
+				{
+					(*it)->releasePoints();
 					it = m_Clusters.erase(it);
+				}
 				else
 					++it;
 			}

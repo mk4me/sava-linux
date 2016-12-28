@@ -12,14 +12,32 @@ namespace Network
 	class RaportErrorCommand : public StartCommand
 	{
 	public:
+		//! Constructor.
 		RaportErrorCommand() {}
+		//! Constructor.
+		/*!
+		\param _receiverIp from which ip command was sent.
+		\param _tag for special command description.
+		*/
 		RaportErrorCommand(const std::string& _receiverIp, const std::string& _tag,
 			const std::string& _exePathWithArgs, const QProcess::ProcessError& _error)			
 			: StartCommand(_receiverIp, _tag, _exePathWithArgs), error_(_error) {}
 
+		//! Serialize command.
+		/*!
+		\return serialized command.
+		*/
 		virtual std::string encode();
+		//! Get type of command.
+		/*!
+		\return RaportError type of command.
+		*/
 		virtual Type getType() const { return RaportError; }
-
+		
+		//! Get error of process.
+		/*!
+		\return error of process when finish.
+		*/
 		QProcess::ProcessError getError() const { return error_; }
 
 	private:
@@ -34,6 +52,7 @@ namespace Network
 			ar & error_;
 		}
 
+		//! Error of process.
 		QProcess::ProcessError error_;
 	};
 }

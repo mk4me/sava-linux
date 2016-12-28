@@ -26,8 +26,8 @@ bool PathAnalysisConfig::load()
 
 	// general tab
 	ui->m_Analyzer->setCurrentText(config.getAnalyzer().c_str());
-	ui->m_TabWidget->setTabEnabled(2, false);
-	ui->m_TabWidget->setTabEnabled(3, false);
+	ui->m_TabWidget->setTabEnabled(2, config.getEnableMovingPaths() != 0);
+	ui->m_TabWidget->setTabEnabled(3, config.getEnableMergingGaps() != 0);
 
 	ui->m_UseOpenMP->setChecked(config.isUseOpenMP());
 	ui->m_Alpha->setValue(config.getAlpha());

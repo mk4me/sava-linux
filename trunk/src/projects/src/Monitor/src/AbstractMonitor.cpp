@@ -1,15 +1,22 @@
 #include "AbstractMonitor.h"
 
 #include "MonitorLauncher.h"
+#include "MonitorActionManager.h"
 
 #include <config/Glossary.h>
 #include <config/Milestone.h>
+#include <config/Diagnostic.h>
+#include <config/Monitor.h>
 
 #include <sequence/Action.h>
 #include <sequence/Cluster.h>
 #include <sequence/IVideo.h>
 
 #include <utils/AlertSender.h>
+#include <utils/Application.h>
+
+#include <QtCore/QDebug>
+
 
 AbstractMonitor::AbstractMonitor(const std::string& patternExtension, unsigned inputNumIndices /*= 1*/, bool hasOutput /*= true*/) 
 	: utils::PipeProcess(patternExtension, inputNumIndices, hasOutput)
@@ -17,6 +24,7 @@ AbstractMonitor::AbstractMonitor(const std::string& patternExtension, unsigned i
 {
 	config::Glossary::getInstance().load();
 	config::Milestone::getInstance().load();
+	config::Monitor::getInstance().load();
 }
 
 AbstractMonitor::~AbstractMonitor()
@@ -66,7 +74,12 @@ bool AbstractMonitor::loadParameters(const ProgramOptions& options)
 		m_Launcher = std::make_shared<MonitorLauncher>(m_Ip, m_User, m_Password, m_CameraGuid, m_Mask);
 		m_Launcher->launchPipe();
 	}
-	
+
+	config::Diagnostic::getInstance().load();
+	if (config::Diagnostic::getInstance().getLogMemoryUsage())
+	{
+		utils::Application::getInstance()->enableMomoryLogging();
+	}
 
 	return true;
 }
@@ -89,7 +102,7 @@ void AbstractMonitor::sendMilestoneAlert(sequence::IVideo& video, sequence::Clus
 
 	cv::Rect2d aoi(roi.x / frameSize.width, roi.y / frameSize.height, roi.width / frameSize.width, roi.height / frameSize.height);
 
-	const std::string& actionName = config::Glossary::getInstance().getTrainedActionName(action.getActionId());
+	const std::string& actionName = MonitorActionManager::getInstance().getActionName(action.getActionId());
 	if (!actionName.empty())
 	{
 		std::ostringstream oss;
@@ -113,7 +126,7 @@ void AbstractMonitor::processMilestoneAlert(int actionId, boost::posix_time::pti
 		std::cerr << "Milestone isn't configured" << std::endl;
 		return;
 	}
-	const std::string& actionName = config::Glossary::getInstance().getTrainedActionName(actionId);
+	const std::string& actionName = MonitorActionManager::getInstance().getActionName(actionId);
 	if (actionName.empty())
 	{
 		std::cerr << "Can't get name for action id " << actionId << std::endl;

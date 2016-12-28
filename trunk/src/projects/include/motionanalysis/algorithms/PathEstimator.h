@@ -5,7 +5,7 @@
 #include <list>
 #include <memory>
 
-#include <motionanalysis\algorithms\PathClustering.h>
+#include <motionanalysis/algorithms/PathClustering.h>
 //#include "camera/calibration/algorithms/Transforms.h"
 
 namespace motion_analysis

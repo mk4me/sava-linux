@@ -9,6 +9,11 @@
 
 #include "utils/Singleton.h"
 
+#include "boost/date_time/posix_time/ptime.hpp"
+#include "boost/date_time/posix_time/posix_time_types.hpp"
+#include "boost/date_time/posix_time/posix_time_duration.hpp"
+
+
 class MonitorFrames : public QObject, public Singleton<MonitorFrames>
 {
 	Q_OBJECT
@@ -19,6 +24,8 @@ public:
 
 	void tickEnabled() { m_TickEnabled = true; }
 	void tickDisabled() { m_TickEnabled = false; }
+
+	void setSpeed(float speed) { m_Speed = speed; }
 
 signals:
 	void frameChanged(size_t frame);
@@ -39,10 +46,15 @@ private:
 private:
 	bool m_TickEnabled;
 
-	std::vector<sequence::IVideo::Timestamp> m_FramesTimes;
+	std::vector<boost::posix_time::ptime> m_FramesTimes;
 	size_t m_CurrentFrame;
 
 	QTimer* m_TickTimer;
+
+	boost::posix_time::ptime m_CurrentFrameTime;
+	boost::posix_time::ptime m_LastTime;
+
+	float m_Speed;
 };
 
 #endif // FRAMETIMER_H

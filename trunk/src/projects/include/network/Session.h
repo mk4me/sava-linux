@@ -26,8 +26,10 @@ namespace Network
 		/*!
 		\param _localIp ip of local endpoint.
 		\param _remoteIp ip of remote endpoint.
+		\param _localPort port of local endpoint.
+		\param _remotePort port of remote endpoint.
 		*/
-		void start(std::string& _localIp, std::string& _remoteIp);
+		void start(std::string& _localIp, std::string& _remoteIp, int& _localPort, int& _remotePort);
 		/*!
 		\param _message that will be delivered to session users.
 		*/

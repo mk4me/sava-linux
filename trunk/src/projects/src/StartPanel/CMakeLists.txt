@@ -4,6 +4,7 @@ BEGIN_PROJECT("executable")
 SET_PRIVATE_HEADERS(
 ActionConfig.h
 ActionDefinitionDialog.h
+AliasDefinitionDialog.h
 Aquisition.h
 AquisitionConfig.h
 CameraConfig.h
@@ -12,6 +13,9 @@ CameraDefinitionDialog.h
 AxisCameraPage.h
 CameraTypePage.h
 ConfigDialog.h
+CleanupThread.h
+DiagnosticConfig.h
+CleanupDialog.h
 DirectoryConfig.h
 IConfigItem.h
 MaskDialog.h
@@ -64,11 +68,16 @@ DirectoryConfig.cpp
 main.cpp
 MaskDialog.cpp
 MaskRegions.cpp
+AliasDefinitionDialog.cpp
+CleanupThread.cpp
+DiagnosticConfig.cpp
+CleanupDialog.cpp
 )
 
 SET_UI_FILES(
 ActionConfig.ui
 ActionDefinitionDialog.ui
+AliasDefinitionDialog.ui
 Aquisition.ui
 AquisitionConfig.ui
 AquisitionWizard.ui
@@ -76,8 +85,10 @@ AxisCameraPage.ui
 CameraConfig.ui
 CameraDefinitionDialog.ui
 CameraTypePage.ui
+CleanupDialog.ui
 CompressionConfig.ui
 ConfigDialog.ui
+DiagnosticConfig.ui
 DirectoryConfig.ui
 GlossaryConfig.ui
 GlossaryConfig_AddEdit.ui
@@ -100,6 +111,7 @@ StartPanel.ui
 SET_MOC_FILES(
 ActionConfig.h
 ActionDefinitionDialog.h
+AliasDefinitionDialog.h
 Aquisition.h
 AquisitionConfig.h
 CameraConfig.h
@@ -108,6 +120,9 @@ CameraDefinitionDialog.h
 AxisCameraPage.h
 CameraTypePage.h
 ConfigDialog.h
+CleanupThread.h
+DiagnosticConfig.h
+CleanupDialog.h
 DirectoryConfig.h
 IConfigItem.h
 MaskDialog.h

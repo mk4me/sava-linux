@@ -501,7 +501,7 @@ QToolBar:separator
    <property name="layoutDirection">
     <enum>Qt::LeftToRight</enum>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout" stretch="0,40,1">
+   <layout class="QVBoxLayout" name="verticalLayout" stretch="40,1">
     <property name="spacing">
      <number>6</number>
     </property>
@@ -517,54 +517,6 @@ QToolBar:separator
     <property name="bottomMargin">
      <number>6</number>
     </property>
-    <item>
-     <widget class="QFrame" name="m_PeriodFrame">
-      <layout class="QHBoxLayout" name="periodLayout">
-       <item>
-        <widget class="QPushButton" name="m_PeriodPrevButton">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>12</width>
-           <height>12</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="m_PeriodNextButton">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>12</width>
-           <height>12</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="EditorInterestingPeriodWidget" name="m_PeriodWidget">
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="verticalScrollBarPolicy">
-          <enum>Qt::ScrollBarAlwaysOff</enum>
-         </property>
-         <property name="horizontalScrollBarPolicy">
-          <enum>Qt::ScrollBarAlwaysOff</enum>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
     <item>
      <widget class="EditorGraphicsView" name="m_EditorView">
       <property name="enabled">
@@ -708,50 +660,14 @@ QToolBar:separator
    </attribute>
    <widget class="EditorAnnotationWidget" name="annotationWidget"/>
   </widget>
-  <widget class="QDockWidget" name="trajectoryDockWidget">
-   <property name="enabled">
-    <bool>true</bool>
-   </property>
-   <property name="minimumSize">
-    <size>
-     <width>35</width>
-     <height>29</height>
-    </size>
-   </property>
-   <property name="maximumSize">
-    <size>
-     <width>524287</width>
-     <height>524287</height>
-    </size>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QDockWidget::title {
-	text-align: left;
-	padding-left: 10px;
-}</string>
-   </property>
-   <property name="floating">
-    <bool>false</bool>
-   </property>
-   <property name="features">
-    <set>QDockWidget::AllDockWidgetFeatures</set>
-   </property>
-   <property name="windowTitle">
-    <string>Trajectory</string>
-   </property>
-   <attribute name="dockWidgetArea">
-    <number>8</number>
-   </attribute>
-   <widget class="EditorTrajectoryWidget" name="trajectoryWidget"/>
-  </widget>
-  <widget class="QDockWidget" name="propertyDockWidget">
+  <widget class="QDockWidget" name="actionDockWidget">
    <property name="windowTitle">
     <string>Annotation Property</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>2</number>
    </attribute>
-   <widget class="EditorPropertyWidget" name="dockWidgetContents"/>
+   <widget class="EditorActionWidget" name="actionWidget"/>
   </widget>
   <action name="actionSave">
    <property name="text">
@@ -852,7 +768,7 @@ QToolBar:separator
   </action>
   <zorder>sequncesDockWidget</zorder>
   <zorder>annotationDockWidget</zorder>
-  <zorder>propertyDockWidget</zorder>
+  <zorder>actionDockWidget</zorder>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
@@ -881,33 +797,15 @@ QToolBar:separator
    </slots>
   </customwidget>
   <customwidget>
-   <class>EditorTrajectoryWidget</class>
-   <extends>QWidget</extends>
-   <header>EditorTrajectoryWidget.h</header>
-   <container>1</container>
-   <slots>
-    <slot>visibilityChanged(bool)</slot>
-   </slots>
-  </customwidget>
-  <customwidget>
-   <class>EditorInterestingPeriodWidget</class>
-   <extends>QGraphicsView</extends>
-   <header>EditorInterestingPeriodWidget.h</header>
-   <slots>
-    <slot>nextPeriod()</slot>
-    <slot>prevPeriod()</slot>
-   </slots>
-  </customwidget>
-  <customwidget>
    <class>EditorSequencesWidget</class>
    <extends>QWidget</extends>
    <header>EditorSequencesWidget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>EditorPropertyWidget</class>
+   <class>EditorActionWidget</class>
    <extends>QWidget</extends>
-   <header>EditorPropertyWidget.h</header>
+   <header>EditorActionWidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

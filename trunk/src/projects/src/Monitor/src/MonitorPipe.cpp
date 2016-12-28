@@ -1,7 +1,10 @@
 #include "MonitorPipe.h"
+#include "MonitorVideoManager.h"
 
 #include <utils/PipeProcessUtils.h>
 #include <utils/Filesystem.h>
+
+#include <config/Diagnostic.h>
 
 #include "boost/timer/timer.hpp"
 
@@ -36,6 +39,13 @@ bool MonitorPipe::loadParameters(const ProgramOptions& options)
 
 	if (ms_VisualizationCreator)
 		ms_VisualizationCreator->createVisualization();
+
+	config::Diagnostic::getInstance().load();
+	if (config::Diagnostic::getInstance().getLogMonitorQueue())
+	{
+		utils::TimedLog::startTimer("queue", 60.0f);
+	}
+
 	return true;
 }
 
@@ -196,6 +206,13 @@ void MonitorPipe::fileRemoveThread()
 			}
 		}
 	}
+}
+
+void MonitorPipe::save(std::ostream& os)
+{
+	auto offset = MonitorVideoManager::getInstance().getOffsetTime();	
+
+	os << getInputQueueSize() << ';' << offset.total_seconds() << '\n';
 }
 
 size_t MonitorPipe::getInputQueueSize() const

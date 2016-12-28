@@ -1,11 +1,11 @@
 #include "MonitorVideoManager.h"
 #include "QtCore/QTimer"
 #include "sequence/Cluster.h"
+#include "utils/Log.h"
 
 
 MonitorVideoManager::MonitorVideoManager(QObject *parent)
 	: QObject(parent)
-	, m_ResetOffsetEnabled(true)
 	, m_IsSynchronizing(false)
 {
 
@@ -28,15 +28,6 @@ MonitorVideoManager::~MonitorVideoManager(){
 		m_Profile_ResultsFile.close();
 #endif
 
-}
-
-/*--------------------------------------------------------------------*/
-std::shared_ptr<sequence::IVideo> MonitorVideoManager::getVideo() const{
-	return m_MetaVideo->getVideo();
-}
-
-std::string MonitorVideoManager::getVideoPath() const{
-	return m_MetaVideo->getFileName();
 }
 
 /*--------------------------------------------------------------------*/
@@ -92,7 +83,7 @@ void MonitorVideoManager::synchronize()
 		while (MonitorPipe::getInstance().getInputQueueSize() != 0)
 			MonitorPipe::getInstance().pushDeleteVideo(MonitorPipe::getInstance().popInputVideo());
 
-		m_ResetOffsetEnabled = true;
+		m_QueneSpeeder.update(0);
 		startLoadingProcess();
 	}
 }
@@ -109,30 +100,33 @@ void MonitorVideoManager::startLoadingProcess(){
 
 void MonitorVideoManager::loadingProcess()
 {
-	 if (MonitorPipe::getInstance().getInputQueueSize() == 0)
-		m_ResetOffsetEnabled = true;
 
-	std::shared_ptr<sequence::MetaVideo> nextVideo = MonitorPipe::getInstance().popInputVideo();
+	//utils::Log log;
 
-	if (nextVideo)
+	m_QueneSpeeder.update(MonitorPipe::getInstance().getInputQueueSize());
+
+	//log << "MonitorVideoManager::loadingProcess(): Waiting for new seuqence ... \n";
+
+	m_MetaVideo = MonitorPipe::getInstance().popInputVideo();
+	if (m_MetaVideo)
 	{
-		if (m_MetaVideo)
-			MonitorPipe::getInstance().pushDeleteVideo(m_MetaVideo);
-
-		m_MetaVideo.reset();
-		m_MetaVideo = std::move(nextVideo);
+		//log << "MonitorVideoManager::loadingProcess(): Get sequence " <<  m_MetaVideo->getFileName() << "\n";
 
 		calcInnerData();
 
 		emit loaded();
 	}
+	/*else
+	{
+		log << "MonitorVideoManager::loadingProcess(): FAIL to load next sequence \n";
+	}*/
 }
-
 
 void MonitorVideoManager::stopLoadingProcess()
 {
 	if (m_LoadThread.joinable())
 		m_LoadThread.join();
+
 }
 
 
@@ -147,10 +141,9 @@ void MonitorVideoManager::calcInnerData()
 	assert(_framesSize != 0);
 
 	//calculate video offset time
-	if (m_ResetOffsetEnabled)
+	if (m_QueneSpeeder.isOffsetResetEnabled())
 	{
 		m_OffsetTime = boost::posix_time::microsec_clock::local_time() - m_MetaVideo->getVideo()->getFrameTime(0);
-		m_ResetOffsetEnabled = false;
 
 #if PROFILE_OFFSET_TIME
 		QTextStream entry(&m_Profile_ResultsFile);
@@ -165,7 +158,6 @@ void MonitorVideoManager::calcInnerData()
 	m_VideoTimes.reserve(_framesSize);
 	for (size_t i = 0; i < _framesSize; i++)
 		m_VideoTimes.push_back(m_MetaVideo->getVideo()->getFrameTime(i) + m_OffsetTime);
-
 
 	//sort cluster action pairs
 	size_t objectsNum = m_MetaVideo->getObjectsNum();

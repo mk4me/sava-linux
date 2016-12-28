@@ -43,7 +43,7 @@ void MonitorGraphicsClusters::update(size_t _frame)
 		if (it->second != nullptr)
 		{
 			int actionId = it->second->getActionId();
-			actionInfo.name = QString(config::Glossary::getInstance().getTrainedActionName(actionId).c_str()).toUpper();
+			actionInfo.name = QString(MonitorActionManager::getInstance().getActionName(actionId).c_str()).toUpper();
 			actionInfo.isAlert = m_CachedActionManager->isAlert(actionId);
 		}
 		else

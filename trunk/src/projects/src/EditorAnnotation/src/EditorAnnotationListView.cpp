@@ -5,6 +5,7 @@
 #include <QtWidgets/QHeaderView>
 #include <QtGui/QPainter>
 #include <QtWidgets/QScrollBar>
+#include <QtGui/QKeyEvent>
 
 /*--------------------------------------------------------------------*/
 EditorAnnotationListView::EditorAnnotationListView(QWidget *parent)

@@ -1,9 +1,8 @@
 #include <boost/make_shared.hpp>
 
 #include "EditorSceneLayerManager.h"
-#include "EditorSceneTrajectoryLayer.h"
-#include "EditorSceneTrajectoryPoint.h"
 #include "EditorSceneObjectLayer.h"
+#include "EditorLayerManager.h"
 
 /*--------------------------------------------------------------------*/
 EditorSceneLayerManager::EditorSceneLayerManager(EditorScene* scene)
@@ -84,8 +83,6 @@ void EditorSceneLayerManager::setLayerEnabled(ELayer layerType)
 /*--------------------------------------------------------------------*/
 EditorSceneLayerPtr EditorSceneLayerFactory::create(const EditorLayerPtr& i_SourceLayer)
 {
-	if (i_SourceLayer->getType() == TRAJECTORY)
-		return boost::make_shared<EditorSceneTrajectoryLayer>(i_SourceLayer);
 	if (i_SourceLayer->getType() == OBJECTS)
 		return boost::make_shared<EditorSceneObjectLayer>(i_SourceLayer);
 
@@ -102,13 +99,4 @@ EditorSceneObjectLayer* EditorSceneLayerHelper::getObjectLayer()
 	assert(layer);
 	return layer;
 }
-
-EditorSceneTrajectoryLayer* EditorSceneLayerHelper::getTrajectoryLayer()
-{
-	EditorSceneTrajectoryLayer* layer = static_cast<EditorSceneTrajectoryLayer*>(EditorSceneLayerManager::getInstance().getLayer(TRAJECTORY).get());
-	assert(layer);
-	return layer;
-}
-
-
 

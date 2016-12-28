@@ -107,7 +107,8 @@ std::string EditorSequencesWidget::timeToString(const sequence::IVideo::Timestam
 	ss << time;
 
 	std::string s = ss.str().c_str();
-	s.erase(s.length() - 7, 7);
+	//s.erase(s.length() - 7, 7);
+	s = s.substr(0, s.find_first_of('.'));
 
 	return s;
 }

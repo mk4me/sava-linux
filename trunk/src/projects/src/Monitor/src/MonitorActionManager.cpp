@@ -1,15 +1,17 @@
-#include "MonitorActionManager.h"
 #include <QtCore/QString>
 
 #include "config/Glossary.h"
+#include "config/Monitor.h"
+
 #include "sequence/Cluster.h"
 #include "sequence/Action.h"
+
 #include "MonitorRegionsManager.h"
+#include "MonitorActionManager.h" 
 
-MonitorActionManager::MonitorActionManager(){	
+MonitorActionManager::MonitorActionManager()
+{	
 	m_CachedVideoManger = MonitorVideoManager::getPointer();
-	config::Glossary::getInstance().load();
-
 	MonitorConfig::getInstance().addListener(this);
 }
 
@@ -113,6 +115,58 @@ void MonitorActionManager::update(size_t i_Frame)
 			++progressIt;
 		}
 	}
+}
+
+std::vector<std::string> MonitorActionManager::getActionsNames() const
+{
+	static std::vector<std::string> mapedNames;
+	if (mapedNames.empty())
+	{
+		auto actionNames = config::Glossary::getInstance().getTrainedActions();
+		for (std::string name : actionNames)
+		{
+			std::string mapedName = config::Monitor::getInstance().getAlias(name);
+			auto it = std::find(mapedNames.begin(), mapedNames.end(), mapedName);
+			if (it == mapedNames.end())
+				mapedNames.push_back(mapedName);
+		}
+	}
+
+	return mapedNames;
+}
+
+
+std::string MonitorActionManager::getActionName(int i_ActionId) const
+{
+	std::string actionName = config::Glossary::getInstance().getTrainedActionName(i_ActionId);
+	std::string mappedName = config::Monitor::getInstance().getAlias(actionName);
+
+	return mappedName;
+}
+
+
+std::vector<int> MonitorActionManager::getActionIds(const std::string& i_ActionName) const
+{
+	static std::map<std::string, std::vector<int>> mapedActionIds;
+	if (mapedActionIds.empty())
+	{
+		auto actions = config::Glossary::getInstance().getTrainedActions();
+		for (int index = 0; index < actions.size(); index++)
+		{
+			std::string mappedName = config::Monitor::getInstance().getAlias(actions.at(index));
+			auto it = mapedActionIds.find(mappedName);
+			if (it != mapedActionIds.end())
+				it->second.push_back(index);
+			else
+				mapedActionIds.insert(std::pair<std::string, std::vector<int>>(mappedName, { index }));
+		}
+	}
+
+	auto it = mapedActionIds.find(i_ActionName);
+	if (it != mapedActionIds.end())
+		return it->second;
+
+	return std::vector<int>();
 }
 
 void MonitorActionManager::notifyStartAlert(const MonitorVideoManager::ActionPair& i_ActionPair)

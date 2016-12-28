@@ -14,10 +14,13 @@ namespace Network
 		return socket_;
 	}
 
-	void Session::start(std::string& _localIp, std::string& _remoteIp)
+	void Session::start(std::string& _localIp, std::string& _remoteIp, int& _localPort, int& _remotePort)
 	{
 		_localIp = socket_.local_endpoint().address().to_string();
 		_remoteIp = socket_.remote_endpoint().address().to_string();
+
+		_localPort = socket_.local_endpoint().port();
+		_remotePort = socket_.remote_endpoint().port();
 
 		hub_.join(shared_from_this());
 		boost::asio::async_read(socket_,

@@ -3,10 +3,12 @@
 
 #include "utils/Filesystem.h"
 #include "utils/PipeProcessUtils.h"
+#include <utils/Application.h>
 
 #include "sequence/Action.h"
 
 #include "config/Action.h"
+#include <config/Diagnostic.h>
 
 #include <boost/archive/binary_iarchive.hpp>
 #include <boost/serialization/vector.hpp>
@@ -86,7 +88,7 @@ void Recognizer::process()
 
 void Recognizer::processEmptyActions() const
 {
-	for (int i = m_LastVideoIndex + 1; i < m_CurrentIndex[0]; ++i)
+	for (int i = m_LastVideoIndex; i < m_CurrentIndex[0]; ++i)
 	{
 		std::string outFileName = getOutFileName({ i, 0 });
 		if (utils::Filesystem::exists(outFileName))
@@ -306,4 +308,18 @@ void Recognizer::finalizeAll()
 
 	m_InFileLocks.clear();
 	setState(PipeProcess::RESERVE_FILE);
+}
+
+bool Recognizer::loadParameters(const ProgramOptions& options)
+{
+	if (!utils::PipeProcess::loadParameters(options))
+		return false;
+
+	config::Diagnostic::getInstance().load();
+	if (config::Diagnostic::getInstance().getLogMemoryUsage())
+	{
+		utils::Application::getInstance()->enableMomoryLogging();
+	}
+
+	return true;
 }

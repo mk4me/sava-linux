@@ -4,7 +4,6 @@
 
 #include "EditorSequencesManager.h"
 #include "EditorLayerManager.h"
-#include "EditorTrajectoryManager.h"
 #include "EditorConfig.h"
 #include <config/Glossary.h>
 
@@ -16,9 +15,6 @@ private:
 
 	//editor layer manager
 	EditorLayerManager layerManager;
-
-	//editor trajectory manager
-	EditorTrajectoryManager trajectoryManager;
 
 	//editor data
 	//REMOVE EditorCrumbledStreamData dataManager;

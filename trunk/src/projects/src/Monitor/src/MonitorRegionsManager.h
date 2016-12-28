@@ -24,6 +24,7 @@ public:
 	virtual ~MonitorRegionsManager(){ };
 
 	void onVideoLoaded();
+	void onVideoPreload();
 	void update(size_t _frame);
 
 	MonitorRegionPtr add(MonitorRegion::EType type);

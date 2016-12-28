@@ -11,6 +11,12 @@
 
 namespace config
 {
+	Process::Process()
+		: m_IdleTimeout(60)
+	{
+
+	}
+
 
 	Process& Process::getInstance()
 	{

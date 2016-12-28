@@ -17,7 +17,7 @@ namespace sequence
 class GpuPacker : public IPacker
 {
 public:
-	GpuPacker(int imageCompression, int backgroundHistory = 300, int differenceThreshold = 20, float newBackgroundMinPixels = 0.2, int minCrumbleArea = 100, int mergeCrumblesIterations = 3);
+	GpuPacker(int imageCompression, int backgroundHistory = 300, int differenceThreshold = 20, float newBackgroundMinPixels = 0.2, int minCrumbleArea = 100, int mergeCrumblesIterations = 3, const cv::Mat& mask = cv::Mat());
 
 	virtual void createSequence() override;
 	virtual void compressFrame(size_t frameId, const cv::Mat& frame, sequence::IVideo::Timestamp timestamp) override;
@@ -35,6 +35,8 @@ private:
 	float m_NewBackgroundMinPixels;		// 0.2
 	int m_MinCrumbleArea;		// 100
 	int m_MergeCrumblesIterations;	// 3
+
+	cv::Mat m_CameraMask;
 
 	void resetBackgroundSubtractor();
 };

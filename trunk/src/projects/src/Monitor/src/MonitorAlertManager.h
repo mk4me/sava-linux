@@ -15,6 +15,7 @@
 #include "MonitorVideoManager.h"
 #include "MonitorRegionsManager.h"
 #include "MonitorFrames.h"
+#include "MonitorAlertSaver.h"
 
 
 class IAlertListener {
@@ -34,13 +35,13 @@ class MonitorAlertManager : public QObject, public Singleton<MonitorAlertManager
 public:
 
 	MonitorAlertManager();
-	virtual ~MonitorAlertManager() {};
+	~MonitorAlertManager();
 
 	void load();
 	void save() const {}
 
 	void onVideoPreload();
-	void onVideoLoaded() {}
+	void onVideoLoaded();
 
 	MonitorAlertPtr loadAlert(MonitorAlert::EType type, const std::string& filename) const;
 	void saveAlert(const MonitorAlertPtr& alert) const;
@@ -57,11 +58,13 @@ public:
 	void setEnabled(bool i_Enabled) { m_IsEnabled = i_Enabled; }
 	bool isEnabled() const { return m_IsEnabled; }
 
-	std::string getAlertsDirPath() const { return m_AlertsDirPath; }
-
 	void acceptAllFinishedAlerts();
 	void finishAllUnfinishedAlerts();
 	void removeAllUnfinishedAlerts();
+
+	static std::string getAlertFilePath(const MonitorAlertPtr& alert);
+	static std::string getAlertFileName(const MonitorAlertPtr& alert);
+	static std::string getAlertsDirPath() { return m_AlertsDirPath; }
 
 
 private slots:
@@ -76,10 +79,8 @@ protected:
 	virtual void onRegionLeave(const MonitorRegionPtr& i_Region) override;
 
 private:
-	void saveAlertFiles(const MonitorAlertPtr& alert) const;
+	void saveAlertFiles(const MonitorAlertPtr& alert);
 	void removeAlertFiles(const MonitorAlertPtr& alert);
-	std::string getAlertFilePath(const MonitorAlertPtr& alert) const;
-	std::string saveVideo() const;
 
 	void notifyAlertStart(const MonitorAlertPtr& i_Alert);
 	void notifyAlertEnd(const MonitorAlertPtr& i_Alert);
@@ -90,6 +91,8 @@ private:
 
 	void startAlert(const MonitorAlertPtr& data);
 	void finishAlert(const MonitorAlertPtr& data);
+
+	std::string getVideoAlertFileName() const;
 
 	template <typename T, typename ArgType>
 	MonitorAlertPtr create(const ArgType& arg);
@@ -113,16 +116,19 @@ private:
 	//list of unfinished actions
 	std::vector<MonitorAlertPtr> m_UnfinishedAlertsList;
 
+	//monitor alert saver object
+	MonitorAlertSaver m_AlertSaver;
+
 	mutable size_t m_NextAlertId;
 	mutable size_t m_NextVideoId;
 
 	size_t m_MaxAlertsCount;
-
 	QTimer m_AcceptedAlertsRemoveTimer;
 	boost::posix_time::time_duration m_HowLongAcceptedAlertsShouldStay;
 
 	bool m_StoreAlertsEnabled;
-	std::string m_AlertsDirPath;
+
+	static std::string m_AlertsDirPath;
 };
 
 

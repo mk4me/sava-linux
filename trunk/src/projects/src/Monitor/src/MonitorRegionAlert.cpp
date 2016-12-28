@@ -36,7 +36,7 @@ void MonitorRegionAlert::start()
 {
 	setName("Region Collision");
 
-	Timestamp startTime = MonitorVideoManager::getInstance().getVideo()->getFrameTime(MonitorFrames::getInstance().getCurrentFrame());
+	Timestamp startTime = MonitorVideoManager::getInstance().getMetaVideo()->getVideo()->getFrameTime(MonitorFrames::getInstance().getCurrentFrame());
 	setStartTime(startTime);
 
 	MonitorAlert::start();
@@ -44,7 +44,7 @@ void MonitorRegionAlert::start()
 
 void MonitorRegionAlert::finish()
 {
-	Timestamp endTime = MonitorVideoManager::getInstance().getVideo()->getFrameTime(MonitorFrames::getInstance().getCurrentFrame());
+	Timestamp endTime = MonitorVideoManager::getInstance().getMetaVideo()->getVideo()->getFrameTime(MonitorFrames::getInstance().getCurrentFrame());
 	setEndTime(endTime);
 
 	MonitorAlert::finish();

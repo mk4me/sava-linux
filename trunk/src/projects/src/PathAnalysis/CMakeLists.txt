@@ -38,6 +38,7 @@ SET_SOURCE_FILES(
 	Main.cpp
 	PathAnalysis.cpp
 	PathAnalysisVisualizer.cpp
+	PathEstimator.cpp
 	PathAnalyzer.cpp
 	StatisticPathDistanceFactory.cpp
 )

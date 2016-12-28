@@ -56,7 +56,7 @@ namespace utils
 				\return False if query failed (wrong credentials, wrong camrea, server offline, etc.).
 			*/
 			bool SendAlert(const std::string& inName, const boost::posix_time::ptime& inTime, const std::string inDescription, const cv::Rect2d& inAreaOfInterest, 
-				const std::string& inLocation, const cv::Scalar& inBoxColor = cv::Scalar(1.0f, 0.0f, 0.0f));
+				const std::string& inLocation, const cv::Scalar& inBoxColor = cv::Scalar(0.0f, 0.0f, 1.0f));
 
 			//! Returns last error send from server
 			/*!

@@ -21,14 +21,12 @@ inline void wait() //wait a key in
 */
 	
 	
-inline void wait ( int seconds = 0 ) //wait some seconds
+inline void wait ( int seconds = 5 ) //wait some seconds
 {
 	using namespace std;
 	if (seconds <= 0)
 	{
 		cout << "\nPress Enter key to continue ...\n"; 
-		//string z; 
-		//getline(cin,z); 
 		cin.sync();
 		cin.get();
 	}
@@ -36,6 +34,7 @@ inline void wait ( int seconds = 0 ) //wait some seconds
 		clock_t endwait;
 		endwait = clock () + seconds * CLOCKS_PER_SEC ;
 		while (clock() < endwait) {}
+		exit(-1);
 	}
 }
 /*

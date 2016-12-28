@@ -1,5 +1,7 @@
 #include "MonitorActionAlert.h"
 #include "MonitorFrames.h"
+#include "MonitorActionManager.h"
+
 #include "config/Glossary.h"
 
 
@@ -27,10 +29,10 @@ MonitorActionAlert::~MonitorActionAlert()
 
 void MonitorActionAlert::start()
 {
-	std::string name = config::Glossary::getInstance().getTrainedActionName(m_Data.second->getActionId());
+	std::string name = MonitorActionManager::getInstance().getActionName(m_Data.second->getActionId());
 	setName(name);
 
-	Timestamp startTime = MonitorVideoManager::getInstance().getVideo()->getFrameTime(m_Data.first->getStartFrame());
+	Timestamp startTime = MonitorVideoManager::getInstance().getMetaVideo()->getVideo()->getFrameTime(m_Data.first->getStartFrame());
 	setStartTime(startTime);
 
 	MonitorAlert::start();
@@ -38,7 +40,7 @@ void MonitorActionAlert::start()
 
 void MonitorActionAlert::finish()
 {
-	Timestamp endTime = MonitorVideoManager::getInstance().getVideo()->getFrameTime(m_Data.first->getEndFrame());
+	Timestamp endTime = MonitorVideoManager::getInstance().getMetaVideo()->getVideo()->getFrameTime(m_Data.first->getEndFrame());
 	setEndTime(endTime);
 
 	MonitorAlert::finish();

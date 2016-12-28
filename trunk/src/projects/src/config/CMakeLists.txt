@@ -33,6 +33,7 @@ SET_SOURCE_FILES(
 		PathAnalysis.cpp
 		PathDetection.cpp
 		Process.cpp
+		Diagnostic.cpp
 )
 
 

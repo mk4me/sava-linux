@@ -37,6 +37,8 @@ namespace clustering
 			void takePaths(const Cluster& other);
 		
 			float getCoverLevel(const Cluster& other) const;
+
+			void releasePoints() const;
 		
 		private:
 			typedef std::vector<Path::Point*> Points;

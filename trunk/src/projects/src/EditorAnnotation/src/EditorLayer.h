@@ -8,7 +8,6 @@ typedef boost::shared_ptr<EditorLayer> EditorLayerPtr;
 /*--------------------------------------------------------------------*/
 enum ELayer
 {
-	TRAJECTORY,
 	OBJECTS,
 	MAX_LAYER,
 };

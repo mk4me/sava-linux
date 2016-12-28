@@ -52,7 +52,7 @@ namespace config
 		void setSvmNodes(const NodeList& val) { m_SvmNodes = val; }
 
 	private:
-		Process() { }
+		Process();// { }
 		~Process() { }
 
 		int m_IdleTimeout;

@@ -11,11 +11,25 @@ namespace Network
 	class StopCommand : public AbstractCommand
 	{
 	public:
+		//! Constructor.
 		StopCommand() {}
+		//! Constructor.
+		/*!
+		\param _receiverIp from which ip command was sent.
+		\param _tag for special command description.
+		*/
 		StopCommand(const std::string& _receiverIp, const std::string& _tag)
 			: AbstractCommand(_receiverIp, _tag) {}
 
+		//! Serialize command.
+		/*!
+		\return serialized command.
+		*/
 		virtual std::string encode();
+		//! Get type of command.
+		/*!
+		\return Stop type of command.
+		*/
 		virtual Type getType() const { return Stop; }
 
 	private:

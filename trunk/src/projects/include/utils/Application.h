@@ -2,6 +2,7 @@
 #define Application_h__
 
 #include "IAppModule.h"
+#include "MemoryLog.h"
 
 #include <QtWidgets/QApplication>
 
@@ -45,6 +46,8 @@ namespace utils
 			}
 		}
 
+		void enableMomoryLogging();
+
 	private:
 		typedef std::map<std::string, IAppModule::CreateFunction> ModulesMap;
 		typedef ModulesMap::value_type ModuleEntry;
@@ -68,6 +71,8 @@ namespace utils
 			m_QApp.reset(new T(argc, const_cast<char**>(argv)));
 		}
 
+		std::shared_ptr<MemoryLog> m_MemoryLog;
 	};
 }
+
 #endif // Application_h__

@@ -40,7 +40,7 @@ namespace Network
 			{
 				bound = true;
 				ep_bound = ep;				
-				s << " => SELECTED!";
+				s << ":" << _localPort << " => SELECTED!";
 			}
 
 			log(s.str().c_str());
@@ -80,7 +80,14 @@ namespace Network
 	{
 		if (!_error)
 		{
-			_session->start(localIp_, remoteIp_);
+			int localPort = -1;
+			int remotePort = -1;
+
+			_session->start(localIp_, remoteIp_, localPort, remotePort);
+
+			log("New session established with "
+				"local endpoint " + QString::fromStdString(localIp_) + ":" + QString::number(localPort) + " and "
+				"remote endpoint " + QString::fromStdString(remoteIp_) + ":" + QString::number(remotePort));
 		}
 
 		startAccept();
@@ -103,7 +110,7 @@ namespace Network
 	}
 
 	void Acceptor::handleReceiveMessageFromHub(const QString& _message)
-	{
+	{		
 		emit receivedMessageSignal(_message);
 	}
 

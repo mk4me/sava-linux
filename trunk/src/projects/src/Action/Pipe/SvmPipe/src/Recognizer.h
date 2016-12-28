@@ -19,6 +19,8 @@ public:
 	virtual void process() override;
 	virtual void finalize() override;
 
+	virtual bool loadParameters(const ProgramOptions& options) override;
+
 private:
 	std::unique_ptr<utils::FileLock> m_FileLock;
 	std::vector<std::unique_ptr<utils::FileLock>> m_InFileLocks;

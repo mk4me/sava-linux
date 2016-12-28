@@ -5,9 +5,12 @@
 #include <sequence/Video.h>
 
 #include <config/Compression.h>
+#include <config/Camera.h>
+#include <config/Diagnostic.h>
 
 #include <utils/PipeProcessUtils.h>
 #include <utils/Filesystem.h>
+#include <utils/Application.h>
 
 #include <opencv2/video.hpp>
 
@@ -47,6 +50,7 @@ void Compression::registerParameters(ProgramOptions& programOptions)
 	programOptions.add<float>("backgroundMinPixels", "  Min percent of pixels in difference matrix to reset background substractor (optional)");	
 	programOptions.add<int>("minCrumbleArea", "  min crumble area (optional)");
 	programOptions.add<int>("mergeCrumblesIterations", "  merge crumbles iterations (optional)");
+	programOptions.add<std::string>("mask", "  regions to omit");
 }
 
 bool Compression::loadParameters(const ProgramOptions& options)
@@ -83,6 +87,14 @@ bool Compression::loadParameters(const ProgramOptions& options)
 	if (!options.get<int>("compressionMethod", compressionMethod))
 		compressionMethod = config.getCompressionMethod();
 
+	cv::Mat cameraMask;
+	std::string mask;
+	if (options.get<std::string>("mask", mask))
+	{
+		config::Camera::getInstance().load();
+		cameraMask = config::Camera::getInstance().getMask(mask);
+	}
+
 	std::cout << "         Files in package: " << m_FilesInPackage << "\n";
 	std::cout << "  Image commpression rate: " << imageCompression << "\n";
 	std::cout << "       Background history: " << backgroundHistory << "\n";
@@ -91,12 +103,22 @@ bool Compression::loadParameters(const ProgramOptions& options)
 	std::cout << "         Min crumble area: " << minCrumbleArea << "\n";
 	std::cout << "Merge crumbles iterations: " << mergeCrumblesIterations << "\n";
 	std::cout << "       Compression method: " << compressionMethod << "\n";
+	if (compressionMethod == config::Compression::METHOD_GPU)
+	{
+		std::cout << "                     Mask: " << mask << "\n";
+	}
 	std::cout << "================================================================================\n\n";
 			
 	if (compressionMethod == config::Compression::METHOD_GPU)
-		m_Packer = std::make_shared<GpuPacker>(imageCompression, backgroundHistory, differenceThreshold, newBackgroundMinPixels, minCrumbleArea, mergeCrumblesIterations);
+		m_Packer = std::make_shared<GpuPacker>(imageCompression, backgroundHistory, differenceThreshold, newBackgroundMinPixels, minCrumbleArea, mergeCrumblesIterations, cameraMask);
 	else
 		m_Packer = std::make_shared<DefaultPacker>(imageCompression, backgroundHistory, differenceThreshold, newBackgroundMinPixels, minCrumbleArea, mergeCrumblesIterations);
+	
+	config::Diagnostic::getInstance().load();
+	if (config::Diagnostic::getInstance().getLogMemoryUsage())
+	{
+		utils::Application::getInstance()->enableMomoryLogging();
+	}
 
 	return true;
 }
@@ -117,12 +139,15 @@ void Compression::reserve()
 		if (!m_FileLock->lock())
 			continue;
 
+		// begin cvs file
+		m_TotalTimer.start();
+
 		m_FirstFileNr = fileNr;
 		m_InFileNr = m_FirstFileNr;
 
 		m_Packer->createSequence();
 
-		std::cout << "\n\n\n-----------------------\nPost-processing for acquisition file nr " << m_OutFileNr << " started..." << std::endl;
+		std::cout << "\n\n\n-----------------------\nPost-processing for acquisition file nr " << m_OutFileNr << " started..." << std::endl;		
 
 		setState(PipeProcess::PROCESS);
 		return;
@@ -242,6 +267,10 @@ void Compression::finalize()
 {
 	save();
 	cleanup();
+
+	m_TotalTimer.stop();
+	std::cout << "Total time: " << m_TotalTimer.elapsed().wall / 1000000 << " ms\n" << std::endl;
+
 	m_FileLock.reset();
 	setState(PipeProcess::RESERVE_FILE);
 }

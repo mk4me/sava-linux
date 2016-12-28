@@ -36,6 +36,10 @@ public:
 	void onVideoLoaded();
 	void update(size_t i_Frame);
 
+	std::vector<std::string> getActionsNames() const;
+	std::string getActionName(int i_ActionId) const;
+	std::vector<int> getActionIds(const std::string& i_ActionName) const;
+
 protected:
 	virtual void onLoad(MonitorConfig* config) override;
 	virtual void onSave(MonitorConfig* config) override;

@@ -12,6 +12,7 @@ namespace Network
 	class AbstractCommand
 	{
 	public:
+		//! Command type recognized and parsed in system.
 		enum Type
 		{
 			Start,
@@ -21,17 +22,43 @@ namespace Network
 			RaportFinished
 		};
 
+		//! Constructor.
 		AbstractCommand() {}
+		//! Constructor.
+		/*!
+		\param _receiverIp from which ip command was sent.
+		\param _tag for special command description.
+		*/
 		AbstractCommand(const std::string& _receiverIp, const std::string& _tag)
-			: reciverIp_(_receiverIp), tag_(_tag) {}
+			: receiverIp_(_receiverIp), tag_(_tag) {}
 
+		//! Decodes serialized command.
+		/*!
+		\param _message to decode.
+		\return decoded command.
+		*/
 		static std::shared_ptr<AbstractCommand> decode(const std::string& _message);
+		//! Serialize command.
+		/*!
+		\return serialized command.
+		*/
 		virtual std::string encode() = 0;
 
+		//! Get type of command.
+		/*!
+		\return type of command.
+		*/
 		virtual Type getType() const = 0;
+		//! Get command's tag.
+		/*!
+		\return type of command.
+		*/
 		std::string getTag() const { return tag_; }
-
-		bool isThisForMe(const std::string& _ip) const { return reciverIp_ == _ip; }		
+		//! Check if received command is for correct receiver.
+		/*!
+		\return true if command is for computer that received it.
+		*/
+		bool isThisForMe(const std::string& _ip) const { return receiverIp_ == _ip; }		
 
 	private:
 		friend class boost::serialization::access;
@@ -41,11 +68,13 @@ namespace Network
 		template<class Archive>
 		void serialize(Archive & ar, const unsigned int version)
 		{
-			ar & reciverIp_;
+			ar & receiverIp_;
 			ar & tag_;
 		}
 
-		std::string reciverIp_;
+		//! Receiver Ip.
+		std::string receiverIp_;
+		//! Tag for command.
 		std::string tag_;		
 	};
 }

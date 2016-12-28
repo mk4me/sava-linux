@@ -11,11 +11,6 @@
 EditorConfig::EditorConfig() :
 m_IsSceneObjectsBoundingBoxVisibled(true),
 m_IsSceneObjectsLabelVisibled(false),
-m_IsSceneTrajectoryVisibled(true),
-m_IsTrajectoryPartsAllVisibled(true),
-m_IsTrajectoryHelpViewVisibled(true),
-m_TrajectoryPointRadiu(5),
-m_TrajectoryLineWidth(10),
 m_IsAutoReload(true),
 m_IsAutoSaveEnabled(true),
 m_AutoSaveTimerInterval(1000 * 60 * 10),

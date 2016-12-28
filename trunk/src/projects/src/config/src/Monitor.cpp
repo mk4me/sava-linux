@@ -5,6 +5,7 @@
 #include <boost/archive/binary_iarchive.hpp>
 #include <boost/archive/binary_oarchive.hpp>
 #include <boost/serialization/access.hpp>
+#include <boost/serialization/map.hpp>
 
 #include <fstream>
 #include <iostream>
@@ -16,11 +17,18 @@ namespace config
 	{
 		ar & m_AlertsLifetime;
 		ar & m_MaxAlertsCount;
+		ar & m_MinQueueSize;
+		ar & m_MaxQueueSize;
+		ar & m_TimeScale;
+		ar & m_Aliases;
 	}
 
 	Monitor::Monitor()
 		: m_AlertsLifetime(1)
 		, m_MaxAlertsCount(100)
+		, m_MinQueueSize(1)
+		, m_MaxQueueSize(8)
+		, m_TimeScale(1.1f)
 	{
 
 	}
@@ -61,5 +69,14 @@ namespace config
 			std::cerr << "config::Monitor::save() exception: " << e.what() << std::endl;
 			return false;
 		}
+	}
+
+	const std::string& Monitor::getAlias(const std::string& baseName) const
+	{
+		auto it = m_Aliases.find(baseName);
+		if (it == m_Aliases.end())
+			return baseName;
+
+		return it->second;
 	}
 }

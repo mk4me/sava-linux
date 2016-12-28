@@ -2,11 +2,11 @@
 #include <utility>
 #include <omp.h>
 #include <unordered_map>
-#include <utils/Spinlock.h>
+#include <boost/atomic.hpp>
 #include "motionanalysis/algorithms/PathDistanceFactory.h"
 
 using namespace motion_analysis;
-using namespace utils;
+//using namespace utils;
 
 /// <summary>
 /// See declaration for all the details.

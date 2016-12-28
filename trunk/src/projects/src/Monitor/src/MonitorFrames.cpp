@@ -6,6 +6,7 @@ MonitorFrames::MonitorFrames(QObject *parent)
 	: QObject(parent)
 	, m_CurrentFrame(0)
 	, m_TickEnabled(false)
+	, m_Speed(1)
 {
 	m_TickTimer = new QTimer(this);
 	
@@ -26,6 +27,9 @@ void MonitorFrames::setFramesTimes(const std::vector<boost::posix_time::ptime>& 
 	m_FramesTimes.clear();
 	m_FramesTimes = _newFramesTimes;
 	m_CurrentFrame = 0;
+
+	m_CurrentFrameTime = boost::posix_time::microsec_clock::local_time();
+	m_LastTime = m_CurrentFrameTime;
 
 	tickEnabled();
 }
@@ -56,10 +60,15 @@ void MonitorFrames::onTick()
 	if (!m_TickEnabled)
 		return;
 
-	boost::posix_time::ptime l_CurrentTime(boost::posix_time::microsec_clock::local_time());
+	//calc current frame time
+	auto realTime = boost::posix_time::microsec_clock::local_time();
+	auto delta = realTime - m_LastTime;
+	m_LastTime = realTime;
+
+	m_CurrentFrameTime += boost::posix_time::microsec(delta.total_microseconds() * m_Speed );
 
 	bool ok = false;
-	size_t frameNr = timeToFrame(l_CurrentTime, &ok);
+	size_t frameNr = timeToFrame(m_CurrentFrameTime, &ok);
 	if (ok)
 	{
 		if (m_CurrentFrame != frameNr)

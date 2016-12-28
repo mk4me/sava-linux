@@ -8,6 +8,8 @@
 
 #include <opencv2/core.hpp>
 
+#include <boost/timer/timer.hpp>
+
 namespace sequence
 {
 	class CompressedVideo;
@@ -63,6 +65,8 @@ private:
 	void save();
 	void cleanup();
 	//bool divideBoundingRects(std::vector<cv::Rect>& originalContours, std::vector<cv::Rect>& boundingRects, int divideIterations);
+
+	boost::timer::cpu_timer m_TotalTimer;;
 };
 
 #endif // Compression_h__

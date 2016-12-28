@@ -48,7 +48,7 @@ int utils::Application::runApp(int& argc, const char* argv[])
 	std::cout << "Version: " << Version::getFullVersion() << std::endl;
 
 	QCoreApplication::addLibraryPath(QCoreApplication::applicationDirPath() + "/plugins");
-
+	
 	if (!recognizeParameters(argc, argv))
 		return -1;
 
@@ -120,4 +120,9 @@ bool utils::Application::recognizeParameters(int& argc, const char* argv[])
 void utils::Application::setAppTitle(const std::string & title)
 {
 	m_ProgramOptions.setExecutable(title);
+}
+
+void utils::Application::enableMomoryLogging()
+{
+	m_MemoryLog = std::make_shared<MemoryLog>();
 }

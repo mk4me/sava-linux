@@ -3,6 +3,9 @@
 #define filesystemUtils_h__
 
 #include <utils/Filesystem.h>
+#include <sequence/Action.h>
+
+#include <boost/filesystem/convenience.hpp>
 
 #include <vector>
 #include <regex>
@@ -30,6 +33,18 @@ public:
 		name = name.substr(name.find_last_of('/') + 1);
 		name = name.substr(0, name.find_last_of('.'));
 		return name;
+	}
+
+	static bool markAsIncorrect(const std::string& videoFile)
+	{
+		std::string name = videoFile.substr(0, videoFile.find_last_of('.'));
+		name += ".acn";
+		if (!boost::filesystem::exists(name))
+			return false;
+
+		sequence::Action action(name);
+		action.setSplit(sequence::Action::GENERATED);
+		return action.save(name);
 	}
 };
 

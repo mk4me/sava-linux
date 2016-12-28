@@ -19,6 +19,11 @@ MonitorGraphicsScene::MonitorGraphicsScene(QObject *parent)
 	addItem(m_AlertGroupRegion);
 	addItem(m_MaskGroupRegion);
 	addItem(&m_TimeItem);
+
+#if MONITOR_DEBUG
+	addItem(&m_DebugItem);
+#endif
+
 	addItem(&m_WaitItem);
 
 	setVideoVisible(false);
@@ -31,14 +36,19 @@ MonitorGraphicsScene::~MonitorGraphicsScene(){
 
 void MonitorGraphicsScene::init()
 {
-	assert(m_CachedVideoManger->getVideo());
+	assert(m_CachedVideoManger->getMetaVideo()->getVideo());
 
-	cv::Size _sceneSize = m_CachedVideoManger->getVideo()->getFrameImage(0).size();
+	cv::Size _sceneSize = m_CachedVideoManger->getMetaVideo()->getVideo()->getFrameImage(0).size();
 	setSceneRect(QRectF(0, 0, _sceneSize.width, _sceneSize.height));
 
 	m_AlertGroupRegion->init();
 	m_MaskGroupRegion->init();
 	m_TimeItem.init();
+
+#if MONITOR_DEBUG
+	m_DebugItem.init();
+#endif
+
 	m_ClustersItem.init();
 }
 
@@ -73,6 +83,10 @@ void MonitorGraphicsScene::update(size_t _frame)
 	m_BackgroundImage.update(_frame);
 	m_TimeItem.update(_frame);
 	m_ClustersItem.update(_frame);
+
+#if MONITOR_DEBUG
+	m_DebugItem.update(_frame);
+#endif
 
 	QGraphicsScene::update();
 }

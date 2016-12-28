@@ -93,6 +93,8 @@ std::string MonitorLauncher::getCompressVideoCommand() const
 	std::string command = utils::Spawning::getProcessFilePath("Compression");
 	command += " --if \"" + config::Directory::getInstance().getTemporaryPath() + "raw/\"";
 	command += " --of \"" + config::Directory::getInstance().getTemporaryPath() + '\"';
+	if (!m_Mask.empty())
+		command += " --mask \"" + m_Mask + '\"';
 
 	return command;
 }

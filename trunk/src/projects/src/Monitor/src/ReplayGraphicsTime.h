@@ -9,11 +9,12 @@ class ReplayGraphicsTime :public MonitorGraphicsTimeItem
 {
 public:
 	ReplayGraphicsTime(QGraphicsItem* parent = 0);
-	~ReplayGraphicsTime();
-
-	virtual void update(size_t _frame) override;
+	//~ReplayGraphicsTime();
 
 	void setVideo(const ReplayVideoPtr& _video) { m_Video = _video; }
+
+protected:
+	virtual boost::posix_time::ptime getTime(size_t _frame) const override;
 
 private:
 	ReplayVideoPtr m_Video;

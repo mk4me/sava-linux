@@ -35,7 +35,7 @@ void MilestoneAlertSender::onAlertStart(const MonitorAlertPtr& i_Alert)
 		MonitorActionAlertPtr actionAlert = std::dynamic_pointer_cast<MonitorActionAlert>(i_Alert);
 		if (actionAlert)
 		{
-			auto video = MonitorVideoManager::getInstance().getVideo();
+			auto video = MonitorVideoManager::getInstance().getMetaVideo()->getVideo();
 			//auto& video = MonitorVideoManager::getInstance().getVideo();
 			auto cluster = actionAlert->getData().first;
 			auto action = actionAlert->getData().second;
@@ -93,7 +93,7 @@ void MilestoneAlertSender::onSave(MonitorConfig* config)
 
 cv::Rect2d MilestoneAlertSender::normalize(const cv::Rect2d& i_Rect)
 {
-	cv::Mat frame = MonitorVideoManager::getInstance().getVideo()->getFrameImage(0);
+	cv::Mat frame = MonitorVideoManager::getInstance().getMetaVideo()->getVideo()->getFrameImage(0);
 	cv::Size2d frameSize(frame.cols, frame.rows);
 	cv::Rect2d roi(i_Rect.x / frameSize.width, i_Rect.y / frameSize.height, 
 		i_Rect.width / frameSize.width, i_Rect.height / frameSize.height);

@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>261</width>
-    <height>361</height>
+    <width>310</width>
+    <height>375</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -151,7 +151,17 @@
      <property name="title">
       <string>Scene Visualizer:</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout" columnstretch="0,0,0" columnminimumwidth="10,0,0">
+     <layout class="QGridLayout" name="gridLayout" columnstretch="1,10,5">
+      <item row="0" column="0" colspan="3">
+       <widget class="QCheckBox" name="showObjectsCheckBox">
+        <property name="text">
+         <string>Show Objects</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
       <item row="1" column="1" colspan="2">
        <widget class="QCheckBox" name="showObjectsBoundingBoxesCheckBox">
         <property name="text">
@@ -165,34 +175,18 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="0" colspan="3">
-       <widget class="QCheckBox" name="showObjectsCheckBox">
-        <property name="text">
-         <string>Show Objects</string>
+      <item row="1" column="0">
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
         </property>
-        <property name="checked">
-         <bool>true</bool>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
         </property>
-       </widget>
-      </item>
-      <item row="4" column="0" colspan="3">
-       <widget class="QCheckBox" name="showTrajectoryCheckBox">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Show Trajectory</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-       </widget>
+       </spacer>
       </item>
       <item row="3" column="1" colspan="2">
        <widget class="QCheckBox" name="showObjectsLabelsCheckBox">
@@ -204,33 +198,14 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="0">
-       <spacer name="horizontalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
       <item row="3" column="0">
        <spacer name="horizontalSpacer_3">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>20</width>
+          <width>40</width>
           <height>20</height>
          </size>
         </property>
@@ -345,22 +320,6 @@
     <hint type="destinationlabel">
      <x>162</x>
      <y>107</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>showTrajectoryCheckBox</sender>
-   <signal>stateChanged(int)</signal>
-   <receiver>EditorConfigDialog</receiver>
-   <slot>onShowTrajecoriesChanged(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>128</x>
-     <y>115</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>128</x>
-     <y>98</y>
     </hint>
    </hints>
   </connection>

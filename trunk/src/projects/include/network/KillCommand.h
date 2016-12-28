@@ -11,11 +11,25 @@ namespace Network
 	class KillCommand : public AbstractCommand
 	{
 	public:
+		//! Constructor.
 		KillCommand() {}
+		//! Constructor.
+		/*!
+		\param _receiverIp from which ip command was sent.
+		\param _tag for special command description.
+		*/
 		KillCommand(const std::string& _receiverIp, const std::string& _tag)
 			: AbstractCommand(_receiverIp, _tag) {}
 
+		//! Serialize command.
+		/*!
+		\return serialized command.
+		*/
 		virtual std::string encode();
+		//! Get type of command.
+		/*!
+		\return Kill type of command.
+		*/
 		virtual Type getType() const { return Kill; }
 
 	private:

@@ -84,6 +84,10 @@ public:
 	virtual QPolygonF getRegion(size_t _frame) { return QPolygonF(); }
 	virtual QPolygonF getRegion() { return QPolygonF(); }
 
+	void saved();
+	bool isSaved() const;
+
+
 	static std::string timeToString(const Timestamp& _time);
 
 private:
@@ -112,6 +116,9 @@ private:
 	EState m_State;
 
 	std::vector<std::string> m_Videos;
+
+	bool m_IsSaved;
+	mutable boost::mutex m_Mutex;
 
 };
 typedef std::shared_ptr<MonitorAlert> MonitorAlertPtr;

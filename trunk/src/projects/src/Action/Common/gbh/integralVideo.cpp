@@ -108,7 +108,7 @@ bool IntegralVideo::computeIntegVideo(const std::shared_ptr<sequence::IStreamedV
 		stFrame = 0;
 	if (stFrame >= endFrame)
 	{
-		std::cout<<"Class: IntegralVideo:: imT = getNumFrames() result is "<<imT<<"\n";
+		std::cerr<<"Class: IntegralVideo:: imT = getNumFrames() result is "<<imT<<"\n";
 		_hasIv = 0;
 		return false;
 	}
@@ -118,9 +118,9 @@ bool IntegralVideo::computeIntegVideo(const std::shared_ptr<sequence::IStreamedV
 
 	//skip frames for computing root iv. 
 	int skipIm;   
-	if (abs(rt2ps.z - 0.5) < 10E-7)  //if rt2ps.z == 0.5, choose every odd input frames(frames 1, 3, 5..) for computing root integral video
+	if (fabs(rt2ps.z - 0.5) < 10E-7)  //if rt2ps.z == 0.5, choose every odd input frames(frames 1, 3, 5..) for computing root integral video
 		skipIm = 2;
-	else if (abs(rt2ps.z - 1./3.) < 10E-7) //if rt2ps.z == 1/3, skip 2 out of 3 frames (choosing frames 1, 4, 7..) for computing root integral video
+	else if (fabs(rt2ps.z - 1./3.) < 10E-7) //if rt2ps.z == 1/3, skip 2 out of 3 frames (choosing frames 1, 4, 7..) for computing root integral video
 		skipIm = 3;
 	else 
 		skipIm = 1;  //no skip, choosing all input frames to compute root iv 
@@ -140,13 +140,13 @@ bool IntegralVideo::computeIntegVideo(const std::shared_ptr<sequence::IStreamedV
 		GaussianBlur(imPs1, imPs1, cv::Size(9, 9), _gaussSd);
 		//cout<<"gaussian blur\n";
 	}
-	if (abs(reSzRatio - 0.5) < 10E-5)
+	if (fabs(reSzRatio - 0.5) < 10E-5)
 	{
 		partSz.height = im.rows/2;
 		partSz.width = im.cols/2;
 		pyrDown(imPs1, imPs1, partSz);
 	}
-	else if (abs(reSzRatio - 1) < 10E-5)
+	else if (fabs(reSzRatio - 1) < 10E-5)
 	{
 		partSz.height = im.rows;
 		partSz.width = im.cols;
@@ -159,7 +159,7 @@ bool IntegralVideo::computeIntegVideo(const std::shared_ptr<sequence::IStreamedV
 	}
 
 	cv::Size rootSz;
-	if(abs(rt2ps.x - 0.5) < 10E-5 && abs(rt2ps.y - 0.5) < 10E-5)
+	if(fabs(rt2ps.x - 0.5) < 10E-5 && fabs(rt2ps.y - 0.5) < 10E-5)
 	{
 		rootSz.height = partSz.height/2;
 		rootSz.width = partSz.width/2;
@@ -197,9 +197,9 @@ bool IntegralVideo::computeIntegVideo(const std::shared_ptr<sequence::IStreamedV
 		if(_descTp == _GBH)
 			GaussianBlur(imPs2, imPs2, cv::Size(9, 9), _gaussSd);
 
-		if (abs(reSzRatio - 0.5) < 10E-5)
+		if (fabs(reSzRatio - 0.5) < 10E-5)
 			pyrDown(imPs2, imPs2, partSz);
-		else if (abs(reSzRatio - 1) > 10E-5)
+		else if (fabs(reSzRatio - 1) > 10E-5)
 			resize(imPs2, imPs2, partSz, 0, 0, CV_INTER_AREA);	
 	
 		//computeMaxDxDy(imPs2, derXbuf[2], derYbuf[2], 1);
@@ -225,12 +225,12 @@ bool IntegralVideo::computeIntegVideo(const std::shared_ptr<sequence::IStreamedV
 			double max0, min0;
 			float max1;
 			minMaxLoc(oFlows[0], &min0, &max0);
-			max1 = max0 > abs(min0) ? max0 : abs(min0);
+			max1 = max0 > fabs(min0) ? max0 : fabs(min0);
 			if(max1>1e-7)
 				oFlows[0] /= max1;
 
 			minMaxLoc(oFlows[1], &min0, &max0);
-			max1 = max0 > abs(min0) ? max0 : abs(min0);
+			max1 = max0 > fabs(min0) ? max0 : fabs(min0);
 			if(max1>1e-7)
 				oFlows[1] /= max1;
 #endif
@@ -255,12 +255,12 @@ bool IntegralVideo::computeIntegVideo(const std::shared_ptr<sequence::IStreamedV
 			double max0, min0;
 			float max1;
 			minMaxLoc(oFlows[0], &min0, &max0);
-			max1 = max0 > abs(min0) ? max0 : abs(min0);
+			max1 = max0 > fabs(min0) ? max0 : fabs(min0);
 			if(max1>1e-7)
 				oFlows[0] /= max1;
 
 			minMaxLoc(oFlows[1], &min0, &max0);
-			max1 = max0 > abs(min0) ? max0 : abs(min0);
+			max1 = max0 > fabs(min0) ? max0 : fabs(min0);
 			if(max1>1e-7)
 				oFlows[1] /= max1;
 #endif			
@@ -283,7 +283,7 @@ bool IntegralVideo::computeIntegVideo(const std::shared_ptr<sequence::IStreamedV
 		if (!(_ivBps % skipIm))
 		{
 			cv::Mat imRt, tmpRt, tmp1;
-			if(abs(rt2ps.x - 0.5) < 10E-5 && abs(rt2ps.y - 0.5) < 10E-5)
+			if(fabs(rt2ps.x - 0.5) < 10E-5 && fabs(rt2ps.y - 0.5) < 10E-5)
 			{
 				if(_2chnls)
 				{
@@ -419,8 +419,8 @@ void IntegralVideo::integralHist(const cv::Mat& src, cv::Mat& hist) const
 			bin1 = (bin0+1)%_nbins;
 			if(bin0>=_nbins && bin0<0 && bin1>=_nbins && bin1<0)
 			{
-				std::cout << pPhase[ix] << " " << pMag[ix] << " " << angle << " " << bin << " " << bin0 << " " << bin1 << " " << _nbins << " " << _fullOri << std::endl;
-				discoverUO::wait();
+				std::cerr << pPhase[ix] << " " << pMag[ix] << " " << angle << " " << bin << " " << bin0 << " " << bin1 << " " << _nbins << " " << _fullOri << std::endl;
+				discoverUO::wait(5);
 			}
 //CV_Assert(bin0<_nbins && bin0>=0 && bin1<_nbins && bin1>=0);
 

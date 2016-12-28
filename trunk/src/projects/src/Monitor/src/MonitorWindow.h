@@ -25,7 +25,7 @@
 
 class MonitorWindow : public QMainWindow
 {
-    Q_OBJECT
+Q_OBJECT
 
 public:
     MonitorWindow(QWidget *parent = 0);
@@ -48,7 +48,6 @@ private slots:
     void onAlertAccepted(const MonitorAlertPtr& alert);
 
 protected:
-    virtual void keyPressEvent(QKeyEvent *) override;
     virtual void resizeEvent(QResizeEvent *) override;
     virtual void closeEvent(QCloseEvent *) override;
 

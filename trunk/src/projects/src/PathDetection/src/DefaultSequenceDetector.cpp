@@ -27,8 +27,6 @@ namespace clustering
 
 	void DefaultSequenceDetector::registerParameters(ProgramOptions& programOptions)
 	{
-		//registerGeneralParameters(programOptions);
-		//registerDetectorParameters(programOptions);
 	}
 
 	bool DefaultSequenceDetector::loadParameters(const ProgramOptions& options)

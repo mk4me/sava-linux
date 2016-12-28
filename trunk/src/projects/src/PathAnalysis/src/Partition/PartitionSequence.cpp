@@ -219,7 +219,7 @@ namespace clustering
 			for (const auto& cluster : m_Clusters)
 				positions.insert(std::make_pair((size_t)cluster.first, cluster.second->getTopLeft()));
 			
-			std::shared_ptr<sequence::Cluster> clu = std::make_shared<sequence::Cluster>();
+			std::shared_ptr<sequence::Cluster> clu = std::make_shared<sequence::Cluster>(m_Id);
 			clu->setFramesPositions(positions);
 
 			//TODO: correct m_Size;

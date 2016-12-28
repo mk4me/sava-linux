@@ -14,9 +14,10 @@ MonitorRegionsManager::MonitorRegionsManager()
 }
 
 
-void MonitorRegionsManager::onVideoLoaded()
-{
+void MonitorRegionsManager::onVideoLoaded(){
+}
 
+void MonitorRegionsManager::onVideoPreload(){
 }
 
 void MonitorRegionsManager::update(size_t _frame)
@@ -30,6 +31,9 @@ void MonitorRegionsManager::update(size_t _frame)
 	//iterate by all regions types
 	for (auto& mapIt : m_RegionsMap)
 	{
+		if (mapIt.first != MonitorRegion::ALERT)
+			continue;
+
 		//iterate by all regions
 		for (auto& region : mapIt.second)
 		{

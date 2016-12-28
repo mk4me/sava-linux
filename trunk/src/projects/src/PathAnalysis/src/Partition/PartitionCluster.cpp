@@ -128,5 +128,12 @@ namespace clustering
 			float intersectionArea = (float)(currentRect & otherRect).area();
 			return std::max(intersectionArea / currentRect.area(), intersectionArea / otherRect.area()) * 100.0f;
 		}
+
+		void Cluster::releasePoints() const
+		{
+			for (auto point : m_Points)
+				point->setCluster(nullptr);
+		}
+
 	}
 }

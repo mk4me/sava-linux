@@ -4,8 +4,7 @@
 
 #include <opencv2/video.hpp>
 
-DefaultPacker::DefaultPacker(int imageCompression, int backgroundHistory /*= 300*/, int differenceThreshold /*= 20*/, float newBackgroundMinPixels /*= 0.2*/, int minCrumbleArea /*= 100*/, int mergeCrumblesIterations /*= 3*/)
-	: m_BackgroundFrame(0)
+DefaultPacker::DefaultPacker(int imageCompression, int backgroundHistory /*= 300*/, int differenceThreshold /*= 20*/, float newBackgroundMinPixels /*= 0.2*/, int minCrumbleArea /*= 100*/, int mergeCrumblesIterations /*= 3*/) : m_BackgroundFrame(0)
 	, m_ImageCompression(imageCompression)
 	, m_BackgroundHistory(backgroundHistory)	// 300
 	, m_DifferenceThreshold(differenceThreshold)	// 20
@@ -44,7 +43,7 @@ void DefaultPacker::compressFrame(size_t frameId, const cv::Mat& frame, sequence
 
 		cv::absdiff(frameGray, backgroundGray, difference);
 		cv::threshold(difference, difference, m_DifferenceThreshold, 255, cv::THRESH_BINARY);
-
+		
 		if (!m_LastBackground.empty() && cv::countNonZero(difference) > mask.rows * mask.cols * m_NewBackgroundMinPixels)
 		{
 			if (frameId > 0)

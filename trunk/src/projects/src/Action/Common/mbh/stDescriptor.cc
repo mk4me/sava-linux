@@ -41,7 +41,7 @@ bool MBHparam::readParam(const std::string& fileName, bool showPara)
 	inFile.open(fileName.c_str());
 	if (!inFile.is_open())
 	{
-		std::cout << "Unable to open parameters' flie \"" << fileName << "\" for reading paramters!\n";
+		std::cerr << "Unable to open parameters' flie \"" << fileName << "\" for reading paramters!\n";
 		//discoverUO::wait();
 		return false;
 	}
@@ -131,7 +131,7 @@ bool MBHparam::writeParam(const std::string& fileName, bool app)
 		outFile.open(fileName.c_str());
 	if (!outFile.is_open())
 	{
-		std::cout << "Unable to open parameters' flie \"" << fileName << "\" for writing paramters!\n";
+		std::cerr << "Unable to open parameters' flie \"" << fileName << "\" for writing paramters!\n";
 		discoverUO::wait();
 		return false;
 	}

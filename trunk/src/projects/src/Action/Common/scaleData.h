@@ -63,7 +63,7 @@ public:
 	{
 		if (_upper <= _lower && _normType == 0)
 		{
-			std::cout << "Wrong input value! The upper value should be larger than lower value.\n";
+			std::cerr << "Wrong input value! The upper value should be larger than lower value.\n";
 			discoverUO::wait();
 			exit(-1);
 		}
@@ -150,7 +150,7 @@ public:
 	{
 		if (!_hasStatics)
 		{
-			std::cout << "Warning! The statics of training data is not available. Please do scaling traning data first before performing test data scaling.\n";
+			std::cerr << "Warning! The statics of training data is not available. Please do scaling traning data first before performing test data scaling.\n";
 			return false;
 		}
 		float val0, vMax, vMin, value;

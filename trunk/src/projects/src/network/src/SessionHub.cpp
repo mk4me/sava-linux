@@ -13,8 +13,10 @@ namespace Network
 	{
 		//jezeli rozlaczenie nastapilo 'w miare' normlanie,
 		//czyli wywolanie zniszczenie obiektu Connector
-		if (_error == boost::asio::error::eof)
+		//if (_error == boost::asio::error::eof) //ten boost error nie dziala dobrze wiec zostal zakomentowany aby zakladaki nie zostawaly
+		{
 			emit hubConnectionClosedSignal();
+		}
 
 		sessionUsers_.erase(_user);
 	}

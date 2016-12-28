@@ -16,7 +16,7 @@ MonitorGraphicsBackground::~MonitorGraphicsBackground()
 
 void MonitorGraphicsBackground::update(size_t _frame)
 {
-	setImage(utils::image_converter::cvMatToQImage(MonitorVideoManager::getInstance().getVideo()->getFrameImage(_frame)));
+	setImage(utils::image_converter::cvMatToQImage(MonitorVideoManager::getInstance().getMetaVideo()->getVideo()->getFrameImage(_frame)));
 }
 
 QRectF MonitorGraphicsBackground::boundingRect() const

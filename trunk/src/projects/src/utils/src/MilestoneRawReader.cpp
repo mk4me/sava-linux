@@ -113,7 +113,8 @@ namespace utils
 			//! Converts Milestone time to posix time
 			static boost::posix_time::ptime milestone_ServerTimeToPtime(NmToolkit::utc_time_t inMilestoneTime)
 			{
-				boost::posix_time::ptime retTime = boost::posix_time::from_time_t(inMilestoneTime / 1000); // time_t is in seconds, milestone time is in ms
+				boost::posix_time::ptime retTime =	boost::posix_time::from_time_t(inMilestoneTime / 1000) + // time_t is in seconds, milestone time is in ms
+													boost::posix_time::millisec(inMilestoneTime % 1000);	 // remainding miliseconds from milestone time
 				return retTime + GetUtcOffset();
 			}
 

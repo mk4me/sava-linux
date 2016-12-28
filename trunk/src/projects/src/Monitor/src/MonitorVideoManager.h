@@ -10,6 +10,7 @@
 #include "sequence/MetaVideo.h"
 #include "sequence/IVideo.h"
 #include "utils/BlockingQueue.h"
+#include "MonitorQueueSpeeder.h"
 
 
 #define PROFILE_OFFSET_TIME 0
@@ -26,14 +27,15 @@ public:
 	MonitorVideoManager(QObject *parent = 0); 
 	~MonitorVideoManager();
 
-	std::shared_ptr<sequence::IVideo> getVideo() const;
+	std::shared_ptr<sequence::MetaVideo>& getMetaVideo() { return m_MetaVideo; }
+	const MonitorQueueSpeeder& getQueneSpeeder() const { return m_QueneSpeeder; }
+
+	boost::posix_time::time_duration getOffsetTime() { return m_OffsetTime; }
 	const std::vector<sequence::IVideo::Timestamp>& getVideoTimes() { return m_VideoTimes; }
-	std::string getVideoPath() const;
 
 	const ActionPairVec& getClusterActionPairs() const { return m_SortedObjectsVec; }
 	ActionPairVec getClusterActionPairs(size_t _frameNr) const;
 
-	boost::posix_time::time_duration getOffsetTime() { return m_OffsetTime; }
 
 	bool isSynchronizeNecessary() const;
 
@@ -65,8 +67,8 @@ private:
 	//thread to load new video sequence
 	boost::thread m_LoadThread;
 
-	//reset offset time 
-	bool m_ResetOffsetEnabled;
+	//quene speeder
+	MonitorQueueSpeeder m_QueneSpeeder;
 
 	//synchronizing flag
 	bool m_IsSynchronizing;

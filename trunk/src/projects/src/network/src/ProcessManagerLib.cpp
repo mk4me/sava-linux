@@ -180,7 +180,8 @@ namespace Network
 	{
 		std::string tag;
 		bool killedByCommand = false;
-		std::shared_ptr<QProcess> process = getProcessFrom(QObject::sender(), tag, killedByCommand);
+		bool killedByDisconnection = false;
+		std::shared_ptr<QProcess> process = getProcessFrom(QObject::sender(), tag, killedByCommand, killedByDisconnection);
 		if (process == nullptr || process.get() == nullptr)
 			return;
 
@@ -196,11 +197,12 @@ namespace Network
 	{
 		std::string tag;
 		bool killedByCommand = false;
-		std::shared_ptr<QProcess> process = getProcessFrom(QObject::sender(), tag, killedByCommand);
+		bool killedByDisconnection = false;
+		std::shared_ptr<QProcess> process = getProcessFrom(QObject::sender(), tag, killedByCommand, killedByDisconnection);
 		if (process == nullptr || process.get() == nullptr)
 			return;
 
-		emit finishProcessSignal(process, _exitCode, killedByCommand);
+		emit finishProcessSignal(process, _exitCode, killedByCommand, killedByDisconnection);
 
 		eraseProcessFromProcessesList(process);
 		std::string exePathWithArgs = getExePathWithArgsFrom(process);
@@ -211,7 +213,7 @@ namespace Network
 		sendCommand(raport);		
 	}
 
-	std::shared_ptr<QProcess> ProcessManagerLib::getProcessFrom(QObject* _qObject, std::string& _tag, bool& _killedByCommand)
+	std::shared_ptr<QProcess> ProcessManagerLib::getProcessFrom(QObject* _qObject, std::string& _tag, bool& _killedByCommand, bool& _killedByDisconnection)
 	{
 		if (_qObject == nullptr)
 			return nullptr;
@@ -228,6 +230,7 @@ namespace Network
 				{
 					_tag = it->first;
 					_killedByCommand = taggedProcceses->killedByCommand_;
+					_killedByDisconnection = taggedProcceses->killedByDisconnection_;
 					processFound = (*taggedIt);
 					found = true;
 					break;
@@ -276,6 +279,7 @@ namespace Network
 		for (auto it = processes_.begin(); it != processes_.end(); ++it)
 		{
 			auto taggedProcceses = it->second;
+			taggedProcceses->killedByDisconnection_ = true;
 			for (auto taggedIt = taggedProcceses->procList_.begin(); taggedIt != taggedProcceses->procList_.end(); ++taggedIt)
 			{
 				(*taggedIt)->kill();

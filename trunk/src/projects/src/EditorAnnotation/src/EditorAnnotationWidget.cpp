@@ -1,6 +1,7 @@
 #include "EditorAnnotationWidget.h"
 #include "EditorWindow.h"
 #include "EditorSequencesManager.h"
+#include "EditorSequencesManager.h"
 
 #include <QtWidgets/QSpacerItem>
 

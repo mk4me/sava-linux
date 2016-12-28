@@ -3,6 +3,7 @@
 #include <sequence/Video.h>
 
 #include <config/Aquisition.h>
+#include <config/Diagnostic.h>
 
 #include <utils/Filesystem.h>
 #include <utils/Application.h>
@@ -93,6 +94,12 @@ bool Aquisition::loadParameters(const ProgramOptions& options)
 		std::cout << "================================================================================\n\n";
 
 		m_OutputFolder = utils::Filesystem::unifyPath(m_OutputFolder);
+
+		config::Diagnostic::getInstance().load();
+		if (config::Diagnostic::getInstance().getLogMemoryUsage())
+		{
+			utils::Application::getInstance()->enableMomoryLogging();
+		}
 
 		return success;
 	}

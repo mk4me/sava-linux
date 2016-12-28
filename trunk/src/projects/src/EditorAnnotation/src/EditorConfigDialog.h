@@ -24,8 +24,6 @@ private slots:
 	void onShowObjectsChanged(int state);
 	void onShowObjectsBoundingBoxesChanged(int state);
 	void onShowObjectsLabelsChanged(int state);
-	void onShowTrajecoriesChanged(int state);
-	void onTrajectoryPartsDataChanged();
 	void onAutoSaveEnabledChanged();
 	void onAutoSaveIntervalChanged(int value);
 	void onSequenceMultiSelectionChanged(int state);

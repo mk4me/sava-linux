@@ -8,15 +8,11 @@ ReplayGraphicsTime::ReplayGraphicsTime(QGraphicsItem* parent)
 }
 
 
-ReplayGraphicsTime::~ReplayGraphicsTime()
+/*ReplayGraphicsTime::~ReplayGraphicsTime()
 {
-}
+}*/
 
-void ReplayGraphicsTime::update(size_t _frame)
+boost::posix_time::ptime ReplayGraphicsTime::getTime(size_t _frame) const
 {
-	if (!m_Video)
-		return;
-
-	setTime(m_Video->getFramesTimes()[_frame]);
-	repaintRect();
+	return m_Video->getFramesTimes()[_frame];
 }

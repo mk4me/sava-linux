@@ -22,17 +22,9 @@ bool MilestoneConfig::load()
 	config::Milestone& config = config::Milestone::getInstance();
 	config.load();
 
-	ui.m_Ip->blockSignals(true);
 	ui.m_Ip->setText(config.getIp().c_str());
-	ui.m_Ip->blockSignals(false);
-
-	ui.m_User->blockSignals(true);
 	ui.m_User->setText(config.getUser().c_str());
-	ui.m_User->blockSignals(false);
-
-	ui.m_Password->blockSignals(true);
 	ui.m_Password->setText(config.getPassword().c_str());
-	ui.m_Password->blockSignals(false);
 
 	return true;
 }

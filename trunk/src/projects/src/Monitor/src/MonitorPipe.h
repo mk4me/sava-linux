@@ -9,6 +9,7 @@
 //#include <utils\PipeProcess.h>
 #include <utils/Singleton.h>
 #include <utils/BlockingQueue.h>
+#include <utils/TimedLog.h>
 
 #include <boost/thread.hpp>
 
@@ -16,7 +17,7 @@
 
 class MonitorWindow;
 
-class MonitorPipe : public AbstractMonitor, public Singleton<MonitorPipe>
+class MonitorPipe : public AbstractMonitor, public Singleton<MonitorPipe>, public utils::TimedLog
 {
 public:
 	class VisualizationCreator
@@ -64,6 +65,10 @@ private:
 	std::string getFileName(int index) const;
 
 	void fileRemoveThread();
+
+protected:
+	void save(std::ostream& os) override;
+	
 };
 
 #endif // MonitorPipe_h__

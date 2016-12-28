@@ -14,19 +14,6 @@
    <string>Monitor</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="2" column="0">
-    <widget class="QLabel" name="label_2">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>Max Alerts Count:</string>
-     </property>
-    </widget>
-   </item>
    <item row="0" column="0">
     <widget class="QLabel" name="label">
      <property name="sizePolicy">
@@ -40,7 +27,195 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="1">
+   <item row="6" column="0">
+    <widget class="QLabel" name="label_5">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string>Time scale:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_2">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string>Max alerts count:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0">
+    <widget class="QLabel" name="label_4">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string>Max queue size:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="label_3">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string>Min queue size:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="0">
+    <widget class="QLabel" name="label_6">
+     <property name="text">
+      <string>Aliases:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="2">
+    <widget class="QPushButton" name="m_EditAlias">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="text">
+      <string>Edit</string>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="1">
+    <widget class="QPushButton" name="m_AddAlias">
+     <property name="text">
+      <string>Add</string>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="3">
+    <widget class="QPushButton" name="m_RemoveAlias">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="text">
+      <string>Remove</string>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="1" colspan="3">
+    <widget class="QTableWidget" name="m_Aliases">
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
+     <property name="showDropIndicator" stdset="0">
+      <bool>false</bool>
+     </property>
+     <property name="selectionMode">
+      <enum>QAbstractItemView::SingleSelection</enum>
+     </property>
+     <property name="selectionBehavior">
+      <enum>QAbstractItemView::SelectRows</enum>
+     </property>
+     <property name="wordWrap">
+      <bool>false</bool>
+     </property>
+     <property name="cornerButtonEnabled">
+      <bool>false</bool>
+     </property>
+     <attribute name="verticalHeaderVisible">
+      <bool>false</bool>
+     </attribute>
+     <column>
+      <property name="text">
+       <string>Base name</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Alias</string>
+      </property>
+     </column>
+    </widget>
+   </item>
+   <item row="7" column="0" colspan="4">
+    <widget class="Line" name="line">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="1" colspan="3">
+    <widget class="QSpinBox" name="m_TimeScale">
+     <property name="correctionMode">
+      <enum>QAbstractSpinBox::CorrectToNearestValue</enum>
+     </property>
+     <property name="suffix">
+      <string> %</string>
+     </property>
+     <property name="minimum">
+      <number>0</number>
+     </property>
+     <property name="maximum">
+      <number>100</number>
+     </property>
+     <property name="value">
+      <number>10</number>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="1" colspan="3">
+    <widget class="QSpinBox" name="m_MaxQueueSize">
+     <property name="correctionMode">
+      <enum>QAbstractSpinBox::CorrectToNearestValue</enum>
+     </property>
+     <property name="suffix">
+      <string/>
+     </property>
+     <property name="minimum">
+      <number>4</number>
+     </property>
+     <property name="maximum">
+      <number>99</number>
+     </property>
+     <property name="value">
+      <number>8</number>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1" colspan="3">
+    <widget class="QSpinBox" name="m_MinQueueSize">
+     <property name="correctionMode">
+      <enum>QAbstractSpinBox::CorrectToNearestValue</enum>
+     </property>
+     <property name="suffix">
+      <string/>
+     </property>
+     <property name="minimum">
+      <number>1</number>
+     </property>
+     <property name="maximum">
+      <number>96</number>
+     </property>
+     <property name="value">
+      <number>1</number>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1" colspan="3">
     <widget class="QSpinBox" name="m_MaxAlertsCount">
      <property name="correctionMode">
       <enum>QAbstractSpinBox::CorrectToNearestValue</enum>
@@ -59,20 +234,7 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="0" colspan="2">
-    <spacer name="verticalSpacer">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="0" column="1">
+   <item row="0" column="1" colspan="3">
     <widget class="QSpinBox" name="m_AlertsTime">
      <property name="correctionMode">
       <enum>QAbstractSpinBox::CorrectToNearestValue</enum>
@@ -97,18 +259,25 @@
  <tabstops>
   <tabstop>m_AlertsTime</tabstop>
   <tabstop>m_MaxAlertsCount</tabstop>
+  <tabstop>m_MinQueueSize</tabstop>
+  <tabstop>m_MaxQueueSize</tabstop>
+  <tabstop>m_TimeScale</tabstop>
+  <tabstop>m_Aliases</tabstop>
+  <tabstop>m_AddAlias</tabstop>
+  <tabstop>m_EditAlias</tabstop>
+  <tabstop>m_RemoveAlias</tabstop>
  </tabstops>
  <resources/>
  <connections>
   <connection>
-   <sender>m_AlertsTime</sender>
+   <sender>m_MaxQueueSize</sender>
    <signal>valueChanged(int)</signal>
    <receiver>MonitorConfig</receiver>
-   <slot>onAlertsTimeChanged(int)</slot>
+   <slot>onMaxQueueChanged(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>237</x>
-     <y>18</y>
+     <x>244</x>
+     <y>96</y>
     </hint>
     <hint type="destinationlabel">
      <x>199</x>
@@ -117,14 +286,94 @@
    </hints>
   </connection>
   <connection>
-   <sender>m_MaxAlertsCount</sender>
+   <sender>m_MinQueueSize</sender>
    <signal>valueChanged(int)</signal>
    <receiver>MonitorConfig</receiver>
-   <slot>onMaxAlertsChanged(int)</slot>
+   <slot>onMinQueueChanged(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>246</x>
-     <y>44</y>
+     <x>244</x>
+     <y>70</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_Aliases</sender>
+   <signal>currentCellChanged(int,int,int,int)</signal>
+   <receiver>MonitorConfig</receiver>
+   <slot>onSelectionChanged(int,int,int,int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>244</x>
+     <y>204</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_Aliases</sender>
+   <signal>cellDoubleClicked(int,int)</signal>
+   <receiver>MonitorConfig</receiver>
+   <slot>editAlias(int,int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>244</x>
+     <y>204</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_EditAlias</sender>
+   <signal>clicked()</signal>
+   <receiver>MonitorConfig</receiver>
+   <slot>editAlias()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>244</x>
+     <y>279</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_AddAlias</sender>
+   <signal>clicked()</signal>
+   <receiver>MonitorConfig</receiver>
+   <slot>addAlias()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>145</x>
+     <y>279</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_RemoveAlias</sender>
+   <signal>clicked()</signal>
+   <receiver>MonitorConfig</receiver>
+   <slot>removeAlias()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>344</x>
+     <y>279</y>
     </hint>
     <hint type="destinationlabel">
      <x>199</x>
@@ -134,7 +383,12 @@
   </connection>
  </connections>
  <slots>
-  <slot>onAlertsTimeChanged(int)</slot>
-  <slot>onMaxAlertsChanged(int)</slot>
+  <slot>onMinQueueChanged(int)</slot>
+  <slot>onMaxQueueChanged(int)</slot>
+  <slot>addAlias()</slot>
+  <slot>editAlias()</slot>
+  <slot>removeAlias()</slot>
+  <slot>onSelectionChanged(int,int,int,int)</slot>
+  <slot>editAlias(int,int)</slot>
  </slots>
 </ui>

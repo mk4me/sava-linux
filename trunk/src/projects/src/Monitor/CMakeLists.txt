@@ -38,11 +38,15 @@ ReplayGraphicsTime.h
 ReplayTimer.h
 ReplayVideo.h
 ReplayWindow.h
+MonitorAlertSaver.h
+MonitorGraphicsDebugItem.h
+MonitorGraphicsTextItem.h
+MonitorQueueSpeeder.h
 )
 
 
 SET_SOURCE_FILES(
-	AbstractMonitor.cpp
+AbstractMonitor.cpp
 AlertDialog.cpp
 Main.cpp
 MilestoneAlertSender.cpp
@@ -79,7 +83,10 @@ ReplayGraphicsTime.cpp
 ReplayTimer.cpp
 ReplayVideo.cpp
 ReplayWindow.cpp
-
+MonitorAlertSaver.cpp
+MonitorGraphicsDebugItem.cpp
+MonitorGraphicsTextItem.cpp
+MonitorQueueSpeeder.cpp
 )
 
 SET_MOC_FILES(
@@ -119,10 +126,14 @@ ReplayGraphicsTime.h
 ReplayTimer.h
 ReplayVideo.h
 ReplayWindow.h
+#MonitorAlertSaver.h
+#MonitorGraphicsDebugItem.h
+MonitorGraphicsTextItem.h
+#MonitorQueueSpeeder.h
 )
 
 SET_UI_FILES(
-    AlertDialog.ui
+AlertDialog.ui
 MonitorAlertsAcceptDialog.ui
 MonitorWindow.ui
 ReplayWindow.ui

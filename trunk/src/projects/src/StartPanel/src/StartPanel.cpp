@@ -1,6 +1,7 @@
 #include "StartPanel.h"
 #include "Aquisition.h"
 #include "AquisitionWizard.h"
+#include "CleanupDialog.h"
 
 #include "config/Directory.h"
 #include "config/Camera.h"
@@ -55,6 +56,9 @@ void StartPanel::runMonitor()
 		return;
 	wizard.save("monitor_wizard.cfg");
 
+	CleanupDialog cleanupDialog;
+	cleanupDialog.exec();
+
 	config::Directory::getInstance().load();
 	std::string path = config::Directory::getInstance().getTemporaryPath();
 	utils::Filesystem::removeContents(path);
@@ -62,6 +66,8 @@ void StartPanel::runMonitor()
 	std::string command = utils::Spawning::getProcessFilePath("Monitor");
 	command += " --if \"" + path + '\"';
 
+	//std::string command = "Monitor.exe";
+	//command += " --if \"" + config::Directory::getInstance().getTemporaryPath() + '\"';
 	if (wizard.getCameraTypePage()->getCameraType() == CameraTypePage::AXIS)
 	{
 		int index = wizard.getAxisCameraPage()->getCameraIndex();

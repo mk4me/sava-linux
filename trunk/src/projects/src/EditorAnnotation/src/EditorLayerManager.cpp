@@ -4,7 +4,6 @@
 /*--------------------------------------------------------------------*/
 EditorLayerManager::EditorLayerManager()
 {
-	m_Layers.push_back(boost::make_shared<EditorLayer>(TRAJECTORY, "Trajectory"));
 	m_Layers.push_back(boost::make_shared<EditorLayer>(OBJECTS, "Objects"));
 }
 

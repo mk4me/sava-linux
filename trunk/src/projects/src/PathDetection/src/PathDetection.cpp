@@ -4,8 +4,10 @@
 
 #include <utils/PipeProcessUtils.h>
 #include <utils/Filesystem.h>
+#include <utils/Application.h>
 
 #include <config/PathDetection.h>
+#include <config/Diagnostic.h>
 
 namespace clustering
 {
@@ -79,6 +81,12 @@ namespace clustering
 
 		if (m_Visualize)
 			startVisualize();
+
+		config::Diagnostic::getInstance().load();
+		if (config::Diagnostic::getInstance().getLogMemoryUsage())
+		{
+			utils::Application::getInstance()->enableMomoryLogging();
+		}
 
 		return success;
 	}

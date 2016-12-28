@@ -11,6 +11,7 @@
 #define MAX_PATH 500
 #endif
 #include <iostream>
+
 namespace utils
 {
 	std::string Filesystem::unifyPath(const std::string& path)

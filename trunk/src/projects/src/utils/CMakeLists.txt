@@ -20,20 +20,17 @@ SET_PUBLIC_HEADERS(
 		ICameraRawReader.h
 		ImageConverter.h
 		matrix.h
-		MemTools.h
 		CameraEnumerator.h
 		#sava-linux.rev
 		#MilestoneRawReader.h
 		#MilestoneStructures.h
 		munkres.h
-		pathFinder.h
 		PipeProcess.h
 		PipeProcessUtils.h
 		ProgramOptions.h
 		RandomColor.h
 		RawMJFPFrame.h
 		Singleton.h
-		Spinlock.h
 		Stat.h
 		StatisticsProvider.h
 		timer.h
@@ -41,6 +38,9 @@ SET_PUBLIC_HEADERS(
 		WebUtils.h
 		WindowsUtilities.h
 		Spawning.h
+		Log.h
+		MemoryLog.h
+		TimedLog.h
 )
 
 include_directories("${CMAKE_CURRENT_LIST_DIR}/../../include/utils/")
@@ -63,7 +63,6 @@ SET_SOURCE_FILES(
 		GpuUtils.cpp
 		Hungarian.cpp
 		munkres.cpp
-		pathFinder.cpp
 		PipeProcess.cpp
 		PipeProcessUtils.cpp
 		RandomColor.cpp
@@ -72,11 +71,14 @@ SET_SOURCE_FILES(
 		WebUtils.cpp
 		Spawning.cpp
 		timer.cpp
+		MemoryLog.cpp
+		TimedLog.cpp
 )
 
 SET_MOC_FILES(
 	CvZoom.h
 	PipeProcess.h
+	TimedLog.h
 )
 
 

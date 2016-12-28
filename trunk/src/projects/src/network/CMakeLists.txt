@@ -4,8 +4,6 @@ BEGIN_PROJECT("static")
 SET_PUBLIC_HEADERS(
 AbstractCommand.h
 Acceptor.h
-BroadcastReceiver.h
-BroadcastSender.h
 ConnectionManager.h
 Connector.h
 KillCommand.h
@@ -29,8 +27,6 @@ include_directories("${CMAKE_CURRENT_LIST_DIR}/../../include/network/")
 SET_SOURCE_FILES(
 AbstractCommand.cpp
 Acceptor.cpp
-BroadcastReceiver.cpp
-BroadcastSender.cpp
 ConnectionManager.cpp
 Connector.cpp
 KillCommand.cpp
@@ -47,8 +43,6 @@ StopCommand.cpp
 SET_MOC_FILES(
 AbstractCommand.h
 Acceptor.h
-BroadcastReceiver.h
-BroadcastSender.h
 ConnectionManager.h
 Connector.h
 KillCommand.h

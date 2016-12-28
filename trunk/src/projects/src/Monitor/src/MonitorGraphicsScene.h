@@ -8,13 +8,17 @@
 
 #include "utils/ImageConverter.h"
 #include "MonitorVideoManager.h"
-#include "MonitorGraphicsTimeItem.h"
 
 #include "MonitorGraphicsRegionGroup.h"
 #include "MonitorGraphicsClusters.h"
 #include "QtWidgets/QStyleOption"
 #include "MonitorGraphicsBackground.h"
 #include "MonitorGraphicsWaitItem.h"
+#include "MonitorGraphicsTimeItem.h"
+#include "MonitorGraphicsDebugItem.h"
+
+
+#define MONITOR_DEBUG 0
 
 
 class MonitorGraphicsScene : public QGraphicsScene
@@ -59,6 +63,11 @@ private:
 
 	//item to draw frame time
 	MonitorGraphicsTimeItem m_TimeItem;
+
+#if MONITOR_DEBUG
+	//debug graphics info object
+	MonitorGraphicsDebugItem m_DebugItem;
+#endif
 	
 	//wait item
 	MonitorGraphicsWaitItem m_WaitItem;
@@ -68,6 +77,7 @@ private:
 
 	//mask regions group object
 	MonitorGraphicsRegionGroup* m_MaskGroupRegion;
+
 
 	//scene state
 	EState m_State;

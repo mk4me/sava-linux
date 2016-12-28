@@ -1,8 +1,6 @@
 #include "EditorWindow.h"
-#include "EditorTrajectoryLoader.h"
 #include "EditorConfigDialog.h"
 #include "EditorSceneLayerManager.h"
-#include "EditorSequencesHelper.h"
 #include "EditorSequencesExplorer.h"
 #include "EditorCluster.h"
 #include "EditorVideoSaver.h"
@@ -36,16 +34,6 @@ EditorWindow::EditorWindow(QWidget* parent /*=0*/)
 	ui.actionUnselectObjects->setEnabled(false);
 	ui.actionLockEdit->setEnabled(false);
 	ui.actionShutdown->setIcon(style()->standardIcon(QStyle::SP_DialogCloseButton));
-	ui.m_PeriodNextButton->setIcon(style()->standardIcon(QStyle::SP_MediaSeekForward));
-	ui.m_PeriodPrevButton->setIcon(style()->standardIcon(QStyle::SP_MediaSeekBackward));
-
-	tabifyDockWidget(ui.annotationDockWidget, ui.trajectoryDockWidget);
-	//setTabPosition(Qt::BottomDockWidgetArea, QTabWidget::East);
-	//ui.annotationDockWidget->raise();
-	ui.trajectoryDockWidget->hide();
-	//ui.annotationDockWidget->hide();
-	//hide period time
-	ui.m_PeriodFrame->hide();
 
 	//init editor objects
 	m_AutoSaveTimer = new EditorAutoSaveTimer(this);
@@ -91,9 +79,6 @@ void EditorWindow::load()
 {
 	//load config
 	EditorConfig::getInstance().load();
-
-	//load trajectories
-	//EditorTrajectoryLoader::load(EditorTrajectoryManager::getInstance(), EditorConfig::getInstance().getWorkingDir() + "\\trajectories.dat");
 }
 
 /*--------------------------------------------------------------------*/
@@ -104,9 +89,6 @@ void EditorWindow::save()
 
 	//save sequences 
 	EditorSequencesManager::getInstance().save();
-
-	//save trajectories
-	//EditorTrajectoryLoader::save(EditorTrajectoryManager::getInstance(), EditorConfig::getInstance().getWorkingDir() + "\\trajectories.dat");
 
 	//message to user
 	m_Popup->show("Saved");
@@ -146,7 +128,7 @@ void EditorWindow::setGuiEnabled(bool i_Enabled)
 {
 	ui.timelineWidget->setEnabled(i_Enabled);
 	ui.sequencesWidget->setEnabled(i_Enabled);
-	ui.propertyDockWidget->setEnabled(i_Enabled);
+	ui.actionWidget->setEnabled(i_Enabled);
 	ui.annotationWidget->setEnabled(i_Enabled);
 	ui.m_EditorView->setEnabled(i_Enabled);
 }

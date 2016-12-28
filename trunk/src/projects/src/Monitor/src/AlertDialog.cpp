@@ -25,14 +25,19 @@ AlertDialog::~AlertDialog()
 
 void AlertDialog::init()
 {
-	const std::vector<std::string>& actions = config::Glossary::getInstance().getTrainedActions();
+	auto actions = MonitorActionManager::getInstance().getActionsNames();
 	for (std::string s : actions) 
 	{
+		auto actionIds = MonitorActionManager::getInstance().getActionIds(s);
+		QList<QVariant> qActionIds;
+		for (int id : actionIds)
+			qActionIds.push_back(id);
+
 		QListWidgetItem* item = new QListWidgetItem();
 		item->setSizeHint(QSize(item->sizeHint().width(), 25));
 
 		QCheckBox* box = new QCheckBox(s.c_str());
-		box->setProperty("row", ui.actionListWidget->count());
+		box->setProperty("row", qActionIds);
 		box->setStyleSheet("QCheckBox { font-size: 10pt; } ");
 
 		ui.actionListWidget->addItem(item);
@@ -47,10 +52,28 @@ void AlertDialog::init()
 
 void AlertDialog::select()
 {
+	std::set<size_t> selectedActionIds = MonitorActionManager::getInstance().getAlertsIds();
+
 	for (int i = 0; i < ui.actionListWidget->count(); i++)
 	{
-		bool checked = MonitorActionManager::getInstance().isAlert(i);
+		bool checked = false;
+
 		QCheckBox* box = static_cast<QCheckBox*>(ui.actionListWidget->itemWidget(ui.actionListWidget->item(i)));
+
+		if (!selectedActionIds.empty())
+		{
+			QList<QVariant> ids = box->property("row").toList();
+			for (QVariant qV : ids)
+			{
+				auto it = selectedActionIds.find(qV.toInt());
+				if (it != selectedActionIds.end())
+				{
+					checked = true;
+					selectedActionIds.erase(it);
+				}
+			}
+		}
+
 		box->setCheckState(checked ? Qt::Checked : Qt::Unchecked);
 	}
 
@@ -60,12 +83,15 @@ void AlertDialog::select()
 void AlertDialog::onItemStateChanged(int state)
 {
 	QCheckBox* box = static_cast<QCheckBox*>(sender());
-	int row = box->property("row").toInt();
+	QList<QVariant> ids = box->property("row").toList();
 
-	if (state == Qt::Checked)
-		MonitorActionManager::getInstance().addAlert(row);
-	else
-		MonitorActionManager::getInstance().removeAlert(row);
+	for (QVariant qV : ids)
+	{
+		if (state == Qt::Checked)
+			MonitorActionManager::getInstance().addAlert(qV.toInt());
+		else
+			MonitorActionManager::getInstance().removeAlert(qV.toInt());
+	}
 
 	update_AllCheckBox();
 }

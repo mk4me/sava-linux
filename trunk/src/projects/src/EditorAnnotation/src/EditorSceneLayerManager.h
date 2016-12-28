@@ -4,7 +4,6 @@
 #include "EditorScene.h"
 #include <vector>
 #include "EditorSceneObjectLayer.h"
-#include "EditorSceneTrajectoryLayer.h"
 
 /**
  * \class EditorSceneLayerManager
@@ -60,6 +59,5 @@ class EditorSceneLayerHelper
 {
 public:
 	static EditorSceneObjectLayer* getObjectLayer();
-	static EditorSceneTrajectoryLayer* getTrajectoryLayer();
 };
 

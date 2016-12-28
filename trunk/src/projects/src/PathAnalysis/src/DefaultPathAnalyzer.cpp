@@ -7,6 +7,7 @@
 
 #include <motionanalysis/algorithms/FastPathClustering.h>
 #include <motionanalysis/algorithms/OptimizedPathDistanceFactory.h>
+#include <motionanalysis/algorithms/PathEstimator.h>
 
 #include <sequence/PathStream.h>
 #include <sequence/Cluster.h>
@@ -34,6 +35,7 @@ namespace clustering
 		, m_MaxClusterWidth(300)
 		, m_MaxClusterHeight(500)
 		, m_MinPathsInCluster(0)
+		, m_RoiEstimation(true)
 	{
 
 	}
@@ -59,6 +61,7 @@ namespace clustering
 		config::PathAnalysis& config = config::PathAnalysis::getInstance();
 
 		m_PathClustering = config.isUseOpenMP() ? std::make_shared<motion_analysis::FastPathClustering>() : std::make_shared<motion_analysis::PathClustering>();
+		m_PathEstimator = std::make_shared<motion_analysis::PathEstimator>();
 
 		motion_analysis::PathDistanceFactory::setFactory<motion_analysis::OptimizedPathDistanceFactory>();
 		//motion_analysis::PathDistanceFactory::setFactory(std::make_shared<StatisticPathDistanceFactory>(std::make_shared<motion_analysis::PathDistanceFactory>()));
@@ -100,6 +103,12 @@ namespace clustering
 
 		m_MinPathsInCluster = config.getMinPathsInCluster();
 
+		m_RoiEstimation = config.isRoiEstimation();
+		motion_analysis::PathEstimator::CENTER_PARAM_THRESHOLD = config.getRoiCenterThreshold();
+		motion_analysis::PathEstimator::CENTER_PARAM_W = config.getRoiCenterW();
+		motion_analysis::PathEstimator::BOUNDING_BOX_PARAM_R = config.getBoundingBoxR();
+		motion_analysis::PathEstimator::BOUNDING_BOX_PARAM_T = config.getBoundingBoxT();
+
 		std::cout << "\nclustering parameters: \n";
 		for (auto it = params.wrappers.begin(); it != params.wrappers.end(); ++it)
 		{
@@ -127,23 +136,20 @@ namespace clustering
 		m_Visualizer->loadVideo(getVideoFileName());
 
 		m_StartTime = m_PathClustering->getTime();
-		unsigned long long maxPathId = m_LastMaxPathId;
-		std::set<long long> paths;
+		//unsigned long long maxPathId = m_LastMaxPathId;
+		std::set<uint64_t> paths;
+		int pathPreRemoved = 0;
 		while (pathStream.grabFrame())
 		{
 			sequence::PathStream::Id id;
 			sequence::PathStream::Point point;
 			while (pathStream.grabPath(id, point))
 			{
-				id += m_LastMaxPathId;
-				if (maxPathId < id)
-					maxPathId = id;
-
 				switch (point.x)
 				{
 				case -2:
 					m_PathClustering->removePath(id);
-					paths.erase(id);
+					++pathPreRemoved;
 					break;
 				case -1:
 					break;
@@ -153,25 +159,36 @@ namespace clustering
 				}
 			}
 			m_PathClustering->update();
+			m_PathEstimator->update(m_PathClustering->getClusters(), m_PathClustering->getTime());
+
 			m_PathClustering->setTime(m_PathClustering->getTime() + 1);
 
 			m_Visualizer->visualize(*m_PathClustering);
 
 			//StatisticPathDistanceFactory::printAndClearStats();
 		}
-		m_LastMaxPathId = maxPathId;
+		//m_LastMaxPathId = maxPathId;
 
-		for (auto& id : paths)
+		int pathPostRemoved = 0;
+		for (auto& p : m_PathClustering->getPaths())
 		{
-			m_PathClustering->removePath(id);
+			if (paths.find(p.first) == paths.end())
+			{
+				m_PathClustering->removePath(p.first);
+				++pathPostRemoved;
+			}
 		}
 
-		std::cout << "paths left = " << m_PathClustering->getPaths().size() << "\nclusters left = " << m_PathClustering->getClusters().size() << std::endl;
+		std::cout << "paths pre-removed = " << pathPreRemoved << "\npaths post-removed = " << pathPostRemoved << "\npaths left = " << m_PathClustering->getPaths().size() << "\nclusters left = " << m_PathClustering->getClusters().size() << std::endl;
 		
 		waitIdle();
 
 		//boost::timer::cpu_timer timer;
-		save();		
+		if (m_RoiEstimation)
+			saveEstimated();
+		else
+			save();
+
 		cleanup();
 
 		timer.stop();
@@ -407,6 +424,77 @@ namespace clustering
 			noClusters = false;
 			saveCluster(clusterFile);
 		}
+		if (noClusters)
+		{
+			// save empty file
+			sequence::Cluster clusterFile;
+			saveCluster(clusterFile);
+		}
+		std::cout << clusterFileNr << " files saved." << std::endl;
+		m_PathClustering->resetFinishedClusters();
+	}
+
+	void DefaultPathAnalyzer::saveEstimated()
+	{
+		auto& finishedClusters = m_PathClustering->getFinishedClusters();
+		auto& almostFinishedClusters = m_PathClustering->getAlmostFinishedClusters();
+		auto& currentClusters = m_PathClustering->getClusters();
+
+		struct Cmp
+		{
+			typedef std::shared_ptr<motion_analysis::PathCluster> C;
+			bool operator()(const C& c1, const C& c2) const { return c1->elementsCount() > c2->elementsCount(); }
+		};
+
+		std::set<std::shared_ptr<motion_analysis::PathCluster>, Cmp> clusters;
+		clusters.insert(finishedClusters.begin(), finishedClusters.end());
+		clusters.insert(almostFinishedClusters.begin(), almostFinishedClusters.end());
+		clusters.insert(currentClusters.begin(), currentClusters.end());
+
+		int frameCount = m_PathClustering->getTime() - std::max(0LL, m_StartTime - 15);
+		int endFrame = m_PathClustering->getTime() - 1;
+
+		std::cout << "frameCount = " << frameCount << "\nendFrame = " << endFrame << std::endl;
+
+		unsigned clusterFileNr = 0;
+		bool noClusters = true;
+		for (auto& c : clusters)
+		{
+			if (c->elements.size() < m_MinPathsInCluster)
+				continue;
+
+			auto clusterBoxes = m_PathEstimator->getBoundingBoxes(c, endFrame, frameCount);
+			
+			sequence::Cluster clusterFile(c->id);
+
+			cv::Size maxSize;
+			sequence::Cluster::FramesPositionsMap positions;
+
+			for (auto b : clusterBoxes)
+			{
+				auto t = b.first - m_StartTime;
+				if (t < 0)
+					continue;
+
+				auto box = b.second;
+
+				maxSize.width = std::max(maxSize.width, box.width);
+				maxSize.height = std::max(maxSize.height, box.height);
+
+				positions[t] = box.tl();
+			}
+
+			clusterFile.setFrameSize(maxSize);
+			clusterFile.setFramesPositions(positions);
+
+			if (clusterFile.getEndFrame() - clusterFile.getStartFrame() < 25)
+				continue;
+
+			// save file
+			noClusters = false;
+			saveCluster(clusterFile);
+		}
+
 		if (noClusters)
 		{
 			// save empty file

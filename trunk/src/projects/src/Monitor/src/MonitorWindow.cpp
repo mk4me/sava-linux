@@ -46,9 +46,13 @@ void MonitorWindow::initGui()
 	ui.actionSendToMilestone->setVisible(m_MilestoneAlertSender.isAvailable());
 	ui.actionSendToMilestone->setChecked(m_MilestoneAlertSender.isEnabled());
 	ui.actionShowClusters->setChecked(m_Config.isClustersVisibled());
+
+	//disable synchronize button (it is make by MonitorQueueSpeeder class)
+	ui.actionSynchronize->setVisible(false);
 }
 
 void MonitorWindow::onFrameChanged(size_t frame) {
+
 	//kolejnosc jest istotna
 	m_RegionsManager.update(frame);
 	m_ActionManager.update(frame);
@@ -78,6 +82,7 @@ void MonitorWindow::onVideoLoaded() {
 	m_AlertManager.onVideoLoaded();
 	m_VideoScene->onVideoLoaded();
 	m_FrameTimer.setFramesTimes(m_VideoManager.getVideoTimes()); 
+	m_FrameTimer.setSpeed(m_VideoManager.getQueneSpeeder().getSpeed());
 }
 
 
@@ -95,7 +100,7 @@ void MonitorWindow::onActionSendToMilestone(){
 void MonitorWindow::onActionSetAlert(){
 	m_AlertDialog->move(pos().x() + 100, pos().y() + 100);
 	m_AlertDialog->exec();
-	MonitorConfig::getInstance().save();
+	m_Config.save();
 }
 
 
@@ -119,7 +124,7 @@ void MonitorWindow::onActionEditAlertRegions()
 	{
 		ui.actionEditAlertRegions->setChecked(false);
 		enableActions();
-		MonitorConfig::getInstance().save();
+		m_Config.save();
 	}
 }
 
@@ -144,7 +149,7 @@ void MonitorWindow::onActionEditMaskRegions()
 	{
 		ui.actionEditMaskRegions->setChecked(false);
 		enableActions();
-		MonitorConfig::getInstance().save();
+		m_Config.save();
 	}
 }
 
@@ -232,28 +237,11 @@ void MonitorWindow::resizeEvent(QResizeEvent *e)
 	QMainWindow::resizeEvent(e);
 }
 
-
-void MonitorWindow::keyPressEvent(QKeyEvent *e)
-{
-	switch (e->key())
-	{
-
-	case Qt::Key_Escape:
-		MonitorConfig::getInstance().save();
-		utils::Application::getInstance()->exit();
-		break;
-
-	case Qt::Key_S:
-		MonitorConfig::getInstance().save();
-		break;
-	}
-}
-
-
 void MonitorWindow::closeEvent(QCloseEvent *e)
 {
-	MonitorConfig::getInstance().save();
+	m_Config.save();
 	utils::Application::getInstance()->exit();
+
 	QMainWindow::closeEvent(e);
 }
 

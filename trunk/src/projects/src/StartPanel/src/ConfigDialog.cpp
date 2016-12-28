@@ -10,6 +10,7 @@
 #include "NetworkConfig.h"
 #include "DirectoryConfig.h"
 #include "MonitorConfig.h"
+#include "DiagnosticConfig.h"
 
 #include "utils/Filesystem.h"
 
@@ -42,6 +43,7 @@ ConfigDialog::ConfigDialog(QWidget *parent)
 	addConfig(new NetworkConfig());
 	addConfig(new ProcessConfig());
 	addConfig(new MonitorConfig());
+	addConfig(new DiagnosticConfig());
 }
 
 ConfigDialog::~ConfigDialog()

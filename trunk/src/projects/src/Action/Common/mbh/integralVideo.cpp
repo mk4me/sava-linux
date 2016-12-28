@@ -63,7 +63,7 @@ bool IntegralVideo::computeIntegVideo(const std::shared_ptr<sequence::IStreamedV
 		stFrame = 0;
 	if (stFrame >= endFrame)
 	{
-		std::cout << "Class: IntegralVideo:: imT = cap.get(CV_CAP_PROP_FRAME_COUNT) result is " << imT << "\n";
+		std::cerr << "Class: IntegralVideo:: imT = cap.get(CV_CAP_PROP_FRAME_COUNT) result is " << imT << "\n";
 		_hasIv = 0;
 		return false;
 	}

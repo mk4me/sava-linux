@@ -64,8 +64,7 @@ public:
 		if(!_stream)
 		{
 			std::cerr<<"BinaryInStream error! Unable to open the input file " + filename;
-			discoverUO::wait();
-			exit(-10);
+			discoverUO::wait(5);
 		}
 	}
 
@@ -94,26 +93,22 @@ public:
 		if (!(parent::_stream>>version))
 		{
 			std::cerr<<"BinClusterInStream error! Unable to read version number ";
-			discoverUO::wait();
-			exit(-10);
+			discoverUO::wait(5);
 		}
 		if(!(parent::_stream>>dataTp))
 		{
 			std::cerr<<"BinClusterInStream error! Unable to read data type";
-			discoverUO::wait();
-			exit(-10);
+			discoverUO::wait(5);
 		}
 		if (!(parent::_stream>>_numFeature))
 		{
 			std::cerr<<"BinClusterInStream error! Unable to read number of features";
-			discoverUO::wait();
-			exit(-10);
+			discoverUO::wait(5);
 		}
 		if (!(parent::_stream>>_dimFeature))
 		{
 			std::cerr<<"BinClusterInStream error! Unable to read dimension of features";
-			discoverUO::wait();
-			exit(-10);
+			discoverUO::wait(5);
 		}
 
 		_initpos = parent::_stream.tellg();
@@ -176,8 +171,7 @@ public:
 				break;
 			default:
 				std::cerr<<"BinClusterInStream  error! Wrong data type!\n";
-				discoverUO::wait();
-				exit(-10);
+				discoverUO::wait(5);
 		}
 	}
 

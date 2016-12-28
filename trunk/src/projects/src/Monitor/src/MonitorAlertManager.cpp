@@ -39,6 +39,14 @@ MonitorAlertManager::MonitorAlertManager()
 	//start remove timer
 	connect(&m_AcceptedAlertsRemoveTimer, SIGNAL(timeout()), this, SLOT(tryToRemoveAcceptedAlerts()));
 	m_AcceptedAlertsRemoveTimer.start(60000);
+
+	m_AlertSaver.setSavePath(m_AlertsDirPath);
+	m_AlertSaver.start();
+}
+
+MonitorAlertManager::~MonitorAlertManager()
+{
+	m_AlertSaver.stop();
 }
 
 void MonitorAlertManager::load()
@@ -59,8 +67,11 @@ void MonitorAlertManager::load()
 			MonitorAlert::EType alertType = static_cast<MonitorAlert::EType>(fileInfo.completeBaseName().right(1).toInt());
 
 			MonitorAlertPtr alert = loadAlert(alertType, filePath);
-			if (alert)
+			if (alert) {
 				addAlert(alert);
+				//set as saved
+				alert->saved();
+			}
 		}
 
 		//sort alerts by its id
@@ -108,27 +119,37 @@ void MonitorAlertManager::onVideoPreload()
 
 	if (!m_UnfinishedAlertsList.empty())
 	{
+		std::string videoName = getVideoAlertFileName();
+
 		for (auto& alert : m_UnfinishedAlertsList)
-		{
-			std::string videoFileName = saveVideo();
-			alert->addVideo(videoFileName);
-		}
+			alert->addVideo(videoName);
+		
+		//collect video to save
+		m_AlertSaver.add(videoName, MonitorVideoManager::getInstance().getMetaVideo());
 	}
 
 	m_NextVideoId++;
 }
 
 
-void MonitorAlertManager::saveAlertFiles(const MonitorAlertPtr& alert) const
+void MonitorAlertManager::onVideoLoaded()
+{
+	m_AlertSaver.save();
+}
+
+
+void MonitorAlertManager::saveAlertFiles(const MonitorAlertPtr& alert)
 {
 	if (!m_StoreAlertsEnabled)
 		return;
 
-	std::string vidoeFileName = saveVideo();
-	alert->addVideo(vidoeFileName);
-	saveAlert(alert);
-}
+	std::string videoName = getVideoAlertFileName();
+	std::string alertName = getAlertFileName(alert);
+	alert->addVideo(videoName);
 
+	m_AlertSaver.add(videoName, MonitorVideoManager::getInstance().getMetaVideo());
+	m_AlertSaver.add(alertName, alert);
+}
 
 
 void MonitorAlertManager::addAlert(const MonitorAlertPtr& alert){
@@ -269,6 +290,11 @@ void MonitorAlertManager::onRegionEnter(const MonitorRegionPtr& i_Region)
 	if (!m_IsEnabled)
 		return;
 
+	//hack
+	MonitorAlertPtr prevAlert = getUnfinishedAlertByData(i_Region);
+	if (prevAlert)
+		finishAlert(prevAlert);
+
 	MonitorAlertPtr alert = create<MonitorRegionAlert>(i_Region);
 	startAlert(alert);
 }
@@ -342,26 +368,6 @@ void MonitorAlertManager::finishAlert(const MonitorAlertPtr& alert)
 	saveAlertFiles(alert);
 }
 
-
-std::string MonitorAlertManager::saveVideo() const
-{
-	static std::string sSaveVideoFileName = "";
-
-	//save video file ".cvs"
-	std::ostringstream v_oss;
-	v_oss << m_NextVideoId << ".cvs";
-	std::string v_filename = v_oss.str();
-
-	if (v_filename != sSaveVideoFileName)
-	{
-		std::string videoPath = getAlertsDirPath() + "/" + v_filename;
-		MonitorVideoManager::getInstance().getVideo()->save(videoPath);
-		sSaveVideoFileName = v_filename;
-	}
-
-	return sSaveVideoFileName;
-}
-
 void MonitorAlertManager::removeAlertFiles(const MonitorAlertPtr& alert)
 {
 	//remove alert file
@@ -396,11 +402,23 @@ void MonitorAlertManager::removeAlertFiles(const MonitorAlertPtr& alert)
 	}
 }
 
-std::string MonitorAlertManager::getAlertFilePath(const MonitorAlertPtr& alert) const
+std::string MonitorAlertManager::getVideoAlertFileName() const
+{
+	std::ostringstream v_oss;
+	v_oss << m_NextVideoId << ".cvs";
+	return v_oss.str();
+}
+
+std::string MonitorAlertManager::getAlertFilePath(const MonitorAlertPtr& alert)
+{
+	return m_AlertsDirPath + "/" + getAlertFileName(alert);
+}
+
+std::string MonitorAlertManager::getAlertFileName(const MonitorAlertPtr& alert)
 {
 	std::ostringstream a_oss;
 	a_oss << alert->getId() << "." << alert->getType() << ".alr";
-	return getAlertsDirPath() + "/" + a_oss.str();
+	return a_oss.str();
 }
 
 template <typename T, typename ArgType>
@@ -430,4 +448,5 @@ MonitorAlertManager::cast(const MonitorAlertPtr& alert) const{
 	return std::dynamic_pointer_cast<T>(alert);
 }
 
+std::string MonitorAlertManager::m_AlertsDirPath;
 

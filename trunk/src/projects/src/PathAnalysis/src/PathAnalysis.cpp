@@ -15,10 +15,12 @@
 #include <sequence/CompressedVideo.h>
 
 #include <config/PathAnalysis.h>
+#include <config/Diagnostic.h>
 
 #include <utils/PipeProcessUtils.h>
 #include <utils/FileLock.h>
 #include <utils/Filesystem.h>
+#include <utils/Application.h>
 
 #include <boost/timer/timer.hpp>
 
@@ -98,6 +100,12 @@ namespace clustering
 		if (m_Visualize)
 		{
 			startVisualize();
+		}
+
+		config::Diagnostic::getInstance().load();
+		if (config::Diagnostic::getInstance().getLogMemoryUsage())
+		{
+			utils::Application::getInstance()->enableMomoryLogging();
 		}
 
 		return true;

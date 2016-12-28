@@ -18,8 +18,6 @@ EditorConfigDialog::EditorConfigDialog(QWidget *parent)
 	ui.showObjectsLabelsCheckBox->setCheckState(labelVisible ? Qt::Checked : Qt::Unchecked);
 	ui.showObjectsCheckBox->setChecked((boundingBoxVisible || labelVisible) ? Qt::Checked : Qt::Unchecked);
 
-	ui.showTrajectoryCheckBox->setChecked(m_Config->isSceneTrajectoryVisibled() ? Qt::Checked : Qt::Unchecked);
-
 	ui.m_AutoSaveEnabledCheckBox->setChecked(m_Config->isAutoSaveEnabled());
 	ui.m_AutoSaveIntervalLayout->setEnabled(m_Config->isAutoSaveEnabled());
 	ui.m_AutoSaveIntervalSpinBox->setValue(m_Config->getAutoSaveTimerInterval() / (1000 * 60));
@@ -48,17 +46,6 @@ void EditorConfigDialog::onShowObjectsBoundingBoxesChanged(int state){
 /*--------------------------------------------------------------------*/
 void EditorConfigDialog::onShowObjectsLabelsChanged(int state){
 	m_Config->setSceneObjectsLabelVisibled(state == Qt::Checked);
-}
-
-
-/*--------------------------------------------------------------------*/
-void EditorConfigDialog::onShowTrajecoriesChanged(int state){
-	m_Config->setSceneTrajectoryVisibled(state == Qt::Checked);
-}
-
-/*--------------------------------------------------------------------*/
-void EditorConfigDialog::onTrajectoryPartsDataChanged(){
-	EditorMessageManager::sendMessage(MESSAGE_CONFIG_CHANGED);
 }
 
 /*--------------------------------------------------------------------*/

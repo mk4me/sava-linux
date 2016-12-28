@@ -1,9 +1,11 @@
 #include "Descriptor.h"
 
 #include <config/Action.h>
+#include <config/Diagnostic.h>
 
 #include <utils/PipeProcessUtils.h>
 #include <utils/Filesystem.h>
+#include <utils/Application.h>
 
 #include <sequence/IStreamedVideo.h>
 
@@ -189,4 +191,18 @@ std::string Descriptor::getOutFileName(const std::vector<int>& indexList) const
 	for (int index : indexList)
 		fileName += '.' + std::to_string(index);
 	return fileName + '.' + c_OutFileExt;
+}
+
+bool Descriptor::loadParameters(const ProgramOptions& options)
+{
+	if (!utils::PipeProcess::loadParameters(options))
+		return false;
+	
+	config::Diagnostic::getInstance().load();
+	if (config::Diagnostic::getInstance().getLogMemoryUsage())
+	{
+		utils::Application::getInstance()->enableMomoryLogging();
+	}
+
+	return true;
 }
