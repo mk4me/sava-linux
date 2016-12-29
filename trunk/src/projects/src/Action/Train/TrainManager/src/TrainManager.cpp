@@ -112,7 +112,9 @@ void TrainManager::startProcess()
 	case TrainState::DATABASE:
 	{
 		m_ProcessList.append(new QProcess(this));
-		m_ProcessList[0]->setProgram(utils::Spawning::getProcessFilePathQ("DatabaseBuilder"));
+		auto name = utils::Spawning::getProcessFilePathQ("DatabaseBuilder");
+		auto st = name.toStdString();
+		m_ProcessList[0]->setProgram(name);
 
 		ui.m_CbDatabase->setCheckState(Qt::PartiallyChecked);
 

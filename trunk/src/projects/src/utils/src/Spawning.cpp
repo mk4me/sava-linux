@@ -23,7 +23,12 @@ namespace utils {
     }
 
     std::string Spawning::getProcessFilePath(const std::string &processName) {
-        return utils::Filesystem::getAppPath() + std::string("/") + getProcessFilename(processName);
+        auto pathBase = utils::Filesystem::getAppPath();
+        auto path = pathBase + getProcessFilename(processName + std::string("d"));
+        if (!utils::Filesystem::exists(path)) {
+            path = pathBase + getProcessFilename(processName);
+        }
+        return path;
     }
 
     QString Spawning::getProcessFilePathQ(const QString& processName) {
@@ -32,9 +37,6 @@ namespace utils {
 
     void Spawning::spawnProcess(const std::string &processName) {
         auto path = getProcessFilePath(processName);
-        if (!utils::Filesystem::exists(path)) {
-            path = getProcessFilePath(processName + std::string("d"));
-        }
         bool test = QProcess::startDetached(QString::fromStdString(path));
         if (!test) {
             throw std::runtime_error(std::string("Unable spawn ") + processName);
