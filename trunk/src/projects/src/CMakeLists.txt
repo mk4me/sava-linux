@@ -8,6 +8,7 @@ ADD_PROJECT(Compression "config;sequence;utils;PathDetection")
 ADD_PROJECT(AxisPerfTool "config;sequence;utils")
 ADD_PROJECT(PathAnalysisAlgorithms "BOOST;OPENCV;config;cvgui;sequence;utils") #OPENMP;
 ADD_PROJECT(PathAnalysis "BOOST;OPENCV;QT;config;cvgui;sequence;utils;PathAnalysisAlgorithms")
+ADD_PROJECT(AxisCameraSimulator "config;sequence;utils")
 
 BEGIN_PROJECTS_GROUP("ACTION")
 ADD_PROJECT(GbhPipe "OPENCV;VLFEAT;sequence;config;utils" "Action/Pipe/GbhPipe")

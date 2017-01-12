@@ -16,6 +16,7 @@
 #include <vector>
 #include <boost/date_time/posix_time/posix_time.hpp>
 
+
 typedef std::shared_ptr<sequence::IStreamedVideo> VideoPtr;
 typedef std::list<std::shared_ptr<sequence::IStreamedVideo>> VideoList;
 
@@ -269,7 +270,7 @@ void parseOptions(int argc, char** argv)
 		options.parse(argc, const_cast<const char**>(argv));
 
 		if (!options.get<std::string>("if", g_InputFolder))
-			throw std::exception("Option --if is missing.");
+			throw std::runtime_error("Option --if is missing.");
 
 		options.get<std::string>("ip", g_AddressIp);
 		options.get<std::string>("port", g_ServerPort);
@@ -352,7 +353,16 @@ static BOOL exitHandler(DWORD fdwCtrlType)
 		return FALSE;
 	}
 }
+#else
+#include <signal.h>
+static void exitHandler(int sig)
+{
+	g_IoService.stop();
+}
 #endif // WIN32
+
+
+
 
 void registerExitFunction()
 {
@@ -360,7 +370,7 @@ void registerExitFunction()
 	if (!SetConsoleCtrlHandler((PHANDLER_ROUTINE)exitHandler, TRUE))
 		std::cerr << "Cant register exit function!" << std::endl;
 #else
-#error Not implemented yet
+	signal(SIGINT, exitHandler);
 #endif // WIN32
 }
 
