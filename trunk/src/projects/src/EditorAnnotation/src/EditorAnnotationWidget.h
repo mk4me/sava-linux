@@ -7,11 +7,11 @@
 #include "EditorMessageManager.h"
 #include "EditorSceneLayerManager.h"
 
-/**
-* \class EditorAnnotationWidget
-*
-* \brief Widget to managet annotation functionality in Editor
-*/
+
+/// <summary>
+/// Kontrolka do wywietlania i zarz¹dzania list¹ adnotacji.
+/// </summary>
+/// <seealso cref="EditorMessageListener" />
 class EditorAnnotationWidget : public QWidget, public EditorMessageListener
 {
 	Q_OBJECT

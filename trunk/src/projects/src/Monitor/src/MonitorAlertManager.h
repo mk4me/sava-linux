@@ -26,6 +26,12 @@ public:
 };
 
 
+/// <summary>
+/// Klasa zarz¹dzaj¹ca wszystkimi alertami w Monitorze.
+/// </summary>
+/// <seealso cref="Singleton{MonitorAlertManager}" />
+/// <seealso cref="IActionListener" />
+/// <seealso cref="IRegionListener" />
 class MonitorAlertManager : public QObject, public Singleton<MonitorAlertManager>, public IActionListener, public IRegionListener
 {
 	Q_OBJECT

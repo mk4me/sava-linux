@@ -27,7 +27,11 @@ public:
 	virtual void onSave(MonitorConfig* config) = 0;
 };
 
-class MonitorConfig : public Singleton<MonitorConfig>
+/// <summary>
+/// Klasa zawieraj¹ca informacjê o konfiguracji Monitora.
+/// </summary>
+/// <seealso cref="Singleton{MonitorConfig}" />
+class MonitorConfig : public Singleton < MonitorConfig >
 {
 
 public:

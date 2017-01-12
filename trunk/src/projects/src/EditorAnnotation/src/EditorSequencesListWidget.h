@@ -7,6 +7,9 @@
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QStyledItemDelegate>
 
+/// <summary>
+/// Kontrolka wywietlaj¹ca listê wszystkich sekwencji wideo znajduj¹cych siê we wczytanym folderze wejciowym.
+/// </summary>
 class EditorSequencesListWidget : public QListWidget
 {
 	Q_OBJECT

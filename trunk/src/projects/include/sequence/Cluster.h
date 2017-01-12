@@ -14,6 +14,9 @@
 
 namespace sequence
 {
+	/// <summary>
+	/// klasa do serializacji klastra (plik clu). Zapewnia funkcje dostêpu do danych zawartych w pliku oraz funkcjê zwracaj¹c¹ interpolowany obszar dla klatki na podstawie s¹siednich klatek gdy dla danej klatki taki obszar nie istnieje.
+	/// </summary>
 	class Cluster
 	{
 	public:

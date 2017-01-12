@@ -4,6 +4,10 @@
 #include "ReplayVideo.h"
 
 
+/// <summary>
+/// Klasa wywietlaj¹ca obraz z kamery w oknie podgl¹du alertów.
+/// </summary>
+/// <seealso cref="MonitorGraphicsBackground" />
 class ReplayGraphicsBackground : public MonitorGraphicsBackground
 {
 

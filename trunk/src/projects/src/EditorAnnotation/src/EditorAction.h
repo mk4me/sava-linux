@@ -13,6 +13,9 @@ typedef std::shared_ptr<Action> ActionPtr;
 typedef std::shared_ptr<EditorAction> EditorActionPtr;
 
 
+/// <summary>
+/// Implementacja pojedynczej akcji przypisanej do klastra.
+/// </summary>
 class EditorAction
 {
 	public:

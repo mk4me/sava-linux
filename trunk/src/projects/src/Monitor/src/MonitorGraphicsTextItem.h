@@ -5,6 +5,9 @@
 #include "sequence/IVideo.h"
 
 
+/// <summary>
+/// Klasa wywietlaj¹ca dowolny tekst na scenie Monitora.
+/// </summary>
 class MonitorGraphicsTextItem : public QObject, public QGraphicsItem
 {
 	Q_OBJECT;

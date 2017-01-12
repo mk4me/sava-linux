@@ -11,6 +11,9 @@
 #include "sequence/Video.h"
 
 
+/// <summary>
+/// Obiekt graficzny na scenie, zajmuj¹cy siê wywietlaniem obrazu z kamery.
+/// </summary>
 class MonitorGraphicsBackground : public QGraphicsItem
 {
 public:

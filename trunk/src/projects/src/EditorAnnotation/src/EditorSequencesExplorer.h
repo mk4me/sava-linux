@@ -9,6 +9,10 @@
 #include <QtCore/QDebug>
 #include <memory>
 
+/// <summary>
+/// klasa zajmuj¹ca analiz¹ wejciowego folderu z plikami wideo (.cvs, .vsq), plikami klastrów (.clu) oraz plikami akcji (.acn). 
+/// Mo¿na siê z niej dowiedzieæ np. które pliki klastrów nale¿¹ do wybranej sekwencji wideo.
+/// </summary>
 class EditorSequencesExplorer
 {
 private:

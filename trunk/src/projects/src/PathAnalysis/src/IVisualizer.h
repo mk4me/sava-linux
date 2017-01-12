@@ -11,6 +11,9 @@ namespace motion_analysis
 
 namespace clustering
 {
+	/// <summary>
+	/// interfejs umo¿liwiaj¹cy definiowanie ró¿nych metod wizualizacji pomocnych podczas debugowania modu³u.
+	/// </summary>
 	class IVisualizer
 	{
 	public:

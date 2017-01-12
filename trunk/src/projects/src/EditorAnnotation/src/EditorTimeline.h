@@ -20,13 +20,12 @@ static Type clamp(Type value, Type minVal, Type maxVal) {
 	return value < minVal ? minVal : (value > maxVal ? maxVal : value);
 }
 
-/**
-* \class EditorTimeline
-*
-* \brief Manage sequences video time.
-*
-*/
-class EditorTimeline : public QObject, public Singleton<EditorTimeline>
+
+/// <summary>
+/// Klasa zarz¹dzaj¹ca czasem wideo.
+/// </summary>
+/// <seealso cref="Singleton{EditorTimeline}" />
+class EditorTimeline : public QObject, public Singleton < EditorTimeline >
 {
 	Q_OBJECT
 

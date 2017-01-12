@@ -14,6 +14,10 @@
 
 namespace clustering
 {
+	/// <summary>
+	/// klasy implementuj¹ce wykrywanie cie¿ek poprzez wykrycie punktów charakterystycznych detektorem GoodFeaturesToTrack oraz dopasowaniem metod¹ SparsePyrLKOpticalFlow.
+	/// </summary>
+	/// <seealso cref="IPathDetector" />
 	class OpticalFlowPathDetector : public IPathDetector
 	{
 	public:

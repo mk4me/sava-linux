@@ -8,6 +8,10 @@
 namespace clustering
 {
 
+	/// <summary>
+	/// klasa tworz¹ca okno do zmiany parametrów klasteryzacji podczas dzia³ania aplikacji. U¿ywana by³a na etapie tworzenia modu³u.
+	/// </summary>
+	/// <seealso cref="cvgui::Window" />
 	class ConfigurationWindow : public cvgui::Window
 	{
 	public:

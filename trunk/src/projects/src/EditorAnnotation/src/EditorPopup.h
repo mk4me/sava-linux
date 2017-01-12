@@ -6,12 +6,10 @@
 #include "QtCore/QTimer"
 #include "ui_EditorPopup.h"
 
-/**
-* \class EditorPopup
-*
-* \brief Widget to show editor messages
-*
-*/
+
+/// <summary>
+/// Implementacja okna z powiadomieniami edytora.
+/// </summary>
 class EditorPopup : public QWidget
 {
 	Q_OBJECT

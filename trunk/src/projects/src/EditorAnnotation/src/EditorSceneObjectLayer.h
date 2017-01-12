@@ -10,13 +10,13 @@
 #include <map>
 #include <set>
 
-/**
-* \class EditorSceneObjectLayer
-*
-* \brief Layer in scene that handles and visualizes moving objects.
-*
-*/
-class EditorSceneObjectLayer: public EditorSceneLayer, public EditorMessageListener
+
+/// <summary>
+/// Klasa reprezentuj¹ca graficzn¹ warstwê, wywietlaj¹c¹ obiekty klasy EditorSceneObject.
+/// </summary>
+/// <seealso cref="EditorSceneLayer" />
+/// <seealso cref="EditorMessageListener" />
+class EditorSceneObjectLayer : public EditorSceneLayer, public EditorMessageListener
 {
 
 	Q_OBJECT

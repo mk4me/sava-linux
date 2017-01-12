@@ -7,7 +7,11 @@
 
 #include "EditorMessageManager.h"
 #include "EditorCluster.h"
-
+ 
+/// <summary>
+/// Kontrolka wywietlaj¹ca podzia³ akcji wraz z ich nazwami w wybranym klastrze.
+/// </summary>
+/// <seealso cref="EditorMessageListener" />
 class EditorActionScene : public QGraphicsScene, public EditorMessageListener
 {
 	Q_OBJECT

@@ -12,6 +12,9 @@ namespace sequence
 	class Cluster;
 	class Action;
 
+	/// <summary>
+	/// klasa kontenera zawieraj¹cego pojedyncz¹ sekwencjê sk³adaj¹ca sie z wideo, listy obiektów i ich akcji. Klasa wyszukuje pliki cvs, clu i acn.
+	/// </summary>
 	class MetaVideo
 	{
 	public:

@@ -9,6 +9,9 @@
 
 namespace utils
 {
+	/// <summary>
+	/// klasa generuj¹ca losowy kolor z przestrzeni RGB.
+	/// </summary>
 	class RandomColor
 	{
 	public:

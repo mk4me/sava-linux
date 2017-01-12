@@ -16,7 +16,11 @@ public:
 };
 
 
-class MonitorActionManager: public Singleton<MonitorActionManager>, public IConfigListener
+/// <summary>
+/// Klasa zarz¹dzaj¹ca wszystkimi akcjami w Monitorze.
+/// <seealso cref="Singleton{MonitorActionManager}" />
+/// <seealso cref="IConfigListener" />
+class MonitorActionManager : public Singleton<MonitorActionManager>, public IConfigListener
 {
 
 public:

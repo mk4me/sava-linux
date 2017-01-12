@@ -7,6 +7,9 @@
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <sequence/IVideo.h>
 
+/// <summary>
+/// Klasa zarz¹dzaj¹ca czasem w oknie podgl¹du alertów.
+/// </summary>
 class ReplayTimer : public QObject
 {
 	Q_OBJECT

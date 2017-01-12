@@ -8,6 +8,9 @@
 
 namespace utils
 {
+	/// <summary>
+	/// klasa implementuj¹ca mechanizm logowania do pliku.
+	/// </summary>
 	class Log
 	{
 	public:

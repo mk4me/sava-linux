@@ -6,6 +6,9 @@
 #include "network/ProcessServer.h"
 #include <inttypes.h>
 
+/// <summary>
+/// Klasa zarz¹dzaj¹ca uruchamianiem i zatrzymywaniem pozosta³ych procesów potoku.
+/// </summary>
 class MonitorLauncher : public QObject
 {
 	Q_OBJECT

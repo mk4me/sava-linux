@@ -15,6 +15,9 @@ namespace boost
 
 namespace utils
 {
+	/// <summary>
+	/// Klasa dostarczaj¹ca zbiór funkcji do operacji na plikach i katalogach.
+	/// </summary>
 	class Filesystem
 	{
 	public:

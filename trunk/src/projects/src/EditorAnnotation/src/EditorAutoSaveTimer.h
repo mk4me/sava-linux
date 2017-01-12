@@ -7,6 +7,10 @@
 #include "EditorSingletons.h"
 #include "EditorMessageManager.h"
 
+/// <summary>
+/// Klasa zapisuj¹ca opisany materia³ w postaci filmu (.avi)
+/// </summary>
+/// <seealso cref="EditorMessageListener" />
 class EditorAutoSaveTimer : public QTimer, public EditorMessageListener
 {
 	Q_OBJECT

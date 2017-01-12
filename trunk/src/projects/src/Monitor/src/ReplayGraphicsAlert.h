@@ -5,6 +5,9 @@
 #include <QtWidgets/QStyleOptionGraphicsItem>
 #include "MonitorAlert.h"
 
+/// <summary>
+/// Klasa wywietlaj¹ca alert w oknie podgl¹du alertów.
+/// </summary>
 class ReplayGraphicsAlert : public QGraphicsItem
 {
 

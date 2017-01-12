@@ -3,6 +3,10 @@
 #include <QtCore/QAbstractTableModel>
 #include "MonitorAlertManager.h"
 
+/// <summary>
+/// Implementuje model tabeli alertów w oknie Monitora.
+/// </summary>
+/// <seealso cref="IAlertListener" />
 class MonitorAlertsTableModel : public QAbstractTableModel, public IAlertListener
 {
 

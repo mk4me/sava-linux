@@ -6,13 +6,12 @@
 #include <QtGui/QMouseEvent>
 #include "EditorMessageManager.h"
 #include "EditorSingletons.h"
+ 
 
-/**
-* \class EditorTimelineSlider
-*
-* \brief Widget represents video time slider.
-*
-*/
+/// <summary>
+/// Suwak graficzny do przesuwania materia³u wideo.
+/// </summary>
+/// <seealso cref="EditorMessageListener" />
 class EditorTimelineSlider : public QSlider, public EditorMessageListener
 {
 	Q_OBJECT

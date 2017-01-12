@@ -6,6 +6,9 @@
 
 namespace sequence
 {
+	/// <summary>
+	/// klasa zapewniaj¹ca pomocnicze funkcje.
+	/// </summary>
 	class VideoUtils
 	{
 	public:

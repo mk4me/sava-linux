@@ -14,7 +14,11 @@
 #include "boost/date_time/posix_time/posix_time_duration.hpp"
 
 
-class MonitorFrames : public QObject, public Singleton<MonitorFrames>
+/// <summary>
+/// Klasa dbaj¹ca o czas wywietlania klatek obrazu.
+/// </summary>
+/// <seealso cref="Singleton{MonitorFrames}" />
+class MonitorFrames : public QObject, public Singleton < MonitorFrames >
 {
 	Q_OBJECT
 

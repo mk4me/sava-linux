@@ -8,6 +8,9 @@
 
 class MonitorAlertsTableView;
 
+/// <summary>
+/// Implementuje sposób graficznego wywietlania wpisu w tabeli alertów.
+/// </summary>
 class MonitorAlertsTableDelegate : public QStyledItemDelegate
 {
 	Q_OBJECT

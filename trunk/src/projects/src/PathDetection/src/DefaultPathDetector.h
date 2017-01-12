@@ -15,6 +15,10 @@ namespace config
 
 namespace clustering
 {
+	/// <summary>
+	/// klasy implementuj¹ce wykrywanie cie¿ek poprzez wykrycie punktów charakterystycznych metodami SIFT lub SURF oraz dopasowaniem ich do istniej¹cych cie¿ek algorytmem wêgierskim.
+	/// </summary>
+	/// <seealso cref="IPathDetector" />
 	class DefaultPathDetector : public IPathDetector
 	{
 	public:

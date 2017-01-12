@@ -17,6 +17,11 @@ enum EEditorSequenceType
 };
 
 
+/// <summary>
+/// Klasa abstrakcyjna przechowuj¹ca i zarz¹dzaj¹ca sekwencjami wideo, klastrami oraz akcjami (bazowa klasa dla EditorMultiSequence oraz EditorSingleSequence)
+/// </summary>
+/// <seealso cref="EditorMultiSequence" />
+/// <seealso cref="EditorSingleSequence" />
 class EditorSequence
 {
 

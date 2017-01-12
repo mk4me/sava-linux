@@ -11,6 +11,10 @@
 
 namespace utils
 {
+	/// <summary>
+	/// klasa implementuje funkcjonalnoæ okresowego zapisywania informacji do logu
+	/// </summary>
+	/// <seealso cref="QObject" />
 	class TimedLog : public QObject
 	{
 		Q_OBJECT

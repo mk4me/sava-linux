@@ -12,6 +12,9 @@ namespace sequence
 
 namespace clustering
 {
+	/// <summary>
+	/// klasa abstrakcyjna pozwalaj¹ca na zdefiniowanie ró¿nych metod klasteryzacji. Zapewnia implementacjê pomocniczych funkcji.
+	/// </summary>
 	class PathAnalyzer
 	{
 	public:

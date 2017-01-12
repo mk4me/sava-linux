@@ -10,6 +10,9 @@
 
 namespace sequence
 {
+	/// <summary>
+	/// klasa do serializacji obrazu. Przechowuje obraz w formacie JPEG.
+	/// </summary>
 	class Image
 	{
 	public:

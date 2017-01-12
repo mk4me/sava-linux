@@ -7,6 +7,9 @@
 
 namespace po = boost::program_options;
 
+/// <summary>
+/// klasa implementuj¹ca mechanizm parsowania parametrów wejciowych aplikacji.
+/// </summary>
 class ProgramOptions
 {
     public:

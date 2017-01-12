@@ -5,6 +5,10 @@
 #include "sequence/IVideo.h"
 #include "ReplayVideo.h"
 
+/// <summary>
+/// Klasa wywietlaj¹ca czas wideo w oknie podgl¹du alertów.
+/// </summary>
+/// <seealso cref="MonitorGraphicsTimeItem" />
 class ReplayGraphicsTime :public MonitorGraphicsTimeItem
 {
 public:

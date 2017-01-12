@@ -13,7 +13,10 @@
 
 #include "MonitorVideoManager.h"
 #include "MonitorActionManager.h"
-
+ 
+/// <summary>
+/// Obiekt graficzny na scenie, zajmuj¹cy siê wywietlaniem wykrytych obszarów na obrazie wideo, w których system wykry³ akcje.
+/// </summary>
 class MonitorGraphicsClusters : public QGraphicsItem
 {
 	struct ClusterInfo

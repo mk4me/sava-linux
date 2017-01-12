@@ -10,6 +10,10 @@ namespace clustering
 {
 	class ISequenceDetector;
 
+	/// <summary>
+	/// klasa implementuj¹ca szkielet modu³u. Zawiera funkcjonalnoæ ustawienia parametrów, przetwarzania plików potoku oraz nadzorowania ca³ego procesu.
+	/// </summary>
+	/// <seealso cref="utils::PipeProcess" />
 	class PathDetection : public utils::PipeProcess
 	{
 		Q_OBJECT

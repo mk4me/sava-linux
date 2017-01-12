@@ -17,16 +17,41 @@ namespace utils
 	}
 }
 
+/// <summary>
+/// klasa implementuj¹ca logikê modu³u. Na pocz¹tku ustawiane s¹ parametry, nastêpnie uruchamiany w¹tek który w miarê pojawiania siê danych z kamery tworzy pliki wyjciowe.
+/// </summary>
+/// <seealso cref="utils::IAppModule" />
+/// <seealso cref="QObject" />
 class Aquisition : public utils::IAppModule, public QObject
 {
 public:
 	~Aquisition();
 
+	/// <summary>
+	/// Creates this instance.
+	/// </summary>
+	/// <returns></returns>
 	static utils::IAppModule* create();
+	/// <summary>
+	/// Registers the parameters.
+	/// </summary>
+	/// <param name="programOptions">The program options.</param>
 	static void registerParameters(ProgramOptions& programOptions);
 
+	/// <summary>
+	/// Starts this instance.
+	/// </summary>
+	/// <returns></returns>
 	virtual bool start() override;
+	/// <summary>
+	/// Stops this instance.
+	/// </summary>
 	virtual void stop() override;
+	/// <summary>
+	/// Loads the parameters.
+	/// </summary>
+	/// <param name="options">The options.</param>
+	/// <returns></returns>
 	virtual bool loadParameters(const ProgramOptions& options) override;
 
 private:

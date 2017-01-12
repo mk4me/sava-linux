@@ -8,6 +8,9 @@
 #include "MonitorAlert.h"
 #include "ReplayVideo.h"
 
+/// <summary>
+/// Klasa g³ównego okna podgl¹du alertów.
+/// </summary>
 class ReplayWindow : public QMainWindow
 {
 	Q_OBJECT

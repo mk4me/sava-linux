@@ -1,6 +1,9 @@
 #pragma once
 #include <stddef.h>
 
+/// <summary>
+/// Klasa zarz¹dzaj¹ca doborem prêdkoci wywietlanego obrazu w zale¿noci od liczby sekwencji wideo w kolejce, czekaj¹cych na wywietlenie.
+/// </summary>
 class MonitorQueueSpeeder
 {
 	

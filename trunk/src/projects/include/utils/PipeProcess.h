@@ -13,6 +13,11 @@
 //! Global utils namespace
 namespace utils
 {
+	/// <summary>
+	/// klasa implementuj¹ca podstawow¹ funkcjonalnoæ pracy w potoku danych. Zapewnia metody monitorowania katalogu wejciowego, wyszukiwania plików oraz maszynê stanów.
+	/// </summary>
+	/// <seealso cref="QObject" />
+	/// <seealso cref="utils::IAppModule" />
 	class PipeProcess : public QObject, public utils::IAppModule
 	{
 		Q_OBJECT
@@ -32,10 +37,26 @@ namespace utils
 		explicit PipeProcess(unsigned inputNumIndices = 1, bool hasOutput = true);
 		virtual ~PipeProcess();		
 
+		/// <summary>
+		/// Registers the parameters.
+		/// </summary>
+		/// <param name="programOptions">The program options.</param>
 		static void registerParameters(ProgramOptions& programOptions);
 		
+		/// <summary>
+		/// Starts this instance.
+		/// </summary>
+		/// <returns></returns>
 		virtual bool start() override;
+		/// <summary>
+		/// Stops this instance.
+		/// </summary>
 		virtual void stop() override;
+		/// <summary>
+		/// Loads the parameters.
+		/// </summary>
+		/// <param name="options">The options.</param>
+		/// <returns></returns>
 		virtual bool loadParameters(const ProgramOptions& options) override;
 
 	protected:

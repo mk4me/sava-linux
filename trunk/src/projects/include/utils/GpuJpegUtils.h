@@ -5,11 +5,15 @@
 #include <opencv2/core.hpp>
 
 #include <vector>
+
 struct gpujpeg_encoder;
 struct gpujpeg_decoder;
 
 namespace utils
 {
+	/// <summary>
+	/// klasa zarzadzajaca bibliteka LibGpuJpeg.
+	/// </summary>
 	class GpuJpegLib
 	{
 	public:
@@ -18,6 +22,9 @@ namespace utils
 		static bool ms_DeviceInited;
 	};
 
+	/// <summary>
+	/// klasa do kodowania obrazów JPEG za pomoc¹ biblioteki LibGpuJpeg.
+	/// </summary>
 	class GpuJpegEncoder
 	{
 	public:
@@ -36,6 +43,9 @@ namespace utils
 		int m_Quality;
 	};
 
+	/// <summary>
+	/// klasa do dekodowania obrazów JPEG za pomoc¹ biblioteki LibGpuJpeg.
+	/// </summary>
 	class GpuJpegDecoder
 	{
 	public:

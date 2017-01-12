@@ -22,18 +22,44 @@ namespace sequence
 
 class IPacker;
 
+/// <summary>
+/// klasa implementuj¹ca szkielet modu³u. Zawiera funkcjonalnoæ ustawiania parametrów, przetwarzania plików potoku oraz nadzorowanie ca³ego procesu.
+/// </summary>
+/// <seealso cref="utils::PipeProcess" />
 class Compression : public utils::PipeProcess
 {
 public:
 	~Compression();
 
+	/// <summary>
+	/// Creates this instance.
+	/// </summary>
+	/// <returns></returns>
 	static utils::IAppModule* create();
+	/// <summary>
+	/// Registers the parameters.
+	/// </summary>
+	/// <param name="programOptions">The program options.</param>
 	static void registerParameters(ProgramOptions& programOptions);
 	
+	/// <summary>
+	/// Loads the parameters.
+	/// </summary>
+	/// <param name="options">The options.</param>
+	/// <returns></returns>
 	virtual bool loadParameters(const ProgramOptions& options) override;
 
+	/// <summary>
+	/// Reserves files.
+	/// </summary>
 	virtual void reserve() override;
+	/// <summary>
+	/// Processes files.
+	/// </summary>
 	virtual void process() override;
+	/// <summary>
+	/// Saves files.
+	/// </summary>
 	virtual void finalize() override;
 
 private:

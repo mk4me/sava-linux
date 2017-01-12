@@ -41,7 +41,7 @@ void MonitorWindow::initGui()
 
 	m_AlertDialog = new AlertDialog(this);
 	m_ReplayWindow = new ReplayWindow(this);
-;
+
 	ui.toolBar->setEnabled(false);
 	ui.actionSendToMilestone->setVisible(m_MilestoneAlertSender.isAvailable());
 	ui.actionSendToMilestone->setChecked(m_MilestoneAlertSender.isEnabled());

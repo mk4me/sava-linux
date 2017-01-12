@@ -16,7 +16,11 @@
 #include <map>
 
 namespace sequence
-{
+{ 
+	/// <summary>
+	/// klasa do serializacji sekwencji wideo skompresowanej za pomoc¹ obszarów ruchomych. Zawiera tak¿e zoptymalizowana funkcjê zwracaj¹c¹ tylko wybrany obszar obrazu.
+	/// </summary>
+	/// <seealso cref="IVideo" />
 	class CompressedVideo : public IVideo
 	{
 	public:

@@ -7,11 +7,10 @@
 
 class EditorGraphicsView;
 
-/**
- * \class EditorSceneLayer
- *
- * \brief Graphics representation of EditorLayer.
- */
+/// <summary>
+/// Graficzna reprezentacja EditorLayer.
+/// <seealso cref="EditorLayer" />
+/// </summary>
 class EditorSceneLayer : public QObject, public QGraphicsItem
 {
 	Q_OBJECT

@@ -4,13 +4,11 @@
 #include <QtCore/QDebug>
 #include "EditorAnnotationWidget.h"
 #include "EditorSceneObjectLayer.h"
+ 
 
-/**
-* \class EditorSceneContextMenu
-*
-* \brief Scene context menu.
-*
-*/
+/// <summary>
+/// Kontekst menu edytora wywietlane po naciniêciu prawego przycisku myszy.
+/// </summary>
 class EditorSceneContextMenu : public QMenu
 {
 	Q_OBJECT

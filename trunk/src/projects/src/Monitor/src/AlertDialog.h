@@ -7,7 +7,11 @@
 #include "ui_AlertDialog.h"
 #include "MonitorActionManager.h"
 
-class AlertDialog : public QDialog
+/// <summary>
+/// Klasa wywietlaj¹ca okno wraz z list¹ mo¿liwych akcji do wykrycia. 
+/// U¿ytkownik ma mo¿liwoæ wyboru wielu akcji, które chcia³by by system wykrywa³ na obrazie z kamery.
+/// </summary>
+class AlertDialog : public QDialog 
 {
 	Q_OBJECT
 

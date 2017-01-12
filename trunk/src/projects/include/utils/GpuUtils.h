@@ -6,6 +6,9 @@
 
 namespace utils
 {
+	/// <summary>
+	/// klasa pomocnicza zapewniaj¹ca funkcje do pracy z OpenCV na GPU.
+	/// </summary>
 	class GpuUtils
 	{
 	public:

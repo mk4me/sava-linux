@@ -22,10 +22,10 @@
 #include <vector>
 
 
+
 /// <summary>
-/// Class EditorWindow.
+/// Klasa reprezentuj¹ca g³ówne okno edytora. 
 /// </summary>
-/// <seealso cref="QMainWindow" />
 /// <seealso cref="EditorMessageListener" />
 class EditorWindow : public QMainWindow, public EditorMessageListener
 {

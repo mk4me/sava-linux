@@ -8,6 +8,9 @@
 
 namespace clustering
 {
+	/// <summary>
+	/// klasy implementuj¹ce modyfikacje algorytmu o dodanie wykrywania w obszarach przewidywanych na podstawie istniej¹cy cie¿ek.
+	/// </summary>
 	class PredictedRoiFilter
 	{
 	public:

@@ -8,6 +8,9 @@
 
 namespace clustering
 {
+	/// <summary>
+	/// interfejs pozwalaj¹ce na tworzenie ró¿nych implementacji algorytmu wykrywania cie¿ek w sekwencji.
+	/// </summary>
 	class ISequenceDetector
 	{
 	public:

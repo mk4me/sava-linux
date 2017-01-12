@@ -26,6 +26,8 @@ AlertDialog::~AlertDialog()
 void AlertDialog::init()
 {
 	auto actions = MonitorActionManager::getInstance().getActionsNames();
+	std::sort(actions.begin(), actions.end());
+
 	for (std::string s : actions) 
 	{
 		auto actionIds = MonitorActionManager::getInstance().getActionIds(s);

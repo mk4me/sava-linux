@@ -10,12 +10,11 @@
 #include <QtWidgets/QStyle>
 #include "EditorTimeline.h"
 
-/**
-* \class EditorTimelineWidget
-*
-* \brief Widget to show and manage sequence time.
-*
-*/
+
+/// <summary>
+/// Kontrolka wywietlaj¹ca i zarz¹dzaj¹ca czasem wideo.
+/// </summary>
+/// <seealso cref="EditorMessageListener" /> 
 class EditorTimelineWidget : public QWidget, public EditorMessageListener
 {
 	Q_OBJECT

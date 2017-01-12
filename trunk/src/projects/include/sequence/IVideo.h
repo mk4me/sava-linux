@@ -13,6 +13,10 @@
 
 namespace sequence
 {
+	/// <summary>
+	/// interfejs odczytu video wraz ze znacznikami czasowymi oraz obszarami ruchu.
+	/// </summary>
+	/// <seealso cref="IStreamedVideo" />
 	class IVideo : public IStreamedVideo
 	{
 	public:

@@ -14,9 +14,13 @@
 
 
 #define PROFILE_OFFSET_TIME 0
+ 
 
-
-class MonitorVideoManager : public QObject, public Singleton<MonitorVideoManager>
+/// <summary>
+/// Klasa odpowiadaj¹ca za ³adowanie nastêpnej sekwencji wideo oraz wyników detekcji przekazanych przez potok systemu (wykryte akcje).
+/// </summary>
+/// <seealso cref="Singleton{MonitorVideoManager}" />
+class MonitorVideoManager : public QObject, public Singleton < MonitorVideoManager >
 {
 	Q_OBJECT
 

@@ -16,7 +16,12 @@
 #include <map>
 
 
-class MonitorRegionsManager: public Singleton<MonitorRegionsManager>, public IConfigListener
+/// <summary>
+/// Klasa zarz¹dzaj¹ca wszystkimi regionami Monitora.
+/// </summary>
+/// <seealso cref="Singleton{MonitorRegionsManager}" />
+/// <seealso cref="IConfigListener" />
+class MonitorRegionsManager : public Singleton<MonitorRegionsManager>, public IConfigListener
 {
 
 public:

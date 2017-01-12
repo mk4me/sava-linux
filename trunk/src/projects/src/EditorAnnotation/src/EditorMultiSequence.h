@@ -2,7 +2,12 @@
 
 #include "EditorSequence.h"
 
-class EditorMultiSequence: public EditorSequence
+/// <summary>
+/// Klasa zawiera funkcjonalnoæ wczytywania, zarz¹dzania i przechowywania bie¿¹cych sekwencji wideo wraz z ich klastrami i akcjami. 
+/// Realizuje funkcjê wczytywania wielu sekwencji naraz.
+/// </summary>
+/// <seealso cref="EditorSequence" />
+class EditorMultiSequence : public EditorSequence
 {
 
 public:

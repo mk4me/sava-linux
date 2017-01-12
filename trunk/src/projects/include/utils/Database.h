@@ -8,6 +8,9 @@
 
 namespace utils
 {
+	/// <summary>
+	/// klasa bazy danych przechowuj¹cej filmy treningowe i testowe z podzia³em na wykonywane na nich akcje.
+	/// </summary>
 	class Database
 	{
 	public:

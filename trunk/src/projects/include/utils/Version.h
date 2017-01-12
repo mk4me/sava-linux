@@ -6,6 +6,9 @@
 
 namespace utils
 {
+	/// <summary>
+	/// klasa zawieraj¹ca funkcje zwracaj¹ce informacje o wersji aplikacji.
+	/// </summary>
 	class Version
 	{
 	public:

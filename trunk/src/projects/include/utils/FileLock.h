@@ -6,6 +6,9 @@
 
 namespace utils
 {
+	/// <summary>
+	/// implementuje muteks plikowy w systemie Windows. Mechanizm wykorzystuje plik tymczasowy z dostêpem w trybie wy³¹cznoci. W przypadku awarii programu plik taki jest automatycznie usuwany.
+	/// </summary>
 	class FileLock
 	{
 	public:

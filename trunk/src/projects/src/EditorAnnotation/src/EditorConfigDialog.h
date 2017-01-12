@@ -7,11 +7,10 @@
 #include "ui_EditorConfigDialog.h"
 #include "QtCore/QDebug"
 
-/**
-* \class EditorConfigDialog
-*
-* \brief Widget to show editor configuration.
-*/
+
+/// <summary>
+/// Kontrolka do wywietlania konfiguracji edytora. 
+/// </summary>
 class EditorConfigDialog : public QDialog
 {
 	Q_OBJECT

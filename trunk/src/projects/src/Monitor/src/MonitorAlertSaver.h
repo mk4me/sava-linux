@@ -7,6 +7,9 @@
 #include "MonitorVideoManager.h"
 #include "MonitorAlert.h"
 
+/// <summary>
+/// Klasa zarz¹dza zapisem alertów na dysk. Dzieje siê to w osobnym w¹tku, który ów klasa uruchamia.
+/// </summary>
 class MonitorAlertSaver
 {
 

@@ -10,6 +10,9 @@
 
 namespace clustering
 {
+	/// <summary>
+	/// interfejs pozwalaj¹ce na tworzenie ró¿nych implementacji algorytmu wykrywania cie¿ek w klatce.
+	/// </summary>
 	class IPathDetector
 	{
 	public:

@@ -9,7 +9,7 @@
 
 
 /// <summary>
-/// Class EditorAnnotationListModel.
+/// Implementuje model listy w panelu adnotacji.
 /// </summary>
 class EditorAnnotationListModel : public QAbstractTableModel
 {

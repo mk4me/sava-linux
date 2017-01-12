@@ -23,6 +23,11 @@ namespace sequence
 
 class MonitorLauncher;
 
+/// <summary>
+/// klasa implementuj¹ca mechanizmy ustawiania parametrów potoku oraz wysy³ania alertów do Milestone. 
+/// Jest klas¹ bazow¹ dla klas MonitorPipe oraz MilestoneMonitorPipe.
+/// </summary>
+/// <seealso cref="utils::PipeProcess" />
 class AbstractMonitor : public utils::PipeProcess
 {
 public:

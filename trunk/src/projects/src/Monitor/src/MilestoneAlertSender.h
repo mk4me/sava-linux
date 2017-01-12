@@ -6,6 +6,12 @@
 #include "MonitorConfig.h"
 #include "MonitorAlertManager.h"
 
+/// <summary>
+/// Klasa zarz¹dzaj¹ca komunikacj¹ miêdzy Monitorem,  a systemem Milestone. 
+/// Sprawdza czy system Milestone jest dostêpny, oraz wysy³a do niego komunikaty o wykrytych alertach.
+/// </summary>
+/// <seealso cref="IAlertListener" />
+/// <seealso cref="IConfigListener" />
 class MilestoneAlertSender : public IAlertListener, public IConfigListener
 {
 

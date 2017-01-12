@@ -10,6 +10,9 @@
 
 namespace sequence
 {
+	/// <summary>
+	/// interfejs odczytu dowolnego formatu wideo w projekcie oraz najpopularniejszych formatów globalnych.
+	/// </summary>
 	class IStreamedVideo
 	{
 	public:

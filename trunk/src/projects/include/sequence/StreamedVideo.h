@@ -8,6 +8,10 @@
 
 namespace sequence
 {
+	/// <summary>
+	/// klasa do odczytu popularnych formatów wideo za pomoc¹ biblioteki OpenCV.
+	/// </summary>
+	/// <seealso cref="IStreamedVideo" />
 	class StreamedVideo : public IStreamedVideo
 	{
 	public:

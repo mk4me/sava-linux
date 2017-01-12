@@ -16,12 +16,12 @@
 #define CONFIG_FILE_NAME "EditorConfig.cfg"
 #define CONFIG_DIR_NAME "editor"
 
-/**
-* \class EditorConfig
-*
-* \brief Class to manage editor configuration.
-*/
-class EditorConfig : public Singleton<EditorConfig>
+
+/// <summary>
+/// Zawiera informacje o konfiguracji edytora.
+/// </summary>
+/// <seealso cref="Singleton{EditorConfig}" />
+class EditorConfig : public Singleton < EditorConfig >
 {
 
 public:

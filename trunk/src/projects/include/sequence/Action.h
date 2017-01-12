@@ -9,6 +9,9 @@
 
 namespace sequence
 {
+	/// <summary>
+	/// klasa do serializacji akcji (plik acn). Zapewnia funkcje dostêpu do danych zawartych w pliku.
+	/// </summary>
 	class Action
 	{
 	public:

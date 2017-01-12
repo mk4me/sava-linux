@@ -8,6 +8,10 @@
 
 namespace clustering
 {
+	/// <summary>
+	/// klasa obliczaj¹ca statystyki tworzenia obiektu miary dopasowania cie¿ki do klastra i klastrów miêdzy sob¹.
+	/// </summary>
+	/// <seealso cref="motion_analysis::PathDistanceFactory" />
 	class StatisticPathDistanceFactory : public motion_analysis::PathDistanceFactory
 	{
 	public:

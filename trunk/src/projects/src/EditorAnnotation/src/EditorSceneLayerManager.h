@@ -5,13 +5,12 @@
 #include <vector>
 #include "EditorSceneObjectLayer.h"
 
-/**
- * \class EditorSceneLayerManager
- *
- * \brief Stored and manage all EditorSceneLayer.
- *
- */
-class EditorSceneLayerManager: public QObject, public Singleton<EditorSceneLayerManager>
+
+/// <summary>
+/// Przechowuje i zarz¹dza warstwami graficznymi (EditorSceneLayer) na scenie.
+/// </summary>
+/// <seealso cref="Singleton{EditorSceneLayerManager}" />
+class EditorSceneLayerManager : public QObject, public Singleton < EditorSceneLayerManager >
 {
 	Q_OBJECT
 

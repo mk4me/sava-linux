@@ -6,6 +6,9 @@
 
 class ReplayWindow;
 
+/// <summary>
+/// Klasa g³ównej sceny okna podgl¹du alertów.
+/// </summary>
 class ReplayGraphicsScene : public QGraphicsScene
 {
 public:

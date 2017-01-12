@@ -20,6 +20,10 @@ namespace utils
 	}
 }
 
+/// <summary>
+/// Klasa zarz¹dzaj¹ca potokiem w wersji do pracy z oprogramowaniem Milestone. Zapewnia funkcjonalnoæ przetwarzania plików potoku. 
+/// </summary>
+/// <seealso cref="AbstractMonitor" />
 class MilestoneMonitorPipe : public AbstractMonitor
 {
 public:

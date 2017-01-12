@@ -11,6 +11,10 @@
 
 #include <QtWidgets/QWidget>
 
+/// <summary>
+/// Kontrola wywietlaj¹ca wszystkie akcje w wybranym klastrze wraz z mo¿liwoci¹ ich edycji (dodawania, usuwanie, zmiana akcji)
+/// </summary>
+/// <seealso cref="EditorMessageListener" />
 class EditorActionWidget : public QWidget, public EditorMessageListener
 {
 	Q_OBJECT

@@ -2,7 +2,11 @@
 
 #include "MonitorGraphicsTextItem.h"
 
-class MonitorGraphicsTimeItem: public MonitorGraphicsTextItem
+/// <summary>
+/// Obiekt graficzny, wywietlaj¹cy czas wideo z kamery na scenie.
+/// </summary>
+/// <seealso cref="MonitorGraphicsTextItem" />
+class MonitorGraphicsTimeItem : public MonitorGraphicsTextItem
 {
 
 public:

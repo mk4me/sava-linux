@@ -4,6 +4,10 @@
 #include "QtGui/QPainter"
 #include "EditorSceneObject.h"
 
+/// <summary>
+/// Klasa reprezentuje graficzny pasek, wywietlaj¹cy rozmiar edytowanego obiektu (EditorSceneObject) na scenie.
+/// </summary>
+/// <seealso cref="EditorSceneObject" />
 class EditorSceneObjectMeasure : public QGraphicsItem
 {
 

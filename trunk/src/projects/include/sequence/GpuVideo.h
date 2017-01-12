@@ -13,14 +13,19 @@
 
 #include <vector>
 #include <map>
+
 namespace utils
-{
+{ 
 	class GpuJpegDecoder;
 	class GpuJpegEncoder;
 }
 
 namespace sequence
 {
+	/// <summary>
+	/// klasa do serializacji sekwencji wideo skompresowanej przy u¿yciu biblioteki LibGpuJpeg.
+	/// </summary>
+	/// <seealso cref="IVideo" />
 	class GpuVideo : public IVideo
 	{
 	public:

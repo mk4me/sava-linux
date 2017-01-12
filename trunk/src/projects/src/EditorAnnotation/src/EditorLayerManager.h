@@ -4,13 +4,13 @@
 #include "EditorLayer.h"
 #include <vector>
 
-/**
- * \class EditorLayerManager
- *
- * \brief Stores and manage all editor layers.
- *
- */
-class EditorLayerManager: public Singleton<EditorLayerManager>
+
+/// <summary>
+/// Zawiera i obs³uguje wszystkie warstwy sceny.
+/// </summary>
+/// <seealso cref="Singleton{EditorLayerManager}" />
+/// <seealso cref="EditorLayer" />
+class EditorLayerManager : public Singleton < EditorLayerManager >
 {
 
 public:

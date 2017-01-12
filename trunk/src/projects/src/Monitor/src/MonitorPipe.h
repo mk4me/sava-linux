@@ -17,6 +17,12 @@
 
 class MonitorWindow;
 
+/// <summary>
+/// Klasa zarz¹dzaj¹ca potokiem do pracy bez oprogramowania Milestone. Zapewnia funkcjonalnoæ przetwarzania plików potoku. 
+/// </summary>
+/// <seealso cref="AbstractMonitor" />
+/// <seealso cref="Singleton{MonitorPipe}" />
+/// <seealso cref="utils::TimedLog" />
 class MonitorPipe : public AbstractMonitor, public Singleton<MonitorPipe>, public utils::TimedLog
 {
 public:

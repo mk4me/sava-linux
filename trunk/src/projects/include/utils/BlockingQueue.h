@@ -9,6 +9,9 @@
 
 namespace utils
 {
+	/// <summary>
+	/// kolejka której funkcje dostêpowe s¹ blokowane dla pojedynczego w¹tku.
+	/// </summary>
 	template<typename T>
 	class BlockingQueue
 	{

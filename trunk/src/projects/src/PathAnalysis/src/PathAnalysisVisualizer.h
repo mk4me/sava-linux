@@ -25,6 +25,10 @@ namespace sequence
 
 namespace clustering
 {
+	/// <summary>
+	/// klasa implementuj¹ca mechanizmy wizualizacji. Realizuje interfejs IVisualizer.
+	/// </summary>
+	/// <seealso cref="IVisualizer" />
 	class PathAnalysisVisualizer : public IVisualizer
 	{
 	public:

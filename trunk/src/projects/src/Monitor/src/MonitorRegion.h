@@ -17,6 +17,9 @@ public:
 };
 
 
+/// <summary>
+/// Klasa reprezentuj¹ca obiekt pojedynczego regionu.
+/// </summary>
 class MonitorRegion
 {
 

@@ -26,6 +26,10 @@ namespace clustering
 	class ConfigurationWindow;
 	class PathAnalyzer;
 
+	/// <summary>
+	/// klasa implementuj¹ca szkielet modu³u. Zawiera funkcjonalnoæ ustawiania parametrów ,przetwarzania plików potoku oraz nadzorowania ca³ego procesu.
+	/// </summary>
+	/// <seealso cref="utils::PipeProcess" />
 	class PathAnalysis : public utils::PipeProcess
 	{
 		Q_OBJECT

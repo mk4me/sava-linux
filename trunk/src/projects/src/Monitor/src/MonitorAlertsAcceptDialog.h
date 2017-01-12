@@ -4,7 +4,10 @@
 #include <QtWidgets/QDialog>
 #include "ui_MonitorAlertsAcceptDialog.h"
 
-class MonitorAlertsAcceptDialog : public QDialog
+/// <summary>
+/// Dialog wywietlaj¹cy potwierdzenie zatwierdzenia wszystkich alertów w Monitorze.
+/// </summary>
+class MonitorAlertsAcceptDialog : public QDialog 
 {
 	Q_OBJECT
 

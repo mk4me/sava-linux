@@ -5,7 +5,11 @@
 #include <QtCore/QDebug>
 #include <QtGui/QWheelEvent>
 
-class MonitorGraphicsView : public QGraphicsView
+/// <summary>
+/// Kontrolka widoku, na której wywietlana jest scena (MonitorGraphicsScene).
+/// </summary>
+/// <seealso cref="MonitorGraphicsScene" />
+class MonitorGraphicsView : public QGraphicsView 
 {
 	Q_OBJECT;
 

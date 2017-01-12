@@ -4,7 +4,11 @@
 #include "sequence/Action.h"
 #include "sequence/Cluster.h"
 
-class MonitorActionAlert : public MonitorAlertData<MonitorVideoManager::ActionPair>
+/// <summary>
+/// Klasa opisuj¹ca alert akcji.
+/// </summary>
+/// <seealso cref="MonitorAlertData{MonitorVideoManager::ActionPair}" />
+class MonitorActionAlert : public MonitorAlertData < MonitorVideoManager::ActionPair >
 {
 
 public:

@@ -9,6 +9,10 @@
 #include <QtWidgets/QTableView>
 
 
+/// <summary>
+/// Implementuje widok listy w panelu adnotacji.
+/// </summary>
+/// <seealso cref="EditorMessageListener" />
 class EditorAnnotationListView : public QTableView, public EditorMessageListener
 {
 	Q_OBJECT

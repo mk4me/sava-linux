@@ -6,12 +6,10 @@
 #include "EditorScene.h"
 #include "EditorSceneContextMenu.h"
 
-/**
-* \class EditorGraphicsView
-*
-* \brief View in editor window to show video scene (EditorScene).
-*
-*/
+
+/// <summary>
+/// Implementuje widok g³ównego panelu okna, zawieraj¹cego materia³ wideo.
+/// </summary>
 class EditorGraphicsView : public QGraphicsView
 {
 	Q_OBJECT

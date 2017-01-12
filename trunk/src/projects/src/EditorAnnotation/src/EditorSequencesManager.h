@@ -10,7 +10,11 @@
 
 #define VIDEOS_TIMESTAMPS_ENABLED 1
 
-class EditorSequencesManager: public QObject, public Singleton<EditorSequencesManager>
+/// <summary>
+/// Zarz¹dza wczytywaniem nowych sekwencji i zapisywaniem bie¿¹cych.
+/// </summary>
+/// <seealso cref="Singleton{EditorSequencesManager}" />
+class EditorSequencesManager : public QObject, public Singleton < EditorSequencesManager >
 {
 
 	Q_OBJECT

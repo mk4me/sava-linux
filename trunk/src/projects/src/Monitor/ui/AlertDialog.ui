@@ -18,7 +18,11 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QListWidget" name="actionListWidget"/>
+    <widget class="QListWidget" name="actionListWidget">
+     <property name="sortingEnabled">
+      <bool>false</bool>
+     </property>
+    </widget>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,2,2">

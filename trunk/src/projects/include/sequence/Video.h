@@ -15,6 +15,10 @@
 
 namespace sequence
 {
+	/// <summary>
+	/// klasa do serializacji sekwencji wideo nieskompresowanej.
+	/// </summary>
+	/// <seealso cref="IVideo" />
 	class Video : public IVideo
 	{
 	public:

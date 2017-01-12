@@ -14,6 +14,9 @@ typedef std::shared_ptr<Cluster> ClusterPtr;
 typedef std::shared_ptr<EditorCluster> EditorClusterPtr;
 
 
+/// <summary>
+/// Implementacja pojedynczego klastra.
+/// </summary>
 class EditorCluster
 {
 	public:

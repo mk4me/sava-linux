@@ -5,7 +5,10 @@
 #include <utils/CvZoom.h>
 
 
-class path
+/// <summary>
+/// klasa przechowuj¹ca informacje o pojedynczej cie¿ce.
+/// </summary>
+class path 
 {
 public:
 	enum DrawMode

@@ -8,6 +8,10 @@
 
 namespace sequence
 {
+	/// <summary>
+	/// klasa do serializacji paczki plików wideo (plik vpk). Zapewnia dostêp do sekwencji kilku plików wideo jak do jednego filmu.
+	/// </summary>
+	/// <seealso cref="IStreamedVideo" />
 	class VideoPack : public IStreamedVideo
 	{
 	public:

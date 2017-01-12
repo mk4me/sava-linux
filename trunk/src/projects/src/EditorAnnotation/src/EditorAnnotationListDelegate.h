@@ -10,6 +10,10 @@
 #include "EditorCluster.h"
 #include <set>
 
+/// <summary>
+/// Implementuje sposób wywietlania wpisu na licie w panelu adnotacji.
+/// </summary>
+/// <seealso cref="EditorMessageListener" />
 class EditorAnnotationListDelegate : public QStyledItemDelegate, public EditorMessageListener
 {
 	Q_OBJECT

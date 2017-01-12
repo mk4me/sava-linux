@@ -10,12 +10,10 @@
 
 class EditorSceneContextMenu;
 
-/**
-* \class EditorSceneObject
-*
-* \brief Represents graphic object in EditorScene.
-*
-*/
+
+/// <summary>
+/// Klasa reprezentuje obiekt na scenie. W wypadku edytora jest to reprezentacja graficzna klastra.
+/// </summary>
 class EditorSceneObject : public QObject, public QGraphicsRectItem
 {
 	Q_OBJECT

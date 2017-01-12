@@ -6,7 +6,11 @@
 
 namespace utils
 {
-	class MemoryLog : public TimedLog
+	/// <summary>
+	/// klasa implementuje funkcjonalnoæ logowania u¿ycia pamiêci przez proces. Dziedziczy po klasie TimedLog.
+	/// </summary>
+	/// <seealso cref="TimedLog" />
+	class MemoryLog : public TimedLog 
 	{
 	public:
 		MemoryLog(QObject* parent = nullptr);

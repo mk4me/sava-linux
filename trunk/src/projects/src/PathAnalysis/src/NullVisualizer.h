@@ -6,6 +6,10 @@
 
 namespace clustering
 {
+	/// <summary>
+	/// klasa u¿ywana gdy wizualizacja ma byæ wy³¹czona. Realizuje interfejs IVisualizer.
+	/// </summary>
+	/// <seealso cref="IVisualizer" />
 	class NullVisualizer : public IVisualizer
 	{
 	public:

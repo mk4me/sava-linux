@@ -3,7 +3,11 @@
 #include "MonitorAlert.h"
 #include "MonitorRegion.h"
 
-class MonitorRegionAlert : public MonitorAlertData<MonitorRegionPtr>
+/// <summary>
+/// Klasa reprezentuj¹ca alert regionu.
+/// </summary>
+/// <seealso cref="MonitorAlertData{MonitorRegionPtr}" />
+class MonitorRegionAlert : public MonitorAlertData < MonitorRegionPtr >
 {
 public:
 	MonitorRegionAlert();

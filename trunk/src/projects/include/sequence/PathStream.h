@@ -17,7 +17,7 @@
 namespace sequence
 {
 	/// <summary>
-	/// Reads and writes file containing paths.
+	/// klasa do serializacji cie¿ek (plik path). Zapewnia dostêp zarówno wed³ug kolejnych klatek jak i wed³ug kolejnych cie¿ek.
 	/// </summary>
 	class PathStream
 	{

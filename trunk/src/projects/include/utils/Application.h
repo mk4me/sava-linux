@@ -11,6 +11,9 @@
 
 namespace utils
 {
+	/// <summary>
+	/// klasa zarządzająca uruchamianiem aplikacji konsolowych. Usprawnia obsługę argumentów uruchomienia. Pozwala na rejestrowanie modułów oraz uruchomienie jednego z nich na podstawie podanych argumentów. Dodaje również obsługę poprawnego zakończenia programu po zdarzeniach typu Ctrl+C, zamknięcie okna czy zamknięcie systemu operacyjnego.
+	/// </summary>
 	class Application
 	{
 	public:

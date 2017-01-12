@@ -20,6 +20,10 @@ typedef QVector<QPointF> RegionPoints;
 class MonitorGraphicsRegionGroup;
 
 
+/// <summary>
+/// Obiekt graficzny na scenie, wywietlaj¹cy region w postaci poligonu.
+/// </summary>
+/// <seealso cref="IRegionListener" />
 class MonitorGraphicsRegion : public QObject, public QGraphicsItem, public IRegionListener
 {
 

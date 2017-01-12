@@ -9,12 +9,11 @@
 
 class EditorSceneLayerManager;
 
-/**
-* \class EditorScene
-*
-* \brief Scene to show video sequences and with all graphics layers
-*
-*/
+
+/// <summary>
+/// Graficzna scena, wywietlaj¹ca materia³ wideo wraz z wszystkimi warstwami (m.in. na³o¿one obszary klastrów).
+/// </summary>
+/// <seealso cref="EditorMessageListener" />
 class EditorScene : public QGraphicsScene, public EditorMessageListener
 {
 	Q_OBJECT

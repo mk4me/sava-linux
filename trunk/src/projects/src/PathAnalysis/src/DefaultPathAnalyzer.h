@@ -17,6 +17,10 @@ namespace clustering
 	class IVisualizer;
 	class ConfigurationWindow;
 
+	/// <summary>
+	/// klasa dziedzicz¹ca po klasie PathAnalyzer, udostêpniaj¹ca algorytm klasteryzacji zawarty w bibliotece PathAnalysisAlgorithms.
+	/// </summary>
+	/// <seealso cref="PathAnalyzer" />
 	class DefaultPathAnalyzer : public PathAnalyzer
 	{
 	public:

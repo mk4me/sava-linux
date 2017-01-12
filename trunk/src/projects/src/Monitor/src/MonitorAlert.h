@@ -16,6 +16,11 @@
 #include <QtGui/QPolygonF>
 
 /////////////////////////////////////////////////////////////////////////
+/// <summary>
+/// Abstrakcyjna klasa opisuj¹ca pojedynczy alert (bazowa klasa dla MonitorRegionAlert i MonitorActionAlert).
+/// </summary>
+/// <seealso cref="MonitorRegionAlert" />
+/// <seealso cref="MonitorActionAlert" />
 class MonitorAlert
 {
 

@@ -10,7 +10,10 @@
 #include <QtCore/QTimer>
 #include <QtCore/QDebug>
 
-class MonitorGraphicsWaitItem : public QObject, public QGraphicsItem
+/// <summary>
+/// Obiekt graficzny, pokazuj¹cy siê w czasie inicjalizowania siê potoku systemu.
+/// </summary>
+class MonitorGraphicsWaitItem : public QObject, public QGraphicsItem 
 {
 	Q_OBJECT
 	//Q_INTERFACES(QGraphicsItem)

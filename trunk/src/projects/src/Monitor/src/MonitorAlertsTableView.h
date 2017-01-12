@@ -8,6 +8,9 @@
 #include "MonitorAlertsTableDelegate.h"
 
 
+/// <summary>
+/// Implementuje widok tabeli alertów w oknie Monitora.
+/// </summary>
 class MonitorAlertsTableView : public QTableView
 {
 	Q_OBJECT

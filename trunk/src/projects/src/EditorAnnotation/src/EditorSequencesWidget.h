@@ -11,13 +11,12 @@
 #include "EditorMessageManager.h"
 #include "EditorTimeline.h"
 #include "EditorSequencesManager.h"
+ 
 
-/**
-* \class EditorSequencesWidget
-*
-* \brief Widget to show all loaded video sequences from working directory.
-*
-*/
+/// <summary>
+/// Kontrolka zawieraj¹ca listê wszystkich sekwencji (EditorSequencesListWidget) wraz z mo¿liwoci¹ ich przesuwania.
+/// </summary>
+/// <seealso cref="EditorSequencesListWidget" />
 class EditorSequencesWidget : public QWidget, public EditorMessageListener
 {
 	Q_OBJECT

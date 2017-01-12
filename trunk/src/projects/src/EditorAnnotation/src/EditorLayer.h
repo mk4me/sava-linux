@@ -12,12 +12,10 @@ enum ELayer
 	MAX_LAYER,
 };
 
-/**
- * \class EditorLayer
- *
- * \brief Represent layer (in scene).
- *
- */
+
+/// <summary>
+/// Reprezentuje pojedyncz¹ warstwê na wywietlanej scenie edytora.
+/// </summary>
 class EditorLayer
 {
 

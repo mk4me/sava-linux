@@ -10,6 +10,10 @@
 #include <vector>
 
 
+/// <summary>
+/// Zarz¹dza grup¹ regionów na scenie (MonitorGraphicsRegion).
+/// </summary>
+/// <seealso cref="MonitorGraphicsRegion" />
 class MonitorGraphicsRegionGroup : public QGraphicsItem
 {
 	friend class MonitorGraphicsRegion;

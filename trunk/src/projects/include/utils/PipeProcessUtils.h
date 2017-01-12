@@ -10,6 +10,9 @@
 
 namespace utils
 {
+	/// <summary>
+	/// klasa pomocnicza zapewniaj¹ca funkcje do pracy w potoku danych.
+	/// </summary>
 	class PipeProcessUtils
 	{
 	public:

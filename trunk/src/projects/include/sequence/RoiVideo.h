@@ -8,6 +8,10 @@
 
 namespace sequence
 {	
+	/// <summary>
+	/// klasa do odczytu wycinka sekwencji wideo opisanego przez klaster (klasa wyszukuje odpowiedniego pliku wideo podczas otwierania pliku clu).
+	/// </summary>
+	/// <seealso cref="IStreamedVideo" />
 	class RoiVideo : public IStreamedVideo
 	{
 	public:

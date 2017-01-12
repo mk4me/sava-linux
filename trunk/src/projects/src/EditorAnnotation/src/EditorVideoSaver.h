@@ -15,7 +15,10 @@
 #include <opencv2/videoio/videoio_c.h>
 
 
-class EditorVideoSaver: public QObject
+/// <summary>
+/// Llasa pozwalaj¹ca zapisaæ opisywan¹ sekwencjê jako film .avi
+/// </summary>
+class EditorVideoSaver : public QObject
 {
 	Q_OBJECT
 

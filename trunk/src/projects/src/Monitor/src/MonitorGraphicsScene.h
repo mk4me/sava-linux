@@ -20,7 +20,10 @@
 
 #define MONITOR_DEBUG 0
 
-
+ 
+/// <summary>
+/// Klasa sceny Monitora. Tutaj znajduj¹ siê wszystkie obiekty, które s¹ pokazywane na scenie - obraz z kamery, akcje, regiony, czas wideo.
+/// </summary>
 class MonitorGraphicsScene : public QGraphicsScene
 {
 	Q_OBJECT

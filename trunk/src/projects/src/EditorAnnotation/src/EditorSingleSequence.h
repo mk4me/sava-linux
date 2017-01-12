@@ -7,7 +7,11 @@
 
 using namespace sequence;
 
-class EditorSingleSequence: public EditorSequence
+/// <summary>
+/// Klasa zawiera funkcjonalnoæ wczytywania, zarz¹dzania i przechowywania bie¿¹cej jednej sekwencji wideo wraz z jej klastrami i akcjami.
+/// </summary>
+/// <seealso cref="EditorSequence" />
+class EditorSingleSequence : public EditorSequence
 {
 
 public:
