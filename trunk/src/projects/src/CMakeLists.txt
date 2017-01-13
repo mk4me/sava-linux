@@ -33,5 +33,5 @@ ADD_PROJECT(Monitor "utils;BOOST;OPENCV;config;sequence;utils;network")
 
 ADD_PROJECT(ArchiveConverter "sequence;utils")
 ADD_PROJECT(EditorAnnotation "config;sequence;utils")
-
+ADD_PROJECT(ProcessManager "config;sequence;utils;network")
 
