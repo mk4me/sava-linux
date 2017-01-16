@@ -265,7 +265,7 @@ void parseOptions(int argc, char** argv)
 	{
 		options.add<std::string>("if", "  input folder");
 		options.add<std::string>("ip", "  address ip to bind");
-		options.add<std::string>("port", "  port to bind", "80");
+		options.add<std::string>("port", "  port to bind (on Linux ports < 1024 needs root privileges)", "80");
 
 		options.parse(argc, const_cast<const char**>(argv));
 
