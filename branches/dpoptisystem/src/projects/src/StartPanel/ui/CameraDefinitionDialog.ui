@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CameraDefinitionDialog</class>
+ <widget class="QDialog" name="CameraDefinitionDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>194</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Camera definition</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="2" column="1">
+    <widget class="QLineEdit" name="m_Password"/>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="label_Name">
+     <property name="text">
+      <string>Name:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_User">
+     <property name="text">
+      <string>User:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="label_Ip">
+     <property name="text">
+      <string>IP address:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QLineEdit" name="m_User"/>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_Password">
+     <property name="text">
+      <string>Password:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="QLineEdit" name="m_Ip"/>
+   </item>
+   <item row="0" column="1">
+    <widget class="QLineEdit" name="m_Name">
+     <property name="maxLength">
+      <number>32</number>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0" colspan="2">
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="6" column="0" colspan="2">
+    <widget class="QDialogButtonBox" name="m_ButtonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="label_Mask">
+     <property name="text">
+      <string>Mask:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QPushButton" name="m_Mask">
+     <property name="text">
+      <string>Edit</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>m_Name</tabstop>
+  <tabstop>m_User</tabstop>
+  <tabstop>m_Password</tabstop>
+  <tabstop>m_Ip</tabstop>
+ </tabstops>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>m_ButtonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>CameraDefinitionDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>199</x>
+     <y>146</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>83</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_ButtonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>CameraDefinitionDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>199</x>
+     <y>146</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>83</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_Mask</sender>
+   <signal>clicked()</signal>
+   <receiver>CameraDefinitionDialog</receiver>
+   <slot>onEditMaskClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>230</x>
+     <y>124</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>96</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>onEditMaskClicked()</slot>
+ </slots>
+</ui>

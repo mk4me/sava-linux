@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/icons_64">
+        <file alias="video.png">icons_64/video.png</file>
+        <file alias="film.png">icons_64/film.png</file>
+    </qresource>
+</RCC>
