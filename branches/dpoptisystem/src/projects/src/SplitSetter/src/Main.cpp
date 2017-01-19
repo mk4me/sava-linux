@@ -1,8 +1,12 @@
 #include "sequence/Action.h"
 
 #include "utils/ProgramOptions.h"
-
+#include "utils/Filesystem.h" 
 #include <boost/filesystem.hpp>
+#include "dputils.h" 
+#include "dplog.h"
+
+
 
 namespace bfs = boost::filesystem;
 
@@ -15,14 +19,41 @@ bool isActionFile(const std::string& path);
 
 int main(int argc, const char** argv)
 {
+	//Parse OPP parameters
+	std::string coreParams = dp::oppGetParamsFromArgs(argc, argv);
+
+	//Use Dp logs
+	dp::dpLog log;
+	log.initLogFile(coreParams);
+
+	log.dbg("<cpp>params:");
+	log.dbgl(coreParams);
+
+	std::string testNameStr = dp::oppGetValueForKey("testName", coreParams);
+	log.dbg("<cpp>testNameStr:");
+	log.dbgl(testNameStr);
+
+	std::string moviesDir  = dp::oppGetValueForKey("moviesDir", coreParams);
+	log.dbg("<cpp>moviesDir:");
+	log.dbgl(moviesDir);
+	
+	log.closeLogFile();
+
+	// Write OPP string to result file
+	/*log.initResultFile(coreParams);
+	log.addResult("testName=" + testNameStr + ";accuracy=0.91");
+	log.closeResultFile();*/
+	/*
 	ProgramOptions options("Split setter");
 	if (!parseOptions(argc, argv, options))
 	{
 		std::cout << options.printUsage() << std::endl;
-		getchar();
+		//getchar();
 		return 0;
 	}
-
+	*/
+	
+	g_InputDIr = utils::Filesystem::getAppPath() + moviesDir;
 	setSplit();
 
 	return 0;
@@ -82,7 +113,7 @@ void setSplit()
 	}
 
 	std::cout << itemsChanged << " items changed." << std::endl;
-	getchar();
+	//getchar();
 }
 
 bool isActionFile(const std::string& path)
