@@ -1,3 +1,5 @@
+#include "config/Directory.h"
+
 #include "formatBinaryStream.h"
 #include "waitKeySeconds.h"
 #include "filesystemUtils.h"
@@ -19,20 +21,31 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <stdlib.h> //for atoi
 
-const int dataNum = 150000; //number of total features for finding clusters by kmeans. 
+#include "dputils.h" 
+#include "dplog.h"
+
+int dataNum = 150000; //number of total features for finding clusters by kmeans. 
 //due to the too many training features(over millions), we normally random-choose "dataNum" from all training features
-const int _maxFrames = 160; //maxium frames per video. if the video has more frames, it needs to split the video to do multiple processing to avoid memory overflow
-const int pSamples = 100;  //number of features chosen from each clip to train gmm
+int _maxFrames = 160; //maxium frames per video. if the video has more frames, it needs to split the video to do multiple processing to avoid memory overflow
+int pSamples = 100;  //number of features chosen from each clip to train gmm
+int xSize = 2;
+int ySize = 2;
+int tSize = 2;
+int numBins = 8;
+int rootFactor = 2;
+int partFactor = 8;
 
-const int _rootSz = 64;   //root size
-const int _partsSz = 64 * 8;  //part size 
+int _rootSz = xSize * ySize * tSize * numBins;   //root size
+int _partsSz = _rootSz * 8;  //part size 
+
 const int _maxChnl = 4;  //2 channels = root channel + part channel; if 4 channels, MBHx(root + part) + MBHy(root + part)
-const int _pcaRtSz = 32;  //reduce the root dim from 64 to 32
-const int _pcaPsSz = 64;   //reduce the part dim from 64*8 to 64
+int _pcaRtSz = _rootSz / rootFactor;  //reduce the root dim from 64 to 32
+int _pcaPsSz = _partsSz / partFactor; //64;   //reduce the part dim from 64*8 to 64
 
-const int _Dim[4] = { 32, 64, 32, 64 };
-const int _numClusters = 128;  //K = 128 
+int _Dim[4] = { _pcaRtSz, _pcaPsSz, _pcaRtSz, _pcaPsSz };
+int _numClusters = 128;  //K = 128 
 const std::string _pcaMat = "pca_Mat.yml";  //precomputed pca projective matrix
 const std::string _gmmFileType = ".yml";
 
@@ -43,7 +56,143 @@ namespace fs = boost::filesystem;
 
 int main(int argc, char *argv[])
 {
-	const std::string outDir = utils::Filesystem::getDataPath() + "action/mbh/";
+	//Parse OPP parameters
+	std::string coreParams = dp::oppGetParamsFromArgs(argc, argv);
+
+	//Use Dp logs
+	dp::dpLog log;
+	log.initLogFile(coreParams);
+
+	log.dbg("<cpp>params:");
+	log.dbgl(coreParams);
+
+	std::string testNameStr = dp::oppGetValueForKey("testName", coreParams);
+	log.dbg("<cpp>testNameStr:");
+	log.dbgl(testNameStr);
+
+	std::string descParamDir = dp::oppGetValueForKey("descParamDir", coreParams) + "/";
+	log.dbg("<cpp>descParamDir:");
+	log.dbgl(descParamDir);
+
+	std::string modmbhOutDir = dp::oppGetValueForKey("modmbhOutDir", coreParams) + "/";
+	log.dbg("<cpp>modmbhOutDir:");
+	log.dbgl(modmbhOutDir);
+
+	std::string dbOutDir = dp::oppGetValueForKey("dbOutDir", coreParams) + "/";
+	log.dbg("<cpp>dbOutDir:");
+	log.dbgl(dbOutDir);
+
+	std::string movies = dp::oppGetValueForKey("moviesDir", coreParams) + "/";
+	log.dbg("<cpp>moviesDir:");
+	log.dbgl(movies);
+	//log.closeLogFile();
+
+	//LOAD PROGRAM PARAMETERS
+	if (!dp::oppGetValueForKey("dataNumP", coreParams).empty())
+	{
+		std::string dataNumP = dp::oppGetValueForKey("dataNumP", coreParams);
+		log.dbg("<cpp>dataNumP:");
+		log.dbgl(dataNumP);
+		dataNum = atoi(dataNumP.c_str()); //double CE = atof(C.c_str());
+	}
+
+	if (!dp::oppGetValueForKey("_maxFramesP", coreParams).empty())
+	{
+		std::string _maxFramesP = dp::oppGetValueForKey("_maxFramesP", coreParams);
+		log.dbg("<cpp>_maxFramesP:");
+		log.dbgl(_maxFramesP);
+		_maxFrames = atoi(_maxFramesP.c_str());
+	}
+
+	if (!dp::oppGetValueForKey("pSamplesP", coreParams).empty())
+	{
+		std::string pSamplesP = dp::oppGetValueForKey("pSamplesP", coreParams);
+		log.dbg("<cpp>pSamplesP:");
+		log.dbgl(pSamplesP);
+		pSamples = atoi(pSamplesP.c_str());
+	}
+
+	if (!dp::oppGetValueForKey("xSizeP", coreParams).empty())
+	{
+		std::string xSizeP = dp::oppGetValueForKey("xSizeP", coreParams);
+		log.dbg("<cpp>xSizeP:");
+		log.dbgl(xSizeP);
+		xSize = atoi(xSizeP.c_str());
+	}
+
+	if (!dp::oppGetValueForKey("ySizeP", coreParams).empty())
+	{
+		std::string ySizeP = dp::oppGetValueForKey("ySizeP", coreParams);
+		log.dbg("<cpp>ySizeP:");
+		log.dbgl(ySizeP);
+		ySize = atoi(ySizeP.c_str());
+	}
+
+	if (!dp::oppGetValueForKey("tSizeP", coreParams).empty())
+	{
+		std::string tSizeP = dp::oppGetValueForKey("tSizeP", coreParams);
+		log.dbg("<cpp>tSizeP:");
+		log.dbgl(tSizeP);
+		tSize = atoi(tSizeP.c_str()); //args to para->readParam() function
+	}
+
+	if (!dp::oppGetValueForKey("numBinsP", coreParams).empty())
+	{
+
+		std::string numBinsP = dp::oppGetValueForKey("numBinsP", coreParams);
+		log.dbg("<cpp>numBinsP:");
+		log.dbgl(numBinsP);
+		numBins = atoi(numBinsP.c_str());
+	}
+
+	if (!dp::oppGetValueForKey("_numClustersPMbh", coreParams).empty())
+	{
+		std::string _numClustersPMbh = dp::oppGetValueForKey("_numClustersPMbh", coreParams);
+		log.dbg("<cpp>_numClustersPMbh:");
+		log.dbgl(_numClustersPMbh);
+		_numClusters = atoi(_numClustersPMbh.c_str());
+	}
+
+	if (!dp::oppGetValueForKey("rootFactorP", coreParams).empty())
+	{
+		std::string rootFactorP = dp::oppGetValueForKey("rootFactorP", coreParams);
+		log.dbg("<cpp>rootFactorP:");
+		log.dbgl(rootFactorP);
+		rootFactor = atoi(rootFactorP.c_str());
+	}
+
+	if (!dp::oppGetValueForKey("partFactorP", coreParams).empty())
+	{
+		std::string partFactorP = dp::oppGetValueForKey("partFactorP", coreParams);
+		log.dbg("<cpp>partFactorP:");
+		log.dbgl(partFactorP);
+		partFactor = atoi(partFactorP.c_str());
+	}
+	log.closeLogFile();
+	//SET PROGRAM VARIABLES ACCORDING TO PARAMETERS 
+	config::Directory::getInstance().setVideosPath(movies);
+	std::cout << "getVideoPath:" << config::Directory::getInstance().getVideosPath() << std::endl;
+	//PARAMS THAT DEPENDS ON THE GIVEN ONES
+	_rootSz = xSize * ySize * tSize * numBins;   //root size
+	_partsSz = _rootSz * 8;  //part size 
+	_pcaRtSz = _rootSz / rootFactor;  //reduce the root dim
+	_pcaPsSz = _partsSz / partFactor;   //reduce the part dim 
+
+	_Dim[0] = _pcaRtSz;
+	_Dim[1] = _pcaPsSz;
+	_Dim[2] = _pcaRtSz;
+	_Dim[3] = _pcaPsSz;
+
+	// Write OPP string to result file
+	/*
+	log.initResultFile(coreParams);
+	log.addResult("testName=" + testNameStr + ";accuracy=0.91");
+	log.closeResultFile();*/
+
+	std::string databaseOutDir = utils::Filesystem::getAppPath() + dbOutDir;
+	utils::Database::setDatabaseDir(databaseOutDir);
+
+	const std::string outDir = utils::Filesystem::getAppPath() + modmbhOutDir;
 	boost::filesystem::create_directories(outDir);
 
 	int chnl = 4;
@@ -51,8 +200,8 @@ int main(int argc, char *argv[])
 	cv::RNG seed(unsigned(time(NULL)));
 
 	MBHparam * para = new MBHparam();
-	std::string filepath = utils::Filesystem::getDataPath() + "action/MBH_parameters_input.txt";
-	if (!para->readParam(filepath, 1))
+	std::string filepath = utils::Filesystem::getAppPath() + descParamDir + "MBH_parameters_input.txt";
+	if (!para->readParam(xSize, ySize, tSize, numBins, filepath, 1))
 	{
 		std::cerr << "use default HOG3D parameters instead.\n";
 		discoverUO::wait(5);
