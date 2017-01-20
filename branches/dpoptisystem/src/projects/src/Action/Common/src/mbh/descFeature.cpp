@@ -424,10 +424,10 @@ void descFeature::computeFt(const cv::Point3i& tlp, const cv::Point3i& whl, floa
 		whl0.z = cellSz.z * _numCell.z;
 
 		tmp0 = whl0 - whl;
-
-		int tx = cvCeil(abs(tmp0.x / 2.));
-		int ty = cvCeil(abs(tmp0.x / 2.));
-		int tz = cvCeil(abs(tmp0.z / 2.));
+		// sava-linux.rev - czy na pewno ma byc x, x, z ??!?!?
+		int tx = cvCeil(fabs(tmp0.x / 2.));
+		int ty = cvCeil(fabs(tmp0.x / 2.));
+		int tz = cvCeil(fabs(tmp0.z / 2.));
 
 		tlp0.x = (tmp0.x < 0) ? (tlp.x + tx) : tlp.x;
 		tlp0.y = (tmp0.y < 0) ? (tlp.y + ty) : tlp.y;
@@ -439,9 +439,9 @@ void descFeature::computeFt(const cv::Point3i& tlp, const cv::Point3i& whl, floa
 
 		tmp1 = whlB - cellSz;
 
-		int tBx = cvCeil(abs(tmp1.x / 2.));
-		int tBy = cvCeil(abs(tmp1.y / 2.));
-		int tBz = cvCeil(abs(tmp1.z / 2.));
+		int tBx = cvCeil(fabs(tmp1.x / 2.));
+		int tBy = cvCeil(fabs(tmp1.y / 2.));
+		int tBz = cvCeil(fabs(tmp1.z / 2.));
 
 
 		int step = 0;

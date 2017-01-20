@@ -35,7 +35,7 @@ MBHparam::MBHparam(
 	sigma2(sigma),
 	tao2(tao)
 { }
-bool MBHparam::readParam(const std::string& fileName, bool showPara)
+bool MBHparam::readParam(int xSize, int ySize, int tSize, int numBins, const std::string& fileName, bool showPara)
 {
 	std::ifstream inFile;
 	inFile.open(fileName.c_str());
@@ -48,7 +48,10 @@ bool MBHparam::readParam(const std::string& fileName, bool showPara)
 	std::string tmp;
 	getline(inFile, tmp);
 	getline(inFile, tmp, ':');
-	inFile >> numCell.x >> numCell.y >> numCell.z;
+	inFile >> numCell.x >> numCell.y >> numCell.z; //skomentowac??
+	numCell.x = xSize;
+	numCell.y = ySize;
+	numCell.z = tSize;
 	if (showPara)
 		std::cout << tmp << ":\t" << numCell.x << "  " << numCell.y << "  " << numCell.z << std::endl;
 	getline(inFile, tmp, ':');
@@ -58,7 +61,8 @@ bool MBHparam::readParam(const std::string& fileName, bool showPara)
 	getline(inFile, tmp, ':');
 	int tt;
 	inFile >> tt;
-	nBins = (uchar)tt;
+	nBins = (uchar)tt; //skomentowac?
+	nBins = numBins;
 	if (showPara)
 		std::cout << tmp << ":\t" << (int)nBins << std::endl;
 	getline(inFile, tmp, ':');

@@ -36,7 +36,7 @@ MBHparam::MBHparam(
 			sigma2(sigma),
 			tao2(tao)
     { }
-bool MBHparam::readParam(const std::string& fileName, bool showPara )
+bool MBHparam::readParam(int xSize, int ySize, int tSize, int numBins, const std::string& fileName, bool showPara)
 	{
 		std::ifstream inFile;
 		inFile.open(fileName.c_str());
@@ -49,7 +49,10 @@ bool MBHparam::readParam(const std::string& fileName, bool showPara )
 		std::string tmp;
 		getline(inFile, tmp);
 		getline(inFile, tmp,':');
-		inFile>>numCell.x>>numCell.y>>numCell.z;
+		inFile>>numCell.x>>numCell.y>>numCell.z; //skomentowac?
+		numCell.x = xSize;
+		numCell.y = ySize;
+		numCell.z = tSize;
 		if (showPara)
 			std::cout << tmp << ":\t" << numCell.x << "  " << numCell.y << "  " << numCell.z << std::endl;
 		getline(inFile, tmp,':');
@@ -59,7 +62,8 @@ bool MBHparam::readParam(const std::string& fileName, bool showPara )
 		getline(inFile, tmp,':');
 		int tt;
 		inFile>>tt;
-		nBins = (uchar)tt;
+		nBins = (uchar)tt; //skomentowac?
+		nBins = numBins;
 		if (showPara)
 			std::cout << tmp << ":\t" << (int)nBins << std::endl;
 		getline(inFile, tmp,':');
@@ -122,6 +126,93 @@ bool MBHparam::readParam(const std::string& fileName, bool showPara )
 		inFile.close();
 		return true;
 	}
+
+bool MBHparam::readParamOld(const std::string& fileName, bool showPara)
+{
+	std::ifstream inFile;
+	inFile.open(fileName.c_str());
+	if (!inFile.is_open())
+	{
+		std::cerr << "Unable to open parameters' flie \"" << fileName << "\" for reading paramters!\n";
+		//discoverUO::wait();
+		return false;
+	}
+	std::string tmp;
+	getline(inFile, tmp);
+	getline(inFile, tmp, ':');
+	inFile >> numCell.x >> numCell.y >> numCell.z; 
+	if (showPara)
+		std::cout << tmp << ":\t" << numCell.x << "  " << numCell.y << "  " << numCell.z << std::endl;
+	getline(inFile, tmp, ':');
+	inFile >> numBlock.x >> numBlock.y >> numBlock.z;
+	if (showPara)
+		std::cout << tmp << ":\t" << numBlock.x << "  " << numBlock.y << "  " << numBlock.z << std::endl;
+	getline(inFile, tmp, ':');
+	int tt;
+	inFile >> tt;
+	nBins = (uchar)tt; 
+	if (showPara)
+		std::cout << tmp << ":\t" << (int)nBins << std::endl;
+	getline(inFile, tmp, ':');
+	inFile >> fullOri;
+	if (showPara)
+		std::cout << tmp << ":\t" << fullOri << std::endl;
+	getline(inFile, tmp, ':');
+	inFile >> cutVal;
+	if (showPara)
+		std::cout << tmp << ":\t" << cutVal << std::endl;
+	getline(inFile, tmp, ':');
+	inFile >> rdTp;
+	if (showPara)
+		std::cout << tmp << ":\t" << rdTp << std::endl;
+	getline(inFile, tmp, ':');
+	inFile >> normBlk;
+	if (showPara)
+		std::cout << tmp << ":\t" << normBlk << std::endl;
+	getline(inFile, tmp, ':');
+	inFile >> reSzVideo;
+	if (showPara)
+		std::cout << tmp << ":\t" << reSzVideo << std::endl;
+	getline(inFile, tmp, ':');
+	inFile >> rt2ps.x >> rt2ps.y >> rt2ps.z;
+	if (showPara)
+		std::cout << tmp << ":\t" << rt2ps.x << "  " << rt2ps.y << "  " << rt2ps.z << std::endl;
+	getline(inFile, tmp, ':');
+	inFile >> numParts.x >> numParts.y >> numParts.z;
+	if (showPara)
+		std::cout << tmp << ":\t" << numParts.x << "  " << numParts.y << "  " << numParts.z << std::endl;
+	getline(inFile, tmp, ':');
+	inFile >> olRatio.x >> olRatio.y >> olRatio.z;
+	if (showPara)
+		std::cout << tmp << ":\t" << olRatio.x << "  " << olRatio.y << "  " << olRatio.z << std::endl;
+	getline(inFile, tmp, ':');
+	inFile >> strideRatio.x >> strideRatio.y >> strideRatio.z;
+	if (showPara)
+		std::cout << tmp << ":\t" << strideRatio.x << "  " << strideRatio.y << "  " << strideRatio.z << std::endl;
+
+	getline(inFile, tmp, ':');
+	inFile >> stSz.x >> stSz.y >> stSz.z;
+	if (showPara)
+		std::cout << tmp << ":\t" << stSz.x << "  " << stSz.y << "  " << stSz.z << std::endl;
+
+	getline(inFile, tmp, ':');
+	inFile >> scales.x >> scales.y >> scales.z;
+	if (showPara)
+		std::cout << tmp << ":\t" << scales.x << "  " << scales.y << "  " << scales.z << std::endl;
+
+	getline(inFile, tmp, ':');
+	inFile >> sigma2;
+	if (showPara)
+		std::cout << tmp << ":\t" << sigma2 << std::endl;
+	getline(inFile, tmp, ':');
+	inFile >> tao2;
+	if (showPara)
+		std::cout << tmp << ":\t" << tao2 << std::endl;
+
+
+	inFile.close();
+	return true;
+}
 
 bool MBHparam::writeParam(const std::string& fileName, bool app)
 	{

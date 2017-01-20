@@ -81,6 +81,7 @@ struct MBHparam{
 		float	  sigma = 2,
 		float	  tao = 2);
 
+	bool readParam(int xSize, int ySize, int tSize, int numBins, const std::string& fileName = "MBH_parameters.txt", bool showPara = 0);
 	bool readParam(const std::string& fileName = "MBH_parameters.txt", bool showPara = 0);
 
 	bool writeParam(const std::string& fileName = "MBH_parameters.txt", bool app = 0);
