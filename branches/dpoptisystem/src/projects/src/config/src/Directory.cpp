@@ -29,8 +29,7 @@ namespace config
 	{
 		try
 		{
-			std::string path = utils::Filesystem::getConfigPath() + "directory.cfg";
-			std::ifstream ifs(path, std::ios::binary | std::ios::in);
+			std::ifstream ifs(utils::Filesystem::getConfigPath() + "directory.cfg", std::ios::binary | std::ios::in);
 			boost::archive::binary_iarchive ia(ifs);
 			ia >> *this;
 			return true;

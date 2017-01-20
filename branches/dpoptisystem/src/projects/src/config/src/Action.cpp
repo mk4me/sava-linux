@@ -39,6 +39,7 @@ namespace config
 	{
 		try
 		{
+			std::cout << "sciezka z konfiguracja: " << utils::Filesystem::getConfigPath() + "action.cfg" << std::endl;
 			std::ifstream ifs(utils::Filesystem::getConfigPath() + "action.cfg", std::ios::binary | std::ios::in);
 			boost::archive::binary_iarchive ia(ifs);
 			ia >> *this;
