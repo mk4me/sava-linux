@@ -1,3 +1,5 @@
+#include "config/Directory.h"
+
 #include "formatBinaryStream.h"
 #include "waitKeySeconds.h"
 #include "filesystemUtils.h"
@@ -15,18 +17,31 @@
 #include <boost/filesystem.hpp>
 
 #include <string>
+#include <stdlib.h> //for atoi
+#include "dputils.h" 
+#include "dplog.h"
 
 using namespace cv;
 
 const int _runNum = 1; //for random feature seletion, run 3 times
 const int _channels = 4;
-const int _maxFrames = 160; //maxium frames per video. if the video has more frames, it needs to split the video to do multiple processing to avoid memory overflow and vector overflow(patcher sampling from video)
+int _maxFrames = 160; //maxium frames per video. if the video has more frames, it needs to split the video to do multiple processing to avoid memory overflow and vector overflow(patcher sampling from video)
+int samNum = 10000;
+int xSize = 2;
+int ySize = 2;
+int tSize = 2;
+int numBins = 8;
+int rootFactor = 2;
+int partFactor = 8;
 
-const int _rootSz = 64;   //root size
-const int _partsSz = 64 * 8;  //part size 
+int _rootSz = xSize * ySize * tSize * numBins;   //root size
+int _partsSz = _rootSz * 8;  //part size 
+int _pcaRtSz = _rootSz / rootFactor;  //reduce the root dim from 64 to 32
+int _pcaPsSz = _partsSz / partFactor; //64;   //reduce the part dim from 64*8 to 64
 
-const int _Dim[4] = { 32, 64, 32, 64 };
-const int _numClusters = 128;  //K = 128 
+//int _Dim[4] = { 32, 64, 32, 64 };
+int _Dim[4] = { _pcaRtSz, _pcaPsSz, _pcaRtSz, _pcaPsSz };
+int _numClusters = 128;  //K = 128 
 const std::string _pcaMat = "pca_Mat.yml";  //precomputed pca projective matrix
 const std::string _gmmFileType = ".yml";
 
@@ -34,7 +49,140 @@ bool loadPCA(PCA* pca0, const std::string& preComputedFl);
 
 int main(int argc, char *argv[])
 {
-	const std::string outDir = utils::Filesystem::getDataPath() + "action/mbh/";
+	//Parse OPP parameters
+	std::string coreParams = dp::oppGetParamsFromArgs(argc, argv);
+
+	//Use Dp logs
+	dp::dpLog log;
+	log.initLogFile(coreParams);
+
+	log.dbg("<cpp>params:");
+	log.dbgl(coreParams);
+
+	std::string testNameStr = dp::oppGetValueForKey("testName", coreParams);
+	log.dbg("<cpp>testNameStr:");
+	log.dbgl(testNameStr);
+
+	std::string descParamDir = dp::oppGetValueForKey("descParamDir", coreParams) +"/";
+	log.dbg("<cpp>descParamDir:");
+	log.dbgl(descParamDir);
+
+	std::string descmbhOutDir = dp::oppGetValueForKey("descmbhOutDir", coreParams) + "/";
+	log.dbg("<cpp>descmbhOutDir:");
+	log.dbgl(descmbhOutDir);
+
+	std::string modmbhOutDir = dp::oppGetValueForKey("modmbhOutDir", coreParams) + "/";
+	log.dbg("<cpp>modmbhOutDir:");
+	log.dbgl(modmbhOutDir);
+
+	std::string dbOutDir = dp::oppGetValueForKey("dbOutDir", coreParams) + "/";
+	log.dbg("<cpp>dbOutDir:");
+	log.dbgl(dbOutDir);
+
+	std::string movies = dp::oppGetValueForKey("moviesDir", coreParams) + "/";
+	log.dbg("<cpp>moviesDir:");
+	log.dbgl(movies);
+	//LOAD PROGRAM PARAMETERS
+
+	if (!dp::oppGetValueForKey("_maxFramesP", coreParams).empty())
+	{
+		std::string _maxFramesP = dp::oppGetValueForKey("_maxFramesP", coreParams);
+		log.dbg("<cpp>_maxFramesP:");
+		log.dbgl(_maxFramesP);
+		_maxFrames = atoi(_maxFramesP.c_str());
+	}
+
+	if (!dp::oppGetValueForKey("xSizeP", coreParams).empty())
+	{
+		std::string xSizeP = dp::oppGetValueForKey("xSizeP", coreParams);
+		log.dbg("<cpp>xSizeP:");
+		log.dbgl(xSizeP);
+		xSize = atoi(xSizeP.c_str());
+	}
+
+	if (!dp::oppGetValueForKey("ySizeP", coreParams).empty())
+	{
+		std::string ySizeP = dp::oppGetValueForKey("ySizeP", coreParams);
+		log.dbg("<cpp>ySizeP:");
+		log.dbgl(ySizeP);
+		ySize = atoi(ySizeP.c_str());
+	}
+
+	if (!dp::oppGetValueForKey("tSizeP", coreParams).empty())
+	{
+		std::string tSizeP = dp::oppGetValueForKey("tSizeP", coreParams);
+		log.dbg("<cpp>tSizeP:");
+		log.dbgl(tSizeP);
+		tSize = atoi(tSizeP.c_str()); 
+	}
+
+	if (!dp::oppGetValueForKey("numBinsP", coreParams).empty())
+	{
+		std::string numBinsP = dp::oppGetValueForKey("numBinsP", coreParams);
+		log.dbg("<cpp>numBinsP:");
+		log.dbgl(numBinsP);
+		numBins = atoi(numBinsP.c_str());
+	}
+
+	if (!dp::oppGetValueForKey("_numClustersPMbh", coreParams).empty())
+	{
+		std::string _numClustersPMbh = dp::oppGetValueForKey("_numClustersPMbh", coreParams);
+		log.dbg("<cpp>_numClustersPMbh:");
+		log.dbgl(_numClustersPMbh);
+		_numClusters = atoi(_numClustersPMbh.c_str());
+	}
+
+	if (!dp::oppGetValueForKey("rootFactorP", coreParams).empty())
+	{
+		std::string rootFactorP = dp::oppGetValueForKey("rootFactorP", coreParams);
+		log.dbg("<cpp>rootFactorP:");
+		log.dbgl(rootFactorP);
+		rootFactor = atoi(rootFactorP.c_str());
+	}
+
+	if (!dp::oppGetValueForKey("partFactorP", coreParams).empty())
+	{
+		std::string partFactorP = dp::oppGetValueForKey("partFactorP", coreParams);
+		log.dbg("<cpp>partFactorP:");
+		log.dbgl(partFactorP);
+		partFactor = atoi(partFactorP.c_str());
+	}
+
+	if (!dp::oppGetValueForKey("samNumP", coreParams).empty())
+	{ 
+		std::string samNumP = dp::oppGetValueForKey("samNumP", coreParams);
+		log.dbg("<cpp>samNumP:");
+		log.dbgl(samNumP);
+		samNum = atoi(samNumP.c_str());
+	}
+	log.closeLogFile();
+	//SET PROGRAM VARIABLES ACCORDING TO PARAMETERS
+	config::Directory::getInstance().setVideosPath(movies);
+	std::cout << "getVideoPath:" << config::Directory::getInstance().getVideosPath() << std::endl;
+	//PARAMS THAT DEPENDS ON THE GIVEN ONES
+	_rootSz = xSize * ySize * tSize * numBins;   //root size
+	_partsSz = _rootSz * 8;  //part size 
+	_pcaRtSz = _rootSz / rootFactor;  //reduce the root dim
+	_pcaPsSz = _partsSz / partFactor;   //reduce the part dim 
+
+	_Dim[0] = _pcaRtSz;
+	_Dim[1] = _pcaPsSz;
+	_Dim[2] = _pcaRtSz;
+	_Dim[3] = _pcaPsSz;
+	// Write OPP string to result file
+	/*
+	log.initResultFile(coreParams);
+	log.addResult("testName=" + testNameStr + ";accuracy=0.91");
+	log.closeResultFile();*/
+
+	std::string databaseOutDir = utils::Filesystem::getAppPath() + dbOutDir;
+	utils::Database::setDatabaseDir(databaseOutDir);
+
+	//std::cout << "inDir1: " << inDir << std::endl;
+	const std::string inDir = utils::Filesystem::getAppPath() + modmbhOutDir;
+	const std::string outDir = utils::Filesystem::getAppPath() + descmbhOutDir;
+
+	//const std::string outDir = utils::Filesystem::getDataPath() + "action/mbh/";
 
 	printf("OpenCV version %s (%d.%d.%d)\n",
 		CV_VERSION,
@@ -43,7 +191,7 @@ int main(int argc, char *argv[])
 	RNG seed[3];
 	seed[0] = RNG(1448876957);
 
-	int samNum = 10000;
+	//int samNum = atoi(samNumP.c_str());//10000;
 	if (samNum < 1000 || samNum > 100000)
 	{
 		std::cout << "How many samples do you want to use?  \nInput: ";
@@ -58,8 +206,8 @@ int main(int argc, char *argv[])
 	}
 
 	MBHparam * para = new MBHparam();
-	std::string filepath = utils::Filesystem::getDataPath() + "action/MBH_parameters_input.txt";
-	if (!para->readParam(filepath, 1))
+	std::string filepath = utils::Filesystem::getAppPath() + descParamDir + "MBH_parameters_input.txt";
+	if (!para->readParam(xSize, ySize, tSize, numBins, filepath, 1))
 	{
 		std::cerr << "use default HOG3D parameters instead.\n";
 		discoverUO::wait(5);
@@ -72,9 +220,20 @@ int main(int argc, char *argv[])
 
 	int maxFrames = _maxFrames;
 
-	int rootSz = dscpt.toRootFtSz();
-	int partsSz = dscpt.toPartsFtSz();
+	int rootSz1 = dscpt.toRootFtSz();
+	int rootSz = _rootSz;//dscpt.toRootFtSz();
+	int partsSz = _partsSz; // dscpt.toPartsFtSz();
 
+	//CHECKING PARAMETERS - debugging
+	std::cout << "_maxFrames: " << _maxFrames << std::endl;
+	std::cout << "_numClusters: " << _numClusters << std::endl;
+	std::cout << "root Sz: " << rootSz << std::endl;
+	std::cout << "root Sz1: " << rootSz1 << std::endl;
+	std::cout << "parts Sz: " << partsSz << std::endl;
+	std::cout << "_pcaRtSz: " << _pcaRtSz << std::endl;
+	std::cout << "_pcaPsSz: " << _pcaPsSz << std::endl;
+	std::cout << "OutDir: " << outDir + "MBH_parameters.txt" << std::endl;
+	std::cout << "inDir: " << inDir << std::endl;
 	std::fstream fRst;
 	fRst.open(outDir + "MBH_parameters.txt", std::ios::app | std::ios::out);
 	if (!fRst.is_open())
@@ -102,14 +261,14 @@ int main(int argc, char *argv[])
 
 	std::string fName[_channels], gmmFile[_channels];
 	for (int i = 0; i < _channels; i++)
-		fName[i] = outDir + "gmmResults" + std::to_string(i) + ".yml";   //pre-computed GMMs
+		fName[i] = inDir + "gmmResults" + std::to_string(i) + ".yml";   //pre-computed GMMs
 
 	fvEncoding fvFt(fName, _channels, _Dim, _numClusters, 2, NULL);  //use pre-computed GMMs
 	int fvDim = fvFt.getFVdim();
 	std::cout << "Done initializing GMM!" << std::endl;
 
 	PCA pca0[_channels];
-	if (!loadPCA(pca0, outDir + _pcaMat))
+	if (!loadPCA(pca0, inDir + _pcaMat))
 	{
 		std::cerr << "The input precomputed pca file is wrong!" << std::endl;
 		discoverUO::wait(5);
