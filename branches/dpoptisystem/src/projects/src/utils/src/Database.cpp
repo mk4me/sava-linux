@@ -16,9 +16,18 @@
 
 namespace  utils
 {
-	const std::string Database::c_DatabaseDir = utils::Filesystem::getDataPath() + "action/";
+	/*const std::string Database::c_DatabaseDir = utils::Filesystem::getDataPath() + "action/";
 	const std::string Database::c_DatabasePath = c_DatabaseDir + "database.dat";
+	const std::string Database::c_EmptyString;*/
 	const std::string Database::c_EmptyString;
+	std::string Database::c_DatabaseDir = "";
+	std::string Database::c_DatabasePath = c_DatabaseDir + "database.dat";
+
+	void Database::setDatabaseDir(std::string databaseDir)
+	{
+		c_DatabaseDir = databaseDir;
+		c_DatabasePath = c_DatabaseDir + "database.dat";
+	}
 
 	bool Database::load()
 	{

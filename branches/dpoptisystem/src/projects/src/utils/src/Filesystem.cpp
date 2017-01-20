@@ -49,7 +49,8 @@ namespace utils
 
 	const std::string& Filesystem::getConfigPath()
 	{
-		static std::string configPath = unifyPath(getDataPath() + "config/");
+		//static std::string configPath = unifyPath(getDataPath() + "config/");
+        static std::string configPath = unifyPath(getAppPath() + "../../../input/configin/");
 		return configPath;
 	}
 
