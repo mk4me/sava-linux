@@ -5,11 +5,15 @@ include_directories("${CMAKE_CURRENT_LIST_DIR}/../../Common/src/")
 
 SET_PRIVATE_HEADERS(
 matOperations.h
+        ../../../Common/src/dputils.h
+        ../../../Common/src/dplog.h
 )
 
 SET_SOURCE_FILES(
 data2Files_scale_hmdb51.cc
 matOperations.cc
+        ../../../Common/src/dputils.cpp
+        ../../../Common/src/dplog.cpp
 #parseBinary2txt.cc        
 )
 
