@@ -7,8 +7,10 @@
 class SystemDatabase
 {
 public:
+	static std::string m_videoPath; //for dp opti system
 	static utils::Database generateDatabase();
-
+	static std::string getVideoPath(); //for dp opti system
+	static void setVideoPath(std::string setVidPath); // for dp opti system
 private:
 	static bool isActionFile(const std::string& path);
 

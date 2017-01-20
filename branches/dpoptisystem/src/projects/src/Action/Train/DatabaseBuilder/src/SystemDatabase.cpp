@@ -13,6 +13,18 @@
 
 namespace bfs = boost::filesystem;
 
+std::string SystemDatabase::m_videoPath = "";
+
+std::string SystemDatabase::getVideoPath()
+{
+	return SystemDatabase::m_videoPath;
+}
+
+void SystemDatabase::setVideoPath(std::string setVidPath)
+{
+	SystemDatabase::m_videoPath = setVidPath;
+}
+
 utils::Database SystemDatabase::generateDatabase()
 {
 	config::Action::getInstance().load();
@@ -37,7 +49,12 @@ void SystemDatabase::collectAll(utils::Database& database)
 	size_t minFrames = config::Action::getInstance().getMinVideoFrames();
 
 	bfs::recursive_directory_iterator endIt;
-	bfs::recursive_directory_iterator dirIter(config::Directory::getInstance().getVideosPath());
+	if (SystemDatabase::getVideoPath().empty())
+	{
+		m_videoPath = config::Directory::getInstance().getVideosPath();
+	}
+	bfs::recursive_directory_iterator dirIter(m_videoPath);
+	
 	for (; dirIter != endIt; ++dirIter)
 	{
 		const std::string& filePath = dirIter->path().string();
