@@ -22,10 +22,14 @@
 #include <ctype.h>
 #include <errno.h>
 #include <iostream>
+#include <sstream>
 #include <fstream>
 #include <vector>
 
 #include "omp.h"
+
+#include "dputils.h" 
+#include "dplog.h"
 
 using namespace std;
 #define Malloc(type,n) (type *)malloc((n)*sizeof(type))
@@ -34,6 +38,26 @@ using namespace std;
 #ifdef EVAL_CPP 
 	#include "eval.h"
 #endif
+
+//DEFAULT PARAMETERS
+//THESE BELOW ARE ONLY FOR DISPLAYING
+std::string dataNumP = "150000"; //number of total features for finding clusters by kmeans. 
+//due to the too many training features(over millions), we normally random-choose "dataNum" from all training features
+std::string _maxFramesP = "160"; //maxium frames per video. if the video has more frames, it needs to split the video to do multiple processing to avoid memory overflow
+std::string pSamplesP = "100";  //number of features chosen from each clip to train gmm
+std::string xSizeP = "2";
+std::string ySizeP = "2";
+std::string tSizeP = "2";
+std::string numBinsP = "8";
+std::string rootFactorP = "2";
+std::string partFactorP = "8";
+std::string _numClustersPGbhP = "128";
+std::string _numClustersPMbhP = "128";
+std::string samNumP = "10000";
+//KERNEL and C are NOT only for displaying
+std::string kernel = "LINEAR";
+std::string C = "10";
+double CE = 10; //C in SVM
 
 static int (*info)(const char *fmt,...) = &printf;
 void print_null(const char *s) {}
@@ -83,9 +107,9 @@ void exit_input_error(int line_num)
 	exit(1);
 }
 
-void parse_command_line(int argc, char **argv, char *input_file_name, char *model_file_name, bool& binaryFile, int& numWords);
+void parse_command_line(int argc, char **argv, char *input_file_name, char *model_file_name, bool& binaryFile, int& numWords, double C = 32.5, std::string kernel = "LINEAR");
 void read_problem(const char *filename);
-void do_cross_validation();
+
 
 int getNumClasses();
 
@@ -94,33 +118,154 @@ struct svm_problem prob;		// set by read_problem
 vector< svm_model *> model;
 struct svm_node *x_space;
 int *classId;
-int cross_validation;
+
 int nr_fold;
 string dataPath;
 
 static char *line0 = NULL;
 static int max_line_len;
 
-static char* readline(FILE *input)
-{
-	int len;
-	
-	if(fgets(line0,max_line_len,input) == NULL)
-		return NULL;
-
-	while(strrchr(line0,'\n') == NULL)
-	{
-		max_line_len *= 2;
-		line0 = (char *) realloc(line0,max_line_len);
-		len = (int) strlen(line0);
-		if(fgets(line0+len,max_line_len-len,input) == NULL)
-			break;
-	}
-	return line0;
-}
 
 int main(int argc, char **argv)
 {
+	//Parse OPP parameters
+	std::string coreParams = dp::oppGetParamsFromArgs(argc, argv);
+
+	//Use Dp logs
+	dp::dpLog log;
+	log.initLogFile(coreParams);
+
+	log.dbg("<cpp>params:");
+	log.dbgl(coreParams);
+
+	std::string testNameStr = dp::oppGetValueForKey("testName", coreParams);
+	log.dbg("<cpp>testNameStr:");
+	log.dbgl(testNameStr);
+
+	std::string mergedataOutDir = dp::oppGetValueForKey("mergedataOutDir", coreParams) + "/";
+	log.dbg("<cpp>mergedataOutDir:");
+	log.dbgl(mergedataOutDir);
+
+	std::string trainOutDir = dp::oppGetValueForKey("trainOutDir", coreParams) + "/";
+	log.dbg("<cpp>trainOutDir:");
+	log.dbgl(trainOutDir);
+
+	std::string dbOutDir = dp::oppGetValueForKey("dbOutDir", coreParams) + "/";
+	log.dbg("<cpp>dbOutDir:");
+	log.dbgl(dbOutDir);
+
+	// parameters 
+	if (!dp::oppGetValueForKey("kernel", coreParams).empty())
+	{ 
+	kernel = dp::oppGetValueForKey("kernel", coreParams);
+	log.dbg("<cpp>kernel:");
+	log.dbgl(kernel);
+	}
+
+	if (!dp::oppGetValueForKey("C", coreParams).empty())
+	{ 
+	std::string C = dp::oppGetValueForKey("C", coreParams);
+	log.dbg("<cpp>C:");
+	log.dbgl(C);
+	CE = atof(C.c_str());
+	}
+	//parameters for displaying
+	if (!dp::oppGetValueForKey("dataNumP", coreParams).empty())
+	{
+		dataNumP = dp::oppGetValueForKey("dataNumP", coreParams);
+		log.dbg("<cpp>dataNumP:");
+		log.dbgl(dataNumP);
+	}
+
+	if (!dp::oppGetValueForKey("_maxFramesP", coreParams).empty())
+	{ 
+		_maxFramesP = dp::oppGetValueForKey("_maxFramesP", coreParams);
+		log.dbg("<cpp>_maxFramesP:");
+		log.dbgl(_maxFramesP);
+	}
+
+	if (!dp::oppGetValueForKey("pSamplesP", coreParams).empty())
+	{ 
+		pSamplesP = dp::oppGetValueForKey("pSamplesP", coreParams);
+		log.dbg("<cpp>pSamplesP:");
+		log.dbgl(pSamplesP);
+	}
+
+	if (!dp::oppGetValueForKey("xSizeP", coreParams).empty())
+	{
+		xSizeP = dp::oppGetValueForKey("xSizeP", coreParams);
+		log.dbg("<cpp>xSizeP:");
+		log.dbgl(xSizeP);
+	}
+
+	if (!dp::oppGetValueForKey("ySizeP", coreParams).empty())
+	{ 
+		ySizeP = dp::oppGetValueForKey("ySizeP", coreParams);
+		log.dbg("<cpp>ySizeP:");
+		log.dbgl(ySizeP);
+	}
+
+	if (!dp::oppGetValueForKey("tSizeP", coreParams).empty())
+	{ 
+		tSizeP = dp::oppGetValueForKey("tSizeP", coreParams);
+		log.dbg("<cpp>tSizeP:");
+		log.dbgl(tSizeP);
+	}
+
+	if (!dp::oppGetValueForKey("numBinsP", coreParams).empty())
+	{ 
+		numBinsP = dp::oppGetValueForKey("numBinsP", coreParams);
+		log.dbg("<cpp>numBinsP:");
+		log.dbgl(numBinsP);
+	}
+
+	if (!dp::oppGetValueForKey("_numClustersPGbh", coreParams).empty())
+	{ 
+		_numClustersPGbhP = dp::oppGetValueForKey("_numClustersPGbh", coreParams);
+		log.dbg("<cpp>_numClustersPGbh:");
+		log.dbgl(_numClustersPGbhP);
+	}
+
+	if (!dp::oppGetValueForKey("_numClustersPMbh", coreParams).empty())
+	{ 
+		_numClustersPMbhP = dp::oppGetValueForKey("_numClustersPMbh", coreParams);
+		log.dbg("<cpp>_numClustersPMbh:");
+		log.dbgl(_numClustersPMbhP);
+	}
+	if (!dp::oppGetValueForKey("rootFactorP", coreParams).empty())
+	{ 
+		rootFactorP = dp::oppGetValueForKey("rootFactorP", coreParams);
+		log.dbg("<cpp>rootFactorP:");
+		log.dbgl(rootFactorP);
+	}
+
+	if (!dp::oppGetValueForKey("partFactorP", coreParams).empty())
+	{ 
+		partFactorP = dp::oppGetValueForKey("partFactorP", coreParams);
+		log.dbg("<cpp>partFactorP:");
+		log.dbgl(partFactorP);
+	}
+
+	if (!dp::oppGetValueForKey("samNumP", coreParams).empty())
+	{ 
+		samNumP = dp::oppGetValueForKey("samNumP", coreParams);
+		log.dbg("<cpp>samNumP:");
+		log.dbgl(samNumP);
+	}
+	log.closeLogFile();
+
+	int _numClustersPMbh = atoi(_numClustersPMbhP.c_str());
+	int _numClustersPGbh = atoi(_numClustersPGbhP.c_str());
+	int xSize = atoi(xSizeP.c_str());
+	int ySize = atoi(ySizeP.c_str());
+	int tSize = atoi(tSizeP.c_str());
+	int numBins = atoi(numBinsP.c_str());
+	int rootFactor = atoi(rootFactorP.c_str());
+	int partFactor = atoi(partFactorP.c_str());
+
+	std::string databaseOutDir = utils::Filesystem::getAppPath() + dbOutDir;
+	utils::Database::setDatabaseDir(databaseOutDir);
+
 	char input_file_name[1024];
 	char model_file_name[1024];
 	const char *error_msg;
@@ -129,11 +274,14 @@ int main(int argc, char **argv)
 	int numW;
 	int nCls = getNumClasses();
 
-	parse_command_line(argc, argv, input_file_name, model_file_name, binaryFile, numW);
-	config::Action::getInstance().load();
-	int numWords = config::Action::getInstance().getDescriptorSize();
-	dataPath = config::Action::getInstance().getDescriptorPath();
-
+	parse_command_line(argc, argv, input_file_name, model_file_name, binaryFile, numW, CE, kernel);
+	//config::Action::getInstance().load();
+	int numWordsGbh = 2 * (((xSize * ySize * tSize * numBins) / rootFactor) + ((8 / partFactor) * (xSize * ySize * tSize * numBins))) * _numClustersPGbh;
+	int numWordsMbh = 2 * 2 * (((xSize * ySize * tSize * numBins) / rootFactor) + ((8 / partFactor) * (xSize * ySize * tSize * numBins))) * _numClustersPMbh;
+	int numWords = numWordsGbh + numWordsMbh; //config::Action::getInstance().getDescriptorSize();
+	std::cout << "numwords" << numWords << std::endl;
+	//dataPath = config::Action::getInstance().getDescriptorPath(); //ZMIENIC PODAC SCIEZKE WYJSCIOWA MERGE DATA
+	dataPath = utils::Filesystem::getAppPath() + mergedataOutDir;
 	string *fileName = new string[nCls];
 	if(binaryFile)
 	{
@@ -166,7 +314,8 @@ int main(int argc, char **argv)
 	struct svm_node *x;
 
 	model.clear();
-	std::string outPath = utils::Filesystem::getDataPath() + "action/svm/";
+	//std::string outPath = utils::Filesystem::getDataPath() + "action/svm/"; //ZMIENIC NA WYJSCIOWA SVM
+	std::string outPath = utils::Filesystem::getAppPath() + trainOutDir;
 	boost::filesystem::create_directories(outPath);
 	//learning the models (number of classes)
 	for(int i = 0; i < nCls; i++)
@@ -316,9 +465,10 @@ int main(int argc, char **argv)
 
 		std::cout<<"Done predict class "<<id+1<<"!\n";
 	}
-
+	double accur = (double)correct / total * 100;
 	info("Accuracy = %g%% (%d/%d) (classification)\n",
-			(double)correct/total*100,correct,total);
+		accur, correct, total);
+		//(double)correct/total*100,correct,total);
 	fsetpos (output, &position);
 	fprintf(output,"Accuracy = %g%% (%d/%d) (classification)",
 		(double)correct/total*100,correct,total);
@@ -327,6 +477,12 @@ int main(int argc, char **argv)
 	std::cout<<"\nDone testing with kernel = "<<param.kernel_type<<" and C = "<<param.C<<std::endl;
 	for (int i = 0; i < model.size(); i++)
 		svm_free_and_destroy_model(&model[i]);
+
+	// Write OPP string to result file
+	log.initResultFile(coreParams);
+	log.addResult("testName=" + testNameStr + ";accuracy=" + std::to_string(accur) + ";_numClustersMbh=" + _numClustersPMbhP + ";_numClustersGbh=" + _numClustersPGbhP + ";kernel=" + kernel + ";C=" + C + ";xSizeP=" + xSizeP + ";ySizeP=" + ySizeP + ";tSizeP" + tSizeP + ";numBinsP=" + numBinsP + ";samNumP=" + samNumP + ";rootFactorP=" + rootFactorP + ";partFactorP=" + partFactorP + ";_maxFramesP=" + _maxFramesP + ";pSamplesP=" + pSamplesP + ";dataNumP=" + dataNumP);
+	log.closeResultFile();
+
 	std::cout<<"\nDone clear model "<<model.size()<<std::endl;
 
 	free(x_space);
@@ -338,46 +494,8 @@ int main(int argc, char **argv)
 	return 0;
 }
 
-void do_cross_validation()
-{
-	int i;
-	int total_correct = 0;
-	double total_error = 0;
-	double sumv = 0, sumy = 0, sumvv = 0, sumyy = 0, sumvy = 0;
-	double *target = Malloc(double,prob.l);
 
-	svm_cross_validation(&prob,&param,nr_fold,target);
-	if(param.svm_type == EPSILON_SVR ||
-	   param.svm_type == NU_SVR)
-	{
-		for(i=0;i<prob.l;i++)
-		{
-			double y = prob.y[i];
-			double v = target[i];
-			total_error += (v-y)*(v-y);
-			sumv += v;
-			sumy += y;
-			sumvv += v*v;
-			sumyy += y*y;
-			sumvy += v*y;
-		}
-		printf("Cross Validation Mean squared error = %g\n",total_error/prob.l);
-		printf("Cross Validation Squared correlation coefficient = %g\n",
-			((prob.l*sumvy-sumv*sumy)*(prob.l*sumvy-sumv*sumy))/
-			((prob.l*sumvv-sumv*sumv)*(prob.l*sumyy-sumy*sumy))
-			);
-	}
-	else
-	{
-		for(i=0;i<prob.l;i++)
-			if(target[i] == prob.y[i])
-				++total_correct;
-		printf("Cross Validation Accuracy = %g%%\n",100.0*total_correct/prob.l);
-	}
-	free(target);
-}
-
-void parse_command_line(int argc, char **argv, char *input_file_name, char *model_file_name, bool& binaryFile, int& numWords)
+void parse_command_line(int argc, char **argv, char *input_file_name, char *model_file_name, bool& binaryFile, int& numWords, double C, std::string kernel)
 {
 	int i;
 	void (*print_func)(const char*) = NULL;	// default printing to stdout
@@ -386,13 +504,21 @@ void parse_command_line(int argc, char **argv, char *input_file_name, char *mode
 	param.svm_type = C_SVC;
 	//param.kernel_type = RBF;
 	//param.kernel_type = CHISQUARED;
-	param.kernel_type = INTERSECTION;
+	std::map<std::string, int> m;
+	m["LINEAR"] = static_cast<int>(LINEAR);
+	m["POLY"] = static_cast<int>(POLY);
+	m["RBF"] = static_cast<int>(RBF);
+	m["SIGMOID"] = static_cast<int>(SIGMOID);
+	m["INTERSECTION"] = static_cast<int>(INTERSECTION);
+	m["CHISQUARED"] = static_cast<int>(CHISQUARED);
+	m["JS"] = static_cast<int>(JS);
+	param.kernel_type = m.at(kernel);//kernel;
 	param.degree = 3;
 	param.gamma = 0.00225;	// param.gamma = 0;	// 1/num_features
 	param.coef0 = 0;
 	param.nu = 0.5;
 	param.cache_size = 100;
-	param.C = 32.5;		//param.C = 1;
+	param.C = C;		//param.C = 1;
 	param.eps = 1e-3;
 	//param.eps = 1e-5;
 	param.p = 0.1;
@@ -400,8 +526,8 @@ void parse_command_line(int argc, char **argv, char *input_file_name, char *mode
 	param.probability = 0;
 	param.nr_weight = 0;
 	param.weight_label = NULL;
-	param.weight = NULL;
-	cross_validation = 0;
+	param.weight = NULL; //set the parameter C of class i to weight*C, for C-SVC (default 1)
+
 	binaryFile = true;
 
 	// parse options
@@ -456,15 +582,6 @@ void parse_command_line(int argc, char **argv, char *input_file_name, char *mode
 				print_func = &print_null;
 				i--;
 				break;
-			case 'v':
-				cross_validation = 1;
-				nr_fold = atoi(argv[i]);
-				if(nr_fold < 2)
-				{
-					fprintf(stderr,"n-fold cross validation: n must >= 2\n");
-					exit_with_help();
-				}
-				break;
 			case 'w':
 				++param.nr_weight;
 				param.weight_label = (int *)realloc(param.weight_label,sizeof(int)*param.nr_weight);
@@ -506,111 +623,6 @@ void parse_command_line(int argc, char **argv, char *input_file_name, char *mode
 	}
 }
 
-// read in a problem (in svmlight format)
-
-void read_problem(const char *filename)
-{
-	int elements, max_index, inst_max_index, i, j;
-	FILE *fp = fopen(filename,"r");
-	char *endptr;
-	char *idx, *val, *label;
-
-	if(fp == NULL)
-	{
-		fprintf(stderr,"can't open input file %s\n",filename);
-		exit(1);
-	}
-
-	prob.l = 0;
-	elements = 0;
-
-	max_line_len = 1024;
-	line0 = Malloc(char,max_line_len);
-	while(readline(fp)!=NULL)
-	{
-		char *p = strtok(line0," \t"); // label
-
-		// features
-		while(1)
-		{
-			p = strtok(NULL," \t");
-			if(p == NULL || *p == '\n') // check '\n' as ' ' may be after the last feature
-				break;
-			++elements;
-		}
-		++elements;
-		++prob.l;
-	}
-	rewind(fp);
-
-	classId = Malloc(int,prob.l);
-	prob.y = Malloc(double,prob.l);
-	prob.x = Malloc(struct svm_node *,prob.l);
-	x_space = Malloc(struct svm_node,elements);
-
-	max_index = 0;
-	j=0;
-	for(i=0;i<prob.l;i++)
-	{
-		inst_max_index = -1; // strtol gives 0 if wrong format, and precomputed kernel has <index> start from 0
-		readline(fp);
-		prob.x[i] = &x_space[j];
-		label = strtok(line0," \t\n");
-		if(label == NULL) // empty line
-			exit_input_error(i+1);
-
-		prob.y[i] = strtod(label,&endptr);
-		if(endptr == label || *endptr != '\0')
-			exit_input_error(i+1);
-
-		while(1)
-		{
-			idx = strtok(NULL,":");
-			val = strtok(NULL," \t");
-
-			if(val == NULL)
-				break;
-
-			errno = 0;
-			x_space[j].index = (int) strtol(idx,&endptr,10);
-			if(endptr == idx || errno != 0 || *endptr != '\0' || x_space[j].index <= inst_max_index)
-				exit_input_error(i+1);
-			else
-				inst_max_index = x_space[j].index;
-
-			errno = 0;
-			x_space[j].value = strtod(val,&endptr);
-			if(endptr == val || errno != 0 || (*endptr != '\0' && !isspace(*endptr)))
-				exit_input_error(i+1);
-
-			++j;
-		}
-
-		if(inst_max_index > max_index)
-			max_index = inst_max_index;
-		x_space[j++].index = -1;
-	}
-
-	if(param.gamma == 0 && max_index > 0)
-		param.gamma = 1.0/max_index;
-
-	if(param.kernel_type == PRECOMPUTED)
-		for(i=0;i<prob.l;i++)
-		{
-			if (prob.x[i][0].index != 0)
-			{
-				fprintf(stderr,"Wrong input format: first column must be 0:sample_serial_number\n");
-				exit(1);
-			}
-			if ((int)prob.x[i][0].value <= 0 || (int)prob.x[i][0].value > max_index)
-			{
-				fprintf(stderr,"Wrong input format: sample_serial_number out of range\n");
-				exit(1);
-			}
-		}
-
-	fclose(fp);
-}
 
 void read_binary(const string * fileName, const int numClass) 
 {
