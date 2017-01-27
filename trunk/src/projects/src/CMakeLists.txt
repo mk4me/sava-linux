@@ -35,3 +35,5 @@ ADD_PROJECT(ArchiveConverter "sequence;utils")
 ADD_PROJECT(EditorAnnotation "config;sequence;utils")
 ADD_PROJECT(ProcessManager "config;sequence;utils;network")
 
+ADD_PROJECT(FileLockTest "utils")
+
