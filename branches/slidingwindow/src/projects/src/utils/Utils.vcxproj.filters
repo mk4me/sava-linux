@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Application">
+      <UniqueIdentifier>{4f495365-e98f-4d4a-8806-d9122850d4b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Image">
+      <UniqueIdentifier>{289a3ac5-266e-4be7-a3e4-2c4f746554ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>moc;h;cpp</Extensions>
+      <ParseFiles>true</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files\Debug">
+      <UniqueIdentifier>{99b70fa9-586b-41bb-8e53-02cb02e36a05}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Release">
+      <UniqueIdentifier>{97e9c6b8-2822-45e5-859a-869cc7a67942}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Header Files\Application">
+      <UniqueIdentifier>{7bac83fe-0756-4fad-8633-7a1464810b8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Image">
+      <UniqueIdentifier>{e6873731-1816-447a-a64b-29639aece622}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Hungarian">
+      <UniqueIdentifier>{e3a43343-bf80-4116-b59c-97f0a5a13aaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Munkers">
+      <UniqueIdentifier>{dbb6ac1d-136f-4c2e-973b-8a5320e36f2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Hungarian">
+      <UniqueIdentifier>{b1100840-1324-4c18-96f4-9cc0a33b0c72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Munkers">
+      <UniqueIdentifier>{9a3cb4e3-b537-42a9-8fbd-f3aa2074d203}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Camera">
+      <UniqueIdentifier>{f7bf5814-ac92-4d7e-836d-b7348ac18c47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Camera\Raw">
+      <UniqueIdentifier>{f27f5938-d763-46cf-97ed-8789ae24a3cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Camera\Milestone">
+      <UniqueIdentifier>{8eb369a3-85cf-404e-884f-18ac35ac39f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\WebUtils">
+      <UniqueIdentifier>{8ae5b011-00ba-4973-bdd1-55c78fa92758}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Camera">
+      <UniqueIdentifier>{342a6629-dab8-41c0-89cf-ea5bbb5ecd51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\WebUtils">
+      <UniqueIdentifier>{218a8fe0-dcd4-4275-8dbc-c33f1d1632ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Camera\Raw">
+      <UniqueIdentifier>{b050cef2-679e-4c45-a841-fc8aa8197fc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Camera\Milestone">
+      <UniqueIdentifier>{66d531fc-ac5d-4af1-b8a3-c36fcab2f3ec}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\gui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pathFinder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StatisticsProvider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Application.cpp">
+      <Filter>Source Files\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FileLock.cpp">
+      <Filter>Source Files\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CvZoom.cpp">
+      <Filter>Source Files\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CvZoomObjects.cpp">
+      <Filter>Source Files\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PipeProcess.cpp">
+      <Filter>Source Files\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Glossary.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_PipeProcess.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_PipeProcess.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PipeProcessUtils.cpp">
+      <Filter>Source Files\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Hungarian.cpp">
+      <Filter>Source Files\Hungarian</Filter>
+    </ClCompile>
+    <ClCompile Include="src\munkres.cpp">
+      <Filter>Source Files\Munkers</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_CvZoom.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_CvZoom.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Filesystem.cpp">
+      <Filter>Source Files\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CAxisRawReader.cpp">
+      <Filter>Source Files\Camera\Raw</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WebUtils.cpp">
+      <Filter>Source Files\WebUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CCameraEnumerator.cpp">
+      <Filter>Source Files\Camera\Milestone</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\include\Utils\Console.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\include\Utils\Glossary.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\include\Utils\gui.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\include\Utils\MemTools.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\include\Utils\pathFinder.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\include\Utils\Singleton.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\include\Utils\Spinlock.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\include\Utils\Stat.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\include\Utils\StatisticsProvider.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\include\Utils\timer.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\include\Utils\BlockingQueue.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\include\Utils\CvZoom.h">
+      <Filter>Header Files\Image</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\include\Utils\CvZoomObjects.h">
+      <Filter>Header Files\Image</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\include\Utils\CvSerialization.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\include\Utils\PipeProcess.h">
+      <Filter>Header Files\Application</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\include\Utils\ProgramOptions.h">
+      <Filter>Header Files\Application</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\include\Utils\IAppModule.h">
+      <Filter>Header Files\Application</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\include\Utils\FileLock.h">
+      <Filter>Header Files\Application</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\Utils\Application.h">
+      <Filter>Header Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Utils\CFPSCounter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Utils\PipeProcessUtils.h">
+      <Filter>Header Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Utils\munkres.h">
+      <Filter>Header Files\Munkers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Utils\matrix.h">
+      <Filter>Header Files\Munkers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Utils\Hungarian.h">
+      <Filter>Header Files\Hungarian</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Utils\Filesystem.h">
+      <Filter>Header Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Utils\SRawMJFPFrame.h">
+      <Filter>Header Files\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Utils\CAxisRawReader.h">
+      <Filter>Header Files\Camera\Raw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\utils\WebUtils.h">
+      <Filter>Header Files\WebUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\utils\CCameraEnumerator.h">
+      <Filter>Header Files\Camera\Milestone</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\utils\SMilestoneStructures.h">
+      <Filter>Header Files\Camera\Milestone</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\utils\ImageConverter.h">
+      <Filter>Header Files\Image</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,85 @@
+BEGIN_PROJECT("static")
+
+SET_PUBLIC_HEADERS(
+		AlertSender.h
+		Application.h
+		AxisRawReader.h
+		BlockingQueue.h
+		CvSerialization.h
+		CvZoom.h
+		CvZoomObjects.h
+		Database.h
+		FileLock.h
+		Filesystem.h
+		FPSCounter.h
+		GenerateStaticMJPG.h
+		GpuJpegUtils.h
+		GpuUtils.h
+		Hungarian.h
+		IAppModule.h
+		ICameraRawReader.h
+		ImageConverter.h
+		matrix.h
+		CameraEnumerator.h
+		#sava-linux.rev
+		#MilestoneRawReader.h
+		#MilestoneStructures.h
+		munkres.h
+		PipeProcess.h
+		PipeProcessUtils.h
+		ProgramOptions.h
+		RandomColor.h
+		RawMJFPFrame.h
+		Singleton.h
+		Stat.h
+		StatisticsProvider.h
+		timer.h
+		Version.h
+		WebUtils.h
+		WindowsUtilities.h
+		Spawning.h
+		Log.h
+		MemoryLog.h
+		TimedLog.h
+)
+
+include_directories("${CMAKE_CURRENT_LIST_DIR}/../../include/utils/")
+#------------------------------------------------------------------------------
+
+SET_SOURCE_FILES(
+		AlertSender.cpp
+		Application.cpp
+		AxisRawReader.cpp
+		CvZoom.cpp
+		CvZoomObjects.cpp
+		Database.cpp
+		FileLock.cpp
+		Filesystem.cpp
+		GenerateStaticMJPG.cpp
+		GpuJpegUtils.cpp
+		#sava-linux.rev
+		#MilestoneRawReader.cpp
+		CameraEnumerator.cpp
+		GpuUtils.cpp
+		Hungarian.cpp
+		munkres.cpp
+		PipeProcess.cpp
+		PipeProcessUtils.cpp
+		RandomColor.cpp
+		StatisticsProvider.cpp
+		Version.cpp
+		WebUtils.cpp
+		Spawning.cpp
+		timer.cpp
+		MemoryLog.cpp
+		TimedLog.cpp
+)
+
+SET_MOC_FILES(
+	CvZoom.h
+	PipeProcess.h
+	TimedLog.h
+)
+
+
+END_PROJECT()

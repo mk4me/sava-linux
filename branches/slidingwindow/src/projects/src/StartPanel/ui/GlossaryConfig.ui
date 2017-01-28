@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>GlossaryConfig</class>
+ <widget class="QWidget" name="GlossaryConfig">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>529</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Glossary</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="1" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="addButton">
+       <property name="text">
+        <string>Add</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="editButton">
+       <property name="text">
+        <string>Edit</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="deleteButton">
+       <property name="text">
+        <string>Remove</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="0" column="0">
+    <widget class="QListWidget" name="listWidget"/>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>addButton</sender>
+   <signal>clicked()</signal>
+   <receiver>GlossaryConfig</receiver>
+   <slot>addAnnotation()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>103</x>
+     <y>507</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>264</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>deleteButton</sender>
+   <signal>clicked()</signal>
+   <receiver>GlossaryConfig</receiver>
+   <slot>deleteAnnotation()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>296</x>
+     <y>507</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>264</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>editButton</sender>
+   <signal>clicked()</signal>
+   <receiver>GlossaryConfig</receiver>
+   <slot>editAnnotation()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>199</x>
+     <y>507</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>264</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>addAnnotation()</slot>
+  <slot>deleteAnnotation()</slot>
+  <slot>editAnnotation()</slot>
+ </slots>
+</ui>

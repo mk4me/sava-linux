@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>NodeSelectorDialog</class>
+ <widget class="QDialog" name="NodeSelectorDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>408</width>
+    <height>313</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Multitask configuration</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Process nodes</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="0">
+       <widget class="QComboBox" name="m_NodesCombo"/>
+      </item>
+      <item row="0" column="1">
+       <widget class="QPushButton" name="m_AddButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Add</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QPushButton" name="m_RemoveButton">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Remove</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" colspan="3">
+       <widget class="QListWidget" name="m_NodesList"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QDialogButtonBox" name="m_ButtonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>m_ButtonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>NodeSelectorDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>203</x>
+     <y>292</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>203</x>
+     <y>156</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_ButtonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>NodeSelectorDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>203</x>
+     <y>292</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>203</x>
+     <y>156</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_AddButton</sender>
+   <signal>clicked()</signal>
+   <receiver>NodeSelectorDialog</receiver>
+   <slot>addNode()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>270</x>
+     <y>43</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>203</x>
+     <y>156</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_RemoveButton</sender>
+   <signal>clicked()</signal>
+   <receiver>NodeSelectorDialog</receiver>
+   <slot>removeNode()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>351</x>
+     <y>43</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>203</x>
+     <y>156</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_NodesList</sender>
+   <signal>currentRowChanged(int)</signal>
+   <receiver>NodeSelectorDialog</receiver>
+   <slot>onCurrentRowChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>203</x>
+     <y>162</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>203</x>
+     <y>156</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>onCurrentRowChanged(int)</slot>
+  <slot>addNode()</slot>
+  <slot>removeNode()</slot>
+ </slots>
+</ui>

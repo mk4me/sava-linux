@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>RecordOptionsPage</class>
+ <widget class="QWizardPage" name="RecordOptionsPage">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Record options</string>
+  </property>
+  <property name="title">
+   <string>Record options</string>
+  </property>
+  <property name="subTitle">
+   <string>Select acquisition postprocesses</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QCheckBox" name="m_CompressVideo">
+     <property name="text">
+      <string>Compress video</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="m_DetectObjects">
+     <property name="text">
+      <string>Detect objects</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="m_PredictActions">
+     <property name="text">
+      <string>Predict actions</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>m_CompressVideo</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>RecordOptionsPage</receiver>
+   <slot>onCompressVideo(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>199</x>
+     <y>71</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_DetectObjects</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>RecordOptionsPage</receiver>
+   <slot>onDetectObjects(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>199</x>
+     <y>148</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_PredictActions</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>RecordOptionsPage</receiver>
+   <slot>onPredictActions(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>199</x>
+     <y>225</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>onCompressVideo(int)</slot>
+  <slot>onDetectObjects(int)</slot>
+  <slot>onPredictActions(int)</slot>
+ </slots>
+</ui>

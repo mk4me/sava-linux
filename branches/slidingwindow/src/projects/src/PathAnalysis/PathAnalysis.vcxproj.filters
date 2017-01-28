@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>moc;h;cpp</Extensions>
+      <ParseFiles>true</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files\Debug">
+      <UniqueIdentifier>{4966f9a1-e501-405d-a215-475ce6c8f62e}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Release">
+      <UniqueIdentifier>{f8f284af-34ad-4ee8-9219-d0bca4cd42e4}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Source Files\Partition">
+      <UniqueIdentifier>{5e536719-acaf-4468-92b2-96e7ad89f27a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathAnalysis.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_PathAnalysis.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_PathAnalysis.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathAnalysisVisualizer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StatisticPathDistanceFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ConfigurationWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DefaultPathAnalyzer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathAnalyzer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Partition\PartitionAnalyzer.cpp">
+      <Filter>Source Files\Partition</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Partition\PartitionCluster.cpp">
+      <Filter>Source Files\Partition</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Partition\PartitionFrame.cpp">
+      <Filter>Source Files\Partition</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Partition\PartitionMath.cpp">
+      <Filter>Source Files\Partition</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Partition\PartitionPath.cpp">
+      <Filter>Source Files\Partition</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Partition\PartitionPathGroup.cpp">
+      <Filter>Source Files\Partition</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Partition\PartitionSequence.cpp">
+      <Filter>Source Files\Partition</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Partition\PartitionSequenceGroup.cpp">
+      <Filter>Source Files\Partition</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Partition\PartitionDefinitions.cpp">
+      <Filter>Source Files\Partition</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="src\PathAnalysis.h">
+      <Filter>Source Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\PathAnalysisVisualizer.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IVisualizer.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\NullVisualizer.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\StatisticPathDistanceFactory.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ConfigurationWindow.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DefaultPathAnalyzer.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PathAnalyzer.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Partition\PartitionAnalyzer.h">
+      <Filter>Source Files\Partition</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Partition\PartitionCluster.h">
+      <Filter>Source Files\Partition</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Partition\PartitionFrame.h">
+      <Filter>Source Files\Partition</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Partition\PartitionMath.h">
+      <Filter>Source Files\Partition</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Partition\PartitionPath.h">
+      <Filter>Source Files\Partition</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Partition\PartitionPathGroup.h">
+      <Filter>Source Files\Partition</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Partition\PartitionSequence.h">
+      <Filter>Source Files\Partition</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Partition\PartitionSequenceGroup.h">
+      <Filter>Source Files\Partition</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Partition\PartitionDefinitions.h">
+      <Filter>Source Files\Partition</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
