@@ -5,7 +5,7 @@
 
 int main(int argc, const char* argv[])
 {
-	utils::FileLock fl("/home/mc/tst.loc");
+	utils::FileLock fl("/home/mc/tst2.loc");
 	bool res = fl.lock();
 	if (res) {
 		std::cout << "Locked" << std::endl;

@@ -2,10 +2,14 @@
 #include <stdexcept>
 #include <fcntl.h>
 #include <unistd.h>
+#include <utils/Filesystem.h>
+#include <iostream>
+#include <fstream>
 
 utils::FileLock::FileLock(const std::string& fileName) 
 	: m_Filename(fileName)
 	, m_File(nullptr)
+
 {
 
 }
@@ -24,19 +28,25 @@ bool utils::FileLock::lock()
 	m_File = _fsopen(m_Filename.c_str(), "wD", _SH_DENYRW);
 	
 #else
-	struct flock fl;
-	int fd;
-
-	fl.l_type   = F_WRLCK;  /* F_RDLCK, F_WRLCK, F_UNLCK    */
-	fl.l_whence = SEEK_SET; /* SEEK_SET, SEEK_CUR, SEEK_END */
-	fl.l_start  = 0;        /* Offset from l_whence         */
-	fl.l_len    = 0;        /* length, 0 = to EOF           */
-	fl.l_pid    = getpid(); /* our PID                      */
-
-	fd = open(m_Filename.c_str(), O_WRONLY);
-
-	fcntl(fd, F_SETLKW, &fl);  /* F_GETLK, F_SETLK, F_SETLKW */
-	m_File = fd;
+    try {
+        // recreating windows behaviour, if file does not exist - we create one
+        bool exist = utils::Filesystem::exists(m_Filename.c_str());
+        if (!exist) {
+            std::ofstream emptyFile(m_Filename.c_str());
+            emptyFile.close();
+        }
+    } catch (std::exception& e) {
+        std::cout << e.what() << std::endl;
+        return false;
+    }
+    fl = std::make_unique<boost::interprocess::file_lock>(m_Filename.c_str());
+    // non blocking try
+    bool res = fl->try_lock();
+    if (res) {
+        // in this scenario m_File works as flag...
+        m_File = (FILE*)1;
+        return true;
+    }
 #endif // WIN32
 
 	return m_File != nullptr;
@@ -48,22 +58,7 @@ void utils::FileLock::unlock()
 #ifdef WIN32
 		fclose(m_File);
 #else
-
-	struct flock fl;
-	int fd;
-	fd = m_File;
-	fl.l_type   = F_WRLCK;  /* F_RDLCK, F_WRLCK, F_UNLCK    */
-	fl.l_whence = SEEK_SET; /* SEEK_SET, SEEK_CUR, SEEK_END */
-	fl.l_start  = 0;        /* Offset from l_whence         */
-	fl.l_len    = 0;        /* length, 0 = to EOF           */
-	fl.l_pid    = getpid(); /* our PID                      */
-
-	//fd = open("filename", O_WRONLY);  /* get the file descriptor */
-	//fcntl(fd, F_SETLKW, &fl);  /* set the lock, waiting if necessary */
-
-	fl.l_type   = F_UNLCK;  /* tell it to unlock the region */
-	fcntl(fd, F_SETLK, &fl); /* set the region to unlocked */
-
+        fl->unlock();
 #endif
 	}
 	m_File = nullptr;

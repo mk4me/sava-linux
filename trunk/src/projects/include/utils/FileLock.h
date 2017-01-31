@@ -3,6 +3,7 @@
 
 #include <fstream>
 #include <string>
+#include <boost/interprocess/sync/file_lock.hpp>
 
 namespace utils
 {
@@ -22,6 +23,7 @@ namespace utils
 	private:
 		FILE* m_File;
 		std::string m_Filename;
+        std::unique_ptr<boost::interprocess::file_lock> fl;
 	};
 }
 
