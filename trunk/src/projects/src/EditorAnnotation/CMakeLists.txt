@@ -118,5 +118,7 @@ EditorVideoSaver.h
 EditorWindow.h
 )
 
-#SET_RC_FILES ()
+SET_RC_FILES (
+        resources.qrc
+)
 END_PROJECT()
