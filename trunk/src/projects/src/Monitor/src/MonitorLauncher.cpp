@@ -166,6 +166,5 @@ std::string MonitorLauncher::getAxisCommand() const
 	command += " --user " + m_User;
 	command += " --pass " + m_Password;
 	command += " --ip " + m_Ip;
-
 	return command;
 }
