@@ -1,13 +1,9 @@
-#include "ArchiveConverter.h"
+#include "IndexChanger.h"
 #include "sequence/Cluster.h"
 #include "sequence/Action.h"
 #include "sequence/IVideo.h"
-#include <thread>
-#include <mutex>
 
 namespace fs = boost::filesystem;
-
-std::mutex consoleMutex;
 
 void checkDirs(const fs::path& inputFolder, const fs::path& outputFolder)
 {
@@ -33,9 +29,36 @@ std::vector<fs::path> listFiles(const fs::path& dir, const std::string& ext = st
 	return result;
 }
 
-void ArchiveConverter::convertDir(const fs::path& inputFolder, const fs::path& outputFolder)
+void IndexChanger::convertDir(const fs::path& inputFolder, const fs::path& outputFolder)
 {
-	throw std::runtime_error("NYI");
+    std::map<int, int> convertMap;
+    convertMap[27] = 13;
+    convertMap[20] = 22;
+    convertMap[21] = 23;
+    convertMap[22] = 24;
+    convertMap[23] = 26;
+    convertMap[24] = 27;
+    convertMap[26] = 28;
+    convertMap[7] = 29;
+
+
+	auto files = listFiles(inputFolder, ".acnt");
+	for (auto& path : files) {
+		auto outputPath = outputFolder / (path.stem().string() + ".acnt");
+		try {
+            sequence::Action obj(path.string());
+            auto id = obj.getActionId();
+            auto it = convertMap.find(id);
+            if (it != convertMap.end()) {
+                obj.setActionId(it->second);
+            }
+            obj.saveAsText(outputPath.string());
+			std::cout << "Processing: " << path << std::endl;
+		}
+		catch (...) {
+			std::cerr << "Problem with: " << path << " , skipping" <<std::endl;
+		}
+	}
 }
 
 template<class T>
@@ -101,77 +124,20 @@ struct ToBinary
     }
 };
 
-
-template<typename T>
-std::vector<std::vector<T>> splitVector(const std::vector<T>& vec, size_t n)
-{
-	std::vector<std::vector<T>> outVec;
-
-	size_t length = vec.size() / n;
-	size_t remain = vec.size() % n;
-
-	size_t begin = 0;
-	size_t end = 0;
-
-	for (size_t i = 0; i < std::min(n, vec.size()); ++i)
-	{
-		end += (remain > 0) ? (length + !!(remain--)) : length;
-
-		outVec.push_back(std::vector<T>(vec.begin() + begin, vec.begin() + end));
-
-		begin = end;
-	}
-
-	return outVec;
-}
-
-template <class Conversion>
-void _convertFiles(const std::vector<fs::path>& files, const fs::path& outputFolder, const std::string& newExt)
-{
-	for (auto& path : files) {
-		auto outputPath = (outputFolder / (path.stem().string() + newExt)).string();
-		try {
-			Conversion::convert(path.string(), outputPath);
-            std::lock_guard<std::mutex> lock(consoleMutex);
-			std::cout << "Processing: " << path << std::endl;
-		}
-		catch (...) {
-            std::lock_guard<std::mutex> lock(consoleMutex);
-			std::cerr << "Problem with: " << path << " , skipping" <<std::endl;
-		}
-	}
-}
 template <class Conversion>
 void _convert(const std::string ext, const fs::path& inputFolder, const fs::path& outputFolder)
 {
 	auto files = listFiles(inputFolder, ext);
-	auto maxThreads = std::thread::hardware_concurrency();
-    std::cout << "Using : " << maxThreads << " threads.\n";
-	auto parts = splitVector(files, maxThreads);
-	std::vector<std::thread> threads;
-	for (auto& part : parts) {
-		threads.push_back(std::thread(_convertFiles<Conversion>, part, outputFolder, Conversion::newExtension(ext)));
+	for (auto& path : files) {
+		auto outputPath = (outputFolder / (path.stem().string() + Conversion::newExtension(ext))).string();
+		try {
+			Conversion::convert(path.string(), outputPath);
+			std::cout << "Processing: " << path << std::endl;
+		}
+		catch (...) {
+			std::cerr << "Problem with: " << path << " , skipping" <<std::endl;
+		}
 	}
-
-	for (auto& t : threads) {
-		t.join();
-	}
 }
 
 
-
-void ArchiveConverter::convertToText(const fs::path& inputFolder, const fs::path& outputFolder)
-{
-	checkDirs(inputFolder, outputFolder);
-	_convert<ToText<SimplePolicy<sequence::Action>>>(".acn", inputFolder, outputFolder);
-	_convert<ToText<SimplePolicy<sequence::Cluster>>>(".clu", inputFolder, outputFolder);
-	_convert<ToText<VideoPolicy>>(".cvs", inputFolder, outputFolder);
-}
-
-void ArchiveConverter::convertToBinary(const fs::path& inputFolder, const fs::path& outputFolder)
-{
-    checkDirs(inputFolder, outputFolder);
-    _convert<ToBinary<SimplePolicy<sequence::Action>>>(".acnt", inputFolder, outputFolder);
-    _convert<ToBinary<SimplePolicy<sequence::Cluster>>>(".clut", inputFolder, outputFolder);
-    _convert<ToBinary<VideoPolicy>>(".cvst", inputFolder, outputFolder);
-}
