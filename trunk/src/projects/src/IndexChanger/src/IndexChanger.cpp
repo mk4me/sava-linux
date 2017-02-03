@@ -46,14 +46,16 @@ void IndexChanger::convertDir(const fs::path& inputFolder, const fs::path& outpu
 	for (auto& path : files) {
 		auto outputPath = outputFolder / (path.stem().string() + ".acnt");
 		try {
-            sequence::Action obj(path.string());
+            std::cout << "Processing: " << path << std::endl;
+            sequence::Action obj;
+            obj.loadFromText(path.string());
             auto id = obj.getActionId();
             auto it = convertMap.find(id);
             if (it != convertMap.end()) {
                 obj.setActionId(it->second);
+                std::cout << "Change! (from " << id << " to " << it->second << ")" << std::endl;
             }
             obj.saveAsText(outputPath.string());
-			std::cout << "Processing: " << path << std::endl;
 		}
 		catch (...) {
 			std::cerr << "Problem with: " << path << " , skipping" <<std::endl;

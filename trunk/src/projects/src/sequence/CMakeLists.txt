@@ -4,6 +4,7 @@ SET_PUBLIC_HEADERS(
 	Action.h
 	Cluster.h
 	CompressedVideo.h
+	ComplexAction.h
 	GpuVideo.h
 	Image.h
 	IStreamedVideo.h
@@ -26,6 +27,7 @@ SET_SOURCE_FILES(
     PathStream.cpp
     VideoPack.cpp
 	Cluster.cpp
+	ComplexAction.cpp
     IStreamedVideo.cpp
 	RoiVideo.cpp
 	VideoUtils.cpp

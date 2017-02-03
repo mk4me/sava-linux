@@ -1,6 +1,7 @@
 #include "ArchiveConverter.h"
 #include "sequence/Cluster.h"
 #include "sequence/Action.h"
+#include "sequence/ComplexAction.h"
 #include "sequence/IVideo.h"
 #include <thread>
 #include <mutex>
@@ -165,6 +166,7 @@ void ArchiveConverter::convertToText(const fs::path& inputFolder, const fs::path
 	checkDirs(inputFolder, outputFolder);
 	_convert<ToText<SimplePolicy<sequence::Action>>>(".acn", inputFolder, outputFolder);
 	_convert<ToText<SimplePolicy<sequence::Cluster>>>(".clu", inputFolder, outputFolder);
+    _convert<ToText<SimplePolicy<sequence::ComplexAction>>>(".can", inputFolder, outputFolder);
 	_convert<ToText<VideoPolicy>>(".cvs", inputFolder, outputFolder);
 }
 
@@ -173,5 +175,6 @@ void ArchiveConverter::convertToBinary(const fs::path& inputFolder, const fs::pa
     checkDirs(inputFolder, outputFolder);
     _convert<ToBinary<SimplePolicy<sequence::Action>>>(".acnt", inputFolder, outputFolder);
     _convert<ToBinary<SimplePolicy<sequence::Cluster>>>(".clut", inputFolder, outputFolder);
+    _convert<ToBinary<SimplePolicy<sequence::ComplexAction>>>(".cant", inputFolder, outputFolder);
     _convert<ToBinary<VideoPolicy>>(".cvst", inputFolder, outputFolder);
 }

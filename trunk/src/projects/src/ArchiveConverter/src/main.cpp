@@ -6,7 +6,7 @@
 
 namespace po = boost::program_options;
 
-const std::string version = "0.2";
+const std::string version = "0.3";
 
 int main(int argc, const char* argv[])
 {
