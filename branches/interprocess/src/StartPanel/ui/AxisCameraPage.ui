@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AxisCameraPage</class>
+ <widget class="QWizardPage" name="AxisCameraPage">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Axis camera</string>
+  </property>
+  <property name="title">
+   <string>Axis camera</string>
+  </property>
+  <property name="subTitle">
+   <string>Select camera</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QListWidget" name="m_Cameras">
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
+     <property name="showDropIndicator" stdset="0">
+      <bool>false</bool>
+     </property>
+     <property name="selectionBehavior">
+      <enum>QAbstractItemView::SelectRows</enum>
+     </property>
+     <property name="uniformItemSizes">
+      <bool>true</bool>
+     </property>
+     <property name="selectionRectVisible">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>m_Cameras</sender>
+   <signal>currentRowChanged(int)</signal>
+   <receiver>AxisCameraPage</receiver>
+   <slot>onCurrentCameraChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>onCurrentCameraChanged()</slot>
+ </slots>
+</ui>

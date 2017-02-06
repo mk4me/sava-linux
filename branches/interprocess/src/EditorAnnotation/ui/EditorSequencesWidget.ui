@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AnnotationSequencesWidget</class>
+ <widget class="QWidget" name="AnnotationSequencesWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>488</width>
+    <height>534</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Sequences</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QCheckBox" name="autoReloadCheckBox">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="text">
+          <string>Auto Reload</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="prevButton">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="text">
+          <string>&lt;-- Prev</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="nextButton">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="text">
+          <string>Next --&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="scrollToButton">
+         <property name="text">
+          <string>Scroll to selected</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="EditorSequencesListWidget" name="fileListWidget">
+       <property name="styleSheet">
+        <string notr="true">/*QListWidget::item {
+	border: transparent;
+}
+ 
+QListWidget::item:!selected:hover {
+	background: transparent
+}
+ 
+QListWidget::item:selected:!hover{
+	background: transparent
+}
+ 
+QListWidget::item:selected:hover{
+	background: transparent
+}
+*/
+
+QListWidget::item
+{
+	color: rgba(255, 255, 255, 200);
+}
+
+QListWidget::item:selected{
+	background: rgba(255, 165, 0, 120);
+}
+
+QListWidget::item
+{
+ /* Won't work without borders set */
+    border: 0px;
+
+    padding-left: 25px;
+}</string>
+       </property>
+       <property name="editTriggers">
+        <set>QAbstractItemView::NoEditTriggers</set>
+       </property>
+       <property name="selectionMode">
+        <enum>QAbstractItemView::SingleSelection</enum>
+       </property>
+       <property name="selectionBehavior">
+        <enum>QAbstractItemView::SelectRows</enum>
+       </property>
+       <property name="uniformItemSizes">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>EditorSequencesListWidget</class>
+   <extends>QListWidget</extends>
+   <header>EditorSequencesListWidget.h</header>
+   <slots>
+    <signal>mouseReleased()</signal>
+   </slots>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>autoReloadCheckBox</sender>
+   <signal>clicked()</signal>
+   <receiver>AnnotationSequencesWidget</receiver>
+   <slot>onAutoReloadChecked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>51</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>220</x>
+     <y>198</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>scrollToButton</sender>
+   <signal>clicked()</signal>
+   <receiver>AnnotationSequencesWidget</receiver>
+   <slot>scrollToSelectedItem()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>385</x>
+     <y>22</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>220</x>
+     <y>198</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>prevButton</sender>
+   <signal>clicked()</signal>
+   <receiver>AnnotationSequencesWidget</receiver>
+   <slot>onPrevButtonClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>216</x>
+     <y>22</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>220</x>
+     <y>198</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>nextButton</sender>
+   <signal>clicked()</signal>
+   <receiver>AnnotationSequencesWidget</receiver>
+   <slot>onNextButtonClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>297</x>
+     <y>22</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>220</x>
+     <y>198</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>fileListWidget</sender>
+   <signal>mouseReleased()</signal>
+   <receiver>AnnotationSequencesWidget</receiver>
+   <slot>onListMouseReleased()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>242</x>
+     <y>287</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>242</x>
+     <y>272</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>onAutoReloadChecked()</slot>
+  <slot>scrollToSelectedItem()</slot>
+  <slot>onPrevButtonClicked()</slot>
+  <slot>onNextButtonClicked()</slot>
+  <slot>onListMouseReleased()</slot>
+ </slots>
+</ui>

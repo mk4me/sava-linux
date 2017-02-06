@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>NodeSelectorWidget</class>
+ <widget class="QWidget" name="NodeSelectorWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>271</width>
+    <height>22</height>
+   </rect>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>16777215</width>
+    <height>22</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>NodeSelectorWidget</string>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="QLineEdit" name="m_NodeList">
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="placeholderText">
+      <string>empty</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="m_SelectButton">
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>22</height>
+      </size>
+     </property>
+     <property name="icon">
+      <iconset resource="../Resources/resources.qrc">
+       <normaloff>:/icons_16/network.png</normaloff>:/icons_16/network.png</iconset>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="../Resources/resources.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>m_SelectButton</sender>
+   <signal>clicked()</signal>
+   <receiver>NodeSelectorWidget</receiver>
+   <slot>selectNodes()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>256</x>
+     <y>10</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>135</x>
+     <y>10</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>selectNodes()</slot>
+ </slots>
+</ui>
