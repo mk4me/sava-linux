@@ -36,5 +36,7 @@ ADD_PROJECT(IndexChanger "sequence;utils")
 ADD_PROJECT(EditorAnnotation "config;sequence;utils")
 ADD_PROJECT(ProcessManager "config;sequence;utils;network")
 
+ADD_PROJECT(InterprocessExperiments "RT;BOOST")
+
 ADD_PROJECT(FileLockTest "utils")
 
