@@ -12,6 +12,7 @@
 
 #include <boost/archive/binary_iarchive.hpp>
 #include <boost/serialization/vector.hpp>
+#include <utils/timer.h>
 
 //#include <xutility>
 
@@ -52,7 +53,9 @@ void Recognizer::reserve()
 void Recognizer::process()
 {
 	std::string inFilePattern = getInFilePattern(m_CurrentIndex);
-
+	std::string outFileName = getOutFileName(m_CurrentIndex);
+	std::cout << "Processing " << outFileName << std::endl;
+	utils::scoped_timer(outFileName + std::string(" - done in: "), std::string(" seconds"));
 	for (const std::string& extension : m_Extensions)
 	{
 		m_InFileLocks.emplace_back(new utils::FileLock(inFilePattern + '.' + extension + ".loc"));
@@ -73,7 +76,7 @@ void Recognizer::process()
 		fisherVector.insert(fisherVector.end(), fv.begin(), fv.end());
 	}
 
-	std::string outFileName = getOutFileName(m_CurrentIndex);
+	//std::string outFileName = getOutFileName(m_CurrentIndex);
 	int actionId = -1;
 	if (fisherVector.size() == config::Action::getInstance().getDescriptorSize())
 		actionId = predict(fisherVector);

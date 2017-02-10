@@ -13,6 +13,7 @@
 #include <boost/serialization/vector.hpp>
 
 #include <algorithm>
+#include <utils/timer.h>
 
 typedef utils::PipeProcessUtils PPUtils;
 
@@ -160,7 +161,8 @@ void Descriptor::process()
 	}
 
 	std::cout << std::endl << "Processing file: " << inFileName << std::endl;
-
+	utils::timer timer;
+	timer.start();
 	std::vector<float> fisherVector;
 	if (checkVideo(inFileName))
 	{
@@ -175,6 +177,7 @@ void Descriptor::process()
 	m_OutFileLock.reset();
 
 	setState(PipeProcess::RESERVE_FILE);
+	std::cout << std::endl << "Done processing: " << inFileName << " in " << timer.secondsSinceStart() << " s." << std::endl;
 }
 
 std::string Descriptor::getInFileName(const std::vector<int>& indexList) const
