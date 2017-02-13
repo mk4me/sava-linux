@@ -25,9 +25,15 @@ ProcessManager::ProcessManager(QWidget *parent)
 	//czyszczenie katalogu z logami
 	logFolderPath_ = utils::Filesystem::getUserPath() + logFolderName_;
 	utils::Filesystem::removeContents(logFolderPath_);
-	QDir dir(QString::fromStdString(logFolderPath_));
-	if (!dir.exists()) dir.mkdir(".");
-	logger_.setFilePath(QString::fromStdString(logFolderPath_ + "\\" + logFileName_));
+	auto logDirPath = QString::fromStdString(logFolderPath_);
+	QDir dir(logDirPath);
+	if (!dir.exists()) {
+		bool res = dir.mkpath(logDirPath);
+		if (!res) {
+			std::cerr << "Unable to create: " << logFolderPath_ << std::endl;
+		}
+	}
+	logger_.setFilePath(QString::fromStdString(logFolderPath_ + "/" + logFileName_));
 
 	//dodanie kontrolki logujacej
 	QVBoxLayout* layout = (QVBoxLayout*)ui.tabPM->layout();
@@ -84,29 +90,59 @@ void ProcessManager::handleLineEditPM_ReturnPressed()
  	ui.lineEditPM->clear();
 }
 
+QString getProcName(const QString& pathWithArgs)
+{
+#ifdef _WIN32
+	QStringList pieces = pathWithArgs.split(".exe");
+	pieces = pieces[0].split("/");
+	pieces = pieces[pieces.length() - 1].split("\\");
+	return pieces[0];
+#else
+    try {
+		std::string path = pathWithArgs.toStdString();
+		auto part = path.substr(0, path.find(" "));
+		auto start = part.rfind("/");
+		auto procName = part.substr(start + 1, part.size());
+		return QString::fromStdString(procName);
+	} catch (...) {
+		// on error return App0, App1, App2 ...
+		// use memoizing
+		static int appCount = 0;
+		static std::map<QString, QString> paths;
+		auto it = paths.find(pathWithArgs);
+		if (it != paths.end()) {
+			return it->second;
+		} else {
+			auto p = QString("App%1").arg(appCount++);
+			paths[pathWithArgs] = p;
+			return p;
+		}
+	}
+#endif
+}
+
+
 void ProcessManager::handleCreateNewProcess(std::shared_ptr<QProcess> _newProc, const QString& _exePathWithArgs)
 {
 	//wydzielamy nazwe zakladki
-	QStringList pieces = _exePathWithArgs.split(".exe");
-	pieces = pieces[0].split("/");
-	pieces = pieces[pieces.length() - 1].split("\\");
+	auto procName = getProcName(_exePathWithArgs);
 	
 	//sprawdzamy ile razy byl stworzony proces od staru proc mng
 	int id = 0;
-	if (procHistory_.contains(pieces[0]))
+	if (procHistory_.contains(procName))
 	{
-		id = procHistory_.value(pieces[0]);
+		id = procHistory_.value(procName);
 		id++;
-		procHistory_.insert(pieces[0], id);
+		procHistory_.insert(procName, id);
 	}
 	else
-		procHistory_.insert(pieces[0], 0);
+		procHistory_.insert(procName, 0);
 
 	//stworz sciezke do loga
-	QString processLogFilePath = QString::fromStdString(logFolderPath_) + "\\" + pieces[0] + "_" + QString::number(id) + ".log";
+	QString processLogFilePath = QString::fromStdString(logFolderPath_) + "/" + procName + "_" + QString::number(id) + ".log";
 
 	//tworzymy nowa zakladke
-	ui.tabWidget->insertTab(ui.tabWidget->count(), new ProcessTab(this, _newProc, _exePathWithArgs, processLogFilePath), pieces[0]);
+	ui.tabWidget->insertTab(ui.tabWidget->count(), new ProcessTab(this, _newProc, _exePathWithArgs, processLogFilePath), procName);
 	ui.tabWidget->tabBar()->tabButton(ui.tabWidget->count()-1, QTabBar::RightSide)->hide(); //chowanie krzy�yka
 }
 
