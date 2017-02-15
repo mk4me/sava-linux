@@ -13,9 +13,9 @@ FisherVector.cpp
 main.cpp
 
 ../../../Common/src/Descriptor.cpp
-../../../Common/src/gbh/descFeature.cpp
-../../../Common/src/gbh/integralVideo.cpp
-../../../Common/src/gbh/stDescriptor.cc
+../../../Common/src/mbh/descFeature.cpp
+../../../Common/src/mbh/integralVideo.cpp
+../../../Common/src/mbh/stDescriptor.cc
 )
 
 END_PROJECT()
