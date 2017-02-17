@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{1DC890A1-3A8D-41DB-B47A-DD53BF036E80}</ProjectGuid>
+    <Keyword>Qt4VSv1.0</Keyword>
+    <RootNamespace>PathAnalysis</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\Milestone.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\Milestone.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)build\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)build\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>src;$(SolutionDir)/include;$(ExternDir)/include/boost;$(ExternDir)/include/opencv;$(ExternDir)/qt/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <OpenMPSupport>true</OpenMPSupport>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(ExternDir)\qt\lib;$(ExternDir)\lib\win64\$(Configuration)\OpenCV;$(ExternDir)\lib\win64\$(Configuration)\boost;$(ExternDir)\lib\win64\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>qtmain$(ShortConfiguration).lib;Qt5Core$(ShortConfiguration).lib;Qt5Gui$(ShortConfiguration).lib;Qt5Widgets$(ShortConfiguration).lib;opencv_core300$(ShortConfiguration).lib;opencv_highgui300$(ShortConfiguration).lib;opencv_imgproc300$(ShortConfiguration).lib;opencv_imgcodecs300$(ShortConfiguration).lib;opencv_videoio300$(ShortConfiguration).lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>src;$(SolutionDir)/include;$(ExternDir)/include/boost;$(ExternDir)/include/opencv;$(ExternDir)/qt/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <OpenMPSupport>true</OpenMPSupport>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(ExternDir)\qt\lib;$(ExternDir)\lib\win64\$(Configuration)\OpenCV;$(ExternDir)\lib\win64\$(Configuration)\boost;$(ExternDir)\lib\win64\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>qtmain$(ShortConfiguration).lib;Qt5Core$(ShortConfiguration).lib;Qt5Gui$(ShortConfiguration).lib;Qt5Widgets$(ShortConfiguration).lib;opencv_core300$(ShortConfiguration).lib;opencv_highgui300$(ShortConfiguration).lib;opencv_imgproc300$(ShortConfiguration).lib;opencv_imgcodecs300$(ShortConfiguration).lib;opencv_videoio300$(ShortConfiguration).lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="GeneratedFiles\Debug\moc_PathAnalysis.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_PathAnalysis.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\ConfigurationWindow.cpp" />
+    <ClCompile Include="src\DefaultPathAnalyzer.cpp" />
+    <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\Partition\PartitionAnalyzer.cpp" />
+    <ClCompile Include="src\Partition\PartitionCluster.cpp" />
+    <ClCompile Include="src\Partition\PartitionFrame.cpp" />
+    <ClCompile Include="src\Partition\PartitionMath.cpp" />
+    <ClCompile Include="src\Partition\PartitionPath.cpp" />
+    <ClCompile Include="src\Partition\PartitionPathGroup.cpp" />
+    <ClCompile Include="src\Partition\PartitionSequence.cpp" />
+    <ClCompile Include="src\Partition\PartitionSequenceGroup.cpp" />
+    <ClCompile Include="src\Partition\PartitionDefinitions.cpp" />
+    <ClCompile Include="src\PathAnalysis.cpp" />
+    <ClCompile Include="src\PathAnalysisVisualizer.cpp" />
+    <ClCompile Include="src\PathAnalyzer.cpp" />
+    <ClCompile Include="src\StatisticPathDistanceFactory.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="src\PathAnalysis.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_MBCS "-I.\src" "-I$(SolutionDir)\include" "-I$(ExternDir)\include\boost" "-I$(ExternDir)\include\opencv" "-I$(ExternDir)\qt\include"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing PathAnalysis.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_MBCS "-I.\src" "-I$(SolutionDir)\include" "-I$(ExternDir)\include\boost" "-I$(ExternDir)\include\opencv" "-I$(ExternDir)\qt\include"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing PathAnalysis.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Configuration\Configuration.vcxproj">
+      <Project>{0a4bb53d-a741-44db-939e-eda68954facc}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\CvGui\CvGui.vcxproj">
+      <Project>{af322fd1-bd94-473a-a290-f1ea0065581f}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\PathAnalysisAlgorithms\PathAnalysisAlgorithms.vcxproj">
+      <Project>{281ce9a9-b799-4ffc-8e8d-aa502db593be}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Sequence\Sequence.vcxproj">
+      <Project>{518f2e47-9af0-4021-8a31-abf76ac4dbea}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Utils\Utils.vcxproj">
+      <Project>{a9144c9c-d51d-4c82-a1de-a6498f748c89}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\ConfigurationWindow.h" />
+    <ClInclude Include="src\DefaultPathAnalyzer.h" />
+    <ClInclude Include="src\Partition\PartitionAnalyzer.h" />
+    <ClInclude Include="src\Partition\PartitionCluster.h" />
+    <ClInclude Include="src\Partition\PartitionFrame.h" />
+    <ClInclude Include="src\Partition\PartitionMath.h" />
+    <ClInclude Include="src\Partition\PartitionPath.h" />
+    <ClInclude Include="src\Partition\PartitionPathGroup.h" />
+    <ClInclude Include="src\Partition\PartitionSequence.h" />
+    <ClInclude Include="src\Partition\PartitionSequenceGroup.h" />
+    <ClInclude Include="src\Partition\PartitionDefinitions.h" />
+    <ClInclude Include="src\PathAnalyzer.h" />
+    <ClInclude Include="src\IVisualizer.h" />
+    <ClInclude Include="src\NullVisualizer.h" />
+    <ClInclude Include="src\PathAnalysisVisualizer.h" />
+    <ClInclude Include="src\StatisticPathDistanceFactory.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties Qt5Version_x0020_x64="Qt5" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

@@ -1,0 +1,59 @@
+<RCC>
+    <qresource prefix="/icons_64">
+        <file alias="video.png">icons_64/video.png</file>
+        <file alias="rectangle.png">icons_64/rectangle.png</file>
+        <file alias="letter_A.png">icons_64/letter_A.png</file>
+        <file alias="letter_M.png">icons_64/letter_M.png</file>
+        <file alias="regions.png">icons_64/regions.png</file>
+        <file alias="regions_mask.png">icons_64/regions_mask.png</file>
+        <file alias="synchronize.png">icons_64/synchronize.png</file>
+        <file alias="play.png">icons_64/play_icon.png</file>
+        <file alias="replay.png">icons_64/replay_icon.png</file>
+        <file alias="stop.png">icons_64/stop_icon.png</file>
+        <file alias="alert_check.png">icons_64/alert_check.png</file>
+    </qresource>
+    <qresource prefix="/qss_icons">
+        <file>rc/up_arrow_disabled.png</file>
+        <file>rc/Hmovetoolbar.png</file>
+        <file>rc/stylesheet-branch-end.png</file>
+        <file>rc/branch_closed-on.png</file>
+        <file>rc/stylesheet-vline.png</file>
+        <file>rc/branch_closed.png</file>
+        <file>rc/branch_open-on.png</file>
+        <file>rc/transparent.png</file>
+        <file>rc/right_arrow_disabled.png</file>
+        <file>rc/sizegrip.png</file>
+        <file>rc/close.png</file>
+        <file>rc/close-hover.png</file>
+        <file>rc/close-pressed.png</file>
+        <file>rc/down_arrow.png</file>
+        <file>rc/Vmovetoolbar.png</file>
+        <file>rc/left_arrow.png</file>
+        <file>rc/stylesheet-branch-more.png</file>
+        <file>rc/up_arrow.png</file>
+        <file>rc/right_arrow.png</file>
+        <file>rc/left_arrow_disabled.png</file>
+        <file>rc/Hsepartoolbar.png</file>
+        <file>rc/branch_open.png</file>
+        <file>rc/Vsepartoolbar.png</file>
+        <file>rc/down_arrow_disabled.png</file>
+        <file>rc/undock.png</file>
+        <file>rc/checkbox_checked_disabled.png</file>
+        <file>rc/checkbox_checked_focus.png</file>
+        <file>rc/checkbox_checked.png</file>
+        <file>rc/checkbox_indeterminate.png</file>
+        <file>rc/checkbox_indeterminate_focus.png</file>
+        <file>rc/checkbox_unchecked_disabled.png</file>
+        <file>rc/checkbox_unchecked_focus.png</file>
+        <file>rc/checkbox_unchecked.png</file>
+        <file>rc/radio_checked_disabled.png</file>
+        <file>rc/radio_checked_focus.png</file>
+        <file>rc/radio_checked.png</file>
+        <file>rc/radio_unchecked_disabled.png</file>
+        <file>rc/radio_unchecked_focus.png</file>
+        <file>rc/radio_unchecked.png</file>
+    </qresource>
+    <qresource prefix="/styles">
+        <file>dark_style.css</file>
+    </qresource>
+</RCC>
