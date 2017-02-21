@@ -107,7 +107,7 @@ namespace utils
 		}
 	}
 
-	std::vector<std::string> Filesystem::getFileList(const std::string& directory)
+	std::vector<std::string> Filesystem::getFileList(const std::string& directory, const std::string& ext)
 	{
 		std::vector<std::string> fileList;
 
@@ -121,6 +121,12 @@ namespace utils
 			{
 				if (!utils::Filesystem::exists(*it) || !boost::filesystem::is_regular_file(*it))
 					continue;
+
+				if (!ext.empty()) {
+					boost::filesystem::path p(*it);
+					if (p.extension() != ext)
+						continue;
+				}
 
 				fileList.push_back(it->path().string());
 			}

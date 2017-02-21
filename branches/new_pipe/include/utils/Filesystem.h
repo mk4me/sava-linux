@@ -57,7 +57,7 @@ namespace utils
 		/// </summary>
 		/// <param name="directory">The directory to search for files.</param>
 		/// <returns>File list from given directory</returns>
-		static std::vector<std::string> getFileList(const std::string& directory);
+		static std::vector<std::string> getFileList(const std::string& directory, const std::string& ext = std::string());
 
 		/// <summary>
 		/// Gets the number directories inside the given one.

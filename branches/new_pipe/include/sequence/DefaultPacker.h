@@ -3,6 +3,7 @@
 #define DefaultPacker_h__
 
 #include "IPacker.h"
+#include <sequence/BackgroundSeparation.h>
 
 namespace cv
 {
@@ -22,6 +23,8 @@ namespace sequence
 class DefaultPacker : public IPacker
 {
 public:
+    typedef std::vector<sequence::CompressedVideo::Crumble> Crumbles;
+public:
 	DefaultPacker(int imageCompression, int backgroundHistory = 300, int differenceThreshold = 20, float newBackgroundMinPixels = 0.2, int minCrumbleArea = 100, int mergeCrumblesIterations = 3);
 
 	/// <summary>
@@ -40,19 +43,22 @@ public:
 	/// </summary>
 	/// <param name="filename">The filename.</param>
 	virtual void save(const std::string& filename) override;
+private:
+    Crumbles convertToCrumbles(const cv::Mat& frame, const sequence::FBSeparator::Rectangles& rects);
 
 private:
 	std::shared_ptr<sequence::CompressedVideo> m_CompressedVideo;
-	cv::Ptr<cv::BackgroundSubtractor> m_BackgroundSubtractor;
-	cv::Mat m_LastBackground;
+	//cv::Ptr<cv::BackgroundSubtractor> m_BackgroundSubtractor;
+    sequence::FBSeparator m_separator;
+	//cv::Mat m_LastBackground;
 	size_t m_BackgroundFrame;
 
 	int m_ImageCompression;
-	int m_BackgroundHistory;	// 300
-	int m_DifferenceThreshold;	// 20
-	float m_NewBackgroundMinPixels;		// 0.2
-	int m_MinCrumbleArea;		// 100
-	int m_MergeCrumblesIterations;	// 3
+	//int m_BackgroundHistory;	// 300
+	//int m_DifferenceThreshold;	// 20
+	//float m_NewBackgroundMinPixels;		// 0.2
+	//int m_MinCrumbleArea;		// 100
+	//int m_MergeCrumblesIterations;	// 3
 
 	void resetBackgroundSubtractor();
 };

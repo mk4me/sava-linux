@@ -1,6 +1,6 @@
 #include "Compression.h"
-#include "DefaultPacker.h"
-#include "GpuPacker.h"
+#include "sequence/DefaultPacker.h"
+#include "sequence/GpuPacker.h"
 
 #include <sequence/Video.h>
 

@@ -3,7 +3,7 @@
 #define GpuPacker_h__
 
 #include "IPacker.h"
-
+#include <sequence/BackgroundSeparation.h>
 namespace cv
 {
 	class BackgroundSubtractor;
@@ -42,18 +42,19 @@ public:
 
 private:
 	std::shared_ptr<sequence::GpuVideo> m_GpuVideo;
-	cv::Ptr<cv::BackgroundSubtractor> m_BackgroundSubtractor;
-	cv::Mat m_LastBackground;
+	//cv::Ptr<cv::BackgroundSubtractor> m_BackgroundSubtractor;
+	//cv::Mat m_LastBackground;
 	size_t m_BackgroundFrame;
 
 	int m_ImageCompression;
-	int m_BackgroundHistory;	// 300
-	int m_DifferenceThreshold;	// 20
-	float m_NewBackgroundMinPixels;		// 0.2
-	int m_MinCrumbleArea;		// 100
-	int m_MergeCrumblesIterations;	// 3
+	//int m_BackgroundHistory;	// 300
+	//int m_DifferenceThreshold;	// 20
+	//float m_NewBackgroundMinPixels;		// 0.2
+	//int m_MinCrumbleArea;		// 100
+	//int m_MergeCrumblesIterations;	// 3
 
-	cv::Mat m_CameraMask;
+	//cv::Mat m_CameraMask;
+    sequence::FBSeparator m_separator;
 
 	void resetBackgroundSubtractor();
 };

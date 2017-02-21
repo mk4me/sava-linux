@@ -137,7 +137,7 @@ std::string Recognizer::getOutFileName(const std::vector<int>& indexList) const
 void Recognizer::load()
 {
 	std::string dataPath = utils::Filesystem::getDataPath() + "action/svm/";
-
+	//TODO : concurrency
 	for (int i = 0;; ++i)
 	{
 		std::string modelFile = dataPath + "model_" + std::to_string(i) + ".dat";
@@ -162,6 +162,7 @@ int Recognizer::predict(const std::vector<float>& fv) const
 	double maxVal;
 
 	int j0;
+	// TODO : speed up!
 	for (j0 = 0; j0 < fv.size(); j0++)  //feature dimensions
 	{
 		x[j0].index = j0 + 1;  //feature id beginning from "1" while j0 beginning from "0"

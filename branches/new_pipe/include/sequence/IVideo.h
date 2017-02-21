@@ -23,6 +23,7 @@ namespace sequence
 		static const unsigned SEQUENCE_VIDEO;
 		static const unsigned SEQUENCE_COMPRESSED_VIDEO;
 		static const unsigned SEQUENCE_GPU_VIDEO;
+        static const unsigned SEQUENCE_MULTI_VIDEO;
 
 		typedef boost::posix_time::ptime Timestamp;
 
