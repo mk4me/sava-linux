@@ -6,5 +6,6 @@
 #include <string>
 
 void regressionTests(const std::string& dirPath);
+void dropCSVInfo(std::ostream& out, const std::string& dirPath);
 
 #endif

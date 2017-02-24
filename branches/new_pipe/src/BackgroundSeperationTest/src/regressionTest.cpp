@@ -27,5 +27,32 @@ void regressionTests(const std::string& dirPath)
 
 
     }
+}
 
+
+void dropCSVInfo(std::ostream& out, const std::string& dirPath)
+{
+    out << "CSV info..." << std::endl;
+    auto csvs = utils::Filesystem::getFileList(dirPath, ".cvs");
+
+    //std::map<std::string,
+    for (auto& file : csvs) {
+        std::shared_ptr<sequence::IVideo> seq = sequence::IVideo::create(file);
+        out << "Processing: " << file << std::endl;
+        auto count = seq->getNumFrames();
+        out << "\tNumber of frames: " << count << std::endl;
+        auto frame1 = seq->getFrameImage(0);
+        out << "\tFrame size: " << frame1.size() << std::endl;
+        for (int i = 0; i < count; ++i) {
+            auto frame = seq->getFrameImage(i);
+            out << "\t\tFrame: " << i << std::endl;
+            auto crumbles = seq->getFrameCrumbles(i);
+            auto time = seq->getFrameTime(i);
+            out << "\t\tFrame time: " << time << std::endl;
+            out << "\t\tNumber of crumbles: " << crumbles.size() << std::endl;
+            for (auto it = crumbles.begin(); it != crumbles.end(); ++it) {
+                out << "\t\t\t" << "C " << it->br() << "," << it->tl() << std::endl;
+            }
+        }
+    }
 }

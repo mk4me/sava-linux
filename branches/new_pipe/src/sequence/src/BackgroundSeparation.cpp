@@ -34,6 +34,12 @@ namespace sequence {
     {
         m_BackgroundSubtractor = cv::createBackgroundSubtractorMOG2(m_BackgroundHistory);
     }
+
+    bool FBSeparator::wasIniialized() const
+    {
+        return m_BackgroundSubtractor ? true : false;
+    }
+
     FBSeparator::Rectangles FBSeparator::separate(const cv::Mat& frame,  std::function<void (const cv::Mat&)> bgUpdate)
     {
 		cv::Mat mask, background, backgroundGray, frameGray, difference;

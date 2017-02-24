@@ -27,7 +27,7 @@ namespace sequence
         Rectangles separate(const cv::Mat& frame, std::function<void (const cv::Mat&)> bgUpdate = [](const cv::Mat&){});
 		void reset();
         const cv::Mat& getLastBackground() { return m_LastBackground; }
-
+		bool wasIniialized() const;
     private:
         void fillRects(const cv::Mat& frame, const std::vector<std::vector<cv::Point>>& contours, Rectangles& crumbles);
         Contours findContours(const cv::Mat& difference);
