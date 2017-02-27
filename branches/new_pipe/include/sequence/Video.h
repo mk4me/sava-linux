@@ -44,7 +44,7 @@ namespace sequence
 
 		virtual void setPosition(size_t frame);
 
-	private:
+	public:
 		class Frame
 		{
 		public:
@@ -72,7 +72,7 @@ namespace sequence
 			template<class Archive>
 			void serialize(Archive & ar, const unsigned int version);
 		};
-
+	private:
 		std::vector<Frame> m_Frames;
 		size_t m_CurrentFrame;
 

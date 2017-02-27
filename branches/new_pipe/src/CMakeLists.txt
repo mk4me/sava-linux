@@ -10,6 +10,10 @@ ADD_PROJECT(PathAnalysisAlgorithms "BOOST;OPENCV;config;cvgui;sequence;utils") #
 ADD_PROJECT(PathAnalysis "BOOST;OPENCV;QT;config;cvgui;sequence;utils;PathAnalysisAlgorithms")
 ADD_PROJECT(AxisCameraSimulator "config;sequence;utils")
 
+
+
+ADD_PROJECT(SinglePipe "config;sequence;utils")
+
 BEGIN_PROJECTS_GROUP("ACTION")
 ADD_PROJECT(GbhPipe "OPENCV;VLFEAT;sequence;config;utils" "Action/Pipe/GbhPipe")
 ADD_PROJECT(MbhPipe "OPENCV;VLFEAT;sequence;config;utils" "Action/Pipe/MbhPipe")
