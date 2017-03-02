@@ -1,6 +1,6 @@
 #include "PathDetection.h"
-#include "PathDetectionLib/DefaultSequenceDetector.h"
-#include "PathDetectionLib/OpticalFlowSequenceDetector.h"
+#include "DefaultSequenceDetector.h"
+#include "OpticalFlowSequenceDetector.h"
 
 #include <utils/PipeProcessUtils.h>
 #include <utils/Filesystem.h>
