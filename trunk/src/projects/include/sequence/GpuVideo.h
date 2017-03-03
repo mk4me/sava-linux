@@ -57,7 +57,7 @@ namespace sequence
 		{
 		public:
 			Frame() { }
-			Frame(Frame&) = default;
+			//Frame(Frame&) = default;
 			Frame(const Frame&) = default;
 			Frame(Frame&& f) : m_Time(f.m_Time), m_ImageData(std::move(f.m_ImageData)), m_Crumbles(std::move(f.m_Crumbles)) { }
 			Frame(Timestamp time, const std::vector<unsigned char>& imageData, const std::vector<cv::Rect>& crumbles) : m_Time(time), m_ImageData(imageData), m_Crumbles(crumbles) { }

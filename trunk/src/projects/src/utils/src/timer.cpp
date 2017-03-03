@@ -1,6 +1,8 @@
 #include <utils/timer.h>
 #ifndef _WIN32
 #include <sys/time.h>
+#else
+#include <windows.h>
 #endif
 
 namespace utils{
@@ -26,7 +28,7 @@ unsigned getTickCount()
             auto end = clock::now();
             auto start = *current;
             auto diff = (end-start);
-            return diff.count();
+            return static_cast<int>(diff.count());
         } else {
             throw std::runtime_error("timer was not start");
         }

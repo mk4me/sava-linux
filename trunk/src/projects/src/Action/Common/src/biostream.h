@@ -99,7 +99,10 @@ class BiOStream{
 	LSGENERAL(bool);
 
     LSGENERAL(long);
+
+#ifndef _WIN32
     LSGENERAL(std::string::size_type);
+#endif
 
 
 #undef LSGENERAL
