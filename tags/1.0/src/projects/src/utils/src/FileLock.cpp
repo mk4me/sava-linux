@@ -1,7 +1,11 @@
 #include "FileLock.h"
 #include <stdexcept>
 #include <fcntl.h>
-#include <unistd.h>
+
+#ifndef WIN32
+	#include <unistd.h>
+#endif
+
 #include <utils/Filesystem.h>
 #include <iostream>
 #include <fstream>

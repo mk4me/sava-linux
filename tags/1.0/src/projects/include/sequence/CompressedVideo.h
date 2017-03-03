@@ -84,7 +84,7 @@ namespace sequence
 		public:
 			Frame() { }
 			Frame(Frame&& f) : m_Time(f.m_Time), m_Crumbles(std::move(f.m_Crumbles)) { }
-			Frame(Frame&) = default;
+			//Frame(Frame&) = default;
 			Frame(const Frame&) = default;
 			Frame(Timestamp time, const std::vector<CrumbleStorage>& crumbles) : m_Time(time), m_Crumbles(crumbles) { }
 

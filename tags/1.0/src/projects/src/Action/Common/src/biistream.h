@@ -99,8 +99,12 @@ class BiIStream {
 	LSGENERAL(double);
 	LSGENERAL(bool);
 
+	LSGENERAL(long);
+
+#ifndef _WIN32
     LSGENERAL(std::string::size_type);
-    LSGENERAL(long);
+#endif
+
 
 #undef LSGENERAL
 

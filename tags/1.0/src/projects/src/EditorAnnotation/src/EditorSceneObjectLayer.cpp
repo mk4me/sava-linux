@@ -305,15 +305,17 @@ void EditorSceneObjectLayer::addSceneObject(const QRectF& i_ObjRect /*= QRectF()
 	EditorSequencePtr sequence = EditorSequencesManager::getInstance().getSequence();
 	if (sequence)
 	{
+		QRectF _objRect(i_ObjRect);
+
 		//set random rectangle object
 		if (i_ObjRect.isNull())
-			i_ObjRect = QRectF(10, 10, 100, 100);
+			_objRect = QRectF(10, 10, 100, 100);
 			
-		if (!i_ObjRect.isNull() && EditorTimeline::getInstance().getCurrentFrame() != sequence->getNumFrames() - 1)
+		if (!_objRect.isNull() && EditorTimeline::getInstance().getCurrentFrame() != sequence->getNumFrames() - 1)
 		{
 			size_t id = sequence->createCluster();
-			addClusterRect(id, i_ObjRect.toRect(), -1, false); //begin rectangle
-			addClusterRect(id, i_ObjRect.toRect(), sequence->getNumFrames() - 1, false); //end rectangle
+			addClusterRect(id, _objRect.toRect(), -1, false); //begin rectangle
+			addClusterRect(id, _objRect.toRect(), sequence->getNumFrames() - 1, false); //end rectangle
 
 			//add scene object
 			EditorSceneObject* createdObj = createObject(id);

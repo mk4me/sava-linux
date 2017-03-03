@@ -3,7 +3,7 @@
 #include <libgpujpeg/gpujpeg.h>
 
 
-#pragma comment(lib, "libgpujpeg/gpujpeg.lib")
+//#pragma comment(lib, "libgpujpeg.lib")
 
 /**
 * JPEG decoder structure
