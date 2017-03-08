@@ -1,4 +1,4 @@
-#include "motionanalysis/algorithms/PathClusteringParams.h"
+#include "PathAnalysisAlgorithms/algorithms/PathClusteringParams.h"
 
 using namespace motion_analysis;
 using namespace std;

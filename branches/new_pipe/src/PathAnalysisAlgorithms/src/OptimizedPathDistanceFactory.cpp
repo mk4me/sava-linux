@@ -1,5 +1,5 @@
-#include "motionanalysis/algorithms/OptimizedPathDistanceFactory.h"
-#include "motionanalysis/algorithms/OptimizedPathDistance.h"
+#include "PathAnalysisAlgorithms/algorithms/OptimizedPathDistanceFactory.h"
+#include "PathAnalysisAlgorithms/algorithms/OptimizedPathDistance.h"
 
 using namespace motion_analysis;
 

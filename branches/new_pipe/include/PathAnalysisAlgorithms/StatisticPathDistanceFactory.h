@@ -2,7 +2,7 @@
 #ifndef StatisticPathDistanceFactory_h__
 #define StatisticPathDistanceFactory_h__
 
-#include <motionanalysis/algorithms/PathDistanceFactory.h>
+#include <PathAnalysisAlgorithms/algorithms/PathDistanceFactory.h>
 #include <iostream>
 #include <utils/Stat.h>
 

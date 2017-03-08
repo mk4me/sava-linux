@@ -1,6 +1,6 @@
 #include <cassert>
-#include "motionanalysis/algorithms/PathCluster.h"
-#include "motionanalysis/algorithms/auxmath.h"
+#include "PathAnalysisAlgorithms/algorithms/PathCluster.h"
+#include "PathAnalysisAlgorithms/algorithms/auxmath.h"
 
 
 BOOST_CLASS_EXPORT_IMPLEMENT(motion_analysis::PathCluster);

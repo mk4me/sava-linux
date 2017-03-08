@@ -1,11 +1,11 @@
 #include <functional>
 #include <memory>
 #include <fstream>
-#include "motionanalysis/algorithms/aux_serialization.h"
-#include "motionanalysis/algorithms/PathClustering.h"
-#include "motionanalysis/algorithms/PathDistance.h"
-#include "motionanalysis/algorithms/PathDistanceFactory.h"
-#include "motionanalysis/algorithms/auxmath.h"
+#include "PathAnalysisAlgorithms/algorithms/aux_serialization.h"
+#include "PathAnalysisAlgorithms/algorithms/PathClustering.h"
+#include "PathAnalysisAlgorithms/algorithms/PathDistance.h"
+#include "PathAnalysisAlgorithms/algorithms/PathDistanceFactory.h"
+#include "PathAnalysisAlgorithms/algorithms/auxmath.h"
 #include "utils/timer.h"
 
 #include <set>

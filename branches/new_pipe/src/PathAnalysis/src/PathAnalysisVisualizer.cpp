@@ -1,8 +1,8 @@
 #include "PathAnalysisVisualizer.h"
 
-#include <motionanalysis/algorithms/PathClustering.h>
-#include <motionanalysis/algorithms/PathDistance.h>
-#include <motionanalysis/algorithms/PathDistanceFactory.h>
+#include <PathAnalysisAlgorithms/algorithms/PathClustering.h>
+#include <PathAnalysisAlgorithms/algorithms/PathDistance.h>
+#include <PathAnalysisAlgorithms/algorithms/PathDistanceFactory.h>
 
 #include <sequence/StreamedVideo.h>
 

@@ -1,5 +1,5 @@
-#include "PartitionSequenceGroup.h"
-#include "PartitionMath.h"
+#include "PathAnalysisAlgorithms/Partition/PartitionSequenceGroup.h"
+#include "PathAnalysisAlgorithms/Partition/PartitionMath.h"
 
 #include "config/PartitionAnalyzer.h"
 

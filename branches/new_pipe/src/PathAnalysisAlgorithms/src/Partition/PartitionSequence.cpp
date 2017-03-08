@@ -1,5 +1,5 @@
-#include "PartitionSequence.h"
-#include "PartitionMath.h"
+#include "PathAnalysisAlgorithms/Partition/PartitionSequence.h"
+#include "PathAnalysisAlgorithms/Partition/PartitionMath.h"
 
 #include <opencv2/imgproc.hpp>
 

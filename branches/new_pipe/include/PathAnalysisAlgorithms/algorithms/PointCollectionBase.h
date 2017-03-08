@@ -2,7 +2,7 @@
 #include <list>
 #include <opencv/cv.h>
 
-#include "motionanalysis/algorithms/aux_serialization.h"
+#include "aux_serialization.h"
 
 namespace motion_analysis {
 

@@ -2,13 +2,13 @@
 
 #include "PathAnalysisVisualizer.h"
 #include "NullVisualizer.h"
-#include "StatisticPathDistanceFactory.h"
+#include "PathAnalysisAlgorithms/StatisticPathDistanceFactory.h"
 #include "ConfigurationWindow.h"
-#include "DefaultPathAnalyzer.h"
-#include "Partition/PartitionAnalyzer.h"
+#include "PathAnalysisAlgorithms/DefaultPathAnalyzer.h"
+#include "PathAnalysisAlgorithms/Partition/PartitionAnalyzer.h"
 
-#include <motionanalysis/algorithms/FastPathClustering.h>
-#include <motionanalysis/algorithms/OptimizedPathDistanceFactory.h>
+#include <PathAnalysisAlgorithms/algorithms/FastPathClustering.h>
+#include <PathAnalysisAlgorithms/algorithms/OptimizedPathDistanceFactory.h>
 
 #include <sequence/PathStream.h>
 #include <sequence/Cluster.h>

@@ -1,7 +1,7 @@
-#include "motionanalysis/algorithms/PathEstimator.h"
+#include "PathAnalysisAlgorithms/algorithms/PathEstimator.h"
 
 #include "opencv2/calib3d.hpp"
-#include <motionanalysis/algorithms/Point.h>
+#include <PathAnalysisAlgorithms/algorithms/Point.h>
 #include "opencv2/imgproc.hpp"
 
 namespace motion_analysis

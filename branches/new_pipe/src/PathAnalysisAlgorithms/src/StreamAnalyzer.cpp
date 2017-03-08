@@ -1,15 +1,16 @@
-#include "DefaultPathAnalyzer.h"
+#include "PathAnalysisAlgorithms/StreamAnalyzer.h"
 
-#include "PathAnalysisVisualizer.h"
-#include "NullVisualizer.h"
-#include "StatisticPathDistanceFactory.h"
-#include "ConfigurationWindow.h"
+#include "../../PathAnalysis/src/PathAnalysisVisualizer.h"
+#include "../../PathAnalysis/src/NullVisualizer.h"
 
-#include <motionanalysis/algorithms/FastPathClustering.h>
-#include <motionanalysis/algorithms/OptimizedPathDistanceFactory.h>
-#include <motionanalysis/algorithms/PathEstimator.h>
+#include "PathAnalysisAlgorithms/algorithms/PathEstimator.h"
+#include "PathAnalysisAlgorithms/StatisticPathDistanceFactory.h"
+#include "../../PathAnalysis/src/ConfigurationWindow.h"
 
-#include <sequence/PathStream.h>
+#include <PathAnalysisAlgorithms/algorithms/FastPathClustering.h>
+#include <PathAnalysisAlgorithms/algorithms/OptimizedPathDistanceFactory.h>
+#include <PathAnalysisAlgorithms/algorithms/PathEstimator.h>
+
 #include <sequence/Cluster.h>
 #include <sequence/CompressedVideo.h>
 
@@ -29,10 +30,8 @@
 namespace clustering
 {
 
-	DefaultPathAnalyzer::DefaultPathAnalyzer()
-		: m_StartTime(0)
-		, m_LastMaxPathId(0)
-		, m_MaxClusterWidth(300)
+	StreamAnalyzer::StreamAnalyzer()
+		: m_MaxClusterWidth(300)
 		, m_MaxClusterHeight(500)
 		, m_MinPathsInCluster(0)
 		, m_RoiEstimation(true)
@@ -40,111 +39,108 @@ namespace clustering
 
 	}
 
-	DefaultPathAnalyzer::~DefaultPathAnalyzer()
+	StreamAnalyzer::~StreamAnalyzer()
 	{
 
 	}
 
-	/*void DefaultPathAnalyzer::registerParameters(ProgramOptions& programOptions)
+    bool StreamAnalyzer::loadParameters()//(const ProgramOptions& options)
+    {
+       /* if (isVisualize())
+            m_Visualizer = std::make_shared<PathAnalysisVisualizer>();
+        else
+            m_Visualizer = std::make_shared<NullVisualizer>();
+*/
+        m_Visualizer = std::make_shared<NullVisualizer>();
+        config::PathAnalysis& config = config::PathAnalysis::getInstance();
+
+        m_PathClustering = config.isUseOpenMP() ? std::make_shared<motion_analysis::FastPathClustering>() : std::make_shared<motion_analysis::PathClustering>();
+        m_PathEstimator = std::make_shared<motion_analysis::PathEstimator>();
+
+        motion_analysis::PathDistanceFactory::setFactory<motion_analysis::OptimizedPathDistanceFactory>();
+        //motion_analysis::PathDistanceFactory::setFactory(std::make_shared<StatisticPathDistanceFactory>(std::make_shared<motion_analysis::PathDistanceFactory>()));
+
+        motion_analysis::PathClusteringParams& params = m_PathClustering->params;
+        params.alpha = config.getAlpha();
+        params.minimumPathLength = config.getMinimumPathLength();
+
+        params.pathThresholds.total = config.getPathThresholds().getTotal();
+        params.pathThresholds.positional = config.getPathThresholds().getPositional();
+        params.pathThresholds.tangent = config.getPathThresholds().getTangent();
+
+        params.clusterThresholds.total = config.getClusterThresholds().getTotal();
+        params.clusterThresholds.positional = config.getClusterThresholds().getPositional();
+        params.clusterThresholds.tangent = config.getClusterThresholds().getTangent();
+
+        params.weightX = config.getWeightX();
+        params.weightY = config.getWeightY();
+        params.weightTau = config.getWeightTau();
+
+        params.enableMerging = config.getEnableMerging();
+        params.enableClusterRemoving = config.getEnableClusterRemoving();
+
+        params.enableMovingPaths = config.getEnableMovingPaths();
+        params.pathsPercentageMovesPerFrame = config.getPathsPercentageMovesPerFrame();
+        params.minPathsMovesPerFrame = config.getMinPathsMovesPerFrame();
+        params.createNewCluster = config.isCreateNewCluster();
+        params.tryMovingOnlyWhenCurrentIsToFar = config.isTryMovingOnlyWhenCurrentIsTooFar();
+
+        params.enableMergingGaps = config.getEnableMergingGaps();
+        params.mergingThresholds.time = config.getMergingThresholds().getTime();
+        params.mergingThresholds.x = config.getMergingThresholds().getX();
+        params.mergingThresholds.y = config.getMergingThresholds().getY();
+        params.mergingOldestClusterTime = config.getMergingOldestClusterTime();
+
+        m_MinProcessTime = config.getMinProcessTime();
+        m_MaxClusterWidth = config.getMaxClusterWidth();
+        m_MaxClusterHeight = config.getMaxClusterHeight();
+
+        m_MinPathsInCluster = config.getMinPathsInCluster();
+
+        m_RoiEstimation = config.isRoiEstimation();
+        motion_analysis::PathEstimator::CENTER_PARAM_THRESHOLD = config.getRoiCenterThreshold();
+        motion_analysis::PathEstimator::CENTER_PARAM_W = config.getRoiCenterW();
+        motion_analysis::PathEstimator::BOUNDING_BOX_PARAM_R = config.getBoundingBoxR();
+        motion_analysis::PathEstimator::BOUNDING_BOX_PARAM_T = config.getBoundingBoxT();
+
+        std::cout << "\nclustering parameters: \n";
+        for (auto it = params.wrappers.begin(); it != params.wrappers.end(); ++it)
+        {
+            std::cout << std::setw(35) << it->second->getName() << ": " << it->second->getStringValue() << '\n';
+        }
+        std::cout << std::setw(35) << "Max cluster widht: " << m_MaxClusterWidth << '\n';
+        std::cout << std::setw(35) << "Max cluster height: " << m_MaxClusterHeight << '\n';
+        std::cout << std::setw(35) << "Min paths in cluster: " << m_MinPathsInCluster << '\n';
+
+        /*if (isVisualize())
+        {
+            m_ConfigurationWindow = std::make_shared<ConfigurationWindow>("Clustering", params);
+        }*/
+
+        return true;
+    }
+
+
+	std::vector<sequence::Cluster> StreamAnalyzer::processFrame(const std::map<sequence::PathStream::Id, sequence::PathStream::Path>& frame)
 	{
+		//sequence::PathStream pathStream(getInFileName());
 
-	}*/
-
-	bool DefaultPathAnalyzer::loadParameters(const ProgramOptions& options)
-	{
-		if (isVisualize())
-			m_Visualizer = std::make_shared<PathAnalysisVisualizer>();
-		else
-			m_Visualizer = std::make_shared<NullVisualizer>();
-
-
-		config::PathAnalysis& config = config::PathAnalysis::getInstance();
-
-		m_PathClustering = config.isUseOpenMP() ? std::make_shared<motion_analysis::FastPathClustering>() : std::make_shared<motion_analysis::PathClustering>();
-		m_PathEstimator = std::make_shared<motion_analysis::PathEstimator>();
-
-		motion_analysis::PathDistanceFactory::setFactory<motion_analysis::OptimizedPathDistanceFactory>();
-		//motion_analysis::PathDistanceFactory::setFactory(std::make_shared<StatisticPathDistanceFactory>(std::make_shared<motion_analysis::PathDistanceFactory>()));
-
-		motion_analysis::PathClusteringParams& params = m_PathClustering->params;
-		params.alpha = config.getAlpha();
-		params.minimumPathLength = config.getMinimumPathLength();
-
-		params.pathThresholds.total = config.getPathThresholds().getTotal();
-		params.pathThresholds.positional = config.getPathThresholds().getPositional();
-		params.pathThresholds.tangent = config.getPathThresholds().getTangent();
-
-		params.clusterThresholds.total = config.getClusterThresholds().getTotal();
-		params.clusterThresholds.positional = config.getClusterThresholds().getPositional();
-		params.clusterThresholds.tangent = config.getClusterThresholds().getTangent();
-
-		params.weightX = config.getWeightX();
-		params.weightY = config.getWeightY();
-		params.weightTau = config.getWeightTau();
-
-		params.enableMerging = config.getEnableMerging();
-		params.enableClusterRemoving = config.getEnableClusterRemoving();
-
-		params.enableMovingPaths = config.getEnableMovingPaths();
-		params.pathsPercentageMovesPerFrame = config.getPathsPercentageMovesPerFrame();
-		params.minPathsMovesPerFrame = config.getMinPathsMovesPerFrame();
-		params.createNewCluster = config.isCreateNewCluster();
-		params.tryMovingOnlyWhenCurrentIsToFar = config.isTryMovingOnlyWhenCurrentIsTooFar();
-
-		params.enableMergingGaps = config.getEnableMergingGaps();
-		params.mergingThresholds.time = config.getMergingThresholds().getTime();
-		params.mergingThresholds.x = config.getMergingThresholds().getX();
-		params.mergingThresholds.y = config.getMergingThresholds().getY();
-		params.mergingOldestClusterTime = config.getMergingOldestClusterTime();
-
-		m_MinProcessTime = config.getMinProcessTime();
-		m_MaxClusterWidth = config.getMaxClusterWidth();
-		m_MaxClusterHeight = config.getMaxClusterHeight();
-
-		m_MinPathsInCluster = config.getMinPathsInCluster();
-
-		m_RoiEstimation = config.isRoiEstimation();
-		motion_analysis::PathEstimator::CENTER_PARAM_THRESHOLD = config.getRoiCenterThreshold();
-		motion_analysis::PathEstimator::CENTER_PARAM_W = config.getRoiCenterW();
-		motion_analysis::PathEstimator::BOUNDING_BOX_PARAM_R = config.getBoundingBoxR();
-		motion_analysis::PathEstimator::BOUNDING_BOX_PARAM_T = config.getBoundingBoxT();
-
-		std::cout << "\nclustering parameters: \n";
-		for (auto it = params.wrappers.begin(); it != params.wrappers.end(); ++it)
-		{
-			std::cout << std::setw(35) << it->second->getName() << ": " << it->second->getStringValue() << '\n';
-		}
-		std::cout << std::setw(35) << "Max cluster widht: " << m_MaxClusterWidth << '\n';
-		std::cout << std::setw(35) << "Max cluster height: " << m_MaxClusterHeight << '\n';
-		std::cout << std::setw(35) << "Min paths in cluster: " << m_MinPathsInCluster << '\n';
-
-		if (isVisualize())
-		{
-			m_ConfigurationWindow = std::make_shared<ConfigurationWindow>("Clustering", params);
-		}
-
-		return true;
-	}
-
-	void DefaultPathAnalyzer::process()
-	{
-		std::cout << "Processing file " << getInFileName() << std::endl;
-		boost::timer::cpu_timer timer;
-
-		sequence::PathStream pathStream(getInFileName());
-
-		m_Visualizer->loadVideo(getVideoFileName());
+		//m_Visualizer->loadVideo(getVideoFileName());
 
 		m_StartTime = m_PathClustering->getTime();
 		//unsigned long long maxPathId = m_LastMaxPathId;
 		std::set<uint64_t> paths;
 		int pathPreRemoved = 0;
-		while (pathStream.grabFrame())
+		//while (pathStream.grabFrame())
+		for (auto it = frame.begin(); it != frame.end(); ++it)
 		{
-			sequence::PathStream::Id id;
-			sequence::PathStream::Point point;
-			while (pathStream.grabPath(id, point))
+			sequence::PathStream::Id id = it->first;
+			//sequence::PathStream::Point point;
+			//while (pathStream.grabPath(id, point))
+			auto points = it->second.points;
+			for (auto iPoint = points.begin(); iPoint != points.end(); ++iPoint)
 			{
+				sequence::PathStream::Point point = iPoint->second;
 				switch (point.x)
 				{
 				case -2:
@@ -181,21 +177,22 @@ namespace clustering
 
 		std::cout << "paths pre-removed = " << pathPreRemoved << "\npaths post-removed = " << pathPostRemoved << "\npaths left = " << m_PathClustering->getPaths().size() << "\nclusters left = " << m_PathClustering->getClusters().size() << std::endl;
 		
-		waitIdle();
+		//waitIdle();
 
 		//boost::timer::cpu_timer timer;
 		if (m_RoiEstimation)
-			saveEstimated();
+			return saveEstimated();
 		else
-			save();
+			return save();
 
-		cleanup();
+		//cleanup();
 
-		timer.stop();
-		auto elapsed = timer.elapsed().wall / 1000000;
-		std::cout << "\tdone in " << elapsed << " ms" << std::endl;
+		//timer.stop();
+		//auto elapsed = timer.elapsed().wall / 1000000;
+		//std::cout << "\tdone in " << elapsed << " ms" << std::endl;
 	}
 
+	// todo : w defaultPathAnalyzer jest dokladnie ta sama funkcja - uwspolnic
 	static void SMAonVector(const std::vector<sequence::PathStream::Point>& inVec, std::vector<sequence::PathStream::Point>& outVec, int windowSize)
 	{
 		// Resize out
@@ -212,7 +209,7 @@ namespace clustering
 			sequence::PathStream::Point fSum(0, 0);
 			for (int f = 0; f < windowSize; ++f)
 			{
-				// Sum 
+				// Sum
 				fSum += inVec[i - f - 1];
 			}
 
@@ -221,6 +218,7 @@ namespace clustering
 		}
 	}
 
+	// todo : w defaultPathAnalyzer jest dokladnie ta sama funkcja - uwspolnic
 	// KL: Test smoothing function
 	static void superSmooth(const sequence::Cluster::FramesPositionsMap& inPositions, sequence::Cluster::FramesPositionsMap& outPositions)
 	{
@@ -258,31 +256,9 @@ namespace clustering
 
 	}
 
-	// Draw sequence of frames
-	static void drawTrajectory(const sequence::Cluster::FramesPositionsMap& inPositions, const std::string& wndCaption)
+	std::vector<sequence::Cluster> StreamAnalyzer::save()
 	{
-		cv::Mat mat(1080, 1920, CV_8UC3);
-
-		size_t colLen = inPositions.size();
-		if (!colLen)
-			return;
-
-		int cnt = 0;
-		auto it = inPositions.begin();
-		double intensity;
-		for (auto it_prev = it++; it != inPositions.end(); it_prev = it++, ++cnt)
-		{
-			intensity = cnt / (double)colLen;
-			cv::line(mat, it_prev->second, it->second, cv::Scalar(0, 255 * (1.0 - intensity), 255 * intensity));
-		}
-
-		cv::namedWindow(wndCaption);
-		cv::imshow(wndCaption, mat);
-		std::cout << wndCaption << " trajectory drawn" << std::endl;
-	}
-
-	void DefaultPathAnalyzer::save()
-	{
+		std::vector<sequence::Cluster> results;
 		auto& finishedClusters = m_PathClustering->getFinishedClusters();
 		auto& almostFinishedClusters = m_PathClustering->getAlmostFinishedClusters();
 		auto& currentClusters = m_PathClustering->getClusters();
@@ -422,20 +398,23 @@ namespace clustering
 
 			// save file
 			noClusters = false;
-			saveCluster(clusterFile);
+			//xsaveCluster(clusterFile);
+			results.push_back(clusterFile);
 		}
-		if (noClusters)
+		return results;
+		/*if (noClusters)
 		{
 			// save empty file
 			sequence::Cluster clusterFile;
 			saveCluster(clusterFile);
 		}
 		std::cout << clusterFileNr << " files saved." << std::endl;
-		m_PathClustering->resetFinishedClusters();
+		m_PathClustering->resetFinishedClusters();*/
 	}
 
-	void DefaultPathAnalyzer::saveEstimated()
+	std::vector<sequence::Cluster> StreamAnalyzer::saveEstimated()
 	{
+		std::vector<sequence::Cluster> results;
 		auto& finishedClusters = m_PathClustering->getFinishedClusters();
 		auto& almostFinishedClusters = m_PathClustering->getAlmostFinishedClusters();
 		auto& currentClusters = m_PathClustering->getClusters();
@@ -464,7 +443,7 @@ namespace clustering
 				continue;
 
 			auto clusterBoxes = m_PathEstimator->getBoundingBoxes(c, endFrame, frameCount);
-			
+
 			sequence::Cluster clusterFile(c->id);
 
 			cv::Size maxSize;
@@ -492,22 +471,19 @@ namespace clustering
 
 			// save file
 			noClusters = false;
-			saveCluster(clusterFile);
+			//saveCluster(clusterFile);
+			results.push_back(clusterFile);
 		}
 
-		if (noClusters)
+		/*if (noClusters)
 		{
 			// save empty file
 			sequence::Cluster clusterFile;
 			saveCluster(clusterFile);
 		}
 		std::cout << clusterFileNr << " files saved." << std::endl;
-		m_PathClustering->resetFinishedClusters();
-	}
-
-	void DefaultPathAnalyzer::show()
-	{
-		m_Visualizer->show();
+		m_PathClustering->resetFinishedClusters();*/
+		return results;
 	}
 
 }

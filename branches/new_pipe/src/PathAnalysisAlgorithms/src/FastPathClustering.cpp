@@ -1,9 +1,9 @@
-#include "motionanalysis/algorithms/FastPathClustering.h"
+#include "PathAnalysisAlgorithms/algorithms/FastPathClustering.h"
 #include <utility>
 #include <omp.h>
 #include <unordered_map>
 #include <boost/atomic.hpp>
-#include "motionanalysis/algorithms/PathDistanceFactory.h"
+#include "PathAnalysisAlgorithms/algorithms/PathDistanceFactory.h"
 
 using namespace motion_analysis;
 //using namespace utils;

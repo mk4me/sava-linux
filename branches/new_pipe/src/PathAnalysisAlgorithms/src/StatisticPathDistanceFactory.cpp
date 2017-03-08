@@ -1,6 +1,6 @@
-#include "StatisticPathDistanceFactory.h"
+#include "PathAnalysisAlgorithms/StatisticPathDistanceFactory.h"
 
-#include <motionanalysis/algorithms/PathDistance.h>
+#include <PathAnalysisAlgorithms/algorithms/PathDistance.h>
 
 namespace clustering
 {

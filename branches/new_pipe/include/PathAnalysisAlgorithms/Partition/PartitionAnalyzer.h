@@ -2,7 +2,7 @@
 #ifndef PartitionPathAnalyzer_h__
 #define PartitionPathAnalyzer_h__
 
-#include "PathAnalyzer.h"
+#include "PathAnalysisAlgorithms/PathAnalyzer.h"
 
 #include "sequence/PathStream.h"
 #include "utils/RandomColor.h"

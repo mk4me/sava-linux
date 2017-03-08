@@ -1,5 +1,5 @@
-#include "PartitionAnalyzer.h"
-#include "PartitionMath.h"
+#include "PathAnalysisAlgorithms/Partition/PartitionAnalyzer.h"
+#include "PathAnalysisAlgorithms/Partition/PartitionMath.h"
 
 #include "utils/RandomColor.h"
 

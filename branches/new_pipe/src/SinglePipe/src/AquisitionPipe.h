@@ -12,6 +12,8 @@
 #include <utils/BlockingQueue.h>
 #include <sequence/Video.h>
 #include <sequence/BackgroundSeparation.h>
+#include <sequence/PathStream.h>
+#include <PathAnalysisAlgorithms/StreamAnalyzer.h>
 
 namespace utils
 {
@@ -21,6 +23,9 @@ namespace utils
 	}
 }
 
+namespace  clustering {
+	class IPathDetector;
+}
 
 class AquisitionFifo
 {
@@ -58,6 +63,11 @@ private:
 	void aquisitionThreadFunc();
 
 	sequence::FBSeparator m_separator;
+
+
+	std::shared_ptr<clustering::IPathDetector> m_PathDetector;
+	sequence::PathStream m_PathStream;
+	clustering::StreamAnalyzer m_StreamAnalyzer;
 };
 
 #endif // Aquisition_h__

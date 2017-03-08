@@ -1,5 +1,5 @@
-#include "PartitionPath.h"
-#include "PartitionCluster.h"
+#include "PathAnalysisAlgorithms/Partition/PartitionPath.h"
+#include "PathAnalysisAlgorithms/Partition/PartitionCluster.h"
 
 #include <QtCore/qmath.h>
 

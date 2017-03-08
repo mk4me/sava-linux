@@ -2,7 +2,7 @@
 #ifndef ConfigurationWindow_h__
 #define ConfigurationWindow_h__
 
-#include <motionanalysis/algorithms/ParamSet.h>
+#include <PathAnalysisAlgorithms/algorithms/ParamSet.h>
 #include <cvgui/Window.h>
 
 namespace clustering

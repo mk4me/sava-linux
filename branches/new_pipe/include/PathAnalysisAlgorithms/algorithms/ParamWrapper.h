@@ -1,8 +1,8 @@
 #pragma once
 #include <boost/lexical_cast.hpp>
 
-#include "motionanalysis/algorithms/ParamWrapperBase.h"
-#include "motionanalysis/algorithms/aux_serialization.h" 
+#include "ParamWrapperBase.h"
+#include "aux_serialization.h"
 
 namespace motion_analysis {
 

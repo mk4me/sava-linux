@@ -1,4 +1,4 @@
-#include "PartitionPathGroup.h"
+#include "PathAnalysisAlgorithms/Partition/PartitionPathGroup.h"
 
 namespace clustering
 {

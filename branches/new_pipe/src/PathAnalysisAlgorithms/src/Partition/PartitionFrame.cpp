@@ -1,5 +1,5 @@
-#include "PartitionFrame.h"
-#include "PartitionMath.h"
+#include "PathAnalysisAlgorithms/Partition/PartitionFrame.h"
+#include "PathAnalysisAlgorithms/Partition/PartitionMath.h"
 
 #include "config/PartitionAnalyzer.h"
 

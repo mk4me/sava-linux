@@ -35,7 +35,6 @@ namespace clustering
 			m_PathDetector = std::make_shared<PredictedRoiPathDetector>();
 		else
 			m_PathDetector = std::make_shared<DefaultPathDetector>();
-		\
 		m_PathDetector->initialize();
 
 		return true;

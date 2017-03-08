@@ -1,4 +1,4 @@
-#include "PartitionMath.h"
+#include "PathAnalysisAlgorithms/Partition/PartitionMath.h"
 
 #include <math.h>
 #include <cmath>

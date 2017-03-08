@@ -1,4 +1,4 @@
-#include "PathAnalyzer.h"
+#include "PathAnalysisAlgorithms/PathAnalyzer.h"
 
 #include <sequence/Cluster.h>
 

@@ -1,4 +1,4 @@
-#include "motionanalysis/algorithms/Path.h"
+#include "PathAnalysisAlgorithms/algorithms/Path.h"
 
 BOOST_CLASS_EXPORT_IMPLEMENT(motion_analysis::Path);
 

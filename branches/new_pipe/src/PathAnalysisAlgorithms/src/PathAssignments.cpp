@@ -1,4 +1,4 @@
-#include "motionanalysis/algorithms/PathAssignments.h"
+#include "PathAnalysisAlgorithms/algorithms/PathAssignments.h"
 
 namespace motion_analysis
 {

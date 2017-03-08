@@ -1,5 +1,5 @@
 #pragma once
-#include "motionanalysis/algorithms/PathDistanceFactory.h"
+#include "PathDistanceFactory.h"
 
 namespace motion_analysis
 {
