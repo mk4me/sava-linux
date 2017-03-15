@@ -13,7 +13,7 @@ ADD_PROJECT(AxisCameraSimulator "config;sequence;utils")
 
 
 
-ADD_PROJECT(SinglePipe "PathAnalysisAlgorithms;config;sequence;utils;PathDetectionLib")
+ADD_PROJECT(SinglePipe "PathAnalysisAlgorithms;config;sequence;utils;PathDetectionLib;TBB")
 
 BEGIN_PROJECTS_GROUP("ACTION")
 ADD_PROJECT(GbhPipe "OPENCV;VLFEAT;sequence;config;utils" "Action/Pipe/GbhPipe")

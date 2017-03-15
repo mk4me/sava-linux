@@ -86,7 +86,7 @@ namespace sequence
 		if (m_Frames.empty())
 			return cv::Mat();
 		assert(frameNum < m_Frames.size() && "frameNum is out of bound");
-		return m_Frames[frameNum].getImage();
+		return m_Frames[frameNum].getCvMat();
 	}
 
 	cv::Mat Video::getFrameImage(size_t frameNum, const cv::Rect& roi) const

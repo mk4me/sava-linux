@@ -28,7 +28,7 @@ namespace utils
 			virtual ~ICameraRawReader()	{}
 
 			//! Pure virtual: Retrieves RAW frame (bytes)
-			virtual bool popRawFrame(RawMJPGFrame& retObj) = 0;
+			virtual bool popRawFrame(MJPGFrame& retObj) = 0;
 
 			//! Pure virtual: Returns queue size
 			virtual size_t bufferSize() const = 0;

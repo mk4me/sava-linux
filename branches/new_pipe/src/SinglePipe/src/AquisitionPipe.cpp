@@ -34,11 +34,18 @@ bool AquisitionPipe::isRunning() const
     return m_AquisitionRunning;
 }
 
+void AquisitionPipe::visualize()
+{
+	std::lock_guard<std::mutex> lock(m_VisualizeMutex);
+	utils::zoomShow("Dbg", m_VisualizationFrame, m_ZoomObjects);
+	cv::waitKey(1);
+}
+
 bool AquisitionPipe::start()
 {
 
 	try {
-        m_separator.reset();
+        m_fbSeparator.reset();
         m_FrameReader = std::make_shared<utils::camera::AxisRawReader>(m_Params.ip,
                              m_Params.user + ":" + m_Params.password, m_Params.fps,
                              m_Params.compression, m_Params.frameWidth, m_Params.frameHeight);
@@ -49,7 +56,7 @@ bool AquisitionPipe::start()
 			m_PathDetector = std::make_shared<DefaultPathDetector>();
 		m_PathDetector->initialize();
 		m_PathDetector->setPathStream(m_PathStream);
-		m_StreamAnalyzer.loadParameters();
+		m_StreamPathAnalysis.loadParameters();
 		m_AquisitionRunning = true;
 		boost::thread t(&AquisitionPipe::aquisitionThreadFunc, this);
 		m_AquisitionThread.swap(t);
@@ -80,22 +87,30 @@ void AquisitionPipe::aquisitionThreadFunc()
 {
 	while (m_AquisitionRunning)
 	{
-		utils::camera::RawMJPGFrame frame;
-		m_FrameReader->popRawFrame(frame);
-        auto conv = sequence::Video::Frame(frame.m_TimeStamp, std::move(frame.m_RawFrame));
-        auto rects = m_separator.separate(conv.getImage());
-        auto pair = std::make_pair(conv, rects);
-        AquisitionFifo::frames.push(pair);
+        // for current frame
+		utils::camera::MJPGFrame jpegFrame;
+		m_FrameReader->popRawFrame(jpegFrame);
+        auto frame = sequence::Video::Frame(jpegFrame.m_TimeStamp, std::move(jpegFrame.m_JPEGFrame));
 
-		//video.addFrame(frame.m_TimeStamp, std::move(frame.m_RawFrame));
+        auto crumbles = m_fbSeparator.separate(frame.getCvMat());
+        //auto pair = std::make_pair(frame, crumbles);
+        //AquisitionFifo::frames.push(pair);
 
+        // detecting paths
 		m_PathStream.addFrame();
-		m_PathDetector->setCrumbles(std::move(rects));
-		m_PathDetector->processFrame(conv.getImage());
+		m_PathDetector->setCrumbles(std::move(crumbles));
+		m_PathDetector->processFrame(frame.getCvMat());
 		std::map<sequence::PathStream::Id, sequence::PathStream::Path> paths;
 		m_PathStream.getPaths(paths);
-		std::vector<sequence::Cluster> clusters = m_StreamAnalyzer.processFrame(paths);
 
+		std::vector<sequence::Cluster> clusters = m_StreamPathAnalysis.processFrame(paths);
+
+		utils::ZoomObjectCollection zoomObjects;
+		m_PathDetector->visualize(zoomObjects);
+		m_StreamPathAnalysis.visualize(zoomObjects);
+		std::lock_guard<std::mutex> lock(m_VisualizeMutex);
+		m_ZoomObjects = zoomObjects;
+		frame.getCvMat().copyTo(m_VisualizationFrame);
 	}
 }
 

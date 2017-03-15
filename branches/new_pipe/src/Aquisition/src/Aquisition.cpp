@@ -182,9 +182,9 @@ void Aquisition::aquisitionThreadFunc()
 		sequence::Video video;
 		for (int frameNr = 0; frameNr < m_SeqLength; ++frameNr)
 		{
-			utils::camera::RawMJPGFrame frame;
+			utils::camera::MJPGFrame frame;
 			m_FrameReader->popRawFrame(frame);
-			video.addFrame(frame.m_TimeStamp, std::move(frame.m_RawFrame));
+			video.addFrame(frame.m_TimeStamp, std::move(frame.m_JPEGFrame));
 			std::cout << ".";
 		}
 

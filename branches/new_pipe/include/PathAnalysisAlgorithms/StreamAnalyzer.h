@@ -9,6 +9,8 @@
 #include <utils/ProgramOptions.h>
 #include <sequence/PathStream.h>
 #include <PathAnalysisAlgorithms/PathAnalyzer.h>
+#include <utils/CvZoomObjects.h>
+#include <utils/RandomColor.h>
 
 namespace motion_analysis
 {
@@ -36,7 +38,7 @@ namespace clustering
 		virtual bool loadParameters();//(const ProgramOptions& options);
 
 		virtual std::vector<sequence::Cluster> processFrame(const std::map<sequence::PathStream::Id, sequence::PathStream::Path>&);
-
+		void visualize(utils::ZoomObjectCollection& zoomObjects);
 		//virtual void show();
 
         std::vector<sequence::Cluster> save();
@@ -68,6 +70,7 @@ namespace clustering
         long m_MinProcessTime;
         bool m_RoiEstimation;
 		//std::set<long long> m_Paths;
+		std::map<int, utils::RandomColor> m_ClusterColorMap;
 	};
 }
 #endif // DefaultPathAnalyzer_h__

@@ -130,7 +130,7 @@ int main(int argc, const char* argv[])
 	float nowFPS;
 
 	// Temporary object for last frame
-	utils::camera::RawMJPGFrame lastFrame;
+	utils::camera::MJPGFrame lastFrame;
 	while (cv::waitKey(1) != 27)
 	{
 		// Get last frame (moved to the temp - no copying)
@@ -141,7 +141,7 @@ int main(int argc, const char* argv[])
 		if (!g_RawFPSOnly)
 		{
 			// Convert and display
-			tmpFrame = getOpenCVMatFromBytes(lastFrame.m_RawFrame.data(), (int)lastFrame.m_RawFrame.size());
+			tmpFrame = getOpenCVMatFromBytes(lastFrame.m_JPEGFrame.data(), (int)lastFrame.m_JPEGFrame.size());
 			if (tmpFrame.data)
 			{
 				cv::putText(tmpFrame, "FPS: " + std::to_string(FPS()), cv::Point(30, 60), CV_FONT_NORMAL, 2, CV_RGB(255, 0, 0));

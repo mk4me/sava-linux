@@ -44,6 +44,45 @@ namespace clustering
 
 	}
 
+	void StreamAnalyzer::visualize(utils::ZoomObjectCollection& zoomObjects)
+	{
+		auto pathClustering = m_PathClustering;
+		int t = pathClustering->getTime();
+
+
+
+		for (auto& p : pathClustering->getPaths())
+		{
+			auto& path = p.second;
+			auto assignedCluster = pathClustering->getAssignedCluster(path->id);
+			cv::Scalar color = assignedCluster && assignedCluster->elements.size() >= 20 ? cv::Scalar(m_ClusterColorMap[assignedCluster->id]) : cv::Scalar(CV_RGB(0, 0, 0));
+
+
+			auto prev = path->begin();
+			auto next = std::next(prev);
+			for (; next != path->end(); ++prev, ++next)
+			{
+				cv::Scalar finalColor = color;
+				//finalColor *= dt;
+				utils::zoomLine(zoomObjects, cv::Point(prev->x, prev->y), cv::Point(next->x, next->y), finalColor);
+			}
+		}
+
+		for (auto& cluster : pathClustering->getClusters())
+		{
+			if (cluster->elements.size() < config::PathAnalysis::getInstance().getMinPathsInCluster())
+				continue;
+
+			cv::Scalar color = m_ClusterColorMap[cluster->id];
+			for (auto& point : *cluster)
+			{
+				utils::zoomCircle(zoomObjects, cv::Point(point.x + cluster->b.x, point.y + cluster->b.y), 3, color, 2);
+			}
+			cv::Rect clusterContour = cluster->getContour(pathClustering->getTime() - 1);
+			utils::zoomRectangle(zoomObjects, clusterContour, color, 2);
+		}
+	}
+
     bool StreamAnalyzer::loadParameters()//(const ProgramOptions& options)
     {
        /* if (isVisualize())
@@ -138,9 +177,10 @@ namespace clustering
 			//sequence::PathStream::Point point;
 			//while (pathStream.grabPath(id, point))
 			auto points = it->second.points;
-			for (auto iPoint = points.begin(); iPoint != points.end(); ++iPoint)
+			//for (auto iPoint = points.begin(); iPoint != points.end(); ++iPoint)
+            auto iPoint = std::make_pair(id, points.rbegin()->second);
 			{
-				sequence::PathStream::Point point = iPoint->second;
+				sequence::PathStream::Point point = iPoint.second;
 				switch (point.x)
 				{
 				case -2:

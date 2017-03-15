@@ -62,7 +62,8 @@ int main(int argc, const char** argv)
 
             while(ap.isRunning())
             {
-                boost::this_thread::sleep(boost::posix_time::seconds(1));
+                //boost::this_thread::sleep(boost::posix_time::seconds(1));
+                ap.visualize();
                 std::cout << "Current Fifo size: " << AquisitionFifo::frames.size() << std::endl;
             }
         } else {

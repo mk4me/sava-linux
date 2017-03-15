@@ -43,7 +43,7 @@ MaskDialog::~MaskDialog()
 
 void MaskDialog::getBackgroundThread()
 {
-	utils::camera::RawMJPGFrame frame;
+	utils::camera::MJPGFrame frame;
 	if (!m_Camera->popRawFrame(frame))
 	{
 		m_Camera.reset();
@@ -51,7 +51,7 @@ void MaskDialog::getBackgroundThread()
 	}
 
 	QPixmap image;
-	if (image.loadFromData(frame.m_RawFrame.data(), frame.m_RawFrame.size()))
+	if (image.loadFromData(frame.m_JPEGFrame.data(), frame.m_JPEGFrame.size()))
 		emit backgroundChanged(image);
 
 	m_Camera.reset();

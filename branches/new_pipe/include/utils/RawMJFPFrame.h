@@ -21,41 +21,41 @@ namespace utils
 	{
 
 		//! Structure for storing Raw MJPG frames (MOVABLE only) - designed for BlockingQueue.h usage
-		struct RawMJPGFrame
+		struct MJPGFrame
 		{
 			//! Default constructor
-			RawMJPGFrame()
+			MJPGFrame()
 			{
 				// Create empty structure w/o raw bytes
 				// ...
 			}
 
 			//! Argument constructor
-			RawMJPGFrame(std::vector<unsigned char>&& frameAsVector) : m_RawFrame(std::move(frameAsVector))
+			MJPGFrame(std::vector<unsigned char>&& frameAsVector) : m_JPEGFrame(std::move(frameAsVector))
 			{
 				// Initialize time stamp
 				m_TimeStamp = boost::posix_time::microsec_clock::local_time();
 			}
 
 			//! Argument constructor (Milestone version)
-			RawMJPGFrame(std::vector<unsigned char>&& frameAsVector, boost::posix_time::ptime inTimeStamp) : 
-				m_RawFrame(std::move(frameAsVector)), m_TimeStamp(inTimeStamp)
+			MJPGFrame(std::vector<unsigned char>&& frameAsVector, boost::posix_time::ptime inTimeStamp) :
+				m_JPEGFrame(std::move(frameAsVector)), m_TimeStamp(inTimeStamp)
 			{
 				// Timestamp is provided
 			}
 
 			//! Move constructor
-			RawMJPGFrame(RawMJPGFrame&& other) : m_RawFrame(std::move(other.m_RawFrame))
+			MJPGFrame(MJPGFrame&& other) : m_JPEGFrame(std::move(other.m_JPEGFrame))
 			{
 				// Copy time stamp
 				m_TimeStamp = other.m_TimeStamp;
 			}
 
 			//! Move assignment
-			RawMJPGFrame& operator=(RawMJPGFrame&& other)
+			MJPGFrame& operator=(MJPGFrame&& other)
 			{
 				// Move
-				m_RawFrame = std::move(other.m_RawFrame);
+				m_JPEGFrame = std::move(other.m_JPEGFrame);
 
 				// Copy
 				m_TimeStamp = other.m_TimeStamp;
@@ -65,14 +65,14 @@ namespace utils
 			}
 
 			//! Raw frame data containing MJPG image
-			std::vector<unsigned char> m_RawFrame;
+			std::vector<unsigned char> m_JPEGFrame;
 
 			//! Time stamp (when frame was collected - using local time)
 			boost::posix_time::ptime m_TimeStamp;
 
 			// no copy and assign
-			RawMJPGFrame(const RawMJPGFrame&) = delete;
-			RawMJPGFrame& operator=(const RawMJPGFrame&) = delete;
+			MJPGFrame(const MJPGFrame&) = delete;
+			MJPGFrame& operator=(const MJPGFrame&) = delete;
 		};
 
 	} // camera

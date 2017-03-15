@@ -94,7 +94,7 @@ namespace utils
 			AxisRawReader& operator=(AxisRawReader&&) = delete;
 
 			//! Retrieves RAW frame (bytes)
-			bool popRawFrame(RawMJPGFrame& retObj) override
+			bool popRawFrame(MJPGFrame& retObj) override
 			{
 				// Move semantics
 				return m_CustomBuff.m_RawFrames.pop(retObj);
@@ -119,7 +119,7 @@ namespace utils
 				std::string m_packetBuffer;
 
 				//! Vector for all the collected frames
-				utils::BlockingQueue<RawMJPGFrame> m_RawFrames;
+				utils::BlockingQueue<MJPGFrame> m_RawFrames;
 
 				//! Global stop flag for my streaming task
 				std::atomic<bool> m_stopStreaming;

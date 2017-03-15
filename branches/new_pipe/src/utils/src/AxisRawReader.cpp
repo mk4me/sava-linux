@@ -85,7 +85,7 @@ namespace utils
 					std::cerr << errString << std::endl;
 
 					// Put fake frame (no lock needed - we just put frame there)
-					m_CustomBuff.m_RawFrames.push(RawMJPGFrame(std::move(staticMJPG.getRawFrame())));
+					m_CustomBuff.m_RawFrames.push(MJPGFrame(std::move(staticMJPG.getRawFrame())));
 
 					// Add some lag
 					std::this_thread::sleep_for(std::chrono::milliseconds(1000 / DEFAULT_FPS_ON_CONNECTION_LOSS));
@@ -144,7 +144,7 @@ namespace utils
 
 			// Valid frame was found
 			if (CutRawFrameFromString(customData->m_packetBuffer, frameAsVector, sizeBeforeAppend))
-				customData->m_RawFrames.push(RawMJPGFrame(std::move(frameAsVector)));
+				customData->m_RawFrames.push(MJPGFrame(std::move(frameAsVector)));
 
 			// Regular operation (different value will stop the transfer)
 			if (customData->m_stopStreaming == false)

@@ -12,7 +12,6 @@
 #include <string>
 #include <vector>
 
-
 namespace sequence
 {
 	/// <summary>
@@ -63,7 +62,7 @@ namespace sequence
 			}
 
 			Timestamp getTimestamp() const { return m_Time; }
-			cv::Mat getImage() const { return m_Image; }
+			cv::Mat getCvMat() const { return m_Image; }
 		private:
 			Timestamp m_Time;
 			Image m_Image;
