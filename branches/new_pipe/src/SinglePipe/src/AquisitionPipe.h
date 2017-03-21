@@ -14,7 +14,9 @@
 #include <sequence/BackgroundSeparation.h>
 #include <sequence/PathStream.h>
 #include <PathAnalysisAlgorithms/StreamAnalyzer.h>
-#include <tbb/concurrent_vector.h>
+#include <tbb/concurrent_queue.h>
+
+
 namespace utils
 {
 	namespace camera
@@ -30,8 +32,8 @@ namespace  clustering {
 class AquisitionFifo
 {
 public:
-	typedef std::pair<sequence::Video::Frame, std::vector<cv::Rect>> FrameT;
-	static utils::BlockingQueue<FrameT> frames;
+    typedef tbb::concurrent_queue<sequence::Video::Frame> FramesFIFO;
+	FramesFIFO frames;
 };
 
 struct AquisitionParams
@@ -48,32 +50,21 @@ struct AquisitionParams
 class AquisitionPipe
 {
 public:
-	AquisitionPipe(const AquisitionParams& params);
+	AquisitionPipe(const AquisitionParams& params, const std::shared_ptr<AquisitionFifo>& fifo);
 	virtual ~AquisitionPipe() {}
 
 public:
 	bool start();
 	void stop();
 	bool isRunning() const;
-	void visualize();
 private:
 	AquisitionParams m_Params;
 	std::shared_ptr<utils::camera::ICameraRawReader> m_FrameReader;
 	std::atomic<bool> m_AquisitionRunning;
 	boost::thread m_AquisitionThread;
+    std::shared_ptr<AquisitionFifo> m_fifo;
+private:
 	void aquisitionThreadFunc();
-
-	sequence::FBSeparator m_fbSeparator;
-
-
-	std::shared_ptr<clustering::IPathDetector> m_PathDetector;
-	sequence::PathStream m_PathStream;
-	clustering::StreamAnalyzer m_StreamPathAnalysis;
-
-	bool m_Visualize;
-	std::mutex m_VisualizeMutex;
-	cv::Mat m_VisualizationFrame;
-	utils::ZoomObjectCollection m_ZoomObjects;
 };
 
 #endif // Aquisition_h__

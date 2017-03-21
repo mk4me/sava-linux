@@ -1,4 +1,3 @@
-#include "AquisitionPipe.h"
 #include <sequence/Video.h>
 #include <config/Aquisition.h>
 #include <config/Diagnostic.h>
@@ -9,7 +8,9 @@
 #include <utils/FileLock.h>
 #include <boost/timer/timer.hpp>
 #include <utils/Application.h>
-
+#include "AquisitionPipe.h"
+#include "AnalysisPipe.h"
+#include <sequence/Cluster.h>
 
 int main(int argc, const char** argv)
 {
@@ -57,14 +58,18 @@ int main(int argc, const char** argv)
         }
 
         if (success) {
-            AquisitionPipe ap(aqparams);
+            auto aquisitionFifo = std::make_shared<AquisitionFifo>();
+            auto analysisFifo = std::make_shared<AnalysisFifo>();
+            AquisitionPipe ap(aqparams, aquisitionFifo);
+            AnalysisPipe anp(aquisitionFifo, analysisFifo);
             ap.start();
-
+            anp.start();
             while(ap.isRunning())
             {
                 //boost::this_thread::sleep(boost::posix_time::seconds(1));
-                ap.visualize();
-                std::cout << "Current Fifo size: " << AquisitionFifo::frames.size() << std::endl;
+                anp.visualize();
+                std::cout << "Current Fifo size: " << aquisitionFifo->frames.unsafe_size() << std::endl;
+                std::cout << "Current analysis size: " << analysisFifo->frames.size() << std::endl;
             }
         } else {
             std::cerr << "Parameter error." << std::endl;

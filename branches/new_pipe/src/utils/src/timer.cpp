@@ -16,6 +16,15 @@ unsigned getTickCount()
 #endif
 }
 
+    timer::timer(bool startClock, std::ostream& stream) :
+        stream(stream)
+    {
+        if (startClock) {
+            start();
+        }
+
+    }
+
     void timer::start()
     {
         current = std::make_unique<time_point>(clock::now());
@@ -36,6 +45,11 @@ unsigned getTickCount()
         return sinceStart() * ((double) clock::period::num / clock::period::den);
     }
 
+    void timer::print(const std::string& preMessage, const std::string& postMessage)
+    {
+        stream << preMessage << secondsSinceStart() << postMessage << std::endl;
+    }
+
 
     scoped_timer::scoped_timer(const std::string& preMessage, const std::string& postMessage) :
         pre(preMessage), post(postMessage)
@@ -43,6 +57,6 @@ unsigned getTickCount()
         t.start();
     }
     scoped_timer::~scoped_timer() {
-        std::cout << pre << t.secondsSinceStart() << post << std::endl;
+        t.print(pre, post);
     }
 }

@@ -17,8 +17,9 @@
 
 namespace utils {
 
-    struct timer : boost::timer::cpu_timer
+    class timer : public boost::timer::cpu_timer
     {
+    public:
         typedef boost::timer::nanosecond_type nanosecond_type;
         typedef nanosecond_type microsecond_type;
         typedef nanosecond_type millisecond_type;
@@ -27,7 +28,11 @@ namespace utils {
         //using time_diff = std::chrono::high_resolution_clock::duration;
         using clock = std::chrono::high_resolution_clock;
 
-        //void sleep( millisecond_type ms );
+    public:
+        timer(bool startClock = false, std::ostream& stream = std::cout);
+        virtual ~timer() {}
+
+    public:
         nanosecond_type getnsTick() const { return elapsed().wall; }
         microsecond_type getusTick() const { return getnsTick() / 1000; }
         millisecond_type getmsTick() const { return getusTick() / 1000; }
@@ -36,8 +41,12 @@ namespace utils {
         int sinceStart();
         double secondsSinceStart();
 
+        void print(const std::string& preMessage, const std::string& postMessage = std::string("s."));
+
+
     private:
         std::unique_ptr<time_point> current;
+        std::ostream& stream;
     };
     typedef boost::shared_ptr<timer> timerPtr;
     typedef boost::shared_ptr<const timer> timerConstPtr;
@@ -45,8 +54,9 @@ namespace utils {
     class scoped_timer
     {
     public:
-        scoped_timer(const std::string& preMessage, const std::string& postMessage);
+        scoped_timer(const std::string& preMessage, const std::string& postMessage = std::string("s."));
         virtual ~scoped_timer();
+
     private:
         timer t;
         std::string pre, post;
