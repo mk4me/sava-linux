@@ -15,7 +15,7 @@
 #include <sequence/PathStream.h>
 #include <PathAnalysisAlgorithms/StreamAnalyzer.h>
 #include <tbb/concurrent_vector.h>
-
+#include <tbb/flow_graph.h>
 
 namespace  clustering {
 	class IPathDetector;
@@ -58,6 +58,8 @@ private:
 	utils::ZoomObjectCollection m_ZoomObjects;
     std::shared_ptr<AquisitionFifo> m_fifo;
 
+
+	tbb::flow::graph g;
 private:
     void analysisThreadFunc();
 };

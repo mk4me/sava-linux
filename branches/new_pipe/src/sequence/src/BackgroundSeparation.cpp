@@ -1,6 +1,6 @@
 #include <sequence/BackgroundSeparation.h>
-#include "CompressedVideo.h"
-#include "VideoUtils.h"
+#include <sequence/CompressedVideo.h>
+#include <sequence/VideoUtils.h>
 
 #include <boost/archive/binary_iarchive.hpp>
 #include <boost/archive/binary_oarchive.hpp>
@@ -42,6 +42,9 @@ namespace sequence {
 
     FBSeparator::Rectangles FBSeparator::separate(const cv::Mat& frame,  std::function<void (const cv::Mat&)> bgUpdate)
     {
+		if (!wasIniialized()) {
+			throw std::runtime_error("FBSeperator was not initialized");
+		}
 		cv::Mat mask, background, backgroundGray, frameGray, difference;
 
         Rectangles crumbles;
@@ -131,4 +134,4 @@ namespace sequence {
         return contours;
     }
 }
-
+ 

@@ -71,9 +71,13 @@ void AquisitionPipe::aquisitionThreadFunc()
         // for current frame
 		utils::camera::MJPGFrame jpegFrame;
 		m_FrameReader->popRawFrame(jpegFrame);
-        auto frame = sequence::Video::Frame(jpegFrame.m_TimeStamp, std::move(jpegFrame.m_JPEGFrame));
-
-        m_fifo->frames.push(frame);
+        auto frame = std::make_shared<sequence::Video::Frame>(jpegFrame.m_TimeStamp, std::move(jpegFrame.m_JPEGFrame));
+		//auto p1 = jpegFrame.m_TimeStamp;
+		//auto p2 = frame->getCvMat();
+		//AquisitionFifo::FramePtr::element_type pair = AquisitionFifo::FramePtr::element_type(p1,p2);
+		//auto ptr = std::shared_ptr<AquisitionFifo::FramePtr>(std::make_pair(jpegFrame.m_TimeStamp, frame->getCvMat()));
+		AquisitionFifo::FramePtr ptr(new AquisitionFifo::Frame(jpegFrame.m_TimeStamp, frame->getCvMat()));
+        m_fifo->frames.push(ptr);
 	}
 }
 

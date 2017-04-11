@@ -21,13 +21,14 @@
 #include <utils/timer.h>
 #include "AquisitionPipe.h"
 #include <sstream>
+#include <tbb/flow_graph.h>
 
 using namespace clustering;
-
+typedef AquisitionFifo::FramePtr FramePtr;
 
 AnalysisPipe::AnalysisPipe(const std::shared_ptr<AquisitionFifo>& fifo, const std::shared_ptr<AnalysisFifo>& analysisFifo) :
-	m_aquisitionFifo(fifo),
-	m_analysisFifo(analysisFifo)
+	m_analysisFifo(analysisFifo),
+	m_aquisitionFifo(fifo)
 {
 
 }
@@ -61,7 +62,89 @@ bool AnalysisPipe::start()
 		m_AnalysisThread.swap(t);
 
 
-	}
+		//tbb::flow::limiter_node limiter( g, nthreads*4 );
+		//tbb::flow::sequencer_node< TextSlice * > sequencer(g, sequencer_body() );
+
+		tbb::flow::source_node<FramePtr> input( g, [&](FramePtr& frame) -> bool 
+		{  
+			//	utils::camera::MJPGFrame jpegFrame;
+			//	m_FrameReader->popRawFrame(jpegFrame);
+			//	auto frame = std::make_shared<sequence::Video::Frame>(jpegFrame.m_TimeStamp, std::move(jpegFrame.m_JPEGFrame));
+			//	return frame;
+			bool res = false;
+			do 
+			{
+				res = m_aquisitionFifo->frames.try_pop(frame);
+				if (!res) {
+					std::this_thread::yield();
+				} 
+			} while (res == false);
+            std::cout << "Frame Input." << std::endl;
+			return true;
+		
+		});
+
+		typedef sequence::FBSeparator::Rectangles Rects;
+		typedef std::pair<FramePtr, Rects> FrameRectsPair;
+		tbb::flow::function_node<FramePtr, FrameRectsPair> fb_transform( g, tbb::flow::serial,
+		[&](FramePtr frame) -> FrameRectsPair
+		{
+            std::cout << "Frame FB Sep." << std::endl;
+			Rects rects = m_fbSeparator.separate(frame->second);
+
+			return std::make_pair(frame, rects);	
+		});
+
+		typedef std::map<sequence::PathStream::Id, sequence::PathStream::Path> Paths;
+		typedef std::pair<FramePtr, Paths> FramePathsPair;
+		tbb::flow::function_node<FrameRectsPair, FramePathsPair> pathD_transform( g, tbb::flow::unlimited, 
+		[&](FrameRectsPair pair) -> FramePathsPair
+		{
+            std::cout << "Frame Path detect." << std::endl;
+			// detecting paths
+			m_PathStream.addFrame();
+			m_PathDetector->setCrumbles(std::move(pair.second));
+			m_PathDetector->processFrame(pair.first->second);
+			std::map<sequence::PathStream::Id, sequence::PathStream::Path> paths;
+			m_PathStream.getPaths(paths);
+			return std::make_pair(pair.first, paths);
+		});
+
+
+
+		typedef std::vector<sequence::Cluster> Clusters;
+		typedef std::pair<FramePtr, Clusters> FrameClustersPair;
+		tbb::flow::function_node<FramePathsPair, FrameClustersPair> pathA_transform( g, tbb::flow::unlimited, 
+		[&](FramePathsPair pair) -> FrameClustersPair
+		{
+            std::cout << "Frame Path analysis." << std::endl;
+			std::vector<sequence::Cluster> clusters = m_StreamPathAnalysis.processFrame(pair.second);
+			FrameClustersPair p;
+			p.first = pair.first;
+			p.second = clusters;
+			return p;
+			//return std::make_pair<FramePtr, Clusters>(pair.first, clusters);
+		});
+
+
+		tbb::flow::function_node<FrameClustersPair, int> output(g, tbb::flow::unlimited, 
+		[&](const FrameClustersPair pair) 
+		{
+			std::cout << "Frame done." << std::endl;
+			return 0;
+		});
+
+		//tbb::flow::make_edge( input, limiter );
+		//tbb::flow::make_edge( limiter, transform );
+		tbb::flow::make_edge( input, fb_transform);
+		tbb::flow::make_edge( fb_transform, pathD_transform );
+		tbb::flow::make_edge( pathD_transform, pathA_transform );
+		tbb::flow::make_edge( pathA_transform, output );
+		//tbb::flow::make_edge( output, limiter.decrement );
+
+		input.activate();
+
+    } 
 	catch (const std::exception& e)
 	{
 		std::cerr << "Aquisition::start() error: " << e.what() << std::endl;
@@ -72,7 +155,7 @@ bool AnalysisPipe::start()
 	}
 
 	return true;
-}
+} 
 
 void AnalysisPipe::stop()
 {
@@ -84,8 +167,8 @@ void AnalysisPipe::stop()
 
 void AnalysisPipe::analysisThreadFunc()
 {
-
-	while (m_AnalysisRunning)
+	g.wait_for_all();
+	/*while (m_AnalysisRunning)
 	{
         // for current frame
         std::stringstream stream;
@@ -126,7 +209,7 @@ void AnalysisPipe::analysisThreadFunc()
 			frame.getCvMat().copyTo(m_VisualizationFrame);
 
 		}
-	}
+	}*/
 }
 
 

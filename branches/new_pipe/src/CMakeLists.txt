@@ -43,3 +43,5 @@ ADD_PROJECT(ProcessManager "config;sequence;utils;network")
 
 ADD_PROJECT(FileLockTest "utils")
 ADD_PROJECT(BackgroundSeperationTest "utils;sequence")
+ADD_PROJECT(test_timings "PathAnalysisAlgorithms;config;sequence;utils;PathDetectionLib")
+

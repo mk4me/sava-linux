@@ -32,7 +32,9 @@ namespace  clustering {
 class AquisitionFifo
 {
 public:
-    typedef tbb::concurrent_queue<sequence::Video::Frame> FramesFIFO;
+	typedef std::pair<boost::posix_time::ptime, cv::Mat> Frame;
+	typedef std::shared_ptr<Frame> FramePtr;
+    typedef tbb::concurrent_queue<FramePtr> FramesFIFO;
 	FramesFIFO frames;
 };
 
