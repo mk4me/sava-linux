@@ -39,6 +39,7 @@ public:
 	/// </summary>
 	/// <param name="filename">The filename.</param>
 	virtual void save(const std::string& filename) override;
+	virtual std::shared_ptr<sequence::IVideo> getVideo();
 
 private:
 	std::shared_ptr<sequence::GpuVideo> m_GpuVideo;

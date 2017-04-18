@@ -3,6 +3,8 @@
 #include "GpuPacker.h"
 
 #include <sequence/Video.h>
+#include <sequence/IVideo.h>
+#include <sequence/CompressedVideo.h>
 
 #include <config/Compression.h>
 #include <config/Camera.h>
@@ -277,8 +279,56 @@ void Compression::finalize()
 
 void Compression::save()
 {
+	std::shared_ptr<sequence::IVideo> seq_copy = m_Packer->getVideo();
 	m_Packer->save(getOutFileName());
+
+	boost::filesystem::copy_file(getOutFileName(), getCopiedOutFileName());
+	
+	char conditional_char = getOutFileName().at(getOutFileName().length() - 5);
+	int conditional_int = conditional_char - 48;
+	int cond_int = boost::lexical_cast<int> (conditional_char);
+	if (conditional_int > 0)
+	{
+		std::string currentFileName = getCopiedOutFileName();
+		int previousFileNameNum = conditional_int - 1;
+		std::string previousFileName = currentFileName.replace(currentFileName.end() - 5, currentFileName.end() - 4, std::to_string(previousFileNameNum));
+
+		std::shared_ptr<sequence::IVideo> previousVidPtr = sequence::IVideo::create(previousFileName);
+
+
+		std::shared_ptr<IPacker> Packer1 = glueshift(previousVidPtr, seq_copy, 0);
+		std::shared_ptr<IPacker> Packer2 = glueshift(previousVidPtr, seq_copy, 0);
+		Packer1->save(getSecondWindowOutFileName());
+		Packer2->save(getThirdWindowdOutFileName());
+	}
 }
+
+std::shared_ptr<IPacker> Compression::glueshift(std::shared_ptr<sequence::IVideo> previousSeq, std::shared_ptr<sequence::IVideo> currentSeq, int shiftValue)
+ {
+	auto currentNumFrames = currentSeq->getNumFrames();
+	auto previousNumFrames = previousSeq->getNumFrames();
+	
+	config::Compression& config = config::Compression::getInstance();
+	config.load();
+	int imageCompression = config.getImageCompression();
+	auto Packer = std::make_shared<GpuPacker>(imageCompression);
+	Packer->createSequence();
+	
+		for (auto i = 0 + shiftValue; i < previousNumFrames + shiftValue; ++i)
+		 {
+		if (i<previousNumFrames)
+			 {
+			cv::Mat frame = previousSeq->getFrameImage(i);
+			Packer->compressFrame(i - shiftValue, frame, previousSeq->getFrameTime(i));
+			}
+		else
+			 {
+			cv::Mat frame = currentSeq->getFrameImage(i - currentNumFrames);
+			Packer->compressFrame(i - shiftValue, frame, currentSeq->getFrameTime(i - currentNumFrames));
+			}
+		}
+	return Packer;
+	}
 
 void Compression::cleanup()
 {
@@ -311,6 +361,50 @@ std::string Compression::getOutFileName() const
 	ofn << outputFile.string() << "." << m_OutFileNr << "." << OUTPUT_FILE_EXTENSION;
 	return ofn.str();
 }
+
+std::string Compression::getCopiedOutFileName() const
+ {
+	std::stringstream ofn;
+		//FilesystemPath outputFile = getOutputFolder();
+			//FilesystemPath outputFile = "E:\\KOD\\wynikitestukompresji\\CopiedFolder\\";
+			//outputFile += getFilePattern();
+	FilesystemPath outputFile = getOutputFolder();
+	outputFile += "CopiedFolder//" + getFilePattern();
+	ofn << outputFile.string() << "." << m_OutFileNr << "." << OUTPUT_FILE_EXTENSION;
+	return ofn.str();
+}
+
+std::string Compression::getFirstWindowOutFileName() const
+ {
+	std::stringstream ofn;
+	FilesystemPath outputFile = getOutputFolder();
+	outputFile += "FirstWindowFolder//" + getFilePattern();
+	ofn << outputFile.string() << "." << m_OutFileNr << "." << OUTPUT_FILE_EXTENSION;
+	return ofn.str();
+  }
+
+std::string Compression::getSecondWindowOutFileName() const
+ {
+	std::stringstream ofn;
+		//FilesystemPath outputFile = "E:\\KOD\\wynikitestukompresji\\SecondWindowFolder\\";
+			//outputFile += getFilePattern();
+		FilesystemPath outputFile = getOutputFolder();
+	outputFile += "SecondWindowFolder//" + getFilePattern();
+	ofn << outputFile.string() << "." << m_OutFileNr << "." << OUTPUT_FILE_EXTENSION;
+	
+		return ofn.str();
+ }
+
+std::string Compression::getThirdWindowdOutFileName() const
+ {
+	std::stringstream ofn;
+		//FilesystemPath outputFile = "E:\\KOD\\wynikitestukompresji\\ThirdWindowFolder\\";
+			//outputFile += getFilePattern();
+		FilesystemPath outputFile = getOutputFolder();
+	outputFile += "ThirdWindowFolder//" + getFilePattern();
+	ofn << outputFile.string() << "." << m_OutFileNr << "." << OUTPUT_FILE_EXTENSION;
+	return ofn.str();
+	}
 
 std::string Compression::getInFileName() const
 {

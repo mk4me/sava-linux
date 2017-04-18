@@ -61,6 +61,7 @@ public:
 	/// Saves files.
 	/// </summary>
 	virtual void finalize() override;
+	std::shared_ptr<IPacker> glueshift(std::shared_ptr<sequence::IVideo> previousSeq, std::shared_ptr<sequence::IVideo> currentSeq, int shiftValue);
 
 private:
 	Compression();
@@ -84,6 +85,10 @@ private:
 	std::shared_ptr<IPacker> m_Packer;
 
 	std::string getOutFileName() const;
+	std::string getCopiedOutFileName() const;
+	std::string Compression::getFirstWindowOutFileName() const;
+	std::string getSecondWindowOutFileName() const;
+	std::string getThirdWindowdOutFileName() const;
 	std::string getInFileName() const;
 
 	void decompressFramesThreadFunc(const std::shared_ptr<sequence::IVideo>& video);

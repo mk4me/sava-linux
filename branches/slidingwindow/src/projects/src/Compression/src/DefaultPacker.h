@@ -40,6 +40,7 @@ public:
 	/// </summary>
 	/// <param name="filename">The filename.</param>
 	virtual void save(const std::string& filename) override;
+	virtual std::shared_ptr<sequence::IVideo> getVideo() { assert(false); return std::shared_ptr<sequence::IVideo>(); };
 
 private:
 	std::shared_ptr<sequence::CompressedVideo> m_CompressedVideo;

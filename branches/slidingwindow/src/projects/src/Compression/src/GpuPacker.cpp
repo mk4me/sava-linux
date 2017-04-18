@@ -15,6 +15,12 @@ GpuPacker::GpuPacker(int imageCompression, int backgroundHistory /*= 300*/, int 
 
 }
 
+std::shared_ptr<sequence::IVideo> GpuPacker::getVideo()
+ {
+	return m_GpuVideo;
+ };
+
+
 void GpuPacker::createSequence()
 {
 	m_GpuVideo = std::make_shared<sequence::GpuVideo>(m_ImageCompression);

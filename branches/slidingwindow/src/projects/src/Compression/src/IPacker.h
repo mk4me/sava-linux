@@ -28,6 +28,7 @@ public:
 	/// </summary>
 	/// <param name="filename">The filename.</param>
 	virtual void save(const std::string& filename) = 0;
+	virtual std::shared_ptr<sequence::IVideo> getVideo() = 0;
 };
 
 #endif // IPacker_h__
