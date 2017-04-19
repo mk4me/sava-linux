@@ -41,7 +41,8 @@ namespace clustering
 		
 		std::vector<cv::Point2f> nextPtsNew;
 		std::vector<cv::Point2f> nextPts;
-		
+
+		auto temp = nextPtsNew.size();
 		if (!m_LastGpuFrameGray.empty())
 		{
 			std::vector<cv::Point2f> prevPtsPaths;
@@ -90,7 +91,7 @@ namespace clustering
 				}
 			}
 		}
-
+		temp = nextPtsNew.size();
 		if (m_Time % m_DetectionInterval == 0)
 		{
 			if (m_Detector)
@@ -134,9 +135,10 @@ namespace clustering
 						nextPtsNew.push_back(cv::Point2f(x, y));
 					}
 				}
+				std::cout << "wesz..." << std::endl;
 			}
 		}
-
+		temp = nextPtsNew.size();
 		if (!nextPts.empty())
 		{
 			for (auto it = nextPtsNew.begin(); it != nextPtsNew.end();)
@@ -157,7 +159,8 @@ namespace clustering
 			}
 		}
 
-		for (size_t i = 0; i < nextPtsNew.size(); ++i)
+		auto nextPtsNewSize = nextPtsNew.size();
+		for (size_t i = 0; i < nextPtsNewSize; ++i)
 		{
 			auto path = std::make_shared<Path>(m_Time);
 			path->addPoint(nextPtsNew[i]);

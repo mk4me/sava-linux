@@ -194,15 +194,15 @@ namespace clustering
 					paths.insert(id);
 				}
 			}
-			m_PathClustering->update();
-			m_PathEstimator->update(m_PathClustering->getClusters(), m_PathClustering->getTime());
+        }
+        m_PathClustering->update();
+        m_PathEstimator->update(m_PathClustering->getClusters(), m_PathClustering->getTime());
 
-			m_PathClustering->setTime(m_PathClustering->getTime() + 1);
+        m_PathClustering->setTime(m_PathClustering->getTime() + 1);
 
-			m_Visualizer->visualize(*m_PathClustering);
+        m_Visualizer->visualize(*m_PathClustering);
 
 			//StatisticPathDistanceFactory::printAndClearStats();
-		}
 		//m_LastMaxPathId = maxPathId;
 
 		int pathPostRemoved = 0;

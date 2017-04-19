@@ -92,6 +92,8 @@ namespace sequence
 		/// <param name="outPaths">The out paths.</param>
 		void getPaths(std::map<Id, Path>& outPaths) const;
 
+		void getLastestPaths(std::map<Id, Path>& outPaths) const;
+
 		/// <summary>
 		/// Gets the frame cursor.
 		/// </summary>

@@ -319,8 +319,9 @@ namespace clustering
 
 			if (!matchedPt)
 			{
-				if (!mask.empty() && mask.at<unsigned char>(cv::Point(tmpKeypoints.at(i).pt)) == 0)
+				if (!mask.empty() && mask.at<unsigned char>(cv::Point(tmpKeypoints.at(i).pt)) == 0) {
 					continue;
+				}
 
 				path* newPath = new path(tmpKeypoints.at(i), getConfig().getMaxPathLength(), getConfig().getMaxMissedFramesInPath(), (float*)&(tmpDescs.data[tmpDescs.step*i]), tmpDescs.cols, tmpWorldPoints.at(i));
 				m_Paths.push_back(newPath);

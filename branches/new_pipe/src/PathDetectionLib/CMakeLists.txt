@@ -11,6 +11,7 @@ SET_PUBLIC_HEADERS(
 	path.h
 	PredictedRoiFilter.h
 	PredictedRoiPathDetector.h
+	#OpticalFlowSequenceStream.h
 )
 
 
@@ -22,6 +23,7 @@ SET_SOURCE_FILES(
 	path.cpp
 	PredictedRoiFilter.cpp
 	PredictedRoiPathDetector.cpp
+    #OpticalFlowSequenceStream.cpp
 )
 
 
