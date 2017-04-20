@@ -5,6 +5,7 @@
 #include "utils/Log.h"
 
 
+
 MonitorQueueSpeeder::MonitorQueueSpeeder()
 	: m_IsEnabled(true)
 	, m_Speed(1.f)
@@ -22,18 +23,6 @@ MonitorQueueSpeeder::MonitorQueueSpeeder()
 
 	m_MinMiddleQueueSize = m_MinQueueSize + len / 3.f;
 	m_MaxMiddleQueueSize = m_MaxQueueSize - len / 3.f;
-
-	/*
-	utils::Log log;
-	log << "MonitorQueueSpeeder(): ";
-	log << "MinSpeed " << m_MinSpeed << ", ";
-	log << "MaxSpeed " << m_MaxSpeed << ", ";
-	log << "MinQueueSize " << m_MinQueueSize << ", ";
-	log << "MinMiddleQueueSize " << m_MinMiddleQueueSize << ", ";
-	log << "MaxMiddleQueueSize " << m_MaxMiddleQueueSize << ", ";
-	log << "MaxQueueSize " << m_MaxQueueSize;
-	log << "\n";
-	*/
 }
 
 
@@ -58,15 +47,6 @@ void MonitorQueueSpeeder::update(size_t queueSize)
 		m_ForceOffsetReset = (m_QueueSize == 0);
 		m_Speed = 1;
 	}
-
-	/*
-	utils::Log log;
-	log << "MonitorQueueSpeeder::update(): ";
-	log << "QueueSize " << m_QueueSize << ", ";
-	log << "Speed " << m_Speed << ", ";
-	log << "ForceOffsetReset " << m_ForceOffsetReset;
-	log << "\n";
-	*/
 }
 
 float MonitorQueueSpeeder::getSpeedByQueueSize() const

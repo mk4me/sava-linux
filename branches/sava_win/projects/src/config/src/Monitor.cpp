@@ -10,6 +10,8 @@
 #include <fstream>
 #include <iostream>
 
+BOOST_CLASS_VERSION(config::Monitor, 2)
+
 namespace config
 {
 	template<class Archive>
@@ -21,6 +23,13 @@ namespace config
 		ar & m_MaxQueueSize;
 		ar & m_TimeScale;
 		ar & m_Aliases;
+
+		if (version > 0)
+			ar & m_IsBackupEnabled;
+
+		if (version > 1)
+			ar & m_DecorationType;
+
 	}
 
 	Monitor::Monitor()
@@ -29,6 +38,8 @@ namespace config
 		, m_MinQueueSize(1)
 		, m_MaxQueueSize(8)
 		, m_TimeScale(1.1f)
+		, m_IsBackupEnabled(false)
+		, m_DecorationType(0)
 	{
 
 	}

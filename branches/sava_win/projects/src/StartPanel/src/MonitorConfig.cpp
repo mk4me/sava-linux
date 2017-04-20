@@ -23,6 +23,7 @@ bool MonitorConfig::load()
 	ui.m_MinQueueSize->setValue(monitorConfig.getMinQueueSize());
 	ui.m_MaxQueueSize->setValue(monitorConfig.getMaxQueueSize());
 	ui.m_TimeScale->setValue((int)((monitorConfig.getTimeScale() - 1) * 100));
+	ui.m_Backup->setChecked(monitorConfig.isBackupEnabled());
 
 	ui.m_Aliases->setRowCount(0);
 	const auto& aliases = monitorConfig.getAliases();
@@ -41,6 +42,7 @@ bool MonitorConfig::save()
 	monitorConfig.setMinQueueSize(ui.m_MinQueueSize->value());
 	monitorConfig.setMaxQueueSize(ui.m_MaxQueueSize->value());
 	monitorConfig.setTimeScale(ui.m_TimeScale->value() / 100.0f + 1.0f);
+	monitorConfig.setBackupEnabled(ui.m_Backup->isChecked());
 
 	config::Monitor::AliasMap aliases;
 	for (int i = 0; i < ui.m_Aliases->rowCount(); ++i)

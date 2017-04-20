@@ -46,9 +46,6 @@ void MonitorWindow::initGui()
 	ui.actionSendToMilestone->setVisible(m_MilestoneAlertSender.isAvailable());
 	ui.actionSendToMilestone->setChecked(m_MilestoneAlertSender.isEnabled());
 	ui.actionShowClusters->setChecked(m_Config.isClustersVisibled());
-
-	//disable synchronize button (it is make by MonitorQueueSpeeder class)
-	ui.actionSynchronize->setVisible(false);
 }
 
 void MonitorWindow::onFrameChanged(size_t frame) {

@@ -27,10 +27,8 @@ void ReplayGraphicsScene::init()
 void ReplayGraphicsScene::reload()
 {
 	//get alert video
-	auto video = m_ParentWindow->getVideo();
-	auto alert = m_ParentWindow->getAlert();
-	//auto& video = m_ParentWindow->getVideo();
-	//auto& alert = m_ParentWindow->getAlert();
+	auto& video = m_ParentWindow->getVideo();
+	auto& alert = m_ParentWindow->getAlert();
 
 	//set scene size
 	cv::Size _sceneSize = video->getFrameImage(0).size();

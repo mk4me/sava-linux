@@ -4,6 +4,7 @@
 #include <utils/MemoryLog.h>
 #include <config/Diagnostic.h>
 #include <QtCore/QDir>
+#include <QtCore/QDebug>
 #include <QtNetwork/QHostAddress>
 
 const std::string ProcessManager::logFolderName_ = "process_manager";

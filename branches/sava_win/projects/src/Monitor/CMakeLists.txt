@@ -42,6 +42,10 @@ MonitorAlertSaver.h
 MonitorGraphicsDebugItem.h
 MonitorGraphicsTextItem.h
 MonitorQueueSpeeder.h
+MonitorGraphicsClusterItem.h
+MonitorGraphicsClusterItem_Standard.h
+MonitorGraphicsClusterItem_Fill_2d.h
+MonitorGraphicsClusterItem_Floor_3d.h
 )
 
 
@@ -87,6 +91,10 @@ MonitorAlertSaver.cpp
 MonitorGraphicsDebugItem.cpp
 MonitorGraphicsTextItem.cpp
 MonitorQueueSpeeder.cpp
+MonitorGraphicsClusterItem.cpp
+MonitorGraphicsClusterItem_Standard.cpp
+MonitorGraphicsClusterItem_Fill_2d.cpp
+MonitorGraphicsClusterItem_Floor_3d.cpp
 )
 
 SET_MOC_FILES(

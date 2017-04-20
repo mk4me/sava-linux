@@ -5,6 +5,8 @@
 #include <utils/Filesystem.h>
 
 #include <config/Diagnostic.h>
+#include <config/Directory.h>
+#include <config/Monitor.h>
 
 #include "boost/timer/timer.hpp"
 
@@ -133,6 +135,9 @@ std::string MonitorPipe::getFileName(int index) const
 
 void MonitorPipe::fileRemoveThread()
 {
+	std::string backupDirectory = config::Directory::getInstance().getBackupPath();
+	bool backupEnabled = config::Monitor::getInstance().isBackupEnabled();
+
 	std::shared_ptr<sequence::MetaVideo> video;
 	while (m_DeleteQueue.pop(video))
 	{
@@ -193,8 +198,16 @@ void MonitorPipe::fileRemoveThread()
 						continue;
 					}
 				}
-				//std::cout << "deleting " << p << std::endl;
-				boost::filesystem::remove(p);
+
+				if (backupEnabled)
+				{
+					boost::filesystem::rename(p, backupDirectory + p.filename().string());
+				}
+				else
+				{
+					boost::filesystem::remove(p);
+				}
+				
 			}
 			catch (const std::exception& e)
 			{

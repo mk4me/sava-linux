@@ -31,7 +31,7 @@ MonitorVideoManager::~MonitorVideoManager(){
 }
 
 /*--------------------------------------------------------------------*/
-MonitorVideoManager::ActionPairVec MonitorVideoManager::getClusterActionPairs(size_t _frameNr) const
+MonitorVideoManager::ActionPairVec& MonitorVideoManager::getClusterActionPairs(size_t _frameNr) const
 {
 	static size_t sCurrentFrameNr = SIZE_MAX;
 	static MonitorVideoManager::ActionPairVec sCachedPairs;
@@ -101,25 +101,15 @@ void MonitorVideoManager::startLoadingProcess(){
 void MonitorVideoManager::loadingProcess()
 {
 
-	//utils::Log log;
-
 	m_QueneSpeeder.update(MonitorPipe::getInstance().getInputQueueSize());
-
-	//log << "MonitorVideoManager::loadingProcess(): Waiting for new seuqence ... \n";
 
 	m_MetaVideo = MonitorPipe::getInstance().popInputVideo();
 	if (m_MetaVideo)
 	{
-		//log << "MonitorVideoManager::loadingProcess(): Get sequence " <<  m_MetaVideo->getFileName() << "\n";
-
 		calcInnerData();
 
 		emit loaded();
 	}
-	/*else
-	{
-		log << "MonitorVideoManager::loadingProcess(): FAIL to load next sequence \n";
-	}*/
 }
 
 void MonitorVideoManager::stopLoadingProcess()

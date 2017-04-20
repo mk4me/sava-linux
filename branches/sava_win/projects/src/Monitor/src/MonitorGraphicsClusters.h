@@ -13,50 +13,40 @@
 
 #include "MonitorVideoManager.h"
 #include "MonitorActionManager.h"
- 
+#include "MonitorGraphicsClusterItem.h"
+
 /// <summary>
 /// Obiekt graficzny na scenie, zajmuj¹cy siê wywietlaniem wykrytych obszarów na obrazie wideo, w których system wykry³ akcje.
 /// </summary>
 class MonitorGraphicsClusters : public QGraphicsItem
 {
-	struct ClusterInfo
-	{
-		QString name;
-		QRectF rect;
-		bool isAlert;
-	};
-
-	static QColor CLUSTER_COLOR;
-	static QColor ALERT_COLOR;
 
 public:
+
+	enum DecorationType {
+		STANDARD,
+		FILL_2D,
+		FLOOR_3D,
+	};
+
 	MonitorGraphicsClusters(QGraphicsItem *parent = 0);
-	~MonitorGraphicsClusters();
 
 	void init(){}
 	void update(size_t _frame);
-	void clear();
+
+	void onVideoLoaded();
 
 protected:
 	virtual QRectF boundingRect() const override;
-	virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = 0) override;
+	virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = 0) override { } ;
+
+private:
+	MonitorGraphicsClusterItem* createDecoratorByType(DecorationType type);
 
 private:
 	MonitorVideoManager* m_CachedVideoManger;
-	MonitorActionManager* m_CachedActionManager;
 
-	//vector of actions info
-	std::vector<ClusterInfo> m_ClustersInfo;
-
-	//pen to draw action rectangle on scene
-	QPen m_ActionPen;
-
-	//pen to draw alert rectangle action on scene
-	QPen m_AlertPen;
-
-	//font to draw action text on scene
-	QFont m_TextFont;
-	
+	std::vector<MonitorGraphicsClusterItem*> m_Items;
 };
 
 #endif // MONITORGRAPHICSCLUSTERS_H

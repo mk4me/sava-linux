@@ -25,6 +25,9 @@ private slots:
 	void selectAlertsPath();
 	void onAlertsPathChanged();
 
+	void selectBackupPath();
+	void onBackupPathChanged();
+
 private:
 	Ui::DirectoryConfig ui;
 };

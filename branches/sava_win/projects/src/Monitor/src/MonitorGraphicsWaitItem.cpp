@@ -27,7 +27,7 @@ void MonitorGraphicsWaitItem::paint(QPainter *painter, const QStyleOptionGraphic
 {
 	//set font
 	QFont font;
-	font.setPixelSize(40);
+	font.setPixelSize(100);
 	font.setItalic(true);
 	painter->setFont(font);
 

@@ -1440,7 +1440,7 @@ QTableView
            <bool>true</bool>
           </attribute>
           <attribute name="verticalHeaderDefaultSectionSize">
-           <number>18</number>
+           <number>25</number>
           </attribute>
           <attribute name="verticalHeaderMinimumSectionSize">
            <number>2</number>

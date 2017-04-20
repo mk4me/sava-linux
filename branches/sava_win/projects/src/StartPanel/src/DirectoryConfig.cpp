@@ -31,6 +31,10 @@ bool DirectoryConfig::load()
 	ui.m_AlertsPath->setText(directoryConfig.getAlertsPath().c_str());
 	ui.m_AlertsPath->blockSignals(false);
 
+	ui.m_BackupPath->blockSignals(true);
+	ui.m_BackupPath->setText(directoryConfig.getBackupPath().c_str());
+	ui.m_BackupPath->blockSignals(false);
+
 	return true;
 }
 
@@ -83,4 +87,19 @@ void DirectoryConfig::selectAlertsPath()
 void DirectoryConfig::onAlertsPathChanged()
 {
 	config::Directory::getInstance().setAlertsPath(ui.m_AlertsPath->text().toStdString());
+}
+
+void DirectoryConfig::selectBackupPath()
+{
+	QString path = QFileDialog::getExistingDirectory(this, "Select backup path", ui.m_BackupPath->text());
+	if (!path.isEmpty())
+	{
+		ui.m_BackupPath->setText(path);
+		onBackupPathChanged();
+	}
+}
+
+void DirectoryConfig::onBackupPathChanged()
+{
+	config::Directory::getInstance().setBackupPath(ui.m_BackupPath->text().toStdString());
 }
