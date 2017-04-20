@@ -48,7 +48,8 @@ namespace clustering
 
 	private:
 		std::string getOutFileName(unsigned id) const;
-
+		std::shared_ptr<sequence::Cluster> clusterglueshift(std::shared_ptr<sequence::Cluster> previousClu, std::shared_ptr<sequence::Cluster> currentClu, int shiftValue);
+		float match(const cv::Rect& R, const cv::Rect& A);
 		std::string m_InputSequence;
 		std::string m_InputPaths;
 		std::string m_OutputClusterPattern;
