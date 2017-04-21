@@ -1,4 +1,4 @@
-FIND_INIT2(Utils "Utils/Utils" "Utils" "Utils" "Utils"  )
-FIND_STATIC(Utils Utils)
-FIND_DEPENDENCIES(Utils "CURL;BOOST;QT;DL")
-FIND_FINISH(Utils)
+FIND_INIT2(utils "utils/utils" "utils" "utils" "utils"  )
+FIND_STATIC(utils utils)
+FIND_DEPENDENCIES(utils "CURL;BOOST;QT;OPENCV;LIBGPUJPEG")
+FIND_FINISH(utils)
