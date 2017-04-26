@@ -39,7 +39,7 @@ namespace config
 		, m_MaxQueueSize(8)
 		, m_TimeScale(1.1f)
 		, m_IsBackupEnabled(false)
-		, m_DecorationType(0)
+		, m_DecorationType(FILL_2D)
 	{
 
 	}
@@ -89,5 +89,17 @@ namespace config
 			return baseName;
 
 		return it->second;
+	}
+
+	std::string Monitor::getDecorationTypeName(DecorationType decorationType)
+	{
+		switch (decorationType)
+		{
+		case config::Monitor::STANDARD: return "STANDARD";
+		case config::Monitor::FILL_2D:  return "FILL_2D";
+		case config::Monitor::FLOOR_3D: return "FLOOR_3D";
+		default:
+			return "";
+		}
 	}
 }

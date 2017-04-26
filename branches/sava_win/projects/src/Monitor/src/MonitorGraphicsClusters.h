@@ -8,6 +8,7 @@
 #include <QtWidgets/QGraphicsScene>
 
 #include "config/Glossary.h"
+#include "config/Monitor.h"
 #include "sequence/Cluster.h"
 #include "sequence/Action.h"
 
@@ -23,12 +24,6 @@ class MonitorGraphicsClusters : public QGraphicsItem
 
 public:
 
-	enum DecorationType {
-		STANDARD,
-		FILL_2D,
-		FLOOR_3D,
-	};
-
 	MonitorGraphicsClusters(QGraphicsItem *parent = 0);
 
 	void init(){}
@@ -41,7 +36,7 @@ protected:
 	virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = 0) override { } ;
 
 private:
-	MonitorGraphicsClusterItem* createDecoratorByType(DecorationType type);
+	MonitorGraphicsClusterItem* createDecoratorByType(config::Monitor::DecorationType type);
 
 private:
 	MonitorVideoManager* m_CachedVideoManger;

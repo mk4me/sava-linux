@@ -30,6 +30,8 @@ bool MonitorConfig::load()
 	for (auto alias : aliases)
 		setAlias(ui.m_Aliases->rowCount(), alias.first.c_str(), alias.second.c_str());
 
+	loadDecorationType(monitorConfig.getDecorationType());
+
 	return true;
 }
 
@@ -48,6 +50,8 @@ bool MonitorConfig::save()
 	for (int i = 0; i < ui.m_Aliases->rowCount(); ++i)
 		aliases.insert(std::make_pair(ui.m_Aliases->item(i, 0)->text().toStdString(), ui.m_Aliases->item(i, 1)->text().toStdString()));
 	monitorConfig.setAliases(aliases);
+
+	monitorConfig.setDecorationType((config::Monitor::DecorationType)ui.m_DecorationComboBox->currentIndex());
 
 	return config::Monitor::getInstance().save();
 }
@@ -147,4 +151,17 @@ void MonitorConfig::setItem(int row, int column, const QString& text)
 		ui.m_Aliases->setItem(row, column, item);
 	}
 	item->setText(text);
+}
+
+void MonitorConfig::loadDecorationType(config::Monitor::DecorationType decorationType)
+{
+	ui.m_DecorationComboBox->clear();
+
+	for (int type = 0; type < config::Monitor::DecorationType::MAX; ++type)
+	{
+		std::string name = config::Monitor::getDecorationTypeName((config::Monitor::DecorationType)type);
+		ui.m_DecorationComboBox->addItem(name.c_str());
+	}
+
+	ui.m_DecorationComboBox->setCurrentIndex(decorationType);
 }

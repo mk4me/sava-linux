@@ -34,6 +34,9 @@ namespace config
 		bool getLogMonitorQueue() const { return m_LogMonitorQueue; }
 		void setLogMonitorQueue(bool enabled) { m_LogMonitorQueue = enabled; }
 
+		bool getLogProcessTime() const { return m_LogProcessTime; }
+		void setLogProcessTime(bool enabled) { m_LogProcessTime = enabled; }
+
 		bool getShowMonitorDiagnostics() const { return m_ShowMonitorDiagnostics; }
 		void setShowMonitorDiagnostics(bool enabled) { m_ShowMonitorDiagnostics = enabled; }
 
@@ -45,6 +48,7 @@ namespace config
 		bool m_LogToFile;
 		bool m_LogMemoryUsage;
 		bool m_LogMonitorQueue;
+		bool m_LogProcessTime;
 		bool m_ShowMonitorDiagnostics;
 
 		friend class boost::serialization::access;

@@ -53,6 +53,7 @@ private slots:
 protected:
 	virtual void resizeEvent(QResizeEvent *) override;
 	virtual void closeEvent(QCloseEvent *) override;
+	//virtual void keyPressEvent(QKeyEvent * event) override;
 
 private:
 	void initGui();

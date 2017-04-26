@@ -18,7 +18,7 @@ MonitorGraphicsClusters::MonitorGraphicsClusters(QGraphicsItem *parent)
 void MonitorGraphicsClusters::onVideoLoaded()
 {
 	auto& pairs = m_CachedVideoManger->getClusterActionPairs();
-	DecorationType decorationType = (DecorationType)config::Monitor::getInstance().getDecorationType();
+	config::Monitor::DecorationType decorationType = (config::Monitor::DecorationType)config::Monitor::getInstance().getDecorationType();
 
 	for (auto item : m_Items)
 		item->setModified(false);
@@ -36,8 +36,7 @@ void MonitorGraphicsClusters::onVideoLoaded()
 		}
 		else
 		{
-			item = createDecoratorByType(FLOOR_3D);
-			//item = createDecoratorByType(decorationType);
+			item = createDecoratorByType(decorationType);
 			m_Items.push_back(item);
 		}
 
@@ -73,13 +72,15 @@ QRectF MonitorGraphicsClusters::boundingRect() const
 	return QRectF();
 }
 
-MonitorGraphicsClusterItem* MonitorGraphicsClusters::createDecoratorByType(DecorationType type)
+MonitorGraphicsClusterItem* MonitorGraphicsClusters::createDecoratorByType(config::Monitor::DecorationType type)
 {
+	using namespace config;
+
 	switch (type)
 	{
-		case STANDARD: return new MonitorGraphicsClusterItem_Standard(this);
-		case FILL_2D: return new MonitorGraphicsClusterItem_Fill_2d(this);
-		case FLOOR_3D: return new MonitorGraphicsClusterItem_Floor_3d(this);
+		case Monitor::DecorationType::STANDARD: return new MonitorGraphicsClusterItem_Standard(this);
+		case Monitor::DecorationType::FILL_2D: return new MonitorGraphicsClusterItem_Fill_2d(this);
+		case Monitor::DecorationType::FLOOR_3D: return new MonitorGraphicsClusterItem_Floor_3d(this);
 	}
 
 	assert(false && "Wrong decoration type");
