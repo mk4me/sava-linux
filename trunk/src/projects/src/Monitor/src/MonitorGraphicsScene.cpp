@@ -67,11 +67,13 @@ void MonitorGraphicsScene::setVideoVisible(bool i_Visible)
 
 void MonitorGraphicsScene::onVideoPreload()
 {
-	m_ClustersItem.clear();
+
 }
 
 void MonitorGraphicsScene::onVideoLoaded()
 {
+	m_ClustersItem.onVideoLoaded();
+
 	if (!m_IsVideoVisible)
 		setVideoVisible(true);
 }

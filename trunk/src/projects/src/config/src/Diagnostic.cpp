@@ -17,6 +17,7 @@ namespace config
 		, m_LogToFile(false)
 		, m_LogMemoryUsage(false)
 		, m_LogMonitorQueue(false)
+		, m_LogProcessTime(false)
 		, m_ShowMonitorDiagnostics(false)
 	{
 
@@ -67,6 +68,7 @@ namespace config
 		ar & m_LogToFile;
 		ar & m_LogMemoryUsage;
 		ar & m_LogMonitorQueue;
+		ar & m_LogProcessTime;
 		ar & m_ShowMonitorDiagnostics;
 	}
 }

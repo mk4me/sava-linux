@@ -38,7 +38,7 @@ public:
 	const std::vector<sequence::IVideo::Timestamp>& getVideoTimes() { return m_VideoTimes; }
 
 	const ActionPairVec& getClusterActionPairs() const { return m_SortedObjectsVec; }
-	ActionPairVec getClusterActionPairs(size_t _frameNr) const;
+	ActionPairVec& getClusterActionPairs(size_t _frameNr) const;
 
 
 	bool isSynchronizeNecessary() const;

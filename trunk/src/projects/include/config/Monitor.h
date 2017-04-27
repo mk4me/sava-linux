@@ -19,6 +19,16 @@ namespace config
 		friend class boost::serialization::access;
 
 	public:
+
+		enum DecorationType
+		{
+			STANDARD,
+			FILL_2D,
+			FLOOR_3D,
+
+			MAX,
+		};
+
 		typedef std::map<std::string, std::string> AliasMap;
 
 		static Monitor& getInstance();
@@ -45,6 +55,13 @@ namespace config
 		const AliasMap& getAliases() const { return m_Aliases; }
 		void setAliases(const AliasMap& aliasMap) { m_Aliases = aliasMap; }
 
+		bool isBackupEnabled() const { return m_IsBackupEnabled; }
+		void setBackupEnabled(bool enabled) { m_IsBackupEnabled = enabled; }
+
+		DecorationType getDecorationType() const { return m_DecorationType; }
+		void setDecorationType(DecorationType decorationType) { m_DecorationType = decorationType; }
+		static std::string getDecorationTypeName(DecorationType decorationType);
+
 	private:
 		Monitor();
 		~Monitor() { }
@@ -54,6 +71,8 @@ namespace config
 		size_t m_MinQueueSize;
 		size_t m_MaxQueueSize;
 		float m_TimeScale;
+		bool m_IsBackupEnabled;
+		DecorationType m_DecorationType;
 
 		std::map<std::string, std::string> m_Aliases;
 

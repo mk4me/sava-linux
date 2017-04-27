@@ -23,11 +23,14 @@ bool MonitorConfig::load()
 	ui.m_MinQueueSize->setValue(monitorConfig.getMinQueueSize());
 	ui.m_MaxQueueSize->setValue(monitorConfig.getMaxQueueSize());
 	ui.m_TimeScale->setValue((int)((monitorConfig.getTimeScale() - 1) * 100));
+	ui.m_Backup->setChecked(monitorConfig.isBackupEnabled());
 
 	ui.m_Aliases->setRowCount(0);
 	const auto& aliases = monitorConfig.getAliases();
 	for (auto alias : aliases)
 		setAlias(ui.m_Aliases->rowCount(), alias.first.c_str(), alias.second.c_str());
+
+	loadDecorationType(monitorConfig.getDecorationType());
 
 	return true;
 }
@@ -41,11 +44,14 @@ bool MonitorConfig::save()
 	monitorConfig.setMinQueueSize(ui.m_MinQueueSize->value());
 	monitorConfig.setMaxQueueSize(ui.m_MaxQueueSize->value());
 	monitorConfig.setTimeScale(ui.m_TimeScale->value() / 100.0f + 1.0f);
+	monitorConfig.setBackupEnabled(ui.m_Backup->isChecked());
 
 	config::Monitor::AliasMap aliases;
 	for (int i = 0; i < ui.m_Aliases->rowCount(); ++i)
 		aliases.insert(std::make_pair(ui.m_Aliases->item(i, 0)->text().toStdString(), ui.m_Aliases->item(i, 1)->text().toStdString()));
 	monitorConfig.setAliases(aliases);
+
+	monitorConfig.setDecorationType((config::Monitor::DecorationType)ui.m_DecorationComboBox->currentIndex());
 
 	return config::Monitor::getInstance().save();
 }
@@ -145,4 +151,17 @@ void MonitorConfig::setItem(int row, int column, const QString& text)
 		ui.m_Aliases->setItem(row, column, item);
 	}
 	item->setText(text);
+}
+
+void MonitorConfig::loadDecorationType(config::Monitor::DecorationType decorationType)
+{
+	ui.m_DecorationComboBox->clear();
+
+	for (int type = 0; type < config::Monitor::DecorationType::MAX; ++type)
+	{
+		std::string name = config::Monitor::getDecorationTypeName((config::Monitor::DecorationType)type);
+		ui.m_DecorationComboBox->addItem(name.c_str());
+	}
+
+	ui.m_DecorationComboBox->setCurrentIndex(decorationType);
 }

@@ -114,20 +114,18 @@ void MonitorAlertManager::saveAlert(const MonitorAlertPtr& alert) const
 
 void MonitorAlertManager::onVideoPreload()
 {
-	if (!m_StoreAlertsEnabled)
-		return;
+	std::string videoName;
 
-	if (!m_UnfinishedAlertsList.empty())
+	if (m_StoreAlertsEnabled && !m_UnfinishedAlertsList.empty())
 	{
-		std::string videoName = getVideoAlertFileName();
+		videoName = getVideoAlertFileName();
 
 		for (auto& alert : m_UnfinishedAlertsList)
 			alert->addVideo(videoName);
-		
-		//collect video to save
-		m_AlertSaver.add(videoName, MonitorVideoManager::getInstance().getMetaVideo());
 	}
 
+	//collect video to save
+	m_AlertSaver.add(videoName, MonitorVideoManager::getInstance().getMetaVideo());
 	m_NextVideoId++;
 }
 
@@ -207,9 +205,17 @@ void MonitorAlertManager::removeListener(IAlertListener* i_Listener)
 
 void MonitorAlertManager::acceptAllFinishedAlerts()
 {
+	std::vector< std::pair<std::string, std::shared_ptr<MonitorAlert>>> alertsToSave;
+
 	for (auto& alert : m_AlertsList)
-		if (alert->isFinished())
+		if (alert->isFinished() && !alert->isAccepted())
+		{
 			alert->accept();
+			alertsToSave.push_back(std::make_pair(getAlertFileName(alert), alert));
+		}
+
+	if (!alertsToSave.empty())
+		m_AlertSaver.add(alertsToSave);
 }
 
 void MonitorAlertManager::finishAllUnfinishedAlerts()

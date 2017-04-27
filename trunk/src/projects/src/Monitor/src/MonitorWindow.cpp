@@ -10,6 +10,8 @@
 #include <QtCore/qglobal.h>
 #include <QtCore/QTime>
 
+#include "config/Monitor.h"
+
 
 
 MonitorWindow::MonitorWindow(QWidget *parent)
@@ -46,9 +48,6 @@ void MonitorWindow::initGui()
 	ui.actionSendToMilestone->setVisible(m_MilestoneAlertSender.isAvailable());
 	ui.actionSendToMilestone->setChecked(m_MilestoneAlertSender.isEnabled());
 	ui.actionShowClusters->setChecked(m_Config.isClustersVisibled());
-
-	//disable synchronize button (it is make by MonitorQueueSpeeder class)
-	ui.actionSynchronize->setVisible(false);
 }
 
 void MonitorWindow::onFrameChanged(size_t frame) {
@@ -244,6 +243,28 @@ void MonitorWindow::closeEvent(QCloseEvent *e)
 
 	QMainWindow::closeEvent(e);
 }
+
+//for debug only
+//void MonitorWindow::keyPressEvent(QKeyEvent * event)
+//{
+//	if (event->modifiers() & Qt::ControlModifier)
+//	{
+//		auto& config = config::Monitor::getInstance();
+//		switch (event->key())
+//		{
+//		case Qt::Key_1: config.setDecorationType(config::Monitor::STANDARD); 
+//				break;
+//			case Qt::Key_2: config.setDecorationType(config::Monitor::FILL_2D);
+//				break;
+//			case Qt::Key_3: config.setDecorationType(config::Monitor::FLOOR_3D);
+//				break;
+//
+//			default: return;
+//		}
+//
+//		config.save();
+//	}
+//}
 
 
 

@@ -7,8 +7,10 @@
 #include "MonitorVideoManager.h"
 #include "MonitorAlert.h"
 
+#include <deque>
+
 /// <summary>
-/// Klasa zarz¹dza zapisem alertów na dysk. Dzieje siê to w osobnym w¹tku, który ów klasa uruchamia.
+/// Klasa zarządza zapisem alertów na dysk. Dzieje się to w osobnym wątku, który ów klasa uruchamia.
 /// </summary>
 class MonitorAlertSaver
 {
@@ -24,22 +26,21 @@ public:
 
 	void add(const std::string& fileName, const std::shared_ptr<sequence::MetaVideo>& video);
 	void add(const std::string& fileName, const std::shared_ptr<MonitorAlert>& alert);
+	void add(const std::vector< std::pair<std::string, std::shared_ptr<MonitorAlert>>>& alerts);
 	void save();
 
 private:
 	void loop();
-	void waitForSave();
 
 private:
 	std::string m_SavePath;
-	bool m_SaveEnabled;
 	bool m_IsRunning;
 
 	boost::mutex m_Mutex;
 	boost::thread m_Thread;
 	boost::condition_variable m_WaitCondition;
 
-	std::map<std::string, std::shared_ptr<sequence::MetaVideo>> m_Videos;
-	std::map<std::string, std::shared_ptr<MonitorAlert>> m_Alerts;
+	std::deque<std::pair<std::string, std::shared_ptr<sequence::MetaVideo>>> m_Videos;
+	std::deque<std::pair<std::string, std::shared_ptr<MonitorAlert>>> m_Alerts;
 };
 

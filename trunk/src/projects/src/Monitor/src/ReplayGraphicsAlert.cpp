@@ -5,8 +5,8 @@ ReplayGraphicsAlert::ReplayGraphicsAlert(QGraphicsItem * parent)
 	: QGraphicsItem(parent)
 	, m_Alert(nullptr)
 {
-	m_PolygonPen.setColor(QColor(255, 0, 0, 100));
-	m_PolygonPen.setWidth(5);
+	m_PolygonPen.setColor(QColor(255, 0, 0, 255));
+	m_PolygonPen.setWidth(4);
 }
 
 

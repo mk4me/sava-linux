@@ -33,6 +33,9 @@ namespace config
 		const std::string& getAlertsPath() const { return m_AlertsPath; }
 		void setAlertsPath(const std::string& path);
 
+		const std::string& getBackupPath() const { return m_BackupPath; }
+		void setBackupPath(const std::string& path);
+
 	private:
 		Directory() { }
 		~Directory() { }
@@ -40,6 +43,7 @@ namespace config
 		std::string m_VideosPath;
 		std::string m_TemporaryPath;
 		std::string m_AlertsPath;
+		std::string m_BackupPath;
 		
 		template<class Archive>
 		void serialize(Archive & ar, const unsigned int version);

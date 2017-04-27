@@ -58,7 +58,7 @@ void ReplayWindow::show(const MonitorAlertPtr& alert)
 	ui.acceptButton->setVisible(false);
 
 	//set action name
-	ui.alertName->setText(alert->getName().c_str());
+	ui.alertName->setText(QString::fromStdString(alert->getName()).toUpper());
 
 	//unzoom graphics view
 	ui.graphicsView->fitScene();

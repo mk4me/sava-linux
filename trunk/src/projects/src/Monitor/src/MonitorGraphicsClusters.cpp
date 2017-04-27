@@ -1,65 +1,69 @@
 #include "MonitorGraphicsClusters.h"
 #include "MonitorRegionsManager.h"
 
+#include "MonitorGraphicsClusterItem_Standard.h"
+#include "MonitorGraphicsClusterItem_Fill_2d.h"
+#include "MonitorGraphicsClusterItem_Floor_3d.h"
 
+#include "config/Monitor.h"
 
-QColor MonitorGraphicsClusters::CLUSTER_COLOR = Qt::yellow;
-QColor MonitorGraphicsClusters::ALERT_COLOR = Qt::red;
 
 MonitorGraphicsClusters::MonitorGraphicsClusters(QGraphicsItem *parent)
 	: QGraphicsItem(parent)
 {
-	m_ActionPen.setColor(CLUSTER_COLOR);
-	m_ActionPen.setWidth(2);
-	m_AlertPen.setColor(ALERT_COLOR);
-	m_AlertPen.setWidth(2);
-	m_TextFont.setPixelSize(14);
-	m_TextFont.setBold(true);
-
 	m_CachedVideoManger = MonitorVideoManager::getPointer();
-	m_CachedActionManager = MonitorActionManager::getPointer();
 }
 
-MonitorGraphicsClusters::~MonitorGraphicsClusters()
-{
 
+void MonitorGraphicsClusters::onVideoLoaded()
+{
+	auto& pairs = m_CachedVideoManger->getClusterActionPairs();
+	config::Monitor::DecorationType decorationType = (config::Monitor::DecorationType)config::Monitor::getInstance().getDecorationType();
+
+	for (auto item : m_Items)
+		item->setModified(false);
+
+	for (auto pair : pairs)
+	{
+		MonitorGraphicsClusterItem* item = nullptr;
+
+		int id = pair.first->getClusterId();
+		auto it = std::find_if(m_Items.begin(), m_Items.end(), [id](const MonitorGraphicsClusterItem* item){ return id == item->getId(); });
+
+		if (it != m_Items.end())
+		{
+			item = *it;
+		}
+		else
+		{
+			item = createDecoratorByType(decorationType);
+			m_Items.push_back(item);
+		}
+
+		item->init(pair);
+		item->setModified(true);
+	}
+
+	for (auto it = m_Items.begin(); it != m_Items.end();)
+	{
+		if (!(*it)->isModified())
+		{
+			delete *it;
+			it = m_Items.erase(it);
+		}
+		else
+		{
+			it++;
+		}
+	}
 }
 
 void MonitorGraphicsClusters::update(size_t _frame)
 {
-	//set actions rectangle to draw
-	m_ClustersInfo.clear();
-	MonitorVideoManager::ActionPairVec vec = m_CachedVideoManger->getClusterActionPairs(_frame);
-	for (auto it = vec.begin(); it != vec.end(); ++it)
-	{
-		cv::Rect rect = it->first->getFrameAt(_frame);
-
-		ClusterInfo actionInfo;
-		actionInfo.rect = QRectF(rect.x, rect.y, rect.width, rect.height); 
-
-		if (MonitorRegionsManager::getInstance().isCollidedWith(MonitorRegion::MASK, actionInfo.rect))
-			continue;
-
-		if (it->second != nullptr)
-		{
-			int actionId = it->second->getActionId();
-			actionInfo.name = QString(MonitorActionManager::getInstance().getActionName(actionId).c_str()).toUpper();
-			actionInfo.isAlert = m_CachedActionManager->isAlert(actionId);
-		}
-		else
-		{
-			actionInfo.name = "";
-			actionInfo.isAlert = false;
-		}
-
-		m_ClustersInfo.push_back(actionInfo);
-	}
+	for (auto item: m_Items)
+		item->update(_frame);
 }
 
-
-void MonitorGraphicsClusters::clear() {
-	m_ClustersInfo.clear();
-}
 
 QRectF MonitorGraphicsClusters::boundingRect() const
 {
@@ -68,42 +72,17 @@ QRectF MonitorGraphicsClusters::boundingRect() const
 	return QRectF();
 }
 
-
-void MonitorGraphicsClusters::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget /*= 0*/)
+MonitorGraphicsClusterItem* MonitorGraphicsClusters::createDecoratorByType(config::Monitor::DecorationType type)
 {
-	painter->setRenderHint(QPainter::Antialiasing);
-	painter->setFont(m_TextFont);
+	using namespace config;
 
-
-	for (ClusterInfo _info : m_ClustersInfo)
+	switch (type)
 	{
-		if (!MonitorConfig::getPointer()->isClustersVisibled() && !_info.isAlert)
-			continue;
-
-		painter->setPen(_info.isAlert ? m_AlertPen : m_ActionPen);
-
-		//get text bounding box
-		if (_info.isAlert)
-		{
-			QRectF boundingBox;
-			painter->setOpacity(0);
-			painter->drawText(QRectF(0, 0, 100, 20), Qt::AlignVCenter, _info.name, &boundingBox);
-			painter->setOpacity(1);
-
-			boundingBox.moveTo(_info.rect.x(), _info.rect.y() - boundingBox.height() - 6);
-
-			//draw text bounding box
-			QPainterPath path;
-			path.addRoundedRect(boundingBox.adjusted(-3, -3, 3, 3), 3, 3);
-			painter->setOpacity(0.7);
-			painter->fillPath(path, Qt::black);
-			painter->setOpacity(1);
-
-			//draw text
-			painter->drawText(boundingBox, Qt::AlignVCenter, _info.name);
-		}
-
-		//draw rect
-		painter->drawRect(_info.rect);
+		case Monitor::DecorationType::STANDARD: return new MonitorGraphicsClusterItem_Standard(this);
+		case Monitor::DecorationType::FILL_2D: return new MonitorGraphicsClusterItem_Fill_2d(this);
+		case Monitor::DecorationType::FLOOR_3D: return new MonitorGraphicsClusterItem_Floor_3d(this);
 	}
+
+	assert(false && "Wrong decoration type");
+	return nullptr;
 }

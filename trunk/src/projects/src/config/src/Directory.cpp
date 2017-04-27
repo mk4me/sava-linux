@@ -9,6 +9,8 @@
 #include <fstream>
 #include <iostream>
 
+BOOST_CLASS_VERSION(config::Directory, 1)
+
 namespace config
 {
 	template<class Archive>
@@ -17,6 +19,9 @@ namespace config
 		ar & m_VideosPath;
 		ar & m_TemporaryPath;
 		ar & m_AlertsPath;
+
+		if (version > 0)
+			ar & m_BackupPath;
 	}
 
 	Directory& Directory::getInstance()
@@ -71,6 +76,12 @@ namespace config
 	void Directory::setAlertsPath(const std::string& path)
 	{
 		m_AlertsPath = utils::Filesystem::unifyPath(path);
+	}
+
+
+	void Directory::setBackupPath(const std::string& path)
+	{
+		m_BackupPath = utils::Filesystem::unifyPath(path);
 	}
 
 }
