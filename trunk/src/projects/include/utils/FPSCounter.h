@@ -78,7 +78,7 @@ namespace utils
 
 	private:
 		//! Time point definition
-		typedef std::chrono::time_point<std::chrono::system_clock, std::chrono::system_clock::duration> TimePoint;
+		typedef std::chrono::time_point<std::chrono::steady_clock, std::chrono::steady_clock::duration> TimePoint;
 
 		//! Actual frame number
 		size_t m_frameNumber;
